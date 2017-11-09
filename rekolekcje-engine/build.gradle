@@ -1,0 +1,54 @@
+
+buildscript {
+  ext {
+    springBootVersion = '1.5.4.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath('org.springframework:springloaded:1.2.6.RELEASE')
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("${buildDir}/classes/main/")
+    }
+}
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+dependencies {
+  //compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  compile('org.springframework.boot:spring-boot-starter-web')
+  //compile("com.h2database:h2")
+
+  runtime('org.springframework.boot:spring-boot-devtools')
+
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+  testCompile 'org.assertj:assertj-core:3.8.0'
+}
+
+jar {
+  from('../rekolekcje-webapp/dist') {
+    //Public is a default supported Spring Boot resources directory.
+    into 'public'
+  }
+}
+
+//frontend:build will be run before the processResources
+processResources.dependsOn(':rekolekcje-webapp:build')
