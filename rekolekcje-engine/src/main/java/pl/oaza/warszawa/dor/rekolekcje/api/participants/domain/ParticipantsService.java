@@ -24,4 +24,15 @@ public class ParticipantsService {
         .map(Participant::dto)
         .orElse(null);
   }
+
+  public ParticipantDTO save(ParticipantDTO participantDTO) {
+    return participantsRepository
+        .save(new Participant(participantDTO))
+        .dto();
+  }
+
+  public long delete(long participantId) {
+    participantsRepository.delete(participantId);
+    return participantId;
+  }
 }

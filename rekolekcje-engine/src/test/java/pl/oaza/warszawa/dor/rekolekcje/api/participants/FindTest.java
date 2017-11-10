@@ -1,6 +1,5 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import org.junit.After;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
@@ -14,11 +13,6 @@ public class FindTest extends ParticipantsTest {
 
   private final ParticipantDTO firstParticipant = ParticipantDTO.builder("Will", "Smith").build();
   private final ParticipantDTO secondParticipant = ParticipantDTO.builder("Nicolas", "Cage").build();
-
-  @After
-  public void tearDown() {
-    clearRepository();
-  }
 
   @Test
   public void shouldFindAllParticipantsInRepository() {
