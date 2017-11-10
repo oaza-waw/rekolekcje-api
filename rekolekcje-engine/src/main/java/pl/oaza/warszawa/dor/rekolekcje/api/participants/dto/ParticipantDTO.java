@@ -33,6 +33,44 @@ public class ParticipantDTO {
     return address;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ParticipantDTO that = (ParticipantDTO) o;
+
+    if (id != that.id) return false;
+    if (pesel != that.pesel) return false;
+    if (!firstName.equals(that.firstName)) return false;
+    if (!lastName.equals(that.lastName)) return false;
+    if (parish != null ? !parish.equals(that.parish) : that.parish != null) return false;
+    return address != null ? address.equals(that.address) : that.address == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = (int) (id ^ (id >>> 32));
+    result = 31 * result + firstName.hashCode();
+    result = 31 * result + lastName.hashCode();
+    result = 31 * result + pesel;
+    result = 31 * result + (parish != null ? parish.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "ParticipantDTO{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", pesel=" + pesel +
+        ", parish='" + parish + '\'' +
+        ", address='" + address + '\'' +
+        '}';
+  }
+
   private ParticipantDTO(ParticipantDTOBuilder builder) {
     this.id = builder.id;
     this.firstName = builder.firstName;

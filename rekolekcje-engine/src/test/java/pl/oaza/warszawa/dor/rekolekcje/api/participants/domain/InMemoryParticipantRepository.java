@@ -32,7 +32,7 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
 
   @Override
   public Optional<Participant> findOne(Long id) {
-    return null;
+    return Optional.ofNullable(participants.get(id));
   }
 
   @Override

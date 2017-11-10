@@ -15,4 +15,8 @@ public class ParticipantsTest {
         .map(dto -> repository.save(dto))
         .collect(Collectors.toList());
   }
+
+  protected void clearRepository() {
+    repository.deleteAll();
+  }
 }

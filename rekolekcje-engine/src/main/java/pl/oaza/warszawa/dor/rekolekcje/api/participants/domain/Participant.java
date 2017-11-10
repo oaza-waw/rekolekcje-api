@@ -24,32 +24,8 @@ class Participant {
     // used by JPA
   }
 
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
+  void setId(long id) {
     this.id = id;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public int getPesel() {
-    return pesel;
-  }
-
-  public String getParish() {
-    return parish;
-  }
-
-  public String getAddress() {
-    return address;
   }
 
   Participant(ParticipantDTO dto) {
