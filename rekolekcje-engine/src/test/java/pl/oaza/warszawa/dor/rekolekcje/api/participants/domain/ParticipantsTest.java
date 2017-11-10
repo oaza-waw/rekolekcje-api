@@ -6,7 +6,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParticipantsTest {
+public abstract class ParticipantsTest {
 
   private InMemoryParticipantRepository repository = new InMemoryParticipantRepository();
   protected ParticipantsService service = new ParticipantsService(repository);
@@ -28,7 +28,7 @@ public class ParticipantsTest {
     clearRepository();
   }
 
-  protected void clearRepository() {
+  private void clearRepository() {
     repository.deleteAll();
   }
 }

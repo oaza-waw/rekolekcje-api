@@ -1,13 +1,16 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.dto;
 
-public class ParticipantDTO {
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
-  private long id;
-  private String firstName;
-  private String lastName;
-  private int pesel;
-  private String parish;
-  private String address;
+public final class ParticipantDTO {
+
+  private final long id;
+  @NotNull private final String firstName;
+  @NotNull private final String lastName;
+  private final int pesel;
+  private final String parish;
+  private final String address;
 
   public long getId() {
     return id;
@@ -42,8 +45,8 @@ public class ParticipantDTO {
 
     if (id != that.id) return false;
     if (pesel != that.pesel) return false;
-    if (!firstName.equals(that.firstName)) return false;
-    if (!lastName.equals(that.lastName)) return false;
+    if (!Objects.equals(firstName, that.firstName)) return false;
+    if (!Objects.equals(lastName, that.lastName)) return false;
     if (parish != null ? !parish.equals(that.parish) : that.parish != null) return false;
     return address != null ? address.equals(that.address) : that.address == null;
   }
