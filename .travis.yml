@@ -1,9 +1,12 @@
 language: java
 jdk: oraclejdk8
 
-before_install:
-  - pip install --user codecov
-
-after_success:
-  - codecov
+script:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    - '$HOME/.gradle'
+    - '.gradle'
