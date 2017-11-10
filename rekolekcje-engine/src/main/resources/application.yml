@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:h2:mem:rekolekcje_db;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver

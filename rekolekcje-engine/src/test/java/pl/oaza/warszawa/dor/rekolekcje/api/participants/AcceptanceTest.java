@@ -1,41 +1,54 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import org.junit.Before;
+import com.google.gson.Gson;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.ConfigurableMockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.IntegrationTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@WebAppConfiguration
-public class AcceptanceTest {
+public class AcceptanceTest extends IntegrationTest {
 
-  @Autowired
-  private WebApplicationContext webApplicationContext;
+  private final String PARTICIPANTS_API_URI = "/api/participants";
 
-  private MockMvc mockMvc;
-
-  @Before
-  public void setup() {
-    ConfigurableMockMvcBuilder mockMvcBuilder =
-        MockMvcBuilders.webAppContextSetup(webApplicationContext);
-    mockMvc = mockMvcBuilder.build();
-  }
+  private Gson jsonMapper = new Gson();
 
   @Test
   public void shouldReturnOKStatus() throws Exception {
     mockMvc
-        .perform(get("/api/participants/status"))
+        .perform(get(PARTICIPANTS_API_URI + "/status"))
         .andExpect(status().isOk());
+  }
+
+  @Test
+  public void shouldGetAllParticipants() throws Exception {
+    // given
+    final MockHttpServletRequestBuilder getAllRequest = get(PARTICIPANTS_API_URI);
+    final ParticipantDTO firstParticipant = ParticipantDTO.builder("John", "Smith").build();
+    final ParticipantDTO secondParticipant = ParticipantDTO.builder("Jane", "Doe").build();
+    saveManyToRepository(Arrays.asList(firstParticipant, secondParticipant));
+
+    // when
+    final ResultActions response = mockMvc.perform(getAllRequest);
+
+    // then
+    final String expectedJsonContent = jsonMapper.toJson(getAllParticipantsCurrentlyInSystem());
+    response.andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().json(expectedJsonContent));
   }
 }
