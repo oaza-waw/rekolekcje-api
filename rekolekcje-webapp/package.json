@@ -1,6 +1,6 @@
 {
-  "name": "hedgehog-webapp",
-  "version": "0.0.0",
+  "name": "rekolekcje-webapp",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
