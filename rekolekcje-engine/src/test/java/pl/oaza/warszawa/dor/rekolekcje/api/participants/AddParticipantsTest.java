@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AddTest extends ParticipantsTest {
+public class AddParticipantsTest extends ParticipantsTest {
 
   @Test
   public void shouldAddSingleParticipantToEmptySystem() {

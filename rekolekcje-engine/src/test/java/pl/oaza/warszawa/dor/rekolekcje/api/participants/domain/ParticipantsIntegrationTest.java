@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebAppConfiguration
-public abstract class IntegrationTest {
+public abstract class ParticipantsIntegrationTest {
 
   @Autowired
   private WebApplicationContext webApplicationContext;

@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DeleteTest extends ParticipantsTest {
+public class DeleteParticipantsTest extends ParticipantsTest {
 
   private final ParticipantDTO firstParticipant = ParticipantDTO.builder("Roger", "Moore").build();
   private final ParticipantDTO secondParticipant = ParticipantDTO.builder("Pierce", "Brosnan").build();

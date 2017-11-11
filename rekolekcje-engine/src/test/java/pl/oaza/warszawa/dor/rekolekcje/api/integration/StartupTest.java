@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api;
+package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 
 import org.junit.Ignore;
 import org.junit.Test;

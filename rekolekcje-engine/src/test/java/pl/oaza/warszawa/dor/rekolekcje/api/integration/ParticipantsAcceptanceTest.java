@@ -1,9 +1,8 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants;
+package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 
 import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.IntegrationTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Arrays;
@@ -23,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AcceptanceTest extends IntegrationTest {
+public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
 
   private final String PARTICIPANTS_API_URI = "/api/participants";
 

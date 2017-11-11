@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FindTest extends ParticipantsTest {
+public class FindParticipantsTest extends ParticipantsTest {
 
   private final ParticipantDTO firstParticipant = ParticipantDTO.builder("Will", "Smith").build();
   private final ParticipantDTO secondParticipant = ParticipantDTO.builder("Nicolas", "Cage").build();
