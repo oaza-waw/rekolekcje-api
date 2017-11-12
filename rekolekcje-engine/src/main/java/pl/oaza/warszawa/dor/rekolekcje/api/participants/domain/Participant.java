@@ -15,13 +15,17 @@ class Participant {
   private long id;
   private String firstName;
   private String lastName;
-  private int pesel;
+  private long pesel;
   private String parish;
   private String address;
 
   @SuppressWarnings("unused")
   public Participant() {
     // used by JPA
+  }
+
+  long getId() {
+    return id;
   }
 
   void setId(long id) {

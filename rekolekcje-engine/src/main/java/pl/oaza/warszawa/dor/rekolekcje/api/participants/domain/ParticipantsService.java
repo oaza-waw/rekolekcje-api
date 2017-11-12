@@ -35,4 +35,8 @@ public class ParticipantsService {
     participantsRepository.delete(participantId);
     return participantId;
   }
+
+  public ParticipantDTO update(ParticipantDTO participantWithUpdatedData) {
+    return participantsRepository.save(new Participant(participantWithUpdatedData)).dto();
+  }
 }

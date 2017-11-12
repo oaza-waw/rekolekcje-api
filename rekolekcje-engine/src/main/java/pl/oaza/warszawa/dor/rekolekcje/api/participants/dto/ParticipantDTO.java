@@ -8,7 +8,7 @@ public final class ParticipantDTO {
   private final long id;
   @NotNull private final String firstName;
   @NotNull private final String lastName;
-  private final int pesel;
+  private final long pesel;
   private final String parish;
   private final String address;
 
@@ -24,7 +24,7 @@ public final class ParticipantDTO {
     return lastName;
   }
 
-  public int getPesel() {
+  public long getPesel() {
     return pesel;
   }
 
@@ -56,7 +56,7 @@ public final class ParticipantDTO {
     int result = (int) (id ^ (id >>> 32));
     result = 31 * result + firstName.hashCode();
     result = 31 * result + lastName.hashCode();
-    result = 31 * result + pesel;
+    result = 31 * result + (int) (pesel ^ (pesel >>> 32));
     result = 31 * result + (parish != null ? parish.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
     return result;
@@ -91,7 +91,7 @@ public final class ParticipantDTO {
     private long id;
     private String firstName;
     private String lastName;
-    private int pesel;
+    private long pesel;
     private String parish;
     private String address;
 
@@ -105,7 +105,7 @@ public final class ParticipantDTO {
       return this;
     }
 
-    public ParticipantDTOBuilder pesel(int pesel) {
+    public ParticipantDTOBuilder pesel(long pesel) {
       this.pesel = pesel;
       return this;
     }

@@ -14,7 +14,7 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
   private ConcurrentHashMap<Long, Participant> participants = new ConcurrentHashMap<>();
   private Long nextId = 1L;
 
-  public ParticipantDTO save(ParticipantDTO dto) {
+  ParticipantDTO save(ParticipantDTO dto) {
     return save(new Participant(dto)).dto();
   }
 
@@ -60,11 +60,18 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
     participants.clear();
   }
 
+  //TODO: rename method and/or refactor - it does more than just one thing
   private Participant createParticipantToSave(Participant entity) {
     Participant participant = new Participant(entity.dto());
-    participant.setId(nextId);
-    participants.put(nextId, participant);
-    ++nextId;
-    return participant;
+    if (participants.containsKey(entity.getId())) {
+      participants.put(participant.getId(), participant);
+      return participant;
+    }
+    else {
+      participant.setId(nextId);
+      participants.put(nextId, participant);
+      ++nextId;
+      return participant;
+    }
   }
 }
