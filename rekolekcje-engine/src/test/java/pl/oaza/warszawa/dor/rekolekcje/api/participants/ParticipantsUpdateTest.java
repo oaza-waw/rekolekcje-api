@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UpdateParticipantTest extends ParticipantsTest {
+public class ParticipantsUpdateTest extends ParticipantsTest {
 
   private ParticipantDTO sampleParticipant1 =
       ParticipantDTO.builder("Paul", "George")
