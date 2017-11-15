@@ -1,16 +1,21 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.dto;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Immutable
 public final class ParticipantDTO {
 
-  private final long id;
-  @NotNull private final String firstName;
-  @NotNull private final String lastName;
-  private final long pesel;
-  private final String parish;
-  private final String address;
+  private long id;
+  @NotNull private String firstName;
+  @NotNull private String lastName;
+  private long pesel;
+  private String parish;
+  private String address;
+
+  ParticipantDTO() {}
 
   public long getId() {
     return id;

@@ -20,13 +20,13 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
 
   @Override
   public Participant save(Participant entity) {
-    return createParticipantToSave(entity);
+    return saveInRepository(entity);
   }
 
   @Override
   public Iterable<Participant> save(Collection<Participant> entities) {
     return entities.stream()
-        .map(this::createParticipantToSave)
+        .map(this::saveInRepository)
         .collect(Collectors.toList());
   }
 
@@ -60,8 +60,7 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
     participants.clear();
   }
 
-  //TODO: rename method and/or refactor - it does more than just one thing
-  private Participant createParticipantToSave(Participant entity) {
+  private Participant saveInRepository(Participant entity) {
     Participant participant = new Participant(entity.dto());
     if (participants.containsKey(entity.getId())) {
       participants.put(participant.getId(), participant);
