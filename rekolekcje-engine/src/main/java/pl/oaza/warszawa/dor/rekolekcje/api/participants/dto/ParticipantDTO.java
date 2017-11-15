@@ -2,20 +2,22 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.dto;
 
 import org.hibernate.annotations.Immutable;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Immutable
 public final class ParticipantDTO {
 
   private long id;
-  @NotNull private String firstName;
-  @NotNull private String lastName;
+  private String firstName;
+  private String lastName;
   private long pesel;
   private String parish;
   private String address;
 
-  ParticipantDTO() {}
+  @SuppressWarnings("unused")
+  ParticipantDTO() {
+    // JSON serialization / deserialization
+  }
 
   public long getId() {
     return id;

@@ -8,6 +8,8 @@ public class ParticipantDTOTest {
 
   @Test
   public void equalsContract() {
-    EqualsVerifier.forClass(ParticipantDTO.class).verify();
+    EqualsVerifier.forClass(ParticipantDTO.class)
+        .withNonnullFields("firstName", "lastName")
+        .verify();
   }
 }
