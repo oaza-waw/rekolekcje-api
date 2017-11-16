@@ -43,6 +43,15 @@ public final class ParticipantDTO {
     return address;
   }
 
+  public ParticipantDTO copyWithId(long newId) {
+    return ParticipantDTO.builder(firstName, lastName)
+        .id(newId)
+        .address(address)
+        .pesel(pesel)
+        .parish(parish)
+        .build();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

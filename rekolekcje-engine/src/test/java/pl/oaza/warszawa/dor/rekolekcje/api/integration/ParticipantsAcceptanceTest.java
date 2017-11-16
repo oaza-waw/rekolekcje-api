@@ -70,10 +70,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   @Test
   public void shouldGetSingleParticipant() throws Exception {
     // given
-    ParticipantDTO singleParticipant = getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> p.getFirstName().equals(firstParticipant.getFirstName()))
-        .findAny()
-        .orElseThrow(ParticipantNotFoundInSystemException::new);
+    ParticipantDTO singleParticipant = findOneInSystemWithTheSameData(firstParticipant);
     long idOfFirstParticipant = singleParticipant.getId();
     final MockHttpServletRequestBuilder getOneRequest =
         get(PARTICIPANTS_API_URI + "/" + idOfFirstParticipant);
@@ -87,7 +84,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .andExpect(content().json(expectedJsonContent));
   }
 
-  //TODO: refactor, add case when there are already participants in system
   @Test
   public void shouldAddSingleParticipant() throws Exception {
     // given
@@ -101,28 +97,17 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         post(PARTICIPANTS_API_URI)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(jsonMapper.toJson(participantToAdd));
+    final int numberOfParticipantsBefore = getAllParticipantsCurrentlyInSystem().size();
 
     // when
     final ResultActions response = mockMvc.perform(addOneRequest);
 
     // then
-    final List<ParticipantDTO> participantsInSystem = getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> Objects.equals(p.getLastName(), participantToAdd.getLastName())
-            && (p.getPesel() == participantToAdd.getPesel()))
-        .collect(Collectors.toList());
-    final long participantId = participantsInSystem.stream()
-        .findFirst()
-        .map(ParticipantDTO::getId)
-        .orElse(0L);
-    assertThat(participantsInSystem).hasSize(1);
-    final ParticipantDTO participantWithId =
-        ParticipantDTO.builder(participantToAdd.getFirstName(), participantToAdd.getLastName())
-            .id(participantId)
-            .parish(participantToAdd.getParish())
-            .address(participantToAdd.getAddress())
-            .pesel(participantToAdd.getPesel())
-            .build();
-    assertThat(participantsInSystem).contains(participantWithId);
+    final ParticipantDTO addedParticipant = findOneInSystemWithTheSameData(participantToAdd);
+    assertThat(getAllParticipantsCurrentlyInSystem()).hasSize(numberOfParticipantsBefore + 1);
+    final long participantId = addedParticipant.getId();
+    final ParticipantDTO participantWithId = participantToAdd.copyWithId(participantId);
+    assertThat(getAllParticipantsCurrentlyInSystem()).contains(participantWithId);
     assertThat(response.andReturn().getResponse().getContentAsString())
         .isEqualTo(jsonMapper.toJson(participantWithId));
   }
@@ -130,10 +115,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   @Test
   public void shouldDeleteSingleParticipant() throws Exception {
     // given
-    ParticipantDTO singleParticipant = getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> p.getFirstName().equals(firstParticipant.getFirstName()))
-        .findAny()
-        .orElseThrow(ParticipantNotFoundInSystemException::new);
+    ParticipantDTO singleParticipant = findOneInSystemWithTheSameData(firstParticipant);
     long idOfParticipantToDelete = singleParticipant.getId();
     final MockHttpServletRequestBuilder deleteOneRequest =
         delete(PARTICIPANTS_API_URI + "/" + idOfParticipantToDelete);
@@ -155,11 +137,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .parish("DDDDD")
         .build();
     saveOneToRepository(existingParticipant);
-    final long existingParticipantId = getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> p.getPesel() == existingParticipant.getPesel())
-        .findAny()
-        .map(ParticipantDTO::getId)
-        .orElse(0L);
+    final long existingParticipantId = findOneInSystemWithTheSameData(existingParticipant).getId();
     ParticipantDTO participantWithNewData = ParticipantDTO.builder("Luke", "Skywalker")
         .id(existingParticipantId)
         .address("Tatooine")
@@ -185,4 +163,16 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   }
 
   private class ParticipantNotFoundInSystemException extends Exception {}
+
+  private ParticipantDTO findOneInSystemWithTheSameData(ParticipantDTO participant)
+      throws ParticipantNotFoundInSystemException {
+    return getAllParticipantsCurrentlyInSystem().stream()
+        .filter(p -> Objects.equals(p.getFirstName(), participant.getFirstName()))
+        .filter(p -> Objects.equals(p.getLastName(), participant.getLastName()))
+        .filter(p -> p.getPesel() == participant.getPesel())
+        .filter(p -> Objects.equals(p.getAddress(), participant.getAddress()))
+        .filter(p -> Objects.equals(p.getParish(), participant.getParish()))
+        .findAny()
+        .orElseThrow(ParticipantNotFoundInSystemException::new);
+  }
 }
