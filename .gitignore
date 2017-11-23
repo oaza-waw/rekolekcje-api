@@ -54,6 +54,9 @@ buildNumber.properties
 build/
 .gradle/
 
+# Exclude gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
 ### All IntelliJ projects
 *.iml
 
