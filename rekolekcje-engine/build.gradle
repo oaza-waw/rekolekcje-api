@@ -51,7 +51,7 @@ dependencies {
   testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3.3'
 }
 
-jar {
+processResources {
   from('../rekolekcje-webapp/dist') {
     //Public is a default supported Spring Boot resources directory.
     into 'public'
