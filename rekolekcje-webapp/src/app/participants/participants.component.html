@@ -1,0 +1,24 @@
+<h1>{{title}}</h1>
+
+<div class="table-responsive" *ngIf="participants">
+  <table class="table table-stripped">
+    <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Pesel</th>
+      <th>Address</th>
+      <th>Parish</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let participant of participants">
+        <td>{{participant.firstName}}</td>
+        <td>{{participant.lastName}}</td>
+        <td>{{participant.pesel}}</td>
+        <td>{{participant.address}}</td>
+        <td>{{participant.parish}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
