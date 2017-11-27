@@ -1,13 +1,23 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.dto;
 
-public class ParticipantDTO {
+import org.hibernate.annotations.Immutable;
+
+import java.util.Objects;
+
+@Immutable
+public final class ParticipantDTO {
 
   private long id;
   private String firstName;
   private String lastName;
-  private int pesel;
+  private long pesel;
   private String parish;
   private String address;
+
+  @SuppressWarnings("unused")
+  ParticipantDTO() {
+    // JSON serialization / deserialization
+  }
 
   public long getId() {
     return id;
@@ -21,7 +31,7 @@ public class ParticipantDTO {
     return lastName;
   }
 
-  public int getPesel() {
+  public long getPesel() {
     return pesel;
   }
 
@@ -31,6 +41,53 @@ public class ParticipantDTO {
 
   public String getAddress() {
     return address;
+  }
+
+  public ParticipantDTO copyWithId(long newId) {
+    return ParticipantDTO.builder(firstName, lastName)
+        .id(newId)
+        .address(address)
+        .pesel(pesel)
+        .parish(parish)
+        .build();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ParticipantDTO that = (ParticipantDTO) o;
+
+    if (id != that.id) return false;
+    if (pesel != that.pesel) return false;
+    if (!Objects.equals(firstName, that.firstName)) return false;
+    if (!Objects.equals(lastName, that.lastName)) return false;
+    if (parish != null ? !parish.equals(that.parish) : that.parish != null) return false;
+    return address != null ? address.equals(that.address) : that.address == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = (int) (id ^ (id >>> 32));
+    result = 31 * result + firstName.hashCode();
+    result = 31 * result + lastName.hashCode();
+    result = 31 * result + (int) (pesel ^ (pesel >>> 32));
+    result = 31 * result + (parish != null ? parish.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "ParticipantDTO{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", pesel=" + pesel +
+        ", parish='" + parish + '\'' +
+        ", address='" + address + '\'' +
+        '}';
   }
 
   private ParticipantDTO(ParticipantDTOBuilder builder) {
@@ -50,7 +107,7 @@ public class ParticipantDTO {
     private long id;
     private String firstName;
     private String lastName;
-    private int pesel;
+    private long pesel;
     private String parish;
     private String address;
 
@@ -64,7 +121,7 @@ public class ParticipantDTO {
       return this;
     }
 
-    public ParticipantDTOBuilder pesel(int pesel) {
+    public ParticipantDTOBuilder pesel(long pesel) {
       this.pesel = pesel;
       return this;
     }

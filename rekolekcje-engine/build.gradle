@@ -48,9 +48,10 @@ dependencies {
 
   testCompile('org.springframework.boot:spring-boot-starter-test')
   testCompile 'org.assertj:assertj-core:3.8.0'
+  testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3.3'
 }
 
-jar {
+processResources {
   from('../rekolekcje-webapp/dist') {
     //Public is a default supported Spring Boot resources directory.
     into 'public'

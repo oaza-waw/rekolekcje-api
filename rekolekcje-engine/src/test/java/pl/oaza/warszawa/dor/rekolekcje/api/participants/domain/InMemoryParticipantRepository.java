@@ -14,25 +14,25 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
   private ConcurrentHashMap<Long, Participant> participants = new ConcurrentHashMap<>();
   private Long nextId = 1L;
 
-  public ParticipantDTO save(ParticipantDTO dto) {
+  ParticipantDTO save(ParticipantDTO dto) {
     return save(new Participant(dto)).dto();
   }
 
   @Override
   public Participant save(Participant entity) {
-    return createParticipantToSave(entity);
+    return saveInRepository(entity);
   }
 
   @Override
   public Iterable<Participant> save(Collection<Participant> entities) {
     return entities.stream()
-        .map(this::createParticipantToSave)
+        .map(this::saveInRepository)
         .collect(Collectors.toList());
   }
 
   @Override
   public Optional<Participant> findOne(Long id) {
-    return null;
+    return Optional.ofNullable(participants.get(id));
   }
 
   @Override
@@ -60,11 +60,17 @@ public class InMemoryParticipantRepository implements ParticipantsRepository {
     participants.clear();
   }
 
-  private Participant createParticipantToSave(Participant entity) {
+  private Participant saveInRepository(Participant entity) {
     Participant participant = new Participant(entity.dto());
-    participant.setId(nextId);
-    participants.put(nextId, participant);
-    ++nextId;
-    return participant;
+    if (participants.containsKey(entity.getId())) {
+      participants.put(participant.getId(), participant);
+      return participant;
+    }
+    else {
+      participant.setId(nextId);
+      participants.put(nextId, participant);
+      ++nextId;
+      return participant;
+    }
   }
 }
