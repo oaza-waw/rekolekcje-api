@@ -11,6 +11,7 @@ export class ParticipantsComponent implements OnInit {
   title = 'All participants';
 
   participants: Participant[];
+  selectedParticipant: Participant;
 
   constructor(private participantsService: MockParticipantsService) {}
 
@@ -18,5 +19,9 @@ export class ParticipantsComponent implements OnInit {
     this.participantsService.findAll().subscribe((participants) => {
       this.participants = participants;
     });
+  }
+
+  onSelectParticipant(participant: Participant) {
+    this.selectedParticipant = participant;
   }
 }

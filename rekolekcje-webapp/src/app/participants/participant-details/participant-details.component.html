@@ -1,3 +1,12 @@
-<p>
-  participant-details works!
-</p>
+<div *ngIf="participant">
+  <h2>Details of {{participant.firstName}} {{participant.lastName}}</h2>
+  <div class="panel">
+    <div class="panel-heading">Personal information</div>
+    <div class="panel-body">
+      <ul class="list-group">
+        <li class="list-group-item">First name <label>{{participant.firstName}}</label> </li>
+        <li class="list-group-item">Last name <label>{{participant.lastName}}</label> </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@
       <th>Pesel</th>
       <th>Address</th>
       <th>Parish</th>
+      <th>Options</th>
     </tr>
     </thead>
     <tbody>
@@ -18,7 +19,10 @@
         <td>{{participant.pesel}}</td>
         <td>{{participant.address}}</td>
         <td>{{participant.parish}}</td>
+        <td><button (click)="onSelectParticipant(participant)">Details</button></td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<participant-details [participant]="selectedParticipant"></participant-details>
