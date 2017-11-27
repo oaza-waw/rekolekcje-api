@@ -1,17 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { ParticipantsComponent } from './participants/participants.component';
+import { ParticipantsModule } from "./participants/participants.module";
 import { MockParticipantsService } from './participants/mock-participants.service';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule],
+      imports: [
+        ParticipantsModule,
+        RouterTestingModule
+      ],
       declarations: [
-        AppComponent,
-        ParticipantsComponent
+        AppComponent
       ],
       providers: [
         MockParticipantsService

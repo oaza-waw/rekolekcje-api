@@ -8,6 +8,9 @@ import { ModalComponent } from './modal/modal.component';
   ],
   declarations: [
     ModalComponent
+  ],
+  exports: [
+    ModalComponent
   ]
 })
 export class SharedModule { }
