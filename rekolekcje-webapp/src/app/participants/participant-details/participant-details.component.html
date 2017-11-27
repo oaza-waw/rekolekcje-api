@@ -1,0 +1,16 @@
+<div class="container-fluid" *ngIf="participant">
+  <h2>Details of {{participant.firstName}} {{participant.lastName}}</h2>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Personal information</div>
+    <div class="panel-body">
+      <ul class="list-group">
+        <li class="list-group-item">First name <label>{{participant.firstName}}</label> </li>
+        <li class="list-group-item">Last name <label>{{participant.lastName}}</label> </li>
+        <li class="list-group-item">PESEL <label>{{participant.pesel}}</label> </li>
+        <li class="list-group-item">Address <label>{{participant.address}}</label> </li>
+        <li class="list-group-item">Parish <label>{{participant.parish}}</label> </li>
+      </ul>
+    </div>
+  </div>
+  <button (click)="goBack()">Back</button>
+</div>

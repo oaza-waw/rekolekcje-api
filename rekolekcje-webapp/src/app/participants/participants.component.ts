@@ -15,8 +15,8 @@ export class ParticipantsComponent implements OnInit {
   constructor(private participantsService: MockParticipantsService) {}
 
   ngOnInit(): void {
-    this.participantsService.findAll().subscribe((participants) => {
-      this.participants = participants;
-    });
+    this.participantsService
+      .findAll()
+      .subscribe(participants => this.participants = participants );
   }
 }
