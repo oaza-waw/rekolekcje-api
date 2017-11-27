@@ -19,10 +19,8 @@
         <td>{{participant.pesel}}</td>
         <td>{{participant.address}}</td>
         <td>{{participant.parish}}</td>
-        <td><button (click)="onSelectParticipant(participant)">Details</button></td>
+        <td><button routerLink="/participants/details/{{participant.id}}">Details</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<participant-details [participant]="selectedParticipant"></participant-details>
