@@ -31,6 +31,6 @@ export class MockParticipantsService {
       address: participant.address,
       parish: participant.parish
     };
-    return Observable.of(newParticipant);
+    return of(newParticipant);
   }
 }
