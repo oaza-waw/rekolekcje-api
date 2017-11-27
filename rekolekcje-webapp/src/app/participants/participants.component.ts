@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {Participant} from "./participant.model";
-import {MockParticipantsService} from "./mock-participants.service";
+import { Component, OnInit } from '@angular/core';
+import { Participant } from './participant.model';
+import { MockParticipantsService } from './mock-participants.service';
 
 @Component({
   selector: 'participants-root',

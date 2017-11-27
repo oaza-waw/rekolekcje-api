@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParticipantDetailsComponent } from './participant-details.component';
-import {MockParticipantsService} from "../mock-participants.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {RouterTestingModule} from "@angular/router/testing";
+import { MockParticipantsService } from '../mock-participants.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ParticipantDetailsComponent', () => {
   let component: ParticipantDetailsComponent;

@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Location} from "@angular/common";
-import {Participant} from "../participant.model";
-import {MockParticipantsService} from "../mock-participants.service";
-import {ActivatedRoute} from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Participant } from '../participant.model';
+import { MockParticipantsService } from '../mock-participants.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'participant-details',

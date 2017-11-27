@@ -1,10 +1,10 @@
-import {NgModule} from "@angular/core";
-import {ParticipantsComponent} from "./participants.component";
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {MockParticipantsService} from "./mock-participants.service";
+import { NgModule } from '@angular/core';
+import { ParticipantsComponent } from './participants.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MockParticipantsService } from './mock-participants.service';
 import { ParticipantDetailsComponent } from './participant-details/participant-details.component';
-import {RouterModule} from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
