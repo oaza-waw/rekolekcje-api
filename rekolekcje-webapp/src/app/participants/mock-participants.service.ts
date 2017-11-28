@@ -8,6 +8,11 @@ import { of } from 'rxjs/observable/of';
 export class MockParticipantsService {
 
   private participants: Participant[] = MOCK_PARTICIPANTS;
+  private nextId;
+
+  constructor() {
+    this.nextId = this.participants.length;
+  }
 
   findAll(): Observable<Participant[]> {
     return of(this.participants);
@@ -15,5 +20,17 @@ export class MockParticipantsService {
 
   find(id: number): Observable<Participant> {
     return of(this.participants.find(participant => participant.id === id));
+  }
+
+  add(participant: Participant): Observable<Participant> {
+    let newParticipant = {
+      id: this.nextId++,
+      firstName: participant.firstName,
+      lastName: participant.lastName,
+      pesel: participant.pesel,
+      address: participant.address,
+      parish: participant.parish
+    };
+    return of(newParticipant);
   }
 }

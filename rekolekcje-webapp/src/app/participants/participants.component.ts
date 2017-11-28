@@ -19,4 +19,12 @@ export class ParticipantsComponent implements OnInit {
       .findAll()
       .subscribe(participants => this.participants = participants );
   }
+
+  onAddNewParticipant(participant: Participant) {
+    this.participantsService
+      .add(participant)
+      .subscribe(newParticipant => {
+        this.participants = this.participants.concat(newParticipant);
+      });
+  }
 }
