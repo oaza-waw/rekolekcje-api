@@ -6,3 +6,6 @@ spring:
   datasource:
     url: jdbc:h2:mem:rekolekcje_test_db;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
+
+liquibase:
+  change-log: classpath:/pl.oaza.warszawa.dor.rekolekcje/changelogs.groovy

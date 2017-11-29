@@ -1,4 +1,3 @@
-
 buildscript {
   ext {
     springBootVersion = '1.5.4.RELEASE'
@@ -9,11 +8,14 @@ buildscript {
   dependencies {
     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     classpath('org.springframework:springloaded:1.2.6.RELEASE')
+    classpath 'org.liquibase:liquibase-core:3.5.3'
+//    classpath 'org.postgresql:postgresql:42.1.4'
   }
 }
 
 plugins {
-  id "org.sonarqube" version "2.5"
+  id 'org.sonarqube' version '2.5'
+  id 'org.liquibase.gradle' version '1.2.4'
 }
 
 repositories {
@@ -21,15 +23,27 @@ repositories {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'jacoco'
 
 idea {
-    module {
-        inheritOutputDirs = false
-        outputDir = file("${buildDir}/classes/main/")
+  module {
+    inheritOutputDirs = false
+    outputDir = file(project.buildDir.toString() + '/classes/main/')
+  }
+}
+
+liquibase {
+  activities {
+    main {
+//      changeLogFile 'src/main/resources/db/changelogs.yml'
+      url 'jdbc:postgresql://localhost:5432/rekolekcjedb'
+      username 'postgres'
+      password 'postgres'
     }
+  }
 }
 
 version = '0.0.1-SNAPSHOT'
@@ -43,6 +57,9 @@ dependencies {
   compile 'com.h2database:h2'
   compile 'org.postgresql:postgresql'
   compile 'com.google.code.gson:gson:2.8.2'
+//  compile 'org.liquibase:liquibase-core:3.5.3'
+  compile 'org.liquibase:liquibase-groovy-dsl:1.2.2'
+  compile 'org.codehaus.groovy:groovy-all:2.4.10'
 
   runtime('org.springframework.boot:spring-boot-devtools')
 
