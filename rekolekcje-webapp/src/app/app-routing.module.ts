@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ParticipantsComponent } from './participants/participants.component';
-import { ParticipantDetailsComponent } from './participants/participant-details/participant-details.component';
+import { ParticipantDetailsComponent } from './participants/details/participant-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/participants', pathMatch: 'full' },

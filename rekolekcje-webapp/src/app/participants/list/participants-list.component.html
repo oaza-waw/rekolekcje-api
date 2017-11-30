@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="panel panel-default">
+    <div class="panel-heading">{{title}}</div>
+    <div class="panel-body">
+      <div *ngIf="participants">
+        <table class="table table-hover table-striped table-responsive">
+          <thead class="thead-light">
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Pesel</th>
+            <th>Address</th>
+            <th>Parish</th>
+            <th class="col-md-2">Options</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let participant of participants">
+            <td>{{participant.firstName}}</td>
+            <td>{{participant.lastName}}</td>
+            <td>{{participant.pesel}}</td>
+            <td>{{participant.address}}</td>
+            <td>{{participant.parish}}</td>
+            <td>
+              <button class="btn btn-primary" routerLink="/participants/details/{{participant.id}}"><i class="fa fa-address-card"></i> Details</button>
+              <button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>
+              <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

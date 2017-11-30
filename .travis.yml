@@ -10,3 +10,4 @@ cache:
     - '$HOME/.sonar/cache'
     - '$HOME/.gradle'
     - '.gradle'
+    - 'rekolekcje-webapp/node_modules'
