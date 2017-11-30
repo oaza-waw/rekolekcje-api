@@ -8,8 +8,6 @@ import { MockParticipantsService } from './mock-participants.service';
 })
 export class ParticipantsComponent implements OnInit {
 
-  title = 'All participants';
-
   participants: Participant[];
 
   constructor(private participantsService: MockParticipantsService) {}

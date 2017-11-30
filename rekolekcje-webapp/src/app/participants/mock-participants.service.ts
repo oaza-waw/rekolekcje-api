@@ -11,7 +11,7 @@ export class MockParticipantsService {
   private nextId;
 
   constructor() {
-    this.nextId = this.participants.length;
+    this.nextId = this.participants.length + 1;
   }
 
   findAll(): Observable<Participant[]> {
@@ -31,6 +31,7 @@ export class MockParticipantsService {
       address: participant.address,
       parish: participant.parish
     };
+    this.participants = this.participants.concat(newParticipant);
     return of(newParticipant);
   }
 }
