@@ -1,6 +1,9 @@
 language: java
 jdk: oraclejdk8
 
+addons:
+  chrome: stable
+
 after_script:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
 
@@ -10,3 +13,4 @@ cache:
     - '$HOME/.sonar/cache'
     - '$HOME/.gradle'
     - '.gradle'
+    - 'rekolekcje-webapp/node_modules'
