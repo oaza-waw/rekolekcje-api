@@ -22,9 +22,9 @@
             <td>{{participant.address}}</td>
             <td>{{participant.parish}}</td>
             <td>
-              <button routerLink="/participants/details/{{participant.id}}">Details</button>
-              <button>Edit</button>
-              <button>Delete</button>
+              <button class="btn btn-primary" routerLink="/participants/details/{{participant.id}}"><i class="fa fa-address-card"></i> Details</button>
+              <button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>
+              <button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
             </td>
           </tr>
           </tbody>
