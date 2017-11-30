@@ -2,16 +2,16 @@
   <div class="panel panel-default">
     <div class="panel-heading">{{title}}</div>
     <div class="panel-body">
-      <div class="table table-responsive table-striped" *ngIf="participants">
-        <table class="table table-stripped">
-          <thead>
+      <div *ngIf="participants">
+        <table class="table table-hover table-striped table-responsive">
+          <thead class="thead-light">
           <tr>
             <th>First name</th>
             <th>Last name</th>
             <th>Pesel</th>
             <th>Address</th>
             <th>Parish</th>
-            <th>Options</th>
+            <th class="col-md-2">Options</th>
           </tr>
           </thead>
           <tbody>
@@ -21,7 +21,11 @@
             <td>{{participant.pesel}}</td>
             <td>{{participant.address}}</td>
             <td>{{participant.parish}}</td>
-            <td><button routerLink="/participants/details/{{participant.id}}">Details</button></td>
+            <td>
+              <button routerLink="/participants/details/{{participant.id}}">Details</button>
+              <button>Edit</button>
+              <button>Delete</button>
+            </td>
           </tr>
           </tbody>
         </table>
