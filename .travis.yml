@@ -4,6 +4,9 @@ jdk: oraclejdk8
 addons:
   chrome: stable
 
+before_install:
+  - google-chrome-stable --headless --disable-gpu
+
 after_script:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
 
