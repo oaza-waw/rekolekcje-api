@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
+import { NavigationModule } from './navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
     ParticipantsModule,
+    NavigationModule,
     AppRoutingModule,
   ],
   providers: [],
