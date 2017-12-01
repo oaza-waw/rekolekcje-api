@@ -4,12 +4,14 @@ import { AppComponent } from './app.component';
 import { ParticipantsModule } from "./participants/participants.module";
 import { MockParticipantsService } from './participants/mock-participants.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import {NavigationModule} from "./navigation/navigation.module";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         ParticipantsModule,
+        NavigationModule,
         RouterTestingModule
       ],
       declarations: [
@@ -27,16 +29,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
+  it(`should have as title 'Rekolekcje'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Rekolekcje');
-  }));
-
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Rekolekcje');
   }));
 });
