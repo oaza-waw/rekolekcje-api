@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationModule } from './navigation/navigation.module';
+import { ParticipantsRoutingModule } from "./participants/participants-routing.module";
 
 @NgModule({
   declarations: [
@@ -18,9 +19,11 @@ import { NavigationModule } from './navigation/navigation.module';
     HttpModule,
     ParticipantsModule,
     NavigationModule,
+    ParticipantsRoutingModule,
     AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
