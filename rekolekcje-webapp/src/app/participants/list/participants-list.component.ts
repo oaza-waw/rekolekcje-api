@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Participant } from '../participant.model';
-import { MockParticipantsService } from '../mock-participants.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Participant} from '../participant.model';
 
 @Component({
   selector: 'participants-list',
@@ -12,8 +11,15 @@ export class ParticipantsListComponent implements OnInit {
 
   @Input() participants: Participant[];
 
-  constructor() {}
+  @Output() deleteOneEvent: EventEmitter<number> = new EventEmitter();
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  deleteOne(id: number) {
+    this.deleteOneEvent.emit(id);
   }
 }
