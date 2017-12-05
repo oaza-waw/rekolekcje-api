@@ -8,6 +8,7 @@ import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { ParticipantsRoutingModule } from "./participants/participants-routing.module";
+import { ParticipantsDeleteConfirmAlertComponent } from './participants/delete-confirm-alert/participants-delete-confirm-alert.component';
 
 @NgModule({
   declarations: [
