@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ParticipantsComponent } from './participants/participants.component';
-import { ParticipantDetailsComponent } from './participants/details/participant-details.component';
+import {PageNotFoundComponent} from "./shared/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/participants', pathMatch: 'full' },
-  { path: 'participants', component: ParticipantsComponent },
-  { path: 'participants/details/:id', component: ParticipantDetailsComponent }
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

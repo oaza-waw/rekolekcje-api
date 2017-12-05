@@ -34,4 +34,9 @@ export class MockParticipantsService {
     this.participants = this.participants.concat(newParticipant);
     return of(newParticipant);
   }
+
+  deleteOne(participantId: number): Observable<number> {
+    this.participants = this.participants.filter(p => p.id != participantId);
+    return of(participantId);
+  }
 }

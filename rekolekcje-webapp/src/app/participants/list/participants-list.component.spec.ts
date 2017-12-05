@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParticipantsListComponent } from './participants-list.component';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material';
 
 describe('ParticipantsListComponent', () => {
   let component: ParticipantsListComponent;
@@ -9,10 +10,10 @@ describe('ParticipantsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterModule ],
-      declarations: [ ParticipantsListComponent ]
+      imports: [RouterModule, MatDialogModule],
+      declarations: [ParticipantsListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

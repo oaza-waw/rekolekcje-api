@@ -8,18 +8,24 @@ import { RouterModule } from '@angular/router';
 import { ParticipantsAddNewComponent } from './add-new/participants-add-new.component';
 import { SharedModule } from '../shared/shared.module';
 import { ParticipantsListComponent } from './list/participants-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material';
+import { ParticipantsDeleteConfirmAlertComponent } from './delete-confirm-alert/participants-delete-confirm-alert.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     SharedModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     RouterModule
   ],
   declarations: [
     ParticipantsComponent,
     ParticipantDetailsComponent,
     ParticipantsAddNewComponent,
+    ParticipantsDeleteConfirmAlertComponent,
     ParticipantsListComponent
   ],
   providers: [
@@ -27,6 +33,9 @@ import { ParticipantsListComponent } from './list/participants-list.component';
   ],
   exports: [
     ParticipantsComponent
+  ],
+  entryComponents: [
+    ParticipantsDeleteConfirmAlertComponent
   ]
 })
 export class ParticipantsModule {}

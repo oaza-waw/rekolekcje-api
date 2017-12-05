@@ -25,4 +25,12 @@ export class ParticipantsComponent implements OnInit {
         this.participants = this.participants.concat(newParticipant);
       });
   }
+
+  onDeleteSingleParticipant(participantId: number) {
+    this.participantsService
+      .deleteOne(participantId)
+      .subscribe(idOfDeleted => {
+        this.participants = this.participants.filter(p => p.id != idOfDeleted);
+      });
+  }
 }
