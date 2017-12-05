@@ -27,6 +27,7 @@ export class ParticipantsComponent implements OnInit {
   }
 
   onDeleteSingleParticipant(participantId: number) {
+    console.log('calling service');
     this.participantsService
       .deleteOne(participantId)
       .subscribe(idOfDeleted => {

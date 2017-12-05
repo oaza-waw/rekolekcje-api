@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Participant} from '../participant.model';
+import { Observable } from 'rxjs/Observable';
+import { DialogService } from '../../dialog.service';
 
 @Component({
   selector: 'participants-list',
@@ -11,15 +13,20 @@ export class ParticipantsListComponent implements OnInit {
 
   @Input() participants: Participant[];
 
-  @Output() deleteOneEvent: EventEmitter<number> = new EventEmitter();
+  // @Output() deleteOneEvent: EventEmitter<number> = new EventEmitter();
 
-  constructor() {
+  constructor(private dialogService: DialogService) {
   }
 
   ngOnInit(): void {
   }
 
   deleteOne(id: number) {
-    this.deleteOneEvent.emit(id);
+    console.log('wuut');
+  //   this.deleteOneEvent.emit(id);
+  }
+
+  canDeactivate(): Observable<boolean> {
+    return this.dialogService.confirm('Delete participant?');
   }
 }

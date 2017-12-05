@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationModule } from './navigation/navigation.module';
-import { ParticipantsRoutingModule } from "./participants/participants-routing.module";
+import { DialogService } from './dialog.service';
 
 @NgModule({
   declarations: [
@@ -19,10 +19,11 @@ import { ParticipantsRoutingModule } from "./participants/participants-routing.m
     HttpModule,
     ParticipantsModule,
     NavigationModule,
-    ParticipantsRoutingModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    DialogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

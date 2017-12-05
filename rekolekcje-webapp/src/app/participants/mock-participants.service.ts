@@ -18,7 +18,7 @@ export class MockParticipantsService {
     return of(this.participants);
   }
 
-  find(id: number): Observable<Participant> {
+  findOne(id: number): Observable<Participant> {
     return of(this.participants.find(participant => participant.id === id));
   }
 

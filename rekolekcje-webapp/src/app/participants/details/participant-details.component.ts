@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Participant } from '../participant.model';
 import { MockParticipantsService } from '../mock-participants.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'participant-details',
@@ -26,8 +27,11 @@ export class ParticipantDetailsComponent implements OnInit {
   private getParticipant() {
     const id = + this.route.snapshot.paramMap.get('id');
     this.participantsService
-      .find(id)
+      .findOne(id)
       .subscribe(participant => this.participant = participant);
+    // this.participant = this.route.paramMap
+    //   .switchMap((params: ParamMap) =>
+    //     this.participantsService.findOne(+params.get('id')));
   }
 
   goBack(): void {
