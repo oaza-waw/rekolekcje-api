@@ -13,21 +13,18 @@ export class ParticipantDetailsComponent implements OnInit {
 
   participant: Participant;
 
-  constructor(
-    private participantsService: MockParticipantsService,
-    private route: ActivatedRoute,
-    private location: Location
-  ) { }
+  constructor(private participantsService: MockParticipantsService,
+              private route: ActivatedRoute,
+              private location: Location) {
+  }
 
   ngOnInit() {
     this.getParticipant();
   }
 
   private getParticipant() {
-    const id = + this.route.snapshot.paramMap.get('id');
-    this.participantsService
-      .find(id)
-      .subscribe(participant => this.participant = participant);
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.participantsService.find(id)
   }
 
   goBack(): void {

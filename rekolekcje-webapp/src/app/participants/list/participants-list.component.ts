@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Participant } from '../participant.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ParticipantsDeleteConfirmAlertComponent } from '../delete-confirm-alert/participants-delete-confirm-alert.component';
+import { MockParticipantsService } from '../mock-participants.service';
 
 @Component({
   selector: 'participants-list',
@@ -12,18 +13,16 @@ export class ParticipantsListComponent implements OnInit {
   title = 'All participants';
   confirmDeleteAlertRef: MatDialogRef<ParticipantsDeleteConfirmAlertComponent>;
 
-  @Input() participants: Participant[];
+  participants: Participant[];
 
-  @Output() deleteOneEvent: EventEmitter<number> = new EventEmitter();
-
-  constructor(public confirmDeleteAlert: MatDialog) {
+  constructor(public confirmDeleteAlert: MatDialog,
+              private participantsService: MockParticipantsService) {
   }
 
   ngOnInit(): void {
-  }
-
-  deleteOne(id: number) {
-    this.deleteOneEvent.emit(id);
+    this.participants = this.participantsService.findAll();
+    this.participantsService.participants
+      .subscribe(allParticipants => this.participants = allParticipants);
   }
 
   openConfirmDeleteAlert(id: number) {
@@ -36,7 +35,7 @@ export class ParticipantsListComponent implements OnInit {
     this.confirmDeleteAlertRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
     this.confirmDeleteAlertRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteOneEvent.emit(id);
+        this.participantsService.deleteOne(id);
       }
       this.confirmDeleteAlertRef = null;
     });

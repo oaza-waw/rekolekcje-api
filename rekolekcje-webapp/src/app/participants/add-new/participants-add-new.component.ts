@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Participant} from "../participant.model";
+import { Component, OnInit } from '@angular/core';
+import { Participant } from '../participant.model';
+import { MockParticipantsService } from '../mock-participants.service';
 
 @Component({
   selector: 'participants-add-new',
@@ -10,16 +11,15 @@ export class ParticipantsAddNewComponent implements OnInit {
 
   newParticipant: Participant;
 
-  @Output() addParticipantEvent: EventEmitter<Participant> = new EventEmitter();
-
-  constructor() { }
+  constructor(private participantsService: MockParticipantsService) {
+  }
 
   ngOnInit() {
-    this.newParticipant = {id: null, firstName: '', lastName: ''};
+    this.newParticipant = { id: null, firstName: '', lastName: '' };
   }
 
   onSubmit() {
-     this.addParticipantEvent.emit(this.newParticipant);
-     this.newParticipant = {id: null, firstName: '', lastName: ''};
+    this.participantsService.add(this.newParticipant);
+    this.newParticipant = { id: null, firstName: '', lastName: '' };
   }
 }
