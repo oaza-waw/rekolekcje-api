@@ -1,6 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component, EventEmitter, Input, OnChanges, Output,
+  ViewChild
+} from '@angular/core';
 import { Participant } from '../participant.model';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
 import { ParticipantsDeleteConfirmAlertComponent } from '../delete-confirm-alert/participants-delete-confirm-alert.component';
 
 @Component({
@@ -8,7 +12,8 @@ import { ParticipantsDeleteConfirmAlertComponent } from '../delete-confirm-alert
   templateUrl: './participants-list.component.html',
   styleUrls: ['./participants-list.component.css']
 })
-export class ParticipantsListComponent implements OnInit {
+export class ParticipantsListComponent implements OnChanges, AfterViewInit {
+
   title = 'All participants';
   confirmDeleteAlertRef: MatDialogRef<ParticipantsDeleteConfirmAlertComponent>;
 
@@ -16,10 +21,20 @@ export class ParticipantsListComponent implements OnInit {
 
   @Output() deleteOneEvent: EventEmitter<number> = new EventEmitter();
 
+  dataSource: MatTableDataSource<Participant>;
+  displayedColumns = ['firstName', 'lastName', 'pesel', 'address', 'parish', 'options'];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(public confirmDeleteAlert: MatDialog) {
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource<Participant>(this.participants);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   deleteOne(id: number) {

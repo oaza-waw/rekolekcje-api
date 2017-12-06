@@ -1,35 +1,59 @@
 <div class="container-fluid">
   <mat-card>
     <mat-card-title>{{title}}</mat-card-title>
-    <div class="panel-body">
-      <div *ngIf="participants">
-        <table class="table table-hover table-striped table-responsive">
-          <thead class="thead-light">
-          <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Pesel</th>
-            <th>Address</th>
-            <th>Parish</th>
-            <th class="col-md-2">Options</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let participant of participants">
-            <td>{{participant.firstName}}</td>
-            <td>{{participant.lastName}}</td>
-            <td>{{participant.pesel}}</td>
-            <td>{{participant.address}}</td>
-            <td>{{participant.parish}}</td>
-            <td>
-              <button class="btn btn-primary" routerLink="/participants/details/{{participant.id}}"><i class="fa fa-address-card"></i> Details</button>
-              <button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>
-              <button class="btn btn-danger" (click)="openConfirmDeleteAlert(participant.id)"><i class="fa fa-trash"></i> Delete</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef>First name</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{participant.firstName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef>Last name</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{participant.lastName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="pesel">
+        <mat-header-cell *matHeaderCellDef>PESEL</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{participant.pesel}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{participant.address}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="parish">
+        <mat-header-cell *matHeaderCellDef>Parish</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{participant.parish}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+        <mat-cell *matCellDef="let participant">
+          <!--<div class="options-buttons">-->
+            <button class="btn btn-primary" routerLink="/participants/details/{{participant.id}}">
+              <i class="fa fa-address-card"></i> Details
+            </button>
+
+            <button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>
+
+            <button class="btn btn-danger" (click)="openConfirmDeleteAlert(participant.id)">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+          <!--</div>-->
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
+
   </mat-card>
 </div>

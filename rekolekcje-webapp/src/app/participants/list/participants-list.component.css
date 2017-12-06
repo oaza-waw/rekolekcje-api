@@ -1,0 +1,7 @@
+.options-buttons {
+  display: flex;
+}
+
+.btn-space {
+  margin-right: 5px;
+}
