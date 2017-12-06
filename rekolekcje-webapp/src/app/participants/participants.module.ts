@@ -9,7 +9,7 @@ import { ParticipantsAddNewComponent } from './add-new/participants-add-new.comp
 import { SharedModule } from '../shared/shared.module';
 import { ParticipantsListComponent } from './list/participants-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatDialogModule, MatTableModule } from '@angular/material';
 import { ParticipantsDeleteConfirmAlertComponent } from './delete-confirm-alert/participants-delete-confirm-alert.component';
 
 @NgModule({
@@ -17,8 +17,11 @@ import { ParticipantsDeleteConfirmAlertComponent } from './delete-confirm-alert/
     CommonModule,
     FormsModule,
     SharedModule,
-    MatDialogModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatTableModule,
+    MatCardModule,
+    MatButtonModule,
     RouterModule
   ],
   declarations: [
