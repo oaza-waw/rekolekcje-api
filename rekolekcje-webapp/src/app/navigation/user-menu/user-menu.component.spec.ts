@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserMenuComponent } from './user-menu.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NavigationModule } from '../navigation.module';
 
 describe('UserMenuComponent', () => {
   let component: UserMenuComponent;
@@ -8,7 +10,10 @@ describe('UserMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserMenuComponent ]
+      imports: [
+        NavigationModule,
+        RouterTestingModule
+      ],
     })
     .compileComponents();
   }));
