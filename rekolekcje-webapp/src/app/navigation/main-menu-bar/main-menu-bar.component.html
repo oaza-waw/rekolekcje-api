@@ -1,16 +1,34 @@
-<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
-  <div class="container-fluid">
-    <a [routerLink]="['/']" class="navbar-brand">Rekolekcje</a>
+<!--<nav class="navbar navbar-dark bg-primary navbar-fixed-top">-->
+  <!--<div class="container-fluid">-->
+    <!--<a [routerLink]="['/']" class="navbar-brand">Rekolekcje</a>-->
+    <!--<button class="navbar-brand" routerLink="/participants">Participants</button>-->
 
-    <ul class="nav navbar-nav navbar-right">
-      <li>
+    <!--<ul class="nav navbar-nav navbar-right">-->
+      <!--<li>
         <a [routerLink]="['/dashboard']">
           <i class="fa fa-user"></i> LOGIN
         </a>
-      </li>
-    </ul>
-  </div>
+      </li>-->
+    <!--</ul>-->
+  <!--</div>-->
 
-</nav>
-
-<div style="height: 100px;"></div>
+<!--</nav>-->
+<mat-toolbar role="heading">
+  <span>Rekolekcje</span>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+       routerLinkActive="active"
+       routerLink="/home"
+       #homeLinkActive="routerLinkActive"
+       [active]="homeLinkActive.isActive">
+      Home
+    </a>
+    <a mat-tab-link
+       routerLinkActive="active"
+       routerLink="/participants"
+       #participantsLinkActive="routerLinkActive"
+       [active]="participantsLinkActive.isActive">
+      Participants
+    </a>
+  </nav>
+</mat-toolbar>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'main-menu-bar',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainMenuBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(authService: AuthService) { }
 
   ngOnInit(): void {
   }

@@ -15,6 +15,7 @@ import { ParticipantsEffects } from './shared/store-shared/participants/particip
 import { ParticipantsReducer } from './core/store/participants/participants-reducer';
 import { AppReducer } from './core/store/app-store';
 import { AuthModule } from './auth/auth.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,10 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+    NavigationModule,
     ParticipantsModule,
     AuthModule,
-    NavigationModule,
-    ParticipantsRoutingModule,
+    HomeModule,
     SharedModule,
     AppRoutingModule,
     /**
