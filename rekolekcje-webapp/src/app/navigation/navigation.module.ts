@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { MatTabsModule, MatToolbarModule } from '@angular/material';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { MatTabsModule, MatToolbarModule } from '@angular/material';
     AuthModule
   ],
   declarations: [
-    MainMenuBarComponent
+    MainMenuBarComponent,
+    UserMenuComponent
   ],
   exports: [
     MainMenuBarComponent,

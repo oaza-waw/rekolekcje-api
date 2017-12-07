@@ -24,6 +24,7 @@
       Home
     </a>
     <a mat-tab-link
+       *ngIf="authService.isLoggedIn"
        routerLinkActive="active"
        routerLink="/participants"
        #participantsLinkActive="routerLinkActive"
@@ -31,4 +32,6 @@
       Participants
     </a>
   </nav>
+  <span class="fill-space"></span>
+  <user-menu></user-menu>
 </mat-toolbar>
