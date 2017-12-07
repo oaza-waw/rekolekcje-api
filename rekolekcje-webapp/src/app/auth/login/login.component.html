@@ -1,0 +1,12 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title> LOGIN </mat-card-title>
+    <mat-card-content>
+      <p>{{message}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="login()"  *ngIf="!authService.isLoggedIn">Login</button>
+      <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
