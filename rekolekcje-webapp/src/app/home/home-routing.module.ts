@@ -7,6 +7,7 @@ const homeRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({

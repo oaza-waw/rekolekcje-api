@@ -16,7 +16,7 @@ export class LoginComponent {
   }
 
   setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+    this.message = 'Logged ' + (this.authService.isAuthenticated() ? 'in' : 'out');
   }
 
   login() {
@@ -24,7 +24,7 @@ export class LoginComponent {
 
     this.authService.login().subscribe(() => {
       this.setMessage();
-      if (this.authService.isLoggedIn) {
+      if (this.authService.isAuthenticated()) {
         let redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
         this.router.navigate([redirectUrl]);
       }

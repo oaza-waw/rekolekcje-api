@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do'
 
 @Injectable()
 export class AuthService {
-  isLoggedIn = false;
+  private isLoggedIn = false;
   redirectUrl: string;
 
   login(): Observable<boolean> {
@@ -17,5 +17,9 @@ export class AuthService {
 
   logout(): void {
     this.isLoggedIn = false;
+  }
+
+  isAuthenticated(): boolean {
+    return this.isLoggedIn;
   }
 }
