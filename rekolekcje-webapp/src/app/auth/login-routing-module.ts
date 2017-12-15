@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { AlreadyLoggedInGuard } from './already-logged-in-guard.service';
 
 const loginRoutes: Routes = [
-  { path: 'login', component: LoginComponent }
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [AlreadyLoggedInGuard]
+  }
 ];
 
 @NgModule({
@@ -14,4 +19,5 @@ const loginRoutes: Routes = [
     RouterModule
   ]
 })
-export class LoginRoutingModule {}
+export class LoginRoutingModule {
+}
