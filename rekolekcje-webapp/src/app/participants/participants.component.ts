@@ -18,7 +18,7 @@ export class ParticipantsComponent implements OnInit {
       .subscribe(participants => this.participants = participants );
   }
 
-  onAddNewParticipant(participant: Participant) {
+  onAddParticipantHandler(participant: Participant): void {
     this.participantsService
       .add(participant)
       .subscribe(newParticipant => {
@@ -26,11 +26,15 @@ export class ParticipantsComponent implements OnInit {
       });
   }
 
-  onDeleteSingleParticipant(participantId: number) {
+  onDeleteParticipantHandler(participantId: number): void {
     this.participantsService
       .deleteOne(participantId)
       .subscribe(idOfDeleted => {
         this.participants = this.participants.filter(p => p.id != idOfDeleted);
       });
+  }
+
+  onEditParticipantHandler(participant: Participant): void {
+
   }
 }

@@ -1,0 +1,16 @@
+<ng-container [ngSwitch]="editing">
+  <ng-container *ngSwitchCase="true">
+    <participiant-form
+      [address]="participantToEdit.address"
+      [firstName]="participantToEdit.firstName"
+      [lastName]="participantToEdit.lastName"
+      [parish]="participantToEdit.parish"
+      [pesel]="participantToEdit.pesel"
+      (formOutput)="updateParticipant($event)">
+    </participiant-form>
+  </ng-container>
+  <ng-container *ngSwitchCase="false">
+    <participiant-form (formOutput)="addParticipant($event)">
+    </participiant-form>
+  </ng-container>
+</ng-container>

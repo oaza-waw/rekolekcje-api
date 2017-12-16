@@ -1,0 +1,44 @@
+<form [formGroup]="participantForm" class="col-md-12">
+  <mat-form-field>
+    <input matInput
+           required
+           placeholder="First name"
+           formControlName="firstName">
+    <mat-error *ngIf="participantForm.get('firstName').invalid">First name is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           required
+           placeholder="Last name"
+           formControlName="lastName">
+    <mat-error *ngIf="participantForm.get('lastName').invalid">Last name is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           required
+           placeholder="PESEL"
+           formControlName="pesel">
+    <mat-error *ngIf="participantForm.get('pesel').invalid">PESEL is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <!--<textarea matTextareaAutosize-->
+    <!--required-->
+    <!--placeholder="Address"-->
+    <!--formControlName="address">-->
+    <!--</textarea>-->
+    <input matInput
+           required
+           placeholder="Address"
+           formControlName="address">
+    <mat-error *ngIf="participantForm.get('address').invalid">Address is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           required
+           placeholder="Parish"
+           formControlName="parish">
+    <mat-error *ngIf="participantForm.get('parish').invalid">Parish is required</mat-error>
+  </mat-form-field>
+</form>
+<button mat-button (click)="cancel()">Cancel</button>
+<button mat-button (click)="submit()">Save</button>

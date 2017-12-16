@@ -5,7 +5,8 @@ import {
 } from '@angular/core';
 import { Participant } from '../participant.model';
 import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
-import { ParticipantsDeleteConfirmAlertComponent } from '../delete-confirm-alert/participants-delete-confirm-alert.component';
+import { DeleteConfirmAlertDialog } from '../delete-confirm-alert/delete-confirm-alert.component';
+import { ParticipantAddEditDialog } from '../add-edit/dialog/add-edit-dialog.component';
 
 @Component({
   selector: 'participants-list',
@@ -14,19 +15,24 @@ import { ParticipantsDeleteConfirmAlertComponent } from '../delete-confirm-alert
 })
 export class ParticipantsListComponent implements OnChanges, AfterViewInit {
 
-  title = 'All participants';
-  confirmDeleteAlertRef: MatDialogRef<ParticipantsDeleteConfirmAlertComponent>;
+  @Input()
+  participants: Participant[];
 
-  @Input() participants: Participant[];
-
-  @Output() deleteOneEvent: EventEmitter<number> = new EventEmitter();
+  @Output()
+  addParticipant: EventEmitter<Participant> = new EventEmitter<Participant>();
+  @Output()
+  deleteParticipant: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  editParticipant: EventEmitter<Participant> = new EventEmitter<Participant>();
 
   dataSource: MatTableDataSource<Participant>;
   displayedColumns = ['firstName', 'lastName', 'pesel', 'address', 'parish', 'options'];
+  title = 'All participants';
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
 
-  constructor(public confirmDeleteAlert: MatDialog) {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnChanges(): void {
@@ -37,23 +43,53 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  deleteOne(id: number) {
-    this.deleteOneEvent.emit(id);
+  openAddParticipantDialog(): void {
+    const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
+      data: {
+        dialogTitle: 'Add new participant'
+      },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addParticipant.emit(result);
+      }
+    })
+  }
+
+  openEditParticipantDialog(participant: Participant): void {
+    const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
+      data: {
+        dialogTitle: 'Edit participant',
+        firstName: participant.firstName,
+        lastName: participant.lastName,
+        pesel: participant.pesel,
+        address: participant.address,
+        parish: participant.parish
+      },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.editParticipant.emit(result);
+      }
+    })
   }
 
   openConfirmDeleteAlert(id: number) {
-    this.confirmDeleteAlertRef = this.confirmDeleteAlert
-      .open(ParticipantsDeleteConfirmAlertComponent, {
-        width: '400px',
-        disableClose: false,
-        role: 'alertdialog',
-      });
-    this.confirmDeleteAlertRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
-    this.confirmDeleteAlertRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(DeleteConfirmAlertDialog, {
+      data: {
+        confirmMessage: 'Are you sure you want to delete?',
+      },
+      disableClose: false,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteOneEvent.emit(id);
+        this.deleteParticipant.emit(id);
       }
-      this.confirmDeleteAlertRef = null;
     });
   }
 }

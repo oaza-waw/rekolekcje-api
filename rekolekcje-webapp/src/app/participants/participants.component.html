@@ -1,5 +1,6 @@
 <participants-list
   [participants]="participants"
-  (deleteOneEvent)="onDeleteSingleParticipant($event)"
-></participants-list>
-<participants-add-new (addParticipantEvent)="onAddNewParticipant($event)"></participants-add-new>
+  (addParticipant)="onAddParticipantHandler($event)"
+  (deleteParticipant)="onDeleteParticipantHandler($event)"
+  (editParticipant)="onEditParticipantHandler($event)">
+</participants-list>

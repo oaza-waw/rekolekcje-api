@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParticipantsDeleteConfirmAlertComponent } from './participants-delete-confirm-alert.component';
+import { DeleteConfirmAlertDialog } from './delete-confirm-alert.component';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,9 +8,9 @@ import { ParticipantsModule } from '../participants.module';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [ParticipantsDeleteConfirmAlertComponent],
-  entryComponents: [ParticipantsDeleteConfirmAlertComponent],
-  exports: [ParticipantsDeleteConfirmAlertComponent],
+  declarations: [DeleteConfirmAlertDialog],
+  entryComponents: [DeleteConfirmAlertDialog],
+  exports: [DeleteConfirmAlertDialog],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -19,9 +19,9 @@ import { CommonModule } from '@angular/common';
 })
 class ParticipantsDeleteConfirmAlertComponentSpecModule { }
 
-describe('ParticipantsDeleteConfirmAlertComponent', () => {
-  let component: ParticipantsDeleteConfirmAlertComponent;
-  // let fixture: ComponentFixture<ParticipantsDeleteConfirmAlertComponent>;
+describe('DeleteConfirmAlertDialog', () => {
+  let component: DeleteConfirmAlertDialog;
+  // let fixture: ComponentFixture<DeleteConfirmAlertDialog>;
   let dialog: MatDialog;
 
   beforeEach(async(() => {
@@ -33,9 +33,9 @@ describe('ParticipantsDeleteConfirmAlertComponent', () => {
   }));
 
   beforeEach(() => {
-    // fixture = TestBed.createComponent(ParticipantsDeleteConfirmAlertComponent);
+    // fixture = TestBed.createComponent(DeleteConfirmAlertDialog);
     dialog = TestBed.get(MatDialog);
-    let dialogRef = dialog.open(ParticipantsDeleteConfirmAlertComponent);
+    let dialogRef = dialog.open(DeleteConfirmAlertDialog);
     component = dialogRef.componentInstance;
     // fixture.detectChanges();
   });

@@ -7,8 +7,9 @@ import { AppComponent } from './app.component';
 import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationModule } from './navigation/navigation.module';
-import { ParticipantsRoutingModule } from "./participants/participants-routing.module";
-import { ParticipantsDeleteConfirmAlertComponent } from './participants/delete-confirm-alert/participants-delete-confirm-alert.component';
+import { ParticipantsRoutingModule } from './participants/participants-routing.module';
+import { DeleteConfirmAlertDialog } from './participants/delete-confirm-alert/delete-confirm-alert.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ParticipantsDeleteConfirmAlertComponent } from './participants/delete-c
     ParticipantsModule,
     NavigationModule,
     ParticipantsRoutingModule,
+    SharedModule,
     AppRoutingModule,
   ],
   providers: [],
