@@ -50,6 +50,9 @@ export class ParticipantDetailsComponent implements OnInit {
   }
 
   save(participant: Participant): void {
+    if (!participant) {
+      this.editing = false;
+    }
     // @TODO dispatch suitable action to store
   }
 

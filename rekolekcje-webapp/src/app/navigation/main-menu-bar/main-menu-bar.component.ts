@@ -9,7 +9,7 @@ export class MainMenuBarComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }
