@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Participant } from './participant.model';
+import { Participant } from '../shared/model/participant.model';
 import { MockParticipantsService } from './mock-participants.service';
 import { Subject } from 'rxjs/Subject';
 

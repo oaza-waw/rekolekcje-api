@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Participant } from '../../participant.model';
+import { Participant } from '../../../shared/model/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

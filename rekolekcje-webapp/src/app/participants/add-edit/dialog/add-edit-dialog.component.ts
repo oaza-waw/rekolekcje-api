@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Participant } from '../../participant.model';
+import { Participant } from '../../../shared/model/participant.model';
 
 @Component({
   selector: 'add-edit-dialog',

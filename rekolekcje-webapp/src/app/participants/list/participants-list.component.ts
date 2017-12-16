@@ -3,7 +3,7 @@ import {
   Component, EventEmitter, Input, OnChanges, Output,
   ViewChild
 } from '@angular/core';
-import { Participant } from '../participant.model';
+import { Participant } from '../../shared/model/participant.model';
 import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
 import { DeleteConfirmAlertDialog } from '../delete-confirm-alert/delete-confirm-alert.component';
 import { ParticipantAddEditDialog } from '../add-edit/dialog/add-edit-dialog.component';

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import { MockParticipantsService } from '../../mock-participants.service';
-import { Participant } from '../../participant.model';
+import { Participant } from '../../../shared/model/participant.model';
 
 @Component({
   selector: 'participant-add-edit',

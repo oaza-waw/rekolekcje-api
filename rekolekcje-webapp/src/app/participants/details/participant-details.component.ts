@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Participant } from '../participant.model';
+import { Participant } from '../../shared/model/participant.model';
 import { MockParticipantsService } from '../mock-participants.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';

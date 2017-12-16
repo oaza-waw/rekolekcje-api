@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Participant } from '../participant.model';
+import { Participant } from '../../shared/model/participant.model';
 
 @Component({
   selector: 'old-participants-add-new',
