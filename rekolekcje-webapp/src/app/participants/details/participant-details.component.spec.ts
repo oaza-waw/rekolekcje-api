@@ -5,6 +5,8 @@ import { MockParticipantsService } from '../mock-participants.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '../../shared/material/material.module';
+import { ParticipantsModule } from '../participants.module';
 
 describe('ParticipantDetailsComponent', () => {
   let component: ParticipantDetailsComponent;
@@ -14,9 +16,9 @@ describe('ParticipantDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ ParticipantDetailsComponent ],
-      providers: [ MockParticipantsService ]
+      imports: [ RouterTestingModule, ParticipantsModule, MaterialModule ],
+      // declarations: [ ParticipantDetailsComponent ],
+      // providers: [ MockParticipantsService ]
     })
     .compileComponents();
     router = TestBed.get(Router);
