@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserRegistrationController {
   private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationController.class);
 

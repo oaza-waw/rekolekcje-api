@@ -4,22 +4,18 @@ import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { LoginRoutingModule } from './login-routing-module';
 import { LoginComponent } from './login/login.component';
-import {
-  MatButtonModule, MatCardModule, MatFormFieldModule,
-  MatInputModule
-} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlreadyLoggedInGuard } from './already-logged-in-guard.service';
+import { MaterialModule } from '../shared/material/material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatButtonModule,
+    MaterialModule,
+    HttpClientModule,
     LoginRoutingModule
   ],
   declarations: [

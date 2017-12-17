@@ -5,6 +5,7 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthHttpInterceptor } from './http-interceptor';
+import { AuthService } from '../auth/auth.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { AuthHttpInterceptor } from './http-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
       multi: true
-    }
+    },
+    // AuthService
   ]
 })
 export class SharedModule { }

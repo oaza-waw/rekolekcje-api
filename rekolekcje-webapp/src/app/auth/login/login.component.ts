@@ -50,13 +50,25 @@ export class LoginComponent implements OnInit {
       this.authorizationInProgress = true;
     }
 
-    this.authService.login().subscribe(() => {
-      this.setMessage();
-      if (this.authService.isAuthenticated()) {
+    this.authService.authorize({ username: this.login.value, password: this.password.value })
+      .subscribe(() => {
+        this.message = 'Yo! User logged in';
+        console.log('Yo! User logged in');
         let redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
         this.router.navigate([redirectUrl]);
-      }
-    });
+        // this.router.navigate(['/'])
+      });
+      // .subscribe((result) => {
+      //   if (result === true) {
+      //     this.setMessage();
+      //     let redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
+      //     this.router.navigate([redirectUrl]);
+      //   } else {
+      //     this.setMessage();
+      //   }
+        // if (this.authService.isAuthenticated()) {
+        // }
+      // });
   }
 
   logout() {

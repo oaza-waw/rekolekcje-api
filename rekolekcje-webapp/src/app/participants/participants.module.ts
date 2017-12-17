@@ -12,11 +12,6 @@ import { ParticipantAddEditDialog } from './add-edit/participant-dialog/add-edit
 import { ParticipantFormComponent } from './add-edit/participant-form/participant-form.component';
 import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/participant-add-edit.component';
 import { MaterialModule } from '../shared/material/material.module';
-import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatPaginatorModule,
-  MatTableModule
-} from '@angular/material';
-import { ParticipantsDeleteConfirmAlertComponent } from './delete-confirm-alert/participants-delete-confirm-alert.component';
 import { ParticipantsRoutingModule } from './participants-routing.module';
 
 @NgModule({

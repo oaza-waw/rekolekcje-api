@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MainMenuBarComponent } from './main-menu-bar/main-menu-bar.component';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
-import { RouterModule } from '@angular/router';
-import { MatTabsModule, MatToolbarModule } from '@angular/material';
 import { UserMenuComponent } from './user-menu/user-menu.component';
+import { MaterialModule } from '../shared/material/material.module';
 
 @NgModule({
   imports: [
@@ -13,8 +12,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
     RouterModule,
     CommonModule,
     RouterModule,
-    MatToolbarModule,
-    MatTabsModule,
+    MaterialModule,
     AuthModule
   ],
   declarations: [

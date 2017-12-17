@@ -8,6 +8,6 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class MainMenuBarComponent {
 
-  constructor(public authService: AuthService): void {
+  constructor(public authService: AuthService) {
   }
 }

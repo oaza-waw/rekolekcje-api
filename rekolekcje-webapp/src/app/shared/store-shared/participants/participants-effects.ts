@@ -1,6 +1,6 @@
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Participants } from '../../../core/store/participants/participants-reducer';
 import { ParticipantsSharedActions } from './participants-actions';
@@ -21,15 +21,18 @@ import DeleteParticipantFail = ParticipantsSharedActions.DeleteParticipantFail;
 import LoadParticipantsListSuccess = ParticipantsSharedActions.LoadParticipantsListSuccess;
 import LoadParticipantsListFail = ParticipantsSharedActions.LoadParticipantsListFail;
 import UpdateParticipantFail = ParticipantsSharedActions.UpdateParticipantFail;
+import { AuthService } from '../../../auth/auth.service';
 
 @Injectable()
 export class ParticipantsEffects {
+
+  private options: any;
 
   @Effect()
   CreateParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.CreateParticipant)
     .switchMap((action: ParticipantsSharedActions.CreateParticipant) =>
-      this.http.post<Participant>(Config.endpoints.participantsModule, action.payload)
+      this.http.post<Participant>(Config.endpoints.participantsModule, action.payload, this.options)
         .map(data => new CreateParticipantSuccess(data))
         .catch(error => of(new CreateParticipantFail(error))));
 
@@ -37,7 +40,7 @@ export class ParticipantsEffects {
   DeleteParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.DeleteParticipant)
     .switchMap((action: ParticipantsSharedActions.DeleteParticipant) =>
-      this.http.delete<Participant>(Config.endpoints.participantsModule + '/' + action.payload)
+      this.http.delete<Participant>(Config.endpoints.participantsModule + '/' + action.payload, this.options)
         .map(data => new DeleteParticipantSuccess(action.payload))
         .catch(error => of(new DeleteParticipantFail(error))));
 
@@ -50,7 +53,7 @@ export class ParticipantsEffects {
   LoadParticipantsList: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.LoadParticipantsList)
     .switchMap((action: ParticipantsSharedActions.LoadParticipantsList) =>
-      this.http.get<Participant[]>(Config.endpoints.participantsModule)
+      this.http.get<Participant[]>(Config.endpoints.participantsModule, this.options)
         .map(data => new LoadParticipantsListSuccess(data))
         .catch(error => of(new LoadParticipantsListFail(error))));
 
@@ -63,10 +66,12 @@ export class ParticipantsEffects {
   UpdateParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.UpdateParticipant)
     .switchMap((action: ParticipantsSharedActions.UpdateParticipant) =>
-      this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
+      this.http.put<Participant>(Config.endpoints.participantsModule, action.payload, this.options)
         .map(data => new UpdateParticipantSuccess(data))
         .catch(error => of(new UpdateParticipantFail(error))));
 
-  constructor(private actions: Actions, private store: Store<Participants.State>, private http: HttpClient) {
+  constructor(private actions: Actions, private store: Store<Participants.State>, private http: HttpClient, private authService: AuthService) {
+    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authService.getToken()});
+    this.options = {headers: headers};
   }
 }
