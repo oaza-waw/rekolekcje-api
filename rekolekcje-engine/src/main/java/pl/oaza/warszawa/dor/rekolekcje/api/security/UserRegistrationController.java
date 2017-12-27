@@ -20,7 +20,7 @@ public class UserRegistrationController {
   private PasswordEncoder passwordEncoder;
 
   public UserRegistrationController(UserRepository userRepository,
-                        PasswordEncoder passwordEncoder) {
+                                    PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
   }
