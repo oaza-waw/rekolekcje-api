@@ -29,11 +29,11 @@ public class JwtTokenUtil implements Serializable {
   private static final String AUDIENCE_MOBILE = "mobile";
   private static final String AUDIENCE_TABLET = "tablet";
 
-  @Value("${jwt.secret}")
-  private String secret;
+//  @Value("${jwt.secret}")
+  private String secret = "SecretKeyToGenerateJWTs";
 
-  @Value("${jwt.expiration}")
-  private Long expiration;
+//  @Value("${jwt.expiration}")
+  private long expiration = 864_000_000;
 
   public String getUsernameFromToken(String token) {
     LOGGER.info("Get username from token: " + token);
@@ -95,7 +95,8 @@ public class JwtTokenUtil implements Serializable {
   }
 
   private Date generateExpirationDate() {
-    return new Date(System.currentTimeMillis() + expiration * 1000);
+//    return new Date(System.currentTimeMillis() + expiration * 1000);
+    return new Date(System.currentTimeMillis() + expiration);
   }
 
   private Boolean isTokenExpired(String token) {
@@ -133,6 +134,7 @@ public class JwtTokenUtil implements Serializable {
   }
 
   String generateToken(Map<String, Object> claims) {
+    LOGGER.info("JWT: Generating token...");
     return Jwts.builder()
         .setClaims(claims)
         .setExpiration(generateExpirationDate())

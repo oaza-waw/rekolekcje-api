@@ -17,10 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtAuthenticationEntryPoint;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtAuthenticationFilter;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtAuthenticationTokenFilter;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtAuthorizationFilter;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtTokenUtil;
 
-@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,33 +34,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   private UserDetailsService userDetailsService;
 
+  @Autowired
+  private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
 //  @Autowired
 //  private JwtTokenUtil jwtTokenUtil;
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
-  @Bean
-  public JwtAuthenticationTokenFilter authenticationTokenFilter() {
-    return new JwtAuthenticationTokenFilter();
-  }
-
-//  @Autowired
-//  public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder)
-//      throws Exception {
-//    logger.info("Configuring jwt authentication...");
-//    authenticationManagerBuilder
-//        .userDetailsService(userDetailsService);
-//        .passwordEncoder(passwordEncoder());
-//  }
 
   @Override
-  protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-    authenticationManagerBuilder.inMemoryAuthentication()
-        .withUser("admin").password("admin").roles("ADMIN");
+  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    logger.info("Configuring jwt authentication...");
+    authenticationManagerBuilder
+        .userDetailsService(userDetailsService)
+        .passwordEncoder(passwordEncoder);
   }
+
+//  @Override
+//  protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+//    authenticationManagerBuilder.inMemoryAuthentication()
+//        .withUser("admin").password("admin").roles("ADMIN");
+//  }
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -67,14 +64,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     httpSecurity
         .csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
-        .antMatchers("/auth/**").permitAll()
+        .antMatchers("/users/sign-up").permitAll()
+        .antMatchers("/auth").permitAll()
         .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-        .anyRequest().authenticated();
+        .anyRequest().authenticated().and()
+//        .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+//        .addFilter(new JwtAuthorizationFilter(authenticationManager()))
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     httpSecurity
-        .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
     httpSecurity.headers().cacheControl();
   }
