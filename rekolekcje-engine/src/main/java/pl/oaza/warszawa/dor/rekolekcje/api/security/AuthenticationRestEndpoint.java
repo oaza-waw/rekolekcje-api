@@ -82,7 +82,7 @@ public class AuthenticationRestEndpoint {
     JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
 
     if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
-      LOGGER.info("Refreshing token for user: " + username);
+      LOGGER.info("Refreshing token for user: {}", username);
       String refreshedToken = jwtTokenUtil.refreshToken(token);
       return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
     } else {

@@ -36,7 +36,6 @@ public class JwtTokenUtil implements Serializable {
   private long expiration;
 
   public String getUsernameFromToken(String token) {
-    LOGGER.info("Get username from token: " + token);
     String username;
     try {
       final Claims claims = getClaimsFromToken(token);
@@ -44,7 +43,6 @@ public class JwtTokenUtil implements Serializable {
     } catch (Exception e) {
       username = null;
     }
-    LOGGER.info("Username is " + username);
     return username;
   }
 
@@ -148,7 +146,7 @@ public class JwtTokenUtil implements Serializable {
   }
 
   public String refreshToken(String token) {
-    LOGGER.info("Refreshing token... " + token);
+    LOGGER.info("Refreshing token... ");
     String refreshedToken;
     try {
       final Claims claims = getClaimsFromToken(token);

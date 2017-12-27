@@ -24,14 +24,13 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    LOGGER.info("Loading user: " + username);
+    LOGGER.info("Loading user: {}", username);
     User user = userRepository.findByUsername(username);
 
     if (user == null) {
-      LOGGER.error("Username not found: " + username);
+      LOGGER.error("Username not found: {}", username);
       throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
     } else {
-      LOGGER.info("Found user with name: " + user.getFirstname());
       return JwtUserFactory.create(user);
     }
   }
