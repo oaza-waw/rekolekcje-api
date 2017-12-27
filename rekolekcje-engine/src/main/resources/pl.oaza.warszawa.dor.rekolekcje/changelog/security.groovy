@@ -108,8 +108,8 @@ databaseChangeLog {
     insert(tableName: "users") {
       column(name: 'id', value: 1)
       column(name: 'username', value: 'admin')
-      column(name: 'password', value: 'admin')
-//      column(name: 'password', value: '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi')
+//      column(name: 'password', value: 'admin')
+      column(name: 'password', value: '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi')
       column(name: 'firstname', value: 'admin')
       column(name: 'lastname', value: 'admin')
       column(name: 'email', value: 'admin@mail.com')

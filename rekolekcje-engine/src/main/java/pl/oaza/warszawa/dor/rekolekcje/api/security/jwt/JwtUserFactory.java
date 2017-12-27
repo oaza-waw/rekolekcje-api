@@ -15,15 +15,15 @@ final class JwtUserFactory {
 
   static JwtUser create(User user) {
     return new JwtUser(
-      user.getId(),
-      user.getUsername(),
-      user.getFirstname(),
-      user.getLastname(),
-      user.getEmail(),
-      user.getPassword(),
-      mapToGrantedAuthorities(user.getAuthorities()),
-      user.getEnabled(),
-      user.getLastPasswordResetDate()
+        user.getId(),
+        user.getUsername(),
+        user.getFirstname(),
+        user.getLastname(),
+        user.getPassword(),
+        user.getEmail(),
+        mapToGrantedAuthorities(user.getAuthorities()),
+        user.getEnabled(),
+        user.getLastPasswordResetDate()
     );
   }
 
