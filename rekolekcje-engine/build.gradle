@@ -9,7 +9,7 @@ buildscript {
     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     classpath('org.springframework:springloaded:1.2.6.RELEASE')
     classpath 'org.liquibase:liquibase-core:3.5.3'
-//    classpath 'org.postgresql:postgresql:42.1.4'
+    classpath 'org.postgresql:postgresql:42.1.4'
   }
 }
 
@@ -39,7 +39,7 @@ idea {
 liquibase {
   activities {
     main {
-//      changeLogFile 'src/main/resources/db/changelogs.yml'
+      changeLogFile 'src/main/resources/db/changelogs.groovy'
       url 'jdbc:postgresql://localhost:5432/rekolekcjedb'
       username 'postgres'
       password 'postgres'
@@ -63,13 +63,18 @@ dependencies {
 //  apt 'org.projectlombok:lombok:1.16.20'
 
   compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+  compile 'org.springframework.boot:spring-boot-starter-data-rest'
   compile 'org.springframework.boot:spring-boot-starter-web'
   compile 'com.h2database:h2'
   compile 'org.postgresql:postgresql'
   compile 'com.google.code.gson:gson:2.8.2'
+  compile group: 'com.fasterxml', name: 'jackson-module-json-org', version: '0.9.1'
 //  compile 'org.liquibase:liquibase-core:3.5.3'
   compile 'org.liquibase:liquibase-groovy-dsl:1.2.2'
   compile 'org.codehaus.groovy:groovy-all:2.4.10'
+  compile 'org.springframework.boot:spring-boot-starter-security'
+  compile 'io.jsonwebtoken:jjwt:0.7.0'
+  compile 'org.springframework.boot:spring-boot-starter-mobile'
 
   runtime('org.springframework.boot:spring-boot-devtools')
 
