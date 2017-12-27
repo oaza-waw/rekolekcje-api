@@ -15,13 +15,12 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtUserDetailsServiceImpl.class);
 
-  @Autowired
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
-//  @Autowired
-//  public JwtUserDetailsServiceImpl(UserRepository userRepository) {
-//    this.userRepository = userRepository;
-//  }
+  @Autowired
+  public JwtUserDetailsServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,6 +28,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
     User user = userRepository.findByUsername(username);
 
     if (user == null) {
+      LOGGER.error("Username not found: " + username);
       throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
     } else {
       LOGGER.info("Found user with name: " + user.getFirstname());

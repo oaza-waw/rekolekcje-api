@@ -32,37 +32,30 @@ public class AuthenticationRestEndpoint {
   @Value("${jwt.header}")
   private String tokenHeader;
 
-  @Autowired
-  private AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
+  private final JwtTokenUtil jwtTokenUtil;
+  private final UserDetailsService userDetailsService;
 
   @Autowired
-  private JwtTokenUtil jwtTokenUtil;
-
-  @Autowired
-  private UserDetailsService userDetailsService;
-
-//  @Autowired
-//  public AuthenticationRestEndpoint(
-//      AuthenticationManager authenticationManager,
-//      JwtTokenUtil jwtTokenUtil,
-//      UserDetailsService userDetailsService) {
-//    this.authenticationManager = authenticationManager;
-//    this.jwtTokenUtil = jwtTokenUtil;
-//    this.userDetailsService = userDetailsService;
-//  }
+  public AuthenticationRestEndpoint(
+      AuthenticationManager authenticationManager,
+      JwtTokenUtil jwtTokenUtil,
+      UserDetailsService userDetailsService) {
+    this.authenticationManager = authenticationManager;
+    this.jwtTokenUtil = jwtTokenUtil;
+    this.userDetailsService = userDetailsService;
+  }
 
   @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
   public ResponseEntity<?> createAuthenticationToken(
       @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) {
-    LOGGER.info("Creating token from request: " + authenticationRequest.toString());
-    LOGGER.info("User: " + authenticationRequest.getUsername());
-    LOGGER.info("Pass: " + authenticationRequest.getPassword());
+    LOGGER.info("Creating authentication token for user: " + authenticationRequest.getUsername());
 
     // Perform the security
     final Authentication authentication =
         authenticationManager.authenticate(createTokenFromRequest(authenticationRequest));
 
-    LOGGER.info("Authentication status: " + authentication.isAuthenticated());
+    LOGGER.info("User: " + authenticationRequest.getUsername() + " Authentication status: " + authentication.isAuthenticated());
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     // Reload password post-security, so we can generate token
