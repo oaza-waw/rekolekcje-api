@@ -49,13 +49,13 @@ public class AuthenticationRestEndpoint {
   @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
   public ResponseEntity<?> createAuthenticationToken(
       @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) {
-    LOGGER.info("Creating authentication token for user: " + authenticationRequest.getUsername());
+    LOGGER.info("Creating authentication token for user {}", authenticationRequest.getUsername());
 
     // Perform the security
     final Authentication authentication =
         authenticationManager.authenticate(createTokenFromRequest(authenticationRequest));
 
-    LOGGER.info("User: " + authenticationRequest.getUsername() + " Authentication status: " + authentication.isAuthenticated());
+    LOGGER.info("User {} is authenticated: {}", authenticationRequest.getUsername(), authentication.isAuthenticated());
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     // Reload password post-security, so we can generate token
