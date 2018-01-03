@@ -1,6 +1,5 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,19 +7,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.UserRepository;
 
-import java.util.regex.Pattern;
+import java.io.UnsupportedEncodingException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,7 +41,20 @@ public class SecurityIntegrationTest {
         .webAppContextSetup(webApplicationContext)
         .apply(springSecurity())
         .build();
+  }
+
+  @Test
+  public void shouldReturnJwtWhenAuthorizedUserTriesToLogIn() throws Exception {
     registerNewUser(username, password);
+    MvcResult result = requestAuthenticationToken(username, password);
+
+    final String token = getTokenFromResponse(result);
+    assertThat(token).isNotEmpty();
+
+    final MockHttpServletRequestBuilder accessSecuredResourceRequest = get(API_URL + "/status")
+        .header("Authorization", "Bearer " + token);
+    mockMvc.perform(accessSecuredResourceRequest)
+        .andExpect(status().isOk());
   }
 
   private void registerNewUser(String username, String password) throws Exception {
@@ -56,22 +65,7 @@ public class SecurityIntegrationTest {
     mockMvc.perform(registerUserRequest);
   }
 
-  @Test
-  public void shouldReturnJwtWhenAuthorizedUserTriesToLogIn() throws Exception {
-    MvcResult result = getAuthenticationToken(username, password);
-
-    String response = result.getResponse().getContentAsString();
-    JSONObject parser = new JSONObject(response);
-    final String token = parser.getString("token");
-    assertThat(token).isNotEmpty();
-
-    final MockHttpServletRequestBuilder accessSecuredResourceRequest = get(API_URL + "/status")
-        .header("Authorization", "Bearer " + token);
-    mockMvc.perform(accessSecuredResourceRequest)
-        .andExpect(status().isOk());
-  }
-
-  private MvcResult getAuthenticationToken(String username, String password) throws Exception {
+  private MvcResult requestAuthenticationToken(String username, String password) throws Exception {
     final String body = createRequestBody(username, password);
     final MockHttpServletRequestBuilder getTokenRequest = post("/auth")
         .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -82,8 +76,21 @@ public class SecurityIntegrationTest {
         .andReturn();
   }
 
+  private String getTokenFromResponse(MvcResult result) throws UnsupportedEncodingException {
+    String response = result.getResponse().getContentAsString();
+    JSONObject parser = new JSONObject(response);
+    return parser.getString("token");
+  }
+
   private String createRequestBody(String username, String password) {
     return "{\"username\":\"" + username + "\", \"password\":\"" + password + "\"}";
+  }
+
+  @Test
+  public void shouldSendUnauthorizedResponseWhenAnonymousTriesToAccessSecuredData() throws Exception {
+    mockMvc
+        .perform(get(API_URL + "/status"))
+        .andExpect(status().isUnauthorized());
   }
 
 //  @Test
