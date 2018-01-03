@@ -10,15 +10,13 @@ import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @Component
-public class JwtTokenUtil implements Serializable {
-  private static final long serialVersionUID = -3301605591108950415L;
+public class JwtTokenUtil {
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 
   static final String CLAIM_KEY_USERNAME = "sub";

@@ -47,7 +47,7 @@ public class AuthenticationRestEndpoint {
   }
 
   @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-  public ResponseEntity<?> createAuthenticationToken(
+  public ResponseEntity<JwtAuthenticationResponse> createAuthenticationToken(
       @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) {
     LOGGER.info("Creating authentication token for user {}", authenticationRequest.getUsername());
 
@@ -76,7 +76,7 @@ public class AuthenticationRestEndpoint {
   }
 
   @PostMapping(value = "${jwt.route.authentication.refresh}")
-  public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+  public ResponseEntity<JwtAuthenticationResponse> refreshAndGetAuthenticationToken(HttpServletRequest request) {
     String token = request.getHeader(tokenHeader);
     String username = jwtTokenUtil.getUsernameFromToken(token);
     JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);

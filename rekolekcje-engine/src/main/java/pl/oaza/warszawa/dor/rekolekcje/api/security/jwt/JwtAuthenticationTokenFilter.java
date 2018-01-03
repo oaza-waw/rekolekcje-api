@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final Logger log = LoggerFactory.getLogger(this.getClass());
 
   @Autowired
   private UserDetailsService userDetailsService;
@@ -42,7 +42,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     String username = jwtTokenUtil.getUsernameFromToken(authToken);
 
-    logger.info("Checking authentication for user {}", username);
+    log.info("Checking authentication for user {}", username);
 
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       // It is not compelling necessary to load the use details from the database. You could also store the information
@@ -53,7 +53,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authenticationToken =
             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        logger.info("Authenticated user {}, setting security context", username);
+        log.info("Authenticated user {}, setting security context", username);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
       }
     }

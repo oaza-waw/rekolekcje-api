@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -43,15 +42,15 @@ public class Authority {
     return name;
   }
 
-  public void setName(AuthorityName name) {
-    this.name = name;
-  }
+//  public void setName(AuthorityName name) {
+//    this.name = name;
+//  }
 
-  public List<User> getUsers() {
-    return users;
-  }
+//  public List<User> getUsers() {
+//    return users;
+//  }
 
-  public void setUsers(List<User> users) {
-    this.users = users;
-  }
+//  public void setUsers(List<User> users) {
+//    this.users = users;
+//  }
 }

@@ -34,7 +34,7 @@ public class UserRegistrationController {
     user.setEnabled(true);
     user.setLastPasswordResetDate(Date.valueOf(LocalDate.now().minusDays(1)));
     userRepository.save(user);
-    LOGGER.info("Sign up successful for " + user);
+    LOGGER.info("Sign up successful for {}", user);
     return "Sign up successful. " + user;
   }
 }
