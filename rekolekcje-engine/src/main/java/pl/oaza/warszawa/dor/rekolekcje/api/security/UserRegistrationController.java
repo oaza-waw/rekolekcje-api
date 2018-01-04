@@ -27,6 +27,9 @@ public class UserRegistrationController {
 
   @PostMapping("/sign-up")
   public String signUp(@RequestBody User user) {
+    if (userRepository.findByUsername(user.getUsername()) != null) {
+      return "User already exists: " + user;
+    }
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setEmail("email");
     user.setFirstname("first name");

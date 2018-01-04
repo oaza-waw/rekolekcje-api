@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,7 +47,7 @@ public class AuthenticationRestEndpoint {
 
   @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
   public ResponseEntity<JwtAuthenticationResponse> createAuthenticationToken(
-      @RequestBody JwtAuthenticationRequest authenticationRequest, Device device) {
+      @RequestBody JwtAuthenticationRequest authenticationRequest) {
     LOGGER.info("Creating authentication token for user {}", authenticationRequest.getUsername());
 
     // Perform the security
@@ -61,7 +60,7 @@ public class AuthenticationRestEndpoint {
     // Reload password post-security, so we can generate token
     final UserDetails userDetails =
         userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-    final String token = jwtTokenUtil.generateToken(userDetails, device);
+    final String token = jwtTokenUtil.generateToken(userDetails);
 
     // Return the token
     return ResponseEntity.ok(new JwtAuthenticationResponse(token));
