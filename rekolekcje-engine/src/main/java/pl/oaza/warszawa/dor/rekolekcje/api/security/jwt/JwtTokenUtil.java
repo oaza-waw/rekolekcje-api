@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -23,10 +22,7 @@ public class JwtTokenUtil {
   static final String CLAIM_KEY_AUDIENCE = "audience";
   static final String CLAIM_KEY_CREATED = "created";
 
-  private static final String AUDIENCE_UNKNOWN = "unknown";
   private static final String AUDIENCE_WEB = "web";
-  private static final String AUDIENCE_MOBILE = "mobile";
-  private static final String AUDIENCE_TABLET = "tablet";
 
   @Value("${jwt.secret}")
   private String secret;
@@ -67,17 +63,6 @@ public class JwtTokenUtil {
     return expirationDate;
   }
 
-  public String getAudienceFromToken(String token) {
-    String audience;
-    try {
-      final Claims claims = getClaimsFromToken(token).orElseThrow(ClaimsNotFoundException::new);
-      audience = (String) claims.get(CLAIM_KEY_AUDIENCE);
-    } catch (Exception e) {
-      audience = null;
-    }
-    return audience;
-  }
-
   private Optional<Claims> getClaimsFromToken(String token) {
     Claims claims;
     try {
@@ -104,27 +89,14 @@ public class JwtTokenUtil {
     return (lastPasswordReset != null && created.before(lastPasswordReset));
   }
 
-  private String generateAudience(Device device) {
-    String audience = AUDIENCE_UNKNOWN;
-    if (device.isNormal()) {
-      audience = AUDIENCE_WEB;
-    } else if (device.isTablet()) {
-      audience = AUDIENCE_TABLET;
-    } else if (device.isMobile()) {
-      audience = AUDIENCE_MOBILE;
-    }
-    return audience;
+  private String generateAudience() {
+    return AUDIENCE_WEB;
   }
 
-  private Boolean ignoreTokenExpiration(String token) {
-    String audience = getAudienceFromToken(token);
-    return (AUDIENCE_TABLET.equals(audience) || AUDIENCE_MOBILE.equals(audience));
-  }
-
-  public String generateToken(UserDetails userDetails, Device device) {
+  public String generateToken(UserDetails userDetails) {
     Map<String, Object> claims = new HashMap<>();
     claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-    claims.put(CLAIM_KEY_AUDIENCE, generateAudience(device));
+    claims.put(CLAIM_KEY_AUDIENCE, generateAudience());
     claims.put(CLAIM_KEY_CREATED, new Date());
     return generateToken(claims);
   }
@@ -140,8 +112,7 @@ public class JwtTokenUtil {
 
   public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
     final Date created = getCreatedDateFromToken(token);
-    return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset)
-        && (!isTokenExpired(token) || ignoreTokenExpiration(token));
+    return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset) && !isTokenExpired(token);
   }
 
   public String refreshToken(String token) {
