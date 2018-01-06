@@ -8,8 +8,12 @@ import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { ParticipantsRoutingModule } from './participants/participants-routing.module';
-import { DeleteConfirmAlertDialog } from './participants/delete-confirm-alert/delete-confirm-alert.component';
 import { SharedModule } from './shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { ParticipantsEffects } from './shared/store-shared/participants/participants-effects';
+import { ParticipantsReducer } from './core/store/participants/participants-reducer';
+import { AppReducer } from './core/store/app-store';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,12 @@ import { SharedModule } from './shared/shared.module';
     ParticipantsRoutingModule,
     SharedModule,
     AppRoutingModule,
+    /**
+     * Store and effects imports
+     */
+    StoreModule.forRoot(AppReducer.reducer),
+    StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
+    EffectsModule.forRoot([ParticipantsEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 <participants-list
-  [participants]="participants"
+  [participants]="(participants | async)"
   (addParticipant)="onAddParticipantHandler($event)"
   (deleteParticipant)="onDeleteParticipantHandler($event)"
-  (editParticipant)="onEditParticipantHandler($event)">
+  (editParticipant)="onEditParticipantHandler($event)"
+  (onSelectParticipant)="onSelectParticipantHandler($event)">
 </participants-list>

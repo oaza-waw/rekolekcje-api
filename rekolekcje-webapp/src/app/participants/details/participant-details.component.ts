@@ -1,32 +1,45 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Participant } from '../../shared/model/participant.model';
-import { MockParticipantsService } from '../mock-participants.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Participant } from '../../shared/models/participant.model';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { DeleteConfirmAlertDialog } from '../delete-confirm-alert/delete-confirm-alert.component';
+import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';
+import { Store } from '@ngrx/store';
+import { Participants } from '../../core/store/participants/participants-reducer';
+import { ParticipantsSharedActions } from '../../shared/store-shared/participants/participants-actions';
+import { Subject } from 'rxjs/Subject';
+import { AppSelectors } from '../../core/store/app-selectors';
 
 @Component({
   selector: 'participant-details',
   templateUrl: './participant-details.component.html',
   styleUrls: ['./participant-details.component.css']
 })
-export class ParticipantDetailsComponent implements OnInit {
+export class ParticipantDetailsComponent implements OnInit, OnDestroy {
 
   editing: boolean;
   participant: Participant;
 
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
+  // @TODO bula z ta location, do poprawy. Tak sie nie robi
   constructor(
     private dialog: MatDialog,
-    private participantsService: MockParticipantsService,
     private router: Router,
-    private route: ActivatedRoute,
+    private store: Store<Participants.State>,
     private location: Location
   ) { }
 
   ngOnInit(): void {
     this.editing = false;
-    this.getParticipant();
+    this.store.select(AppSelectors.getSelectedParticipant)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((participant: Participant) => this.participant = participant);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   delete(): void {
@@ -40,7 +53,7 @@ export class ParticipantDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigate(['participants']);
-        this.participantsService.deleteOne(this.participant.id);
+        this.store.dispatch(new ParticipantsSharedActions.DeleteParticipant(this.participant.id));
       }
     });
   }
@@ -53,14 +66,7 @@ export class ParticipantDetailsComponent implements OnInit {
     if (!participant) {
       this.editing = false;
     }
-    // @TODO dispatch suitable action to store
-  }
-
-  private getParticipant() {
-    const id = + this.route.snapshot.paramMap.get('id');
-    this.participantsService
-      .find(id)
-      .subscribe(participant => this.participant = participant);
+    this.store.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
   }
 
   goBack(): void {

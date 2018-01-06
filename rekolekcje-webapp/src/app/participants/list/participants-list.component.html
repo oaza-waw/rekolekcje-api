@@ -33,7 +33,7 @@
         <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
         <mat-cell *matCellDef="let participant">
           <div class="btn-group-sm">
-            <button class="btn btn-primary" routerLink="/participants/{{participant.id}}">
+            <button class="btn btn-primary" (click)="goToDetails(participant)">
               <i class="fa fa-address-card"></i> Details
             </button>
 

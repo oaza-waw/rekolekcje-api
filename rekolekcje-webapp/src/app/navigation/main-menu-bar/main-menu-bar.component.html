@@ -1,9 +1,13 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Rekolekcje</a>
+    <a [routerLink]="['/']" class="navbar-brand">Rekolekcje</a>
 
     <ul class="nav navbar-nav navbar-right">
-      <li> <a routerLink="/dashboard"><i class="fa fa-user"></i> LOGIN</a></li>
+      <li>
+        <a [routerLink]="['/dashboard']">
+          <i class="fa fa-user"></i> LOGIN
+        </a>
+      </li>
     </ul>
   </div>
 
