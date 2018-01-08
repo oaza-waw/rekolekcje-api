@@ -1,10 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { ParticipantsModule } from "./participants/participants.module";
-import { MockParticipantsService } from './participants/mock-participants.service';
+import { ParticipantsModule } from './participants/participants.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import {NavigationModule} from "./navigation/navigation.module";
+import { NavigationModule } from './navigation/navigation.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,7 +17,6 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        MockParticipantsService
       ]
     }).compileComponents();
   }));
