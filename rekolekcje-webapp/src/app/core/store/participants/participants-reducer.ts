@@ -47,10 +47,6 @@ export namespace ParticipantsReducer {
         return {...state, participantsList: action.payload};
       }
 
-      case ParticipantsSharedActions.types.LoadParticipantsListFail: {
-        return {...state};
-      }
-
       case ParticipantsSharedActions.types.SelectParticipantSuccess: {
         return {...state, selectedParticipant: action.payload};
       }
