@@ -35,7 +35,8 @@ export namespace ParticipantsReducer {
       }
 
       case ParticipantsSharedActions.types.DeleteParticipantSuccess: {
-        return {...state, participantsList: state.participantsList.filter((participant: Participant) => participant.id !== action.payload)};
+        return {...state, participantsList: state.participantsList.filter((participant: Participant) =>
+          participant.id !== action.payload)};
       }
 
       case ParticipantsSharedActions.types.LoadParticipantsListFail: {
