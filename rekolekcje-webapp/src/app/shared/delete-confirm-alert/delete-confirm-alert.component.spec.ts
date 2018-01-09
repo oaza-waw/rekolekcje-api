@@ -4,7 +4,7 @@ import { DeleteConfirmAlertDialog } from './delete-confirm-alert.component';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ParticipantsModule } from '../participants.module';
+import { ParticipantsModule } from '../../participants/participants.module';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

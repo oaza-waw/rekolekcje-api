@@ -2,8 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
-import { MockParticipantsService } from '../../mock-participants.service';
-import { Participant } from '../../../shared/model/participant.model';
+import { Participant } from '../../../shared/models/participant.model';
+import { Store } from '@ngrx/store';
+import { Participants } from '../../../core/store/participants/participants-reducer';
+import { ParticipantsSharedActions } from '../../../shared/store-shared/participants/participants-actions';
+import { AppSelectors } from '../../../core/store/app-selectors';
 
 @Component({
   selector: 'participant-add-edit',
@@ -13,43 +16,28 @@ import { Participant } from '../../../shared/model/participant.model';
 export class ParticipantAddEditComponent implements OnInit, OnDestroy {
 
   editing: boolean;
-  id: number;
   participantToEdit: Participant;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  // @TODO get participant to edit from store
-  constructor(private participantsService: MockParticipantsService, private route: ActivatedRoute) { }
+  constructor(private store: Store<Participants.State>) { }
 
   ngOnInit(): void {
-    this.route.params
+    this.store.select(AppSelectors.getSelectedParticipant)
       .takeUntil(this.ngUnsubscribe)
-      .subscribe(params => {
-        this.id = +params['id'];
-        if (this.id) {
-          this.editing = false;
-        } else {
-          this.editing = true;
-        }
-        this.participantsService.find(this.id)
-          .takeUntil(this.ngUnsubscribe)
-          .subscribe(data => {
-            this.participantToEdit = data;
-          });
-      });
-  }
-
-  addParticipant(participant: Participant): void {
-    // @TODO dispatch action to store
-    this.participantsService.add(participant);
-  }
-
-  updateParticipant(participant: Participant): void {
-    // @TODO dispatch action to store
+      .subscribe((participant: Participant) => this.participantToEdit = participant);
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+  }
+
+  addParticipant(participant: Participant): void {
+    this.store.dispatch(new ParticipantsSharedActions.CreateParticipant(participant));
+  }
+
+  updateParticipant(participant: Participant): void {
+    this.store.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
   }
 }

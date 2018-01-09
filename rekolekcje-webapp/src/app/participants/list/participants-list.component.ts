@@ -3,10 +3,10 @@ import {
   Component, EventEmitter, Input, OnChanges, Output,
   ViewChild
 } from '@angular/core';
-import { Participant } from '../../shared/model/participant.model';
-import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
-import { DeleteConfirmAlertDialog } from '../delete-confirm-alert/delete-confirm-alert.component';
-import { ParticipantAddEditDialog } from '../add-edit/dialog/add-edit-dialog.component';
+import { Participant } from '../../shared/models/participant.model';
+import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
+import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';
+import { ParticipantAddEditDialog } from '../add-edit/participant-dialog/add-edit-dialog.component';
 
 @Component({
   selector: 'participants-list',
@@ -24,6 +24,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
   deleteParticipant: EventEmitter<number> = new EventEmitter<number>();
   @Output()
   editParticipant: EventEmitter<Participant> = new EventEmitter<Participant>();
+  @Output()
+  onSelectParticipant: EventEmitter<Participant> = new EventEmitter<Participant>();
 
   dataSource: MatTableDataSource<Participant>;
   displayedColumns = ['firstName', 'lastName', 'pesel', 'address', 'parish', 'options'];
@@ -35,12 +37,17 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
   constructor(public dialog: MatDialog) {
   }
 
+  // @TODO refactor this to set input
   ngOnChanges(): void {
     this.dataSource = new MatTableDataSource<Participant>(this.participants);
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  goToDetails(participant: Participant): void {
+    this.onSelectParticipant.emit(participant);
   }
 
   openAddParticipantDialog(): void {
@@ -53,7 +60,7 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.addParticipant.emit(result);
+        this.addParticipant.emit(Participant.mapFromForm(result));
       }
     })
   }
@@ -73,7 +80,7 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.editParticipant.emit(result);
+        this.editParticipant.emit(Participant.mapFromForm(result));
       }
     })
   }

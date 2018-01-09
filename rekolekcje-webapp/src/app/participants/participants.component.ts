@@ -1,7 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Participant } from '../shared/model/participant.model';
-import { MockParticipantsService } from './mock-participants.service';
+import { Participant } from '../shared/models/participant.model';
 import { Subject } from 'rxjs/Subject';
+import { Store } from '@ngrx/store';
+import { Participants } from '../core/store/participants/participants-reducer';
+import { Observable } from 'rxjs/Observable';
+import { ParticipantsSharedActions } from '../shared/store-shared/participants/participants-actions';
+import { AppSelectors } from '../core/store/app-selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'participants-root',
@@ -9,17 +14,15 @@ import { Subject } from 'rxjs/Subject';
 })
 export class ParticipantsComponent implements OnInit, OnDestroy {
 
-  participants: Participant[];
+  participants: Observable<Participant[]>;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private participantsService: MockParticipantsService) {}
+  constructor(private router: Router, private store: Store<Participants.State>) {}
 
   ngOnInit(): void {
-    this.participantsService
-      .findAll()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(participants => this.participants = participants );
+    this.store.dispatch(new ParticipantsSharedActions.LoadParticipantsList());
+    this.participants = this.store.select(AppSelectors.getParticipantsList);
   }
 
   ngOnDestroy(): void {
@@ -28,24 +31,19 @@ export class ParticipantsComponent implements OnInit, OnDestroy {
   }
 
   onAddParticipantHandler(participant: Participant): void {
-    this.participantsService
-      .add(participant)
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(newParticipant => {
-        this.participants = this.participants.concat(newParticipant);
-      });
+    this.store.dispatch(new ParticipantsSharedActions.CreateParticipant(participant));
   }
 
   onDeleteParticipantHandler(participantId: number): void {
-    this.participantsService
-      .deleteOne(participantId)
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(idOfDeleted => {
-        this.participants = this.participants.filter(p => p.id != idOfDeleted);
-      });
+    this.store.dispatch(new ParticipantsSharedActions.DeleteParticipant(participantId));
   }
 
   onEditParticipantHandler(participant: Participant): void {
+    this.store.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
+  }
 
+  onSelectParticipantHandler(participant: Participant): void {
+    this.store.dispatch(new ParticipantsSharedActions.SelectParticipant(participant));
+    setTimeout(() => this.router.navigateByUrl(`/participants/${participant.id}`), 0);
   }
 }
