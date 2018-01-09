@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.ConfigurableMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
@@ -25,9 +24,9 @@ public abstract class ParticipantsIntegrationTest {
 
   @Before
   public void setup() {
-    ConfigurableMockMvcBuilder mockMvcBuilder =
-        MockMvcBuilders.webAppContextSetup(webApplicationContext);
-    mockMvc = mockMvcBuilder.build();
+    mockMvc = MockMvcBuilders
+        .webAppContextSetup(webApplicationContext)
+        .build();
   }
 
   public void saveOneToRepository(ParticipantDTO participantDTO) {
