@@ -85,3 +85,7 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+bootRun {
+  systemProperties System.properties
+}
