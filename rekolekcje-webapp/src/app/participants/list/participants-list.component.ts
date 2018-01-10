@@ -80,7 +80,9 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.editParticipant.emit(Participant.mapFromForm(result));
+        const p = Participant.mapFromForm(result);
+        p.id = participant.id;
+        this.editParticipant.emit(p);
       }
     })
   }

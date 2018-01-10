@@ -12,6 +12,8 @@ export class ParticipantFormComponent implements OnInit {
   @Input()
   firstName: string;
   @Input()
+  id: number;
+  @Input()
   lastName: string;
   @Input()
   pesel: string;
@@ -48,6 +50,7 @@ export class ParticipantFormComponent implements OnInit {
     }
 
     const participant = new Participant();
+    participant.id = this.id;
     participant.firstName = this.participantForm.get('firstName').value;
     participant.lastName = this.participantForm.get('lastName').value;
     participant.pesel = this.participantForm.get('pesel').value;

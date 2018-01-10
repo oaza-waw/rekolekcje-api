@@ -12,6 +12,7 @@ export class ParticipantAddEditDialog implements OnInit {
   address: string;
   dialogTitle: string;
   firstName: string;
+  id: number;
   lastName: string;
   parish: string;
   pesel: string;
@@ -31,6 +32,7 @@ export class ParticipantAddEditDialog implements OnInit {
 
   submit(event: Participant): void {
     if (event) {
+      event.id = this.id;
       this.dialogRef.close({ result: event });
     } else {
       this.dialogRef.close();
