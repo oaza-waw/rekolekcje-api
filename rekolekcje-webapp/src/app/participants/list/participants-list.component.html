@@ -2,30 +2,30 @@
   <mat-card>
     <mat-card-title>{{title}}</mat-card-title>
 
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef>First name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>First name</mat-header-cell>
         <mat-cell *matCellDef="let participant">{{participant.firstName}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef>Last name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Last name</mat-header-cell>
         <mat-cell *matCellDef="let participant">{{participant.lastName}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="pesel">
-        <mat-header-cell *matHeaderCellDef>PESEL</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>PESEL</mat-header-cell>
         <mat-cell *matCellDef="let participant">{{participant.pesel}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
         <mat-cell *matCellDef="let participant">{{participant.address}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="parish">
-        <mat-header-cell *matHeaderCellDef>Parish</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Parish</mat-header-cell>
         <mat-cell *matCellDef="let participant">{{participant.parish}}</mat-cell>
       </ng-container>
 

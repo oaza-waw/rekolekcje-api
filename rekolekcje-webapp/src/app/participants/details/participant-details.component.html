@@ -2,6 +2,12 @@
   <ng-container [ngSwitch]="editing">
     <div *ngSwitchCase="false">
       <h2>Details of {{participant.firstName}} {{participant.lastName}}</h2>
+      <button mat-button (click)="edit()">
+        <mat-icon>mode_edit</mat-icon> Edit
+      </button>
+      <button mat-button (click)="delete()">
+        <mat-icon>delete</mat-icon> Delete
+      </button>
       <div class="panel panel-primary">
         <div class="panel-heading">Personal information</div>
         <div class="panel-body">
@@ -14,12 +20,6 @@
           </ul>
         </div>
       </div>
-      <button mat-button (click)="edit()">
-        <mat-icon>mode_edit</mat-icon> Edit
-      </button>
-      <button mat-button (click)="delete()">
-        <mat-icon>delete</mat-icon> Delete
-      </button>
     </div>
     <div *ngSwitchCase="true">
       <participiant-form

@@ -7,14 +7,11 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ParticipantsListComponent } from './list/participants-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatPaginatorModule,
-  MatTableModule
-} from '@angular/material';
 import { DeleteConfirmAlertDialog } from '../shared/delete-confirm-alert/delete-confirm-alert.component';
 import { ParticipantAddEditDialog } from './add-edit/participant-dialog/add-edit-dialog.component';
 import { ParticipantFormComponent } from './add-edit/participant-form/participant-form.component';
 import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/participant-add-edit.component';
+import { MaterialModule } from '../shared/material/material.module';
 
 @NgModule({
   imports: [
@@ -22,11 +19,7 @@ import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/par
     FormsModule,
     SharedModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatButtonModule,
+    MaterialModule,
     RouterModule
   ],
   declarations: [
