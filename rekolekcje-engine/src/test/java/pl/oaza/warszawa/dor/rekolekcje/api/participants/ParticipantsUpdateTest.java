@@ -12,35 +12,43 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ParticipantsUpdateTest extends ParticipantsTest {
 
   private ParticipantDTO sampleParticipant1 =
-      ParticipantDTO.builder("Paul", "George")
+      ParticipantDTO.builder()
+          .firstName("Paul")
+          .lastName("George")
           .pesel(90010112345L)
           .address("Default City 23")
           .parish("Parish address 1")
           .build();
   private ParticipantDTO sampleParticipant2 =
-      ParticipantDTO.builder("Roy", "Hibbert")
+      ParticipantDTO.builder()
+          .firstName("Roy")
+          .lastName("Hibbert")
           .pesel(92010112345L)
           .address("Default City 42")
           .parish("Parish address 2")
           .build();
   private ParticipantDTO sampleParticipant3 =
-      ParticipantDTO.builder("George", "Hill")
+      ParticipantDTO.builder()
+          .firstName("George")
+          .lastName("Hill")
           .pesel(93010112345L)
           .address("Default City 11")
           .parish("Parish address 3")
           .build();
 
   @Test
-  public void shouldUpdateExistingParticipant() {
+  public void shouldUpdateExistingParticipant() throws Exception {
     // given
     saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
     ParticipantDTO existingParticipantWithOldData = getAllInSystem().stream()
             .filter(p -> Objects.equals(p.getLastName(), sampleParticipant2.getLastName()))
             .findAny()
-            .orElse(null);
+            .orElseThrow(ParticipantNotFoundException::new);
     ParticipantDTO participantWithUpdatedData =
-        ParticipantDTO.builder("Danny", "Granger")
+        ParticipantDTO.builder()
             .id(existingParticipantWithOldData.getId())
+            .firstName("Danny")
+            .lastName("Granger")
             .pesel(95010112345L)
             .address("New City 123")
             .parish("New parish address 4")
@@ -54,7 +62,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     ParticipantDTO participantInSystemWithTheSameId = getAllInSystem().stream()
         .filter(p -> p.getId() == participantWithUpdatedData.getId())
         .findAny()
-        .orElse(null);
+        .orElseThrow(ParticipantNotFoundException::new);
     assertThat(participantInSystemWithTheSameId).isEqualTo(participantWithUpdatedData);
   }
 }

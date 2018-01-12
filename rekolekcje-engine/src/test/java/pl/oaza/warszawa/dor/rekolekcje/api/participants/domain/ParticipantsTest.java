@@ -31,4 +31,6 @@ public abstract class ParticipantsTest {
   private void clearRepository() {
     repository.deleteAll();
   }
+
+  public class ParticipantNotFoundException extends Exception {}
 }

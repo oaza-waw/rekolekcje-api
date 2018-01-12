@@ -10,13 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -31,8 +30,8 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
 
   private Gson jsonMapper = new Gson();
 
-  private final ParticipantDTO firstParticipant = ParticipantDTO.builder("John", "Smith").build();
-  private final ParticipantDTO secondParticipant = ParticipantDTO.builder("Jane", "Doe").build();
+  private final ParticipantDTO firstParticipant = ParticipantFactory.participantWithMinimalData();
+  private final ParticipantDTO secondParticipant = ParticipantFactory.participantWithAllData();
 
   @Before
   public void setup() {
@@ -87,12 +86,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   @Test
   public void shouldAddSingleParticipant() throws Exception {
     // given
-    final ParticipantDTO participantToAdd =
-        ParticipantDTO.builder("New", "Participant")
-            .address("Address")
-            .pesel(98101012345L)
-            .parish("Parish")
-            .build();
+    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant();
     final MockHttpServletRequestBuilder addOneRequest =
         post(PARTICIPANTS_API_URI)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -131,14 +125,12 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   @Test
   public void shouldUpdateSingleParticipant() throws Exception {
     // given
-    ParticipantDTO existingParticipant = ParticipantDTO.builder("AAA", "BBB")
-        .pesel(11111111111L)
-        .address("CCCC")
-        .parish("DDDDD")
-        .build();
+    ParticipantDTO existingParticipant = ParticipantFactory.sampleParticipant();
     saveOneToRepository(existingParticipant);
     final long existingParticipantId = findOneInSystemWithTheSameData(existingParticipant).getId();
-    ParticipantDTO participantWithNewData = ParticipantDTO.builder("Luke", "Skywalker")
+    ParticipantDTO participantWithNewData = ParticipantDTO.builder()
+        .firstName("Luke")
+        .lastName("Skywalker")
         .id(existingParticipantId)
         .address("Tatooine")
         .parish("None")

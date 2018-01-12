@@ -14,7 +14,10 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddSingleParticipantToEmptySystem() {
     // given
-    ParticipantDTO participantDTO = ParticipantDTO.builder("Jack", "Frost").build();
+    ParticipantDTO participantDTO = ParticipantDTO.builder()
+        .firstName("Jack")
+        .lastName("Frost")
+        .build();
 
     // when
     ParticipantDTO addedParticipant = service.save(participantDTO);
@@ -26,9 +29,15 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddParticipantToSystemWithExistingParticipants() {
     // given
-    ParticipantDTO existingParticipant = ParticipantDTO.builder("Sample", "Participant").build();
+    ParticipantDTO existingParticipant = ParticipantDTO.builder()
+        .firstName("Sample")
+        .lastName("Participant")
+        .build();
     saveAll(Collections.singletonList(existingParticipant));
-    ParticipantDTO participantToAdd = ParticipantDTO.builder("Jack", "Frost").build();
+    ParticipantDTO participantToAdd = ParticipantDTO.builder()
+        .firstName("Jack")
+        .lastName("Frost")
+        .build();
 
     // when
     ParticipantDTO addedParticipant = service.save(participantToAdd);

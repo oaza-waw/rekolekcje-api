@@ -16,6 +16,7 @@ buildscript {
 plugins {
   id 'org.sonarqube' version '2.5'
   id 'org.liquibase.gradle' version '1.2.4'
+  id 'io.franzbecker.gradle-lombok' version '1.11'
 }
 
 repositories {
@@ -46,12 +47,21 @@ liquibase {
   }
 }
 
+//lombok { // optional: values below are the defaults
+//  version = "1.16.20"
+//  sha256 = "3ca225ce3917eac8bf4b7d2186845df4e70dcdede356dca8537b6d78a535c91e"
+//  sha256 = ""
+//}
+
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 
 dependencies {
+//  compileOnly 'org.projectlombok:lombok:1.16.20'
+//  apt 'org.projectlombok:lombok:1.16.20'
+
   compile 'org.springframework.boot:spring-boot-starter-data-jpa'
   compile 'org.springframework.boot:spring-boot-starter-web'
   compile 'com.h2database:h2'

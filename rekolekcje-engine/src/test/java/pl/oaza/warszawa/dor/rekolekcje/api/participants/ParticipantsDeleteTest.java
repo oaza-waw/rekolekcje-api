@@ -10,15 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParticipantsDeleteTest extends ParticipantsTest {
 
-  private final ParticipantDTO firstParticipant = ParticipantDTO.builder("Roger", "Moore").build();
-  private final ParticipantDTO secondParticipant = ParticipantDTO.builder("Pierce", "Brosnan").build();
-  private final ParticipantDTO thirdParticipant = ParticipantDTO.builder("Sean", "Connery").build();
+  private final ParticipantDTO firstParticipant = ParticipantDTO.builder().firstName("Roger").lastName("Moore").build();
+  private final ParticipantDTO secondParticipant = ParticipantDTO.builder().firstName("Pierce").lastName("Brosnan").build();
+  private final ParticipantDTO thirdParticipant = ParticipantDTO.builder().firstName("Sean").lastName("Connery").build();
 
   @Test
-  public void shouldDeleteParticipantFromSystem() {
+  public void shouldDeleteParticipantFromSystem() throws Exception {
     // given
     saveAll(Arrays.asList(firstParticipant, secondParticipant, thirdParticipant));
-    ParticipantDTO participantToDelete = getAllInSystem().stream().findAny().orElse(null);
+    ParticipantDTO participantToDelete = getAllInSystem().stream()
+        .findAny()
+        .orElseThrow(ParticipantNotFoundException::new);
     long participantId = participantToDelete.getId();
 
     // when

@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParticipantsFindTest extends ParticipantsTest {
 
-  private final ParticipantDTO firstParticipant = ParticipantDTO.builder("Will", "Smith").build();
-  private final ParticipantDTO secondParticipant = ParticipantDTO.builder("Nicolas", "Cage").build();
+  private final ParticipantDTO firstParticipant = ParticipantDTO.builder().firstName("Will").lastName("Smith").build();
+  private final ParticipantDTO secondParticipant = ParticipantDTO.builder().firstName("Nicolas").lastName("Cage").build();
 
   @Test
   public void shouldFindAllParticipantsInRepository() {
@@ -44,7 +44,7 @@ public class ParticipantsFindTest extends ParticipantsTest {
     List<ParticipantDTO> savedParticipants = saveAll(Arrays.asList(firstParticipant, secondParticipant));
     ParticipantDTO expectedParticipant = savedParticipants.stream()
         .findFirst()
-        .orElseThrow(Exception::new);
+        .orElseThrow(ParticipantNotFoundException::new);
     long participantId = expectedParticipant.getId();
 
     // when

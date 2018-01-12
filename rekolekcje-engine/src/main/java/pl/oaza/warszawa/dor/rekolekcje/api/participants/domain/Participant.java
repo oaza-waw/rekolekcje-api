@@ -42,8 +42,10 @@ class Participant {
   }
 
   ParticipantDTO dto() {
-    return ParticipantDTO.builder(firstName, lastName)
+    return ParticipantDTO.builder()
         .id(id)
+        .firstName(firstName)
+        .lastName(lastName)
         .pesel(pesel)
         .parish(parish)
         .address(address)
