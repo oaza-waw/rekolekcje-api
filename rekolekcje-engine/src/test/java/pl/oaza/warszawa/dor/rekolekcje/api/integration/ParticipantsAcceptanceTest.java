@@ -71,10 +71,10 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     // given
     ParticipantDTO singleParticipant = findOneInSystemWithTheSameData(firstParticipant);
     long idOfFirstParticipant = singleParticipant.getId();
-    final MockHttpServletRequestBuilder getOneRequest =
-        get(PARTICIPANTS_API_URI + "/" + idOfFirstParticipant);
 
     // when
+    final MockHttpServletRequestBuilder getOneRequest =
+        createGetOneRequest(idOfFirstParticipant);
     final ResultActions response = mockMvc.perform(getOneRequest);
 
     // then
@@ -87,23 +87,34 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   public void shouldAddSingleParticipant() throws Exception {
     // given
     final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant();
-    final MockHttpServletRequestBuilder addOneRequest =
-        post(PARTICIPANTS_API_URI)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(jsonMapper.toJson(participantToAdd));
     final int numberOfParticipantsBefore = getAllParticipantsCurrentlyInSystem().size();
 
     // when
+    final MockHttpServletRequestBuilder addOneRequest =
+        createAddOneRequest(participantToAdd);
+    final ResultActions response = mockMvc.perform(addOneRequest);
+
+    // then
+    assertThat(getAllParticipantsCurrentlyInSystem()).hasSize(numberOfParticipantsBefore + 1);
+    final ParticipantDTO addedParticipant = findOneInSystemWithTheSameData(participantToAdd);
+    final ParticipantDTO participantWithId = participantToAdd.copyWithId(addedParticipant.getId());
+    assertThat(getAllParticipantsCurrentlyInSystem()).contains(participantWithId);
+  }
+
+  @Test
+  public void shouldReturnResponseWithParticipantWhenAddingOne() throws Exception {
+    // given
+    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant();
+
+    // when
+    final MockHttpServletRequestBuilder addOneRequest =
+        createAddOneRequest(participantToAdd);
     final ResultActions response = mockMvc.perform(addOneRequest);
 
     // then
     final ParticipantDTO addedParticipant = findOneInSystemWithTheSameData(participantToAdd);
-    assertThat(getAllParticipantsCurrentlyInSystem()).hasSize(numberOfParticipantsBefore + 1);
-    final long participantId = addedParticipant.getId();
-    final ParticipantDTO participantWithId = participantToAdd.copyWithId(participantId);
-    assertThat(getAllParticipantsCurrentlyInSystem()).contains(participantWithId);
     assertThat(response.andReturn().getResponse().getContentAsString())
-        .isEqualTo(jsonMapper.toJson(participantWithId));
+        .isEqualTo(jsonMapper.toJson(addedParticipant));
   }
 
   @Test
@@ -111,10 +122,10 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     // given
     ParticipantDTO singleParticipant = findOneInSystemWithTheSameData(firstParticipant);
     long idOfParticipantToDelete = singleParticipant.getId();
-    final MockHttpServletRequestBuilder deleteOneRequest =
-        delete(PARTICIPANTS_API_URI + "/" + idOfParticipantToDelete);
 
     // when
+    final MockHttpServletRequestBuilder deleteOneRequest =
+        createDeleteRequest(idOfParticipantToDelete);
     final ResultActions response = mockMvc.perform(deleteOneRequest);
 
     // then
@@ -129,32 +140,51 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     saveOneToRepository(existingParticipant);
     final long existingParticipantId = findOneInSystemWithTheSameData(existingParticipant).getId();
     ParticipantDTO participantWithNewData = ParticipantDTO.builder()
+        .id(existingParticipantId)
         .firstName("Luke")
         .lastName("Skywalker")
-        .id(existingParticipantId)
         .address("Tatooine")
         .parish("None")
         .pesel(80020354321L)
         .build();
 
     // when
-    final MockHttpServletRequestBuilder updateRequest =
-        put(PARTICIPANTS_API_URI)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(jsonMapper.toJson(participantWithNewData));
+    final MockHttpServletRequestBuilder updateRequest = createUpdateRequest(participantWithNewData);
     final ResultActions response = mockMvc.perform(updateRequest);
 
     // then
     response.andExpect(status().isOk())
         .andExpect(content().json(jsonMapper.toJson(participantWithNewData)));
-    final ParticipantDTO participantInSystem = getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> p.getId() == existingParticipantId)
-        .findAny()
-        .orElseThrow(ParticipantNotFoundInSystemException::new);
+    final ParticipantDTO participantInSystem = findInSystem(existingParticipantId);
     assertThat(participantInSystem).isEqualTo(participantWithNewData);
   }
 
-  private class ParticipantNotFoundInSystemException extends Exception {}
+  private MockHttpServletRequestBuilder createGetOneRequest(long id) {
+    return get(PARTICIPANTS_API_URI + "/" + id);
+  }
+
+  private MockHttpServletRequestBuilder createDeleteRequest(long idOfParticipantToDelete) {
+    return delete(PARTICIPANTS_API_URI + "/" + idOfParticipantToDelete);
+  }
+
+  private MockHttpServletRequestBuilder createAddOneRequest(ParticipantDTO participantToAdd) {
+    return post(PARTICIPANTS_API_URI)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(jsonMapper.toJson(participantToAdd));
+  }
+
+  private MockHttpServletRequestBuilder createUpdateRequest(ParticipantDTO participantWithNewData) {
+    return put(PARTICIPANTS_API_URI)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(jsonMapper.toJson(participantWithNewData));
+  }
+
+  private ParticipantDTO findInSystem(long existingParticipantId) throws ParticipantNotFoundInSystemException {
+    return getAllParticipantsCurrentlyInSystem().stream()
+        .filter(p -> p.getId() == existingParticipantId)
+        .findAny()
+        .orElseThrow(ParticipantNotFoundInSystemException::new);
+  }
 
   private ParticipantDTO findOneInSystemWithTheSameData(ParticipantDTO participant)
       throws ParticipantNotFoundInSystemException {
@@ -166,5 +196,8 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .filter(p -> Objects.equals(p.getParish(), participant.getParish()))
         .findAny()
         .orElseThrow(ParticipantNotFoundInSystemException::new);
+  }
+
+  private class ParticipantNotFoundInSystemException extends Exception {
   }
 }
