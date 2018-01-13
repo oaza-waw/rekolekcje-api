@@ -14,12 +14,12 @@
   "dependencies": {
     "@angular/animations": "latest",
     "@angular/cdk": "latest",
-    "@angular/common": "latest",
+    "@angular/common": "^5.2.0",
     "@angular/compiler": "latest",
     "@angular/core": "latest",
     "@angular/forms": "latest",
     "@angular/http": "latest",
-    "@angular/material": "latest",
+    "@angular/material": "^5.0.4",
     "@angular/platform-browser": "latest",
     "@angular/platform-browser-dynamic": "latest",
     "@angular/router": "latest",
@@ -27,15 +27,14 @@
     "@ngrx/effects": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "bootstrap": "latest",
-    "core-js": "latest",
+    "core-js": "^2.5.3",
     "font-awesome": "latest",
     "intl": "latest",
     "jquery": "latest",
-    "karma": "^1.7.1",
     "ng-jhipster": "latest",
     "ngx-bootstrap": "latest",
     "redux": "^3.7.2",
-    "rxjs": "latest",
+    "rxjs": "^5.5.6",
     "w3-css": "latest",
     "zone.js": "latest"
   },
@@ -64,6 +63,6 @@
     "redux-devtools-extension": "^2.13.2",
     "ts-node": "latest",
     "tslint": "latest",
-    "typescript": "2.4.2"
+    "typescript": "^2.4.2"
   }
 }
