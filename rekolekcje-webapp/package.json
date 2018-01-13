@@ -33,6 +33,7 @@
     "jquery": "latest",
     "ng-jhipster": "latest",
     "ngx-bootstrap": "latest",
+    "npm": "^5.6.0",
     "redux": "^3.7.2",
     "rxjs": "^5.5.6",
     "w3-css": "latest",
