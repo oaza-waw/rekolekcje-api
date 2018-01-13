@@ -66,6 +66,7 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     if (!participant) {
       this.editing = false;
     }
+    this.participant = participant;
     this.store.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
   }
 
