@@ -25,11 +25,6 @@ class ParticipantsEndpoint {
     this.participantsService = participantsService;
   }
 
-  @GetMapping("/api/participants/status")
-  public String getStatus() {
-    return "Connection successful";
-  }
-
   @GetMapping("/api/participants")
   public List<ParticipantDTO> getAllParticipants() {
     return participantsService.findAll();
