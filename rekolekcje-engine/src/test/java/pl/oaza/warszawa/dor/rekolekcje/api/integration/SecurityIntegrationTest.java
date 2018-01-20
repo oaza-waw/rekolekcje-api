@@ -31,6 +31,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SecurityIntegrationTest {
 
   private static final String API_URL = "/api";
+  private static final String SIGN_UP_URL = API_URL + "/users/sign-up";
+  private static final String AUTHORIZATION_URL = API_URL + "/auth";
+  private static final String REFRESH_TOKEN_URL = API_URL + "/refresh";
+
   private static String username = "testuser";
   private static String password = "testpassword";
 
@@ -56,7 +60,7 @@ public class SecurityIntegrationTest {
 
   private void registerNewUser(String username, String password) throws Exception {
     final String body = createRequestBody(username, password);
-    final MockHttpServletRequestBuilder registerUserRequest = post("/users/sign-up")
+    final MockHttpServletRequestBuilder registerUserRequest = post(SIGN_UP_URL)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(body);
     mockMvc.perform(registerUserRequest);
@@ -99,7 +103,7 @@ public class SecurityIntegrationTest {
 
   private MvcResult requestAuthenticationToken(String username, String password) throws Exception {
     final String body = createRequestBody(username, password);
-    final MockHttpServletRequestBuilder getTokenRequest = post("/auth")
+    final MockHttpServletRequestBuilder getTokenRequest = post(AUTHORIZATION_URL)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(body);
     return mockMvc
@@ -132,8 +136,8 @@ public class SecurityIntegrationTest {
     final String oldToken = getTokenFromResponse(authorizationResult);
     assertThat(oldToken).isNotEmpty();
 
-    final MockHttpServletRequestBuilder refreshTokenRequest = post("/refresh")
-        .header("Authorization",oldToken);
+    final MockHttpServletRequestBuilder refreshTokenRequest = post(REFRESH_TOKEN_URL)
+        .header("Authorization", oldToken);
     MvcResult refreshTokenResult = mockMvc.perform(refreshTokenRequest)
         .andExpect(status().isOk())
         .andReturn();
