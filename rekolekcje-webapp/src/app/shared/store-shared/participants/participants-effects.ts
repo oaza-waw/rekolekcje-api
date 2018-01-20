@@ -32,7 +32,7 @@ export class ParticipantsEffects {
   CreateParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.CreateParticipant)
     .switchMap((action: ParticipantsSharedActions.CreateParticipant) =>
-      this.http.post<Participant>(Config.endpoints.participantsModule, action.payload, this.options)
+      this.http.post<Participant>(Config.endpoints.participantsModule, action.payload)
         .map(data => new CreateParticipantSuccess(data))
         .catch(error => of(new CreateParticipantFail(error))));
 
@@ -40,7 +40,7 @@ export class ParticipantsEffects {
   DeleteParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.DeleteParticipant)
     .switchMap((action: ParticipantsSharedActions.DeleteParticipant) =>
-      this.http.delete<Participant>(Config.endpoints.participantsModule + '/' + action.payload, this.options)
+      this.http.delete<Participant>(Config.endpoints.participantsModule + '/' + action.payload)
         .map(data => new DeleteParticipantSuccess(action.payload))
         .catch(error => of(new DeleteParticipantFail(error))));
 
@@ -53,8 +53,8 @@ export class ParticipantsEffects {
   LoadParticipantsList: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.LoadParticipantsList)
     .switchMap((action: ParticipantsSharedActions.LoadParticipantsList) =>
-      this.http.get<Participant[]>(Config.endpoints.participantsModule, this.options)
-        .map(data => new LoadParticipantsListSuccess(data))
+      this.http.get<Participant[]>(Config.endpoints.participantsModule)
+        .map((data: Participant[]) => new LoadParticipantsListSuccess(data))
         .catch(error => of(new LoadParticipantsListFail(error))));
 
   @Effect()
@@ -66,7 +66,7 @@ export class ParticipantsEffects {
   UpdateParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.UpdateParticipant)
     .switchMap((action: ParticipantsSharedActions.UpdateParticipant) =>
-      this.http.put<Participant>(Config.endpoints.participantsModule, action.payload, this.options)
+      this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
         .map(data => new UpdateParticipantSuccess(data))
         .catch(error => of(new UpdateParticipantFail(error))));
 

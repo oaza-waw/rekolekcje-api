@@ -108,6 +108,7 @@ export class AuthService {
         if (token) {
           console.log('token: ' + token);
           localStorage.setItem('currentUser', JSON.stringify({username: credentials.username, token: token}));
+          this.isLoggedIn = true;
           return true;
         } else {
           return false;

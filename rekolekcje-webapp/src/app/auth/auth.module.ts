@@ -7,7 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlreadyLoggedInGuard } from './already-logged-in-guard.service';
 import { MaterialModule } from '../shared/material/material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthHttpInterceptor } from './http-interceptor';
 
 @NgModule({
   imports: [
@@ -24,7 +25,12 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     AuthGuard,
     AlreadyLoggedInGuard,
-    AuthService
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true
+    },
   ],
   exports: []
 })
