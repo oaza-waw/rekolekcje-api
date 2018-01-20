@@ -26,8 +26,6 @@ import { AuthService } from '../../../auth/auth.service';
 @Injectable()
 export class ParticipantsEffects {
 
-  private options: any;
-
   @Effect()
   CreateParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.CreateParticipant)
@@ -70,8 +68,6 @@ export class ParticipantsEffects {
         .map(data => new UpdateParticipantSuccess(data))
         .catch(error => of(new UpdateParticipantFail(error))));
 
-  constructor(private actions: Actions, private store: Store<Participants.State>, private http: HttpClient, private authService: AuthService) {
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authService.getToken()});
-    this.options = {headers: headers};
+  constructor(private actions: Actions, private store: Store<Participants.State>, private http: HttpClient) {
   }
 }

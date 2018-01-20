@@ -13,9 +13,6 @@ export class AuthHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Clone the request to add the new header.
-    // const authReq = req.clone();
-    // authReq.headers.append('Content-Type', 'application/json');
-    // authReq.headers.append('Accept', 'application/json');
     const authService = this.injector.get(AuthService);
     const authReq = req.clone(
       { setHeaders: { Authorization: 'Bearer ' + authService.getToken() } }
