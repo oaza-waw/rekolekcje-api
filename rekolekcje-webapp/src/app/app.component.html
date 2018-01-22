@@ -1,2 +1,2 @@
-<main-menu-bar></main-menu-bar>
+<main-menu-bar *ngIf="authService.isAuthenticated()"></main-menu-bar>
 <router-outlet></router-outlet>

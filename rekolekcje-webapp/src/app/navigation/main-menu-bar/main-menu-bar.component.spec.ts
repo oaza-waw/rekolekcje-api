@@ -1,7 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainMenuBarComponent } from './main-menu-bar.component';
+import { NavigationModule } from '../navigation.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '../../shared/material/material.module';
+import { UserMenuComponent } from '../user-menu/user-menu.component';
+import { AuthModule } from '../../auth/auth.module';
 
 describe('MainMenuBarComponent', () => {
   let component: MainMenuBarComponent;
@@ -10,11 +14,17 @@ describe('MainMenuBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        // NavigationModule,
+        MaterialModule,
+        RouterTestingModule,
+        AuthModule
       ],
-      declarations: [ MainMenuBarComponent ]
+      declarations: [
+        MainMenuBarComponent,
+        UserMenuComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,0 +1,46 @@
+<div class="container">
+  <mat-card>
+    <form
+      #loginForm="ngForm"
+      [formGroup]="form"
+      (ngSubmit)="authorize()"
+      [class.form-submitted]="loginForm.submitted">
+      <mat-card-title> LOGIN</mat-card-title>
+      <mat-card-content>
+        <p>{{message}}</p>
+        <mat-input-container>
+          <input
+            id="login-input"
+            matInput
+            type="text"
+            [formControl]="login"
+            placeholder="Login">
+        </mat-input-container>
+
+        <mat-input-container>
+          <input
+            id="password-input"
+            matInput
+            type="password"
+            [formControl]="password"
+            placeholder="Password">
+        </mat-input-container>
+
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="checkbox-and-button">
+
+          <div class="login-button-container"
+               [class.inactive]="authorizationInProgress">
+            <button mat-raised-button color="primary" >
+              Log in
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

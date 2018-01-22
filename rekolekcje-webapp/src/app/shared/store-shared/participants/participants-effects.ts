@@ -1,6 +1,6 @@
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Participants } from '../../../core/store/participants/participants-reducer';
 import { ParticipantsSharedActions } from './participants-actions';
@@ -21,6 +21,7 @@ import DeleteParticipantFail = ParticipantsSharedActions.DeleteParticipantFail;
 import LoadParticipantsListSuccess = ParticipantsSharedActions.LoadParticipantsListSuccess;
 import LoadParticipantsListFail = ParticipantsSharedActions.LoadParticipantsListFail;
 import UpdateParticipantFail = ParticipantsSharedActions.UpdateParticipantFail;
+import { AuthService } from '../../../auth/auth.service';
 
 @Injectable()
 export class ParticipantsEffects {
@@ -51,7 +52,7 @@ export class ParticipantsEffects {
     .ofType(ParticipantsSharedActions.types.LoadParticipantsList)
     .switchMap((action: ParticipantsSharedActions.LoadParticipantsList) =>
       this.http.get<Participant[]>(Config.endpoints.participantsModule)
-        .map(data => new LoadParticipantsListSuccess(data))
+        .map((data: Participant[]) => new LoadParticipantsListSuccess(data))
         .catch(error => of(new LoadParticipantsListFail(error))));
 
   @Effect()

@@ -12,6 +12,7 @@ import { ParticipantAddEditDialog } from './add-edit/participant-dialog/add-edit
 import { ParticipantFormComponent } from './add-edit/participant-form/participant-form.component';
 import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/participant-add-edit.component';
 import { MaterialModule } from '../shared/material/material.module';
+import { ParticipantsRoutingModule } from './participants-routing.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { MaterialModule } from '../shared/material/material.module';
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RouterModule
+    ParticipantsRoutingModule
   ],
   declarations: [
     ParticipantAddEditDialog,

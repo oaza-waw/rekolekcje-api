@@ -18,7 +18,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,13 +45,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   @After
   public void teardown() {
     clearRepository();
-  }
-
-  @Test
-  public void shouldReturnOKStatus() throws Exception {
-    mockMvc
-        .perform(get(PARTICIPANTS_API_URI + "/status"))
-        .andExpect(status().isOk());
   }
 
   @Test
