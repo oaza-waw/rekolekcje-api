@@ -2,8 +2,8 @@ package pl.oaza.warszawa.dor.rekolekcje.api.security.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.Authority;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.User;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.users.Authority;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.users.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

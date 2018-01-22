@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.User;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.UserRepository;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.users.User;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.users.UserRepository;
 
 @Service
 public class JwtUserDetailsServiceImpl implements UserDetailsService {

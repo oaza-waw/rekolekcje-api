@@ -13,8 +13,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.User;
-import pl.oaza.warszawa.dor.rekolekcje.api.security.UserRepository;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.users.User;
+import pl.oaza.warszawa.dor.rekolekcje.api.security.users.UserRepository;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;

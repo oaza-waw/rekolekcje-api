@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.security;
+package pl.oaza.warszawa.dor.rekolekcje.api.security.users;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

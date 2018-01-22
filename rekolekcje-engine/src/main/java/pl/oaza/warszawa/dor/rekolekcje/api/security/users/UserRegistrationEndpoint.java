@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.security;
+package pl.oaza.warszawa.dor.rekolekcje.api.security.users;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,14 +13,14 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserRegistrationController {
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationController.class);
+class UserRegistrationEndpoint {
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationEndpoint.class);
 
   private UserRepository userRepository;
   private PasswordEncoder passwordEncoder;
 
-  public UserRegistrationController(UserRepository userRepository,
-                                    PasswordEncoder passwordEncoder) {
+  public UserRegistrationEndpoint(UserRepository userRepository,
+                                  PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
   }
@@ -30,6 +30,7 @@ public class UserRegistrationController {
     if (userRepository.findByUsername(user.getUsername()) != null) {
       return "User already exists: " + user;
     }
+    //TODO: create real user instead of a mock one
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setEmail("email");
     user.setFirstname("first name");
