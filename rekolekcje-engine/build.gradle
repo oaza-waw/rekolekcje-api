@@ -39,7 +39,7 @@ idea {
 liquibase {
   activities {
     main {
-      changeLogFile 'src/main/resources/db/changelogs.groovy'
+      changeLogFile 'src/main/resources/changelogs.postgresql.sql'
       url 'jdbc:postgresql://localhost:5432/rekolekcjedb'
       username 'postgres'
       password 'postgres'

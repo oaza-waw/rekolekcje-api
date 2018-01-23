@@ -22,7 +22,7 @@ spring:
 
 
 liquibase:
-  change-log: classpath:/pl.oaza.warszawa.dor.rekolekcje/changelogs.groovy
+  change-log: classpath:/pl.oaza.warszawa.dor.rekolekcje/changelogs.xml
 
 jwt:
   header: Authorization
