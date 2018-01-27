@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 class Participant {
@@ -16,7 +18,9 @@ class Participant {
   private String firstName;
   private String lastName;
   private long pesel;
-  private String parish;
+
+  @ManyToOne
+  private Parish parish;
   private String address;
 
   @SuppressWarnings("unused")
@@ -37,7 +41,7 @@ class Participant {
     this.firstName = dto.getFirstName();
     this.lastName = dto.getLastName();
     this.pesel = dto.getPesel();
-    this.parish = dto.getParish();
+    this.parish = new Parish(dto.getParish());
     this.address = dto.getAddress();
   }
 
@@ -47,7 +51,7 @@ class Participant {
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
-        .parish(parish)
+        .parish(parish.dto())
         .address(address)
         .build();
   }

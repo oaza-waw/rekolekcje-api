@@ -17,7 +17,7 @@ public final class ParticipantDTO {
   private String firstName;
   private String lastName;
   private long pesel;
-  private String parish;
+  private ParishDTO parish;
   private String address;
 
   public long getId() {
@@ -36,7 +36,7 @@ public final class ParticipantDTO {
     return pesel;
   }
 
-  public String getParish() {
+  public ParishDTO getParish() {
     return parish;
   }
 

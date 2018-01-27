@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsIntegrationTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParishDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Arrays;
@@ -135,12 +136,16 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     ParticipantDTO existingParticipant = ParticipantFactory.sampleParticipant();
     saveOneToRepository(existingParticipant);
     final long existingParticipantId = findOneInSystemWithTheSameData(existingParticipant).getId();
+    ParishDTO newParish = ParishDTO.builder()
+        .name("New parish name")
+        .address("New parish address")
+        .build();
     ParticipantDTO participantWithNewData = ParticipantDTO.builder()
         .id(existingParticipantId)
         .firstName("Luke")
         .lastName("Skywalker")
         .address("Tatooine")
-        .parish("None")
+        .parish(newParish)
         .pesel(80020354321L)
         .build();
 
