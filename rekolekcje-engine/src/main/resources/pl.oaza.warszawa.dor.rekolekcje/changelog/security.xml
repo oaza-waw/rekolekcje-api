@@ -1,0 +1,53 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="security-1" author="qiubix">
+        <insert tableName="users">
+            <column name="id" value="1" />
+            <column name="username" value="admin" />
+            <column name="password" value="$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi" />
+            <column name="firstname" value="admin" />
+            <column name="lastname" value="admin" />
+            <column name="email" value="admin@mail.com" />
+            <column name="enabled" value="true" />
+            <column name="lastpasswordresetdate" value="2016-01-01" />
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="2" />
+            <column name="username" value="user" />
+            <column name="password" value="$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC" />
+            <column name="firstname" value="user" />
+            <column name="lastname" value="user" />
+            <column name="email" value="user@mail.com" />
+            <column name="enabled" value="true" />
+            <column name="lastpasswordresetdate" value="2016-01-01" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="security-2" author="qiubix">
+        <insert tableName="authority">
+            <column name="id" value="1" />
+            <column name="name" value="ROLE_USER" />
+        </insert>
+        <insert tableName="authority">
+            <column name="id" value="2" />
+            <column name="name" value="ROLE_ADMIN" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="security-3" author="qiubix">
+        <insert tableName="user_authority">
+            <column name="user_id" value="1" />
+            <column name="authority_id" value="1" />
+        </insert>
+        <insert tableName="user_authority">
+            <column name="user_id" value="1" />
+            <column name="authority_id" value="2" />
+        </insert>
+        <insert tableName="user_authority">
+            <column name="user_id" value="2" />
+            <column name="authority_id" value="1" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

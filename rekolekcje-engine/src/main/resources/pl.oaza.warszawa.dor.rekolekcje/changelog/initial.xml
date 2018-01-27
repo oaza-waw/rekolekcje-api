@@ -1,0 +1,105 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="qiubix (generated)" id="1516831832633-1">
+        <createSequence sequenceName="authority_seq"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-2">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-3">
+        <createSequence sequenceName="user_seq"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-4">
+        <createTable tableName="authority">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-5">
+        <createTable tableName="participant">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="parish" type="VARCHAR(255)"/>
+            <column name="pesel" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-6">
+        <createTable tableName="user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-7">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastpasswordresetdate" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-8">
+        <addPrimaryKey columnNames="id" constraintName="authority_pkey" tableName="authority"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-9">
+        <addPrimaryKey columnNames="id" constraintName="participant_pkey" tableName="participant"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-10">
+        <addPrimaryKey columnNames="id" constraintName="users_pkey" tableName="users"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-11">
+        <addUniqueConstraint columnNames="username" constraintName="uk_r43af9ap4edm43mmtq01oddj6" tableName="users"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-12">
+        <addForeignKeyConstraint baseColumnNames="authority_id" baseTableName="user_authority" constraintName="fkgvxjs381k6f48d5d2yi11uh89" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="authority"/>
+    </changeSet>
+
+    <changeSet author="qiubix (generated)" id="1516831832633-13">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_authority" constraintName="fkhi46vu7680y1hwvmnnuh4cybx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+</databaseChangeLog>
