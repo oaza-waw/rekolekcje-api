@@ -4,5 +4,6 @@
 
     <include file="changelog/initial.xml" relativeToChangelogFile="true" />
     <include file="changelog/security.xml" relativeToChangelogFile="true" />
+    <include file="changelog/parish.xml" relativeToChangelogFile="true" />
 
 </databaseChangeLog>

@@ -2,13 +2,15 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParishDTO;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 class Parish {
@@ -20,8 +22,8 @@ class Parish {
   private String name;
   private String address;
 
-  @OneToMany
-  private List<Participant> participants;
+  @OneToMany(mappedBy = "parish", cascade = CascadeType.ALL)
+  private Set<Participant> participants = new HashSet<>();
 
   public long getId() {
     return id;
@@ -33,6 +35,14 @@ class Parish {
 
   public String getAddress() {
     return address;
+  }
+
+  public Set<Participant> getParticipants() {
+    return participants;
+  }
+
+  Parish() {
+    // used by JPA
   }
 
   Parish(ParishDTO dto) {

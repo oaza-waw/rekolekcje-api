@@ -1,14 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParishDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-public class ParticipantFactory {
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.ParishFactory.sampleParish;
 
-  static ParishDTO sampleParish = ParishDTO.builder()
-      .name("Sample parish")
-      .address("Sample parish address")
-      .build();
+public class ParticipantFactory {
 
   public static ParticipantDTO sampleParticipant() {
     return ParticipantDTO.builder()
@@ -24,6 +20,7 @@ public class ParticipantFactory {
     return ParticipantDTO.builder()
         .firstName("Minimal")
         .lastName("Participant")
+        .parish(sampleParish)
         .build();
   }
 

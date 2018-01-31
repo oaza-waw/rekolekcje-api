@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public abstract class ParticipantsTest {
 
   private InMemoryParticipantRepository repository = new InMemoryParticipantRepository();
-  protected ParticipantsService service = new ParticipantsService(repository);
+  protected ParticipantsService service = new ParticipantsService(repository, null);
 
   protected List<ParticipantDTO> saveAll(List<ParticipantDTO> participantDTOs) {
     return participantDTOs.stream()
