@@ -8,30 +8,23 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParishDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@WebAppConfiguration
-@DataJpaTest
+@WebAppConfiguration
+//@DataJpaTest
 public abstract class ParticipantsIntegrationTest {
 
-  @Autowired
-  TestEntityManager entityManager;
+//  @Autowired
+//  TestEntityManager entityManager;
 
   @Autowired
   private WebApplicationContext webApplicationContext;
 
   @Autowired
   private ParticipantsRepository participantsRepository;
-
-  @Autowired
-  private ParishRepository parishRepository;
 
   protected MockMvc mockMvc;
 
@@ -40,20 +33,6 @@ public abstract class ParticipantsIntegrationTest {
     mockMvc = MockMvcBuilders
         .webAppContextSetup(webApplicationContext)
         .build();
-  }
-
-  protected void saveParish(ParishDTO parishDTO, List<ParticipantDTO> participantDTOs) {
-//    parishRepository.save(new Parish(parishDTO));
-//    EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("For tests");
-//    EntityManager entityManager = emFactory.createEntityManager();
-    Parish parishToSave = new Parish(parishDTO);
-    entityManager.persist(parishToSave);
-    participantDTOs.forEach(dto -> {
-      Participant participant = new Participant(dto);
-      participant.setParish(parishToSave);
-      parishToSave.getParticipants().add(participant);
-    });
-    entityManager.flush();
   }
 
   public void saveOneToRepository(ParticipantDTO participantDTO) {
@@ -71,7 +50,6 @@ public abstract class ParticipantsIntegrationTest {
   }
 
   protected void clearRepository() {
-    parishRepository.deleteAll();
     participantsRepository.deleteAll();
   }
 }

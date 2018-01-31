@@ -11,10 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParishFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsIntegrationTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParishDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Arrays;
@@ -37,7 +35,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
 
   private Gson jsonMapper = new Gson();
 
-  private final ParishDTO sampleParish = ParishFactory.sampleParish;
   private final ParticipantDTO firstParticipant = ParticipantFactory.participantWithMinimalData();
   private final ParticipantDTO secondParticipant = ParticipantFactory.participantWithAllData();
 
@@ -46,16 +43,14 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     super.setup();
 
     final List<ParticipantDTO> participantDTOs = Arrays.asList(firstParticipant, secondParticipant);
-    saveParish(sampleParish, participantDTOs);
-//    saveManyToRepository(participantDTOs);
+    saveManyToRepository(participantDTOs);
   }
 
   @After
   public void teardown() {
-//    clearRepository();
+    clearRepository();
   }
 
-  @Ignore
   @Test
   public void shouldGetAllParticipants() throws Exception {
     // given
@@ -71,7 +66,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .andExpect(content().json(expectedJsonContent));
   }
 
-  @Ignore
   @Test
   public void shouldGetSingleParticipant() throws Exception {
     // given
@@ -89,7 +83,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .andExpect(content().json(expectedJsonContent));
   }
 
-  @Ignore
   @Test
   public void shouldAddSingleParticipant() throws Exception {
     // given
@@ -108,7 +101,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     assertThat(getAllParticipantsCurrentlyInSystem()).contains(participantWithId);
   }
 
-  @Ignore
   @Test
   public void shouldReturnResponseWithParticipantWhenAddingOne() throws Exception {
     // given
@@ -125,7 +117,6 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .isEqualTo(jsonMapper.toJson(addedParticipant));
   }
 
-  @Ignore
   @Test
   public void shouldDeleteSingleParticipant() throws Exception {
     // given
@@ -142,23 +133,18 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
     assertThat(getAllParticipantsCurrentlyInSystem()).doesNotContain(singleParticipant);
   }
 
-  @Ignore
   @Test
   public void shouldUpdateSingleParticipant() throws Exception {
     // given
     ParticipantDTO existingParticipant = ParticipantFactory.sampleParticipant();
     saveOneToRepository(existingParticipant);
     final long existingParticipantId = findOneInSystemWithTheSameData(existingParticipant).getId();
-    ParishDTO newParish = ParishDTO.builder()
-        .name("New parish name")
-        .address("New parish address")
-        .build();
     ParticipantDTO participantWithNewData = ParticipantDTO.builder()
         .id(existingParticipantId)
         .firstName("Luke")
         .lastName("Skywalker")
         .address("Tatooine")
-        .parish(newParish)
+        .parishId(1L)
         .pesel(80020354321L)
         .build();
 
@@ -207,7 +193,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .filter(p -> Objects.equals(p.getLastName(), participant.getLastName()))
         .filter(p -> p.getPesel() == participant.getPesel())
         .filter(p -> Objects.equals(p.getAddress(), participant.getAddress()))
-        .filter(p -> Objects.equals(p.getParish(), participant.getParish()))
+        .filter(p -> Objects.equals(p.getParishId(), participant.getParishId()))
         .findAny()
         .orElseThrow(ParticipantNotFoundInSystemException::new);
   }

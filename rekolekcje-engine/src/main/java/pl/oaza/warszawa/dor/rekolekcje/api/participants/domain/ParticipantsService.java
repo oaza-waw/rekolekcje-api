@@ -8,11 +8,9 @@ import java.util.stream.Collectors;
 public class ParticipantsService {
 
   private final ParticipantsRepository participantsRepository;
-  private final ParishRepository parishRepository;
 
-  public ParticipantsService(ParticipantsRepository participantsRepository, ParishRepository parishRepository) {
+  public ParticipantsService(ParticipantsRepository participantsRepository) {
     this.participantsRepository = participantsRepository;
-    this.parishRepository = parishRepository;
   }
 
   public List<ParticipantDTO> findAll() {

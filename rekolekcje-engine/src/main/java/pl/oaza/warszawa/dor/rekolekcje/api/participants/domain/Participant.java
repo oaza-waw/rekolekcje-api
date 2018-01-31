@@ -1,17 +1,13 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParishDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 class Participant {
@@ -23,9 +19,7 @@ class Participant {
   private String lastName;
   private long pesel;
 
-  @ManyToOne
-  @JoinColumn(name = "parish_id")
-  private Parish parish;
+  private long parishId;
   private String address;
 
   @SuppressWarnings("unused")
@@ -41,8 +35,8 @@ class Participant {
     this.id = id;
   }
 
-  void setParish(Parish parish) {
-    this.parish = parish;
+  void setParishId(long parishId) {
+    this.parishId = parishId;
   }
 
   Participant(ParticipantDTO dto) {
@@ -50,21 +44,17 @@ class Participant {
     this.firstName = dto.getFirstName();
     this.lastName = dto.getLastName();
     this.pesel = dto.getPesel();
-    if (dto.getParish() != null) {
-    this.parish = new Parish(dto.getParish());
-//    this.parish = dto.getParish();
-    }
+    this.parishId = dto.getParishId();
     this.address = dto.getAddress();
   }
 
   ParticipantDTO dto() {
-    ParishDTO parishDTO = this.parish == null ? null : this.parish.dto();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
-        .parish(parishDTO)
+        .parishId(parishId)
         .address(address)
         .build();
   }
