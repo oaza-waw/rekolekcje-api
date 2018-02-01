@@ -5,7 +5,7 @@
         <createSequence sequenceName="parish_seq" />
 
         <createTable tableName="PARISH">
-            <column name="PARISH_ID" type="BIGINT">
+            <column name="ID" type="BIGINT">
                 <constraints nullable="false" />
             </column>
             <column name="NAME" type="VARCHAR(255)">
@@ -14,14 +14,11 @@
             <column name="ADDRESS" type="VARCHAR(255)" />
         </createTable>
 
-        <addPrimaryKey tableName="PARISH" columnNames="PARISH_ID" constraintName="parish_pk" />
+        <addPrimaryKey tableName="PARISH" columnNames="ID" constraintName="parish_pk" />
 
         <modifyDataType tableName="PARTICIPANT" columnName="PARISH" newDataType="BIGINT" />
         <renameColumn tableName="PARTICIPANT" oldColumnName="PARISH" newColumnName="PARISH_ID" />
 
-        <addForeignKeyConstraint baseTableName="PARTICIPANT" baseColumnNames="PARISH_ID"
-                                 constraintName="PARISH_FK"
-                                 referencedTableName="PARISH" referencedColumnNames="PARISH_ID" />
     </changeSet>
 
 </databaseChangeLog>
