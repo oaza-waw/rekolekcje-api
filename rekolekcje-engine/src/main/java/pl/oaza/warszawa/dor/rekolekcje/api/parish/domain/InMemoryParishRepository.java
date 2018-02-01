@@ -1,38 +1,32 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.requireNonNull;
 
-class InMemoryParishRepository {
+class InMemoryParishRepository implements ParishRepository {
   private ConcurrentHashMap<Long, Parish> map = new ConcurrentHashMap<>();
 
+  @Override
   public Parish findOne(long id) {
     return map.get(id);
   }
 
-  public Parish findOneOrThrow(long id) {
-    Parish parish = findOne(id);
-    if (parish == null) {
-      throw new ParishNotFoundException(id);
-    }
-    return parish;
+  @Override
+  public List<Parish> findAll() {
+    return new ArrayList<>(map.values());
   }
 
+  @Override
   public Parish save(Parish parish) {
     requireNonNull(parish);
     map.put(parish.dto().getId(), parish);
     return parish;
   }
 
-  public List<Parish> findAll() {
-    return new ArrayList<>(map.values());
-  }
-
+  @Override
   public void delete(long id) {
     map.remove(id);
   }

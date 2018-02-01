@@ -10,9 +10,12 @@ import static java.util.Objects.requireNonNull;
 
 public class ParishService {
 
-  private InMemoryParishRepository parishRepository = new InMemoryParishRepository();
-
   private ParishCreator parishCreator = new ParishCreator();
+  private ParishRepository parishRepository;
+
+  public ParishService(ParishRepository parishRepository) {
+    this.parishRepository = parishRepository;
+  }
 
   public ParishDTO add(ParishDTO parishDTO) {
     requireNonNull(parishDTO);
