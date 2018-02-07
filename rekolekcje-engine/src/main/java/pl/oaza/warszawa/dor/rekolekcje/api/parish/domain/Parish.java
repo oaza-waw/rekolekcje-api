@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 class Parish {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   private String name;
   private String address;

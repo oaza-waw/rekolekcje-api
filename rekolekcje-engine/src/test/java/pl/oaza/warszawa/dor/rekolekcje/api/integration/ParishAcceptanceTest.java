@@ -1,9 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
@@ -65,7 +67,7 @@ public class ParishAcceptanceTest extends BaseIntegrationTest {
   @Test
   public void shouldCreateNewParish() throws Exception {
     // given new parish
-    final ParishDTO parishToAdd = createParish(123, "Parish to add", "New parish address");
+    final ParishDTO parishToAdd = createParish(null, "Parish to add", "New parish address");
 
     // when posting new parish
     final MockHttpServletRequestBuilder addOneRequest = post("/api/parish")
@@ -76,10 +78,32 @@ public class ParishAcceptanceTest extends BaseIntegrationTest {
     // new parish is created
     response.andExpect(status().isOk());
     final List<ParishDTO> allParishes = parishService.findAll();
-    assertThat(allParishes).contains(parishToAdd);
+    final ParishDTO parishWithTheSameName = allParishes.stream()
+        .filter(p -> p.getName().equals(parishToAdd.getName()))
+        .findAny()
+        .orElse(null);
+    assertThat(parishWithTheSameName).isEqualToIgnoringGivenFields(parishToAdd, "id");
   }
 
-  private ParishDTO createParish(long id, String name, String address) {
+  @WithMockUser
+  @Test
+  public void shouldAssignIdToParishOnCreation() throws Exception {
+    // given parish data without id
+    final ParishDTO parishToAdd = ParishDTO.builder().name("Brand new parish").address("Some address").build();
+
+    // when posting this data to endpoint
+    final MockHttpServletRequestBuilder addOneRequest = post("/api/parish")
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(jsonMapper.writeValueAsString(parishToAdd));
+    final ResultActions response = mockMvc.perform(addOneRequest);
+
+    // new parish is created with generated id
+    final MvcResult result = response.andExpect(status().isOk()).andReturn();
+    final JsonNode parsedResponseBody = jsonMapper.readTree(result.getResponse().getContentAsString());
+    assertThat(parsedResponseBody.get("id").asLong()).isNotZero();
+  }
+
+  private ParishDTO createParish(Long id, String name, String address) {
     return ParishDTO.builder()
         .id(id)
         .name(name)

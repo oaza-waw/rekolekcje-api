@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 public final class ParishDTO {
 
-  private final long id;
+  private final Long id;
   private final String name;
   private final String address;
 }
