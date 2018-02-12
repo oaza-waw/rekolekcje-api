@@ -17,7 +17,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
           .lastName("George")
           .pesel(90010112345L)
           .address("Default City 23")
-          .parish("Parish address 1")
+          .parishId(1L)
           .build();
   private ParticipantDTO sampleParticipant2 =
       ParticipantDTO.builder()
@@ -25,7 +25,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
           .lastName("Hibbert")
           .pesel(92010112345L)
           .address("Default City 42")
-          .parish("Parish address 2")
+          .parishId(1L)
           .build();
   private ParticipantDTO sampleParticipant3 =
       ParticipantDTO.builder()
@@ -33,7 +33,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
           .lastName("Hill")
           .pesel(93010112345L)
           .address("Default City 11")
-          .parish("Parish address 3")
+          .parishId(1L)
           .build();
 
   @Test
@@ -51,7 +51,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
             .lastName("Granger")
             .pesel(95010112345L)
             .address("New City 123")
-            .parish("New parish address 4")
+            .parishId(1L)
             .build();
 
     // when

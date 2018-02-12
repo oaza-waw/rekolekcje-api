@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 class ParticipantsConfiguration {
 
   @Bean
-  ParticipantsService participantsService(ParticipantsRepository repository) {
-    return new ParticipantsService(repository);
+  ParticipantsService participantsService(ParticipantsRepository participantsRepository) {
+    return new ParticipantsService(participantsRepository);
   }
 }

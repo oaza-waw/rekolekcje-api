@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class ParticipantsService {
 
-  private ParticipantsRepository participantsRepository;
+  private final ParticipantsRepository participantsRepository;
 
   public ParticipantsService(ParticipantsRepository participantsRepository) {
     this.participantsRepository = participantsRepository;

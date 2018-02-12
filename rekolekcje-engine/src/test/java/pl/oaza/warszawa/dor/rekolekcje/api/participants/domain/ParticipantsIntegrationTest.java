@@ -2,6 +2,8 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -12,13 +14,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebAppConfiguration
+//@DataJpaTest
 public abstract class ParticipantsIntegrationTest {
+
+//  @Autowired
+//  TestEntityManager entityManager;
 
   @Autowired
   private WebApplicationContext webApplicationContext;
 
   @Autowired
-  private ParticipantsRepository repository;
+  private ParticipantsRepository participantsRepository;
 
   protected MockMvc mockMvc;
 
@@ -30,20 +36,20 @@ public abstract class ParticipantsIntegrationTest {
   }
 
   public void saveOneToRepository(ParticipantDTO participantDTO) {
-    repository.save(new Participant(participantDTO));
+    participantsRepository.save(new Participant(participantDTO));
   }
 
   protected void saveManyToRepository(List<ParticipantDTO> participantDTOs) {
-    participantDTOs.forEach(participantDTO -> repository.save(new Participant(participantDTO)));
+    participantDTOs.forEach(participantDTO -> participantsRepository.save(new Participant(participantDTO)));
   }
 
   protected List<ParticipantDTO> getAllParticipantsCurrentlyInSystem() {
-    return repository.findAll().stream()
+    return participantsRepository.findAll().stream()
         .map(Participant::dto)
         .collect(Collectors.toList());
   }
 
   protected void clearRepository() {
-    repository.deleteAll();
+    participantsRepository.deleteAll();
   }
 }

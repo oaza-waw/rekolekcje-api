@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 class Participant {
@@ -16,7 +18,8 @@ class Participant {
   private String firstName;
   private String lastName;
   private long pesel;
-  private String parish;
+
+  private long parishId;
   private String address;
 
   @SuppressWarnings("unused")
@@ -32,12 +35,16 @@ class Participant {
     this.id = id;
   }
 
+  void setParishId(long parishId) {
+    this.parishId = parishId;
+  }
+
   Participant(ParticipantDTO dto) {
     this.id = dto.getId();
     this.firstName = dto.getFirstName();
     this.lastName = dto.getLastName();
     this.pesel = dto.getPesel();
-    this.parish = dto.getParish();
+    this.parishId = dto.getParishId();
     this.address = dto.getAddress();
   }
 
@@ -47,7 +54,7 @@ class Participant {
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
-        .parish(parish)
+        .parishId(parishId)
         .address(address)
         .build();
   }

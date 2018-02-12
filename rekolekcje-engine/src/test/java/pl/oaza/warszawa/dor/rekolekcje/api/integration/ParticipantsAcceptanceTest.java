@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsInteg
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
 
   private final String PARTICIPANTS_API_URI = "/api/participants";
@@ -39,7 +41,9 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
   @Before
   public void setup() {
     super.setup();
-    saveManyToRepository(Arrays.asList(firstParticipant, secondParticipant));
+
+    final List<ParticipantDTO> participantDTOs = Arrays.asList(firstParticipant, secondParticipant);
+    saveManyToRepository(participantDTOs);
   }
 
   @After
@@ -140,7 +144,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .firstName("Luke")
         .lastName("Skywalker")
         .address("Tatooine")
-        .parish("None")
+        .parishId(1L)
         .pesel(80020354321L)
         .build();
 
@@ -189,7 +193,7 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .filter(p -> Objects.equals(p.getLastName(), participant.getLastName()))
         .filter(p -> p.getPesel() == participant.getPesel())
         .filter(p -> Objects.equals(p.getAddress(), participant.getAddress()))
-        .filter(p -> Objects.equals(p.getParish(), participant.getParish()))
+        .filter(p -> Objects.equals(p.getParishId(), participant.getParishId()))
         .findAny()
         .orElseThrow(ParticipantNotFoundInSystemException::new);
   }
