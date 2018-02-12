@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.domain.ParishService;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
 
@@ -77,12 +78,9 @@ public class ParishAcceptanceTest extends BaseIntegrationTest {
 
     // new parish is created
     response.andExpect(status().isOk());
-    final List<ParishDTO> allParishes = parishService.findAll();
-    final ParishDTO parishWithTheSameName = allParishes.stream()
-        .filter(p -> p.getName().equals(parishToAdd.getName()))
-        .findAny()
-        .orElse(null);
-    assertThat(parishWithTheSameName).isEqualToIgnoringGivenFields(parishToAdd, "id");
+    final ParishData parishData = database.getSavedParishData(parishToAdd.getName());
+    assertThat(parishData.getName()).isEqualTo(parishToAdd.getName());
+    assertThat(parishData.getAddress()).isEqualTo(parishToAdd.getAddress());
   }
 
   @WithMockUser
@@ -101,6 +99,8 @@ public class ParishAcceptanceTest extends BaseIntegrationTest {
     final MvcResult result = response.andExpect(status().isOk()).andReturn();
     final JsonNode parsedResponseBody = jsonMapper.readTree(result.getResponse().getContentAsString());
     assertThat(parsedResponseBody.get("id").asLong()).isNotZero();
+    final ParishData parishData = database.getSavedParishData(parishToAdd.getName());
+    assertThat(parishData.getId()).isNotNull();
   }
 
   private ParishDTO createParish(Long id, String name, String address) {
