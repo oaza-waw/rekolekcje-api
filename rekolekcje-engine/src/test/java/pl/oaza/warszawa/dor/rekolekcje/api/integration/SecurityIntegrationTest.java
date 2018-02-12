@@ -3,16 +3,11 @@ package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.users.User;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.users.UserRepository;
 
@@ -21,14 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class SecurityIntegrationTest {
+public class SecurityIntegrationTest extends BaseIntegrationTest {
 
   private static final String API_URL = "/api";
   private static final String SIGN_UP_URL = API_URL + "/users/sign-up";
@@ -39,22 +31,11 @@ public class SecurityIntegrationTest {
   private static String password = "testpassword";
 
   @Autowired
-  private WebApplicationContext webApplicationContext;
-
-  @Autowired
   private UserRepository userRepository;
 
-  private MockMvc mockMvc;
-
-  public SecurityIntegrationTest() throws Exception {
-  }
-
   @Before
-  public void setUp() throws Exception {
-    mockMvc = MockMvcBuilders
-        .webAppContextSetup(webApplicationContext)
-        .apply(springSecurity())
-        .build();
+  public void setup() throws Exception {
+    super.setup();
     registerNewUser(username, password);
   }
 
@@ -145,17 +126,4 @@ public class SecurityIntegrationTest {
     final String refreshedToken = getTokenFromResponse(refreshTokenResult);
     assertThat(refreshedToken).isNotEqualTo(oldToken);
   }
-
-//  @Test
-//  public void shouldAccessSecuredResourcesWhenAuthenticatingWithValidJwtToken() throws Exception {
-//
-//  }
-
-//  @Test
-//  @WithMockUser
-//  public void shouldReturnOKStatus() throws Exception {
-//    mockMvc
-//        .perform(get(API_URL + "/status").with(user("user")))
-//        .andExpect(status().isOk());
-//  }
 }

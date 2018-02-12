@@ -41,16 +41,4 @@ public class Authority {
   public AuthorityName getName() {
     return name;
   }
-
-//  public void setName(AuthorityName name) {
-//    this.name = name;
-//  }
-
-//  public List<User> getUsers() {
-//    return users;
-//  }
-
-//  public void setUsers(List<User> users) {
-//    this.users = users;
-//  }
 }

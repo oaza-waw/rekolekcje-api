@@ -18,10 +18,10 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 public abstract class BaseIntegrationTest {
 
   @Autowired
-  private WebApplicationContext webApplicationContext;
+  private JdbcTemplate jdbcTemplate;
 
   @Autowired
-  private JdbcTemplate jdbcTemplate;
+  protected WebApplicationContext webApplicationContext;
 
   protected MockMvc mockMvc;
 
@@ -30,8 +30,9 @@ public abstract class BaseIntegrationTest {
   protected Database database;
 
   @Before
-  public void setup() {
-    mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+  public void setup() throws Exception {
+    mockMvc = MockMvcBuilders
+        .webAppContextSetup(webApplicationContext)
         .apply(springSecurity())
         .build();
     database = new Database(jdbcTemplate);
