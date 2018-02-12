@@ -1,11 +1,11 @@
 <nav mat-tab-nav-bar>
   <a mat-tab-link
-    *ngIf="!authService.isLoggedIn"
+    *ngIf="!authService.isAuthenticated()"
     routerLink="/login">
     <i class="fa fa-user"></i> LOGIN
   </a>
   <a mat-tab-link
-    *ngIf="authService.isLoggedIn"
+    *ngIf="authService.isAuthenticated()"
     (click)="onLogout()">
     <i class="fa fa-user"></i> LOGOUT
   </a>

@@ -1,25 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Config } from '../../../config';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit {
 
+  authorizationInProgress = false;
+  errorMessage: string;
+  form: FormGroup;
   message: string;
 
-  form: FormGroup;
   @ViewChild('loginForm') ngFormDirective: NgForm;
 
-  login = new FormControl('', Validators.required);
-  password = new FormControl('', Validators.required);
-
-  errorMessage: string;
-  authorizationInProgress = false;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(public authService: AuthService, public router: Router, private fb: FormBuilder) {
     this.setMessage();
@@ -27,10 +28,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      login: this.login,
-      password: this.password,
+      username: [ '', Validators.required ],
+      password: [ '', Validators.required ]
     });
-    this.form.valueChanges.subscribe(() => delete this.errorMessage);
+
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(Config.inputDebounceTime),
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(text => delete this.errorMessage);
   }
 
   setMessage() {
@@ -41,34 +49,37 @@ export class LoginComponent implements OnInit {
     this.message = 'Trying to log in...';
     if (!this.form.valid) {
       this.errorMessage = 'Fill out login and password fields';
-      return null;
+      return;
     }
 
     if (this.authorizationInProgress) {
-      return null;
+      return;
     } else {
       this.authorizationInProgress = true;
     }
 
-    this.authService.authorize({ username: this.login.value, password: this.password.value })
+    this.authService.authorize(this.form.value)
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
       .subscribe(() => {
         this.message = 'Yo! User logged in';
         console.log('Yo! User logged in');
-        let redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
-        this.router.navigate([redirectUrl]);
+        const redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
+        this.router.navigate([ redirectUrl ]);
         // this.router.navigate(['/'])
       });
-      // .subscribe((result) => {
-      //   if (result === true) {
-      //     this.setMessage();
-      //     let redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
-      //     this.router.navigate([redirectUrl]);
-      //   } else {
-      //     this.setMessage();
-      //   }
-        // if (this.authService.isAuthenticated()) {
-        // }
-      // });
+    // .subscribe((result) => {
+    //   if (result === true) {
+    //     this.setMessage();
+    //     let redirectUrl = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
+    //     this.router.navigate([redirectUrl]);
+    //   } else {
+    //     this.setMessage();
+    //   }
+    // if (this.authService.isAuthenticated()) {
+    // }
+    // });
   }
 
   logout() {
