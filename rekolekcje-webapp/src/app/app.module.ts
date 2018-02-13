@@ -40,8 +40,10 @@ import { ParishEffects } from './shared/store-shared/parish/parish-effects';
     StoreModule.forRoot(AppReducer.reducer),
     StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
     StoreModule.forFeature('parishModule', ParishReducer.reducer),
-    EffectsModule.forRoot([ParticipantsEffects]),
-    EffectsModule.forRoot([ParishEffects]),
+    EffectsModule.forRoot([
+      ParticipantsEffects,
+      ParishEffects
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
