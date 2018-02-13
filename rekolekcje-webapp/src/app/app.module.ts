@@ -16,6 +16,8 @@ import { AppReducer } from './core/store/app-store';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { ParishModule } from './parish/parish.module';
+import { ParishReducer } from './core/store/parish/parish-reducer';
+import { ParishEffects } from './shared/store-shared/parish/parish-effects';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ParishModule } from './parish/parish.module';
      */
     StoreModule.forRoot(AppReducer.reducer),
     StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
+    StoreModule.forFeature('parishModule', ParishReducer.reducer),
     EffectsModule.forRoot([ParticipantsEffects]),
+    EffectsModule.forRoot([ParishEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

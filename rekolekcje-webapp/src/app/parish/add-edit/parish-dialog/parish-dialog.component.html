@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+<mat-dialog-content>
+  <parish-form
+    [address]="address"
+    [id]="id"
+    [name]="name"
+    (formOutput)="submit($event)">
+  </parish-form>
+</mat-dialog-content>
