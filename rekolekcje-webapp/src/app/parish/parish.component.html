@@ -1,3 +1,4 @@
-<p>
-  parish works!
-</p>
+<parish-list
+  [parishes]="(parishes | async)"
+  (addParish)="onAddParishHandler($event)">
+</parish-list>

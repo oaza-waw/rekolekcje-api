@@ -1,20 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParishListComponent } from './parish-list.component';
+import { ParishAddEditComponent } from './parish-add-edit.component';
+import { ParishModule } from '../../parish.module';
 
-describe('ParishListComponent', () => {
-  let component: ParishListComponent;
-  let fixture: ComponentFixture<ParishListComponent>;
+describe('ParishAddEditComponent', () => {
+  let component: ParishAddEditComponent;
+  let fixture: ComponentFixture<ParishAddEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParishListComponent ]
+      imports: [ ParishModule ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ParishListComponent);
+    fixture = TestBed.createComponent(ParishAddEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
