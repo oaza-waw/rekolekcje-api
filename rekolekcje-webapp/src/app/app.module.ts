@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { ParticipantsModule } from './participants/participants.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationModule } from './navigation/navigation.module';
-import { ParticipantsRoutingModule } from './participants/participants-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -16,6 +15,7 @@ import { ParticipantsReducer } from './core/store/participants/participants-redu
 import { AppReducer } from './core/store/app-store';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
+import { ParishModule } from './parish/parish.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { HomeModule } from './home/home.module';
     ParticipantsModule,
     AuthModule,
     HomeModule,
+    ParishModule,
     SharedModule,
     AppRoutingModule,
     /**

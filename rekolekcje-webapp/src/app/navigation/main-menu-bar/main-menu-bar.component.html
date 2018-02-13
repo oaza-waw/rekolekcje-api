@@ -30,6 +30,13 @@
        [active]="participantsLinkActive.isActive">
       Participants
     </a>
+    <a mat-tab-link
+       routerLinkActive="active"
+       routerLink="/parish"
+       #parishLinkActive="routerLinkActive"
+       [active]="parishLinkActive.isActive">
+      Parish
+    </a>
   </nav>
   <span class="fill-space"></span>
   <user-menu></user-menu>
