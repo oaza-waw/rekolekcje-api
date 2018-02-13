@@ -24,7 +24,7 @@ export class ParishAddEditDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  submit(event: Parish): void {
+  onFormOutput(event: Parish): void {
     if (event) {
       event.id = this.id;
       this.dialogRef.close({ result: event });

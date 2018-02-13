@@ -20,18 +20,10 @@ export namespace ParishReducer {
   export function reducer(state: Parishes.State = Parishes.initialState, action): Parishes.State {
     switch (action.type) {
 
-      case ParishSharedActions.types.CreateParishFail: {
-        return { ...state };
-      }
-
       case ParishSharedActions.types.CreateParishSuccess: {
         const list: Parish[] = [...state.parishList];
         list.push(action.payload);
         return {...state, parishList: list};
-      }
-
-      case ParishSharedActions.types.LoadParishListFail: {
-        return {...state};
       }
 
       case ParishSharedActions.types.LoadParishListSuccess: {

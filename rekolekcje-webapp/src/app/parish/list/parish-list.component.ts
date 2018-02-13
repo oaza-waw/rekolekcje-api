@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Parish } from '../../shared/models/parish.model';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { ParishAddEditDialogComponent } from '../add-edit/parish-dialog/parish-dialog.component';
@@ -8,22 +8,20 @@ import { ParishAddEditDialogComponent } from '../add-edit/parish-dialog/parish-d
   templateUrl: './parish-list.component.html',
   styleUrls: ['./parish-list.component.css']
 })
-export class ParishListComponent implements OnChanges {
-
-  @Input()
-  parishes: Parish[];
+export class ParishListComponent {
 
   @Output()
   addParish: EventEmitter<Parish> = new EventEmitter<Parish>();
 
-  dataSource: MatTableDataSource<Parish>;
+  dataSource: MatTableDataSource<Parish> = new MatTableDataSource<Parish>();
   displayedColumns = ['name', 'address', 'options'];
 
   constructor(public dialog: MatDialog) {
   }
 
-  ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource<Parish>(this.parishes);
+  @Input()
+  set parishes(parishes: Parish[]) {
+    this.dataSource.data = parishes;
   }
 
   openAddParishDialog(): void {
