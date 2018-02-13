@@ -31,7 +31,7 @@ export class ParishComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  onAddParishHandler(parish: Parish): void {
+  onAddParish(parish: Parish): void {
     this.store.dispatch(new ParishSharedActions.CreateParish(parish))
   }
 }

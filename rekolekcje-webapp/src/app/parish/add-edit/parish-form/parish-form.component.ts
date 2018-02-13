@@ -19,13 +19,13 @@ export class ParishFormComponent implements OnInit {
   @Output()
   formOutput: EventEmitter<Parish> = new EventEmitter<Parish>();
 
-  parishForm: FormGroup;
+  form: FormGroup;
 
   constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
-    this.parishForm = this.fb.group({
+    this.form = this.fb.group({
       name: [this.name ? this.name : '', Validators.required],
       address: [this.address ? this.address : '', Validators.required],
     });
@@ -36,15 +36,15 @@ export class ParishFormComponent implements OnInit {
   }
 
   submit() : void {
-    if (this.parishForm.invalid) {
-      this.parishForm.markAsDirty();
+    if (this.form.invalid) {
+      this.form.markAsDirty();
       return;
     }
 
     const parish = new Parish();
     parish.id = this.id;
-    parish.name = this.parishForm.get('name').value;
-    parish.address = this.parishForm.get('address').value;
+    parish.name = this.form.get('name').value;
+    parish.address = this.form.get('address').value;
 
     this.formOutput.emit(parish);
   }

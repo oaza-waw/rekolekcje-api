@@ -31,8 +31,6 @@ export namespace ParishSharedActions {
 
   export class LoadParishList implements Action {
     type = types.LoadParishList;
-
-    constructor(public payload?: any) { }
   }
 
   export class LoadParishListSuccess implements Action {
