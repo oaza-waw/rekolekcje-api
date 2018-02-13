@@ -9,9 +9,12 @@ import { Parish } from '../../../shared/models/parish.model';
 })
 export class ParishFormComponent implements OnInit {
 
-  @Input() id: number;
-  @Input() name: string;
-  @Input() address: string;
+  @Input()
+  address: string;
+  @Input()
+  id: number;
+  @Input()
+  name: string;
 
   @Output()
   formOutput: EventEmitter<Parish> = new EventEmitter<Parish>();
@@ -40,8 +43,9 @@ export class ParishFormComponent implements OnInit {
 
     const parish = new Parish();
     parish.id = this.id;
-    parish.name = this.name;
-    parish.address = this.address;
+    parish.name = this.parishForm.get('name').value;
+    parish.address = this.parishForm.get('address').value;
+
     this.formOutput.emit(parish);
   }
 }
