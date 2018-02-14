@@ -25,12 +25,12 @@ export class ParticipantFormComponent implements OnInit {
   @Output()
   formOutput: EventEmitter<Participant> = new EventEmitter<Participant>();
 
-  participantForm: FormGroup;
+  form: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.participantForm = this.fb.group({
+    this.form = this.fb.group({
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
@@ -44,18 +44,18 @@ export class ParticipantFormComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.participantForm.invalid) {
-      this.participantForm.markAsDirty();
+    if (this.form.invalid) {
+      this.form.markAsDirty();
       return;
     }
 
     const participant = new Participant();
     participant.id = this.id;
-    participant.firstName = this.participantForm.get('firstName').value;
-    participant.lastName = this.participantForm.get('lastName').value;
-    participant.pesel = this.participantForm.get('pesel').value;
-    participant.address = this.participantForm.get('address').value;
-    participant.parish = this.participantForm.get('parish').value;
+    participant.firstName = this.form.get('firstName').value;
+    participant.lastName = this.form.get('lastName').value;
+    participant.pesel = this.form.get('pesel').value;
+    participant.address = this.form.get('address').value;
+    participant.parish = this.form.get('parish').value;
     this.formOutput.emit(participant);
   }
 }

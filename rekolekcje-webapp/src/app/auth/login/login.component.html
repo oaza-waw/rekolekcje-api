@@ -1,46 +1,54 @@
-<div class="container">
-  <mat-card>
-    <form
-      #loginForm="ngForm"
-      [formGroup]="form"
-      (ngSubmit)="authorize()"
-      [class.form-submitted]="loginForm.submitted">
-      <mat-card-title> LOGIN</mat-card-title>
-      <mat-card-content>
-        <p>{{message}}</p>
-        <mat-input-container>
-          <input
-            id="login-input"
-            matInput
-            type="text"
-            [formControl]="login"
-            placeholder="Login">
-        </mat-input-container>
+<div class="container login-page login-page__card">
+    <mat-card>
+      <div>
+        <form
+          #loginForm="ngForm"
+          [formGroup]="form"
+          (ngSubmit)="authorize()"
+          [class.form-submitted]="loginForm.submitted">
+          <mat-card-title class="title-login">LOGIN</mat-card-title>
+          <mat-card-content >
+            <p>{{message}}</p>
+            <mat-form-field class="col-md-10">
+              <input
+                id="login-input"
+                matInput
+                type="text"
+                formControlName="username"
+                placeholder="Login">
+              <mat-hint>
+                <mat-error *ngIf="form.get('username').touched && form.get('username').invalid">Login is required</mat-error>
+              </mat-hint>
+            </mat-form-field>
 
-        <mat-input-container>
-          <input
-            id="password-input"
-            matInput
-            type="password"
-            [formControl]="password"
-            placeholder="Password">
-        </mat-input-container>
+            <mat-form-field class="col-md-10">
+              <input
+                id="password-input"
+                matInput
+                type="password"
+                formControlName="password"
+                placeholder="Password">
+              <mat-hint>
+                <mat-error *ngIf="form.get('password').touched && form.get('password').invalid">Password is required</mat-error>
+              </mat-hint>
+            </mat-form-field>
 
-        <div class="error-message" *ngIf="errorMessage">
-          {{ errorMessage }}
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <div class="checkbox-and-button">
+            <div class="error-message" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="checkbox-and-button">
 
-          <div class="login-button-container"
-               [class.inactive]="authorizationInProgress">
-            <button mat-raised-button color="primary" >
-              Log in
-            </button>
-          </div>
-        </div>
-      </mat-card-actions>
-    </form>
-  </mat-card>
+              <div class="login-button-container login-button"
+                   [class.inactive]="authorizationInProgress">
+                <button mat-raised-button color="primary" type="submit" [disabled]="authorizationInProgress">
+                  Log in
+                </button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </form>
+      </div>
+    </mat-card>
 </div>

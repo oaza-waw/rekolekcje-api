@@ -1,26 +1,32 @@
-<form [formGroup]="participantForm" class="col-md-12">
-  <mat-form-field>
+<form [formGroup]="form" class="col-md-10">
+  <mat-form-field class="field-wide">
     <input matInput
            required
            placeholder="First name"
            formControlName="firstName">
-    <mat-error *ngIf="participantForm.get('firstName').invalid">First name is required</mat-error>
+    <mat-hint>
+      <mat-error *ngIf="form.get('firstName').touched && form.get('firstName').invalid">First name is required</mat-error>
+    </mat-hint>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="field-wide">
     <input matInput
            required
            placeholder="Last name"
            formControlName="lastName">
-    <mat-error *ngIf="participantForm.get('lastName').invalid">Last name is required</mat-error>
+    <mat-hint>
+      <mat-error *ngIf="form.get('lastName').touched && form.get('lastName').invalid">Last name is required</mat-error>
+    </mat-hint>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="field-wide">
     <input matInput
            required
            placeholder="PESEL"
            formControlName="pesel">
-    <mat-error *ngIf="participantForm.get('pesel').invalid">PESEL is required</mat-error>
+    <mat-hint>
+      <mat-error *ngIf="form.get('pesel').touched && form.get('pesel').invalid">PESEL is required</mat-error>
+    </mat-hint>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="field-wide">
     <!--<textarea matTextareaAutosize-->
     <!--required-->
     <!--placeholder="Address"-->
@@ -30,14 +36,18 @@
            required
            placeholder="Address"
            formControlName="address">
-    <mat-error *ngIf="participantForm.get('address').invalid">Address is required</mat-error>
+    <mat-hint>
+      <mat-error *ngIf="form.get('address').touched && form.get('address').invalid">Address is required</mat-error>
+    </mat-hint>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="field-wide">
     <input matInput
            required
            placeholder="Parish"
            formControlName="parish">
-    <mat-error *ngIf="participantForm.get('parish').invalid">Parish is required</mat-error>
+    <mat-hint>
+      <mat-error *ngIf="form.get('parish').touched && form.get('parish').invalid">Parish is required</mat-error>
+    </mat-hint>
   </mat-form-field>
 </form>
 <button mat-button (click)="cancel()">Cancel</button>
