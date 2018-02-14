@@ -5,7 +5,7 @@ export class Participant {
     public lastName?: string,
     public pesel?: number,
     public address?: string,
-    public parish?: string
+    public parish?: number
   ) {}
 
   static mapFromForm(input: any): Participant {

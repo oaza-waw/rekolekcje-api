@@ -20,7 +20,7 @@ export class ParticipantFormComponent implements OnInit {
   @Input()
   address: string;
   @Input()
-  parish: string;
+  parish: number;
 
   @Output()
   formOutput: EventEmitter<Participant> = new EventEmitter<Participant>();

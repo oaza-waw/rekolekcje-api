@@ -1,8 +1,10 @@
 import { Participants } from './participants/participants-reducer';
+import { Parishes } from './parish/parish-reducer';
 
 export namespace App {
   export interface State {
     participantsModule: Participants.State;
+    parishModule: Parishes.State;
   }
 }
 

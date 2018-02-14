@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <mat-card>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let parish">{{parish.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+        <mat-cell *matCellDef="let parish">{{parish.address}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+        <mat-cell *matCellDef="let parish">
+          <div class="btn-group-sm">
+            <button class="btn btn-warning" ><i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn btn-danger"> <i class="fa fa-trash"></i> Delete </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <button mat-button (click)="openAddParishDialog()">
+      <mat-icon>add</mat-icon> Add
+    </button>
+  </mat-card>
+</div>
