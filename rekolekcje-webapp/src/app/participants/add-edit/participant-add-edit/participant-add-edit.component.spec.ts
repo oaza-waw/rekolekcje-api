@@ -3,6 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ParticipantAddEditComponent } from './participant-add-edit.component';
 import { ParticipantsModule } from '../../participants.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import { AppReducer } from '../../../core/store/app-store';
+import { ParticipantsReducer } from '../../../core/store/participants/participants-reducer';
 
 describe('ParticipantAddEditComponent', () => {
   let component: ParticipantAddEditComponent;
@@ -10,8 +13,12 @@ describe('ParticipantAddEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ParticipantsModule, RouterTestingModule]
-      // declarations: [ ParticipantAddEditComponent ]
+      imports: [
+        StoreModule.forRoot(AppReducer.reducer),
+        StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
+        ParticipantsModule,
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));
@@ -22,8 +29,7 @@ describe('ParticipantAddEditComponent', () => {
     fixture.detectChanges();
   });
 
-  //TODO: fix after switching to ChromeHeadless
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

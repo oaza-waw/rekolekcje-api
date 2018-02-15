@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParishListComponent } from './parish-list.component';
+import { MaterialModule } from '../../shared/material/material.module';
 
 describe('ParishListComponent', () => {
   let component: ParishListComponent;
@@ -8,6 +9,9 @@ describe('ParishListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MaterialModule
+      ],
       declarations: [ ParishListComponent ]
     })
     .compileComponents();
@@ -19,7 +23,7 @@ describe('ParishListComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

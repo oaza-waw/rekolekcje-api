@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParishAddEditDialogComponent } from './parish-dialog.component';
+import { MaterialModule } from '../../../shared/material/material.module';
+import { ParishModule } from '../../parish.module';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+class MatDialogRefMock {
+}
 
 describe('ParishAddEditDialogComponent', () => {
   let component: ParishAddEditDialogComponent;
@@ -8,7 +15,15 @@ describe('ParishAddEditDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParishAddEditDialogComponent ]
+      imports: [
+        ParishModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+      ],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useClass: MatDialogRefMock }
+      ]
     })
     .compileComponents();
   }));
@@ -19,7 +34,7 @@ describe('ParishAddEditDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

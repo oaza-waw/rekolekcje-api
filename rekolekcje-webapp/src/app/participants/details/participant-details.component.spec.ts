@@ -4,21 +4,32 @@ import { ParticipantDetailsComponent } from './participant-details.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '../../shared/material/material.module';
 import { ParticipantsModule } from '../participants.module';
+import { Store, StoreModule } from '@ngrx/store';
+import {
+  Participants,
+  ParticipantsReducer
+} from '../../core/store/participants/participants-reducer';
+import { AppReducer } from '../../core/store/app-store';
 
 describe('ParticipantDetailsComponent', () => {
   let component: ParticipantDetailsComponent;
   let fixture: ComponentFixture<ParticipantDetailsComponent>;
   let router: Router;
   let location: Location;
+  let store: Store<Participants.State>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, ParticipantsModule, MaterialModule ],
-      // declarations: [ ParticipantDetailsComponent ],
-    })
-    .compileComponents();
+      imports: [
+        StoreModule.forRoot(AppReducer.reducer),
+        StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
+        RouterTestingModule,
+        ParticipantsModule
+      ],
+    });
+    store = TestBed.get(Store);
+    spyOn(store, 'dispatch').and.callThrough();
     router = TestBed.get(Router);
     location = TestBed.get(Location);
   }));
@@ -29,8 +40,7 @@ describe('ParticipantDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  //TODO: fix test to provide ngrx/Store. See https://github.com/ngrx/platform/blob/master/docs/store/testing.md
-  // it('should be created', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
 });

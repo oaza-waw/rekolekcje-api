@@ -30,8 +30,7 @@ describe('ParticipantAddEditDialog', () => {
     fixture.detectChanges();
   });
 
-  //TODO: Fix after switching to ChromeHeadless
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
