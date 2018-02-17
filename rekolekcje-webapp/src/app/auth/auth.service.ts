@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    console.log('Checking if user is authenticated: ' + localStorage.getItem('currentUser'));
+    // console.log('Checking if user is authenticated: ' + localStorage.getItem('currentUser'));
     return localStorage.getItem('currentUser') != null;
   }
 

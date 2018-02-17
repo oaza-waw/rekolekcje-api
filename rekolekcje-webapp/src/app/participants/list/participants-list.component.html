@@ -26,7 +26,7 @@
 
       <ng-container matColumnDef="parish">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Parish</mat-header-cell>
-        <mat-cell *matCellDef="let participant">{{parishes.length}}</mat-cell>
+        <mat-cell *matCellDef="let participant">{{participant.parishId}} - {{getParishName(participant.parishId)}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="options">

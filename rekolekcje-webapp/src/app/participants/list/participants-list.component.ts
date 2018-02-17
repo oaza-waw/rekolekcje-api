@@ -60,7 +60,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
   openAddParticipantDialog(): void {
     const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
       data: {
-        dialogTitle: 'Add new participant'
+        dialogTitle: 'Add new participant',
+        parishes: this.parishes
       },
       disableClose: true
     });
@@ -80,7 +81,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         lastName: participant.lastName,
         pesel: participant.pesel,
         address: participant.address,
-        parish: participant.parishId
+        parish: participant.parishId,
+        parishes: this.parishes
       },
       disableClose: true
     });
@@ -107,5 +109,11 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         this.deleteParticipant.emit(id);
       }
     });
+  }
+
+  getParishName(parishId: number): string {
+    console.log('id: ' + parishId);
+    console.log('parishes: ' + this.parishes.length);
+    return this.parishes.find(p => p.id === parishId).name;
   }
 }

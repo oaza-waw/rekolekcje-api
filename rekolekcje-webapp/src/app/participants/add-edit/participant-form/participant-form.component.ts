@@ -1,13 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Participant } from '../../../shared/models/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Parish } from '../../../shared/models/parish.model';
+import { AppSelectors } from '../../../core/store/app-selectors';
+import { Subject } from 'rxjs/Subject';
+import { Parishes } from '../../../core/store/parish/parish-reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'participiant-form',
   templateUrl: './participant-form.component.html',
   styleUrls: ['./participant-form.component.css']
 })
-export class ParticipantFormComponent implements OnInit {
+export class ParticipantFormComponent implements OnInit, OnDestroy {
 
   @Input()
   firstName: string;
@@ -22,14 +27,21 @@ export class ParticipantFormComponent implements OnInit {
   @Input()
   parishId: string;
 
+  parishes: Parish[];
+
   @Output()
   formOutput: EventEmitter<Participant> = new EventEmitter<Participant>();
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
+  constructor(private fb: FormBuilder, private store: Store<Parishes.State>) { }
 
   ngOnInit(): void {
+    this.store.select(AppSelectors.getParishList)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((parishes: Parish[]) => this.parishes = parishes);
     this.form = this.fb.group({
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
@@ -37,6 +49,11 @@ export class ParticipantFormComponent implements OnInit {
       address: [this.address ? this.address : '', Validators.required],
       parishId: [this.parishId ? this.parishId : '', Validators.required]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   cancel(): void {

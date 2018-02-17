@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Participant } from '../../../shared/models/participant.model';
+import { Parish } from '../../../shared/models/parish.model';
 
 @Component({
   selector: 'add-edit-dialog',
@@ -16,6 +17,7 @@ export class ParticipantAddEditDialog implements OnInit {
   lastName: string;
   parishId: string;
   pesel: string;
+  parishes: Parish[];
 
   constructor(public dialogRef: MatDialogRef<ParticipantAddEditDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
     data.address ? this.address = data.address : this.address = '';
@@ -24,6 +26,8 @@ export class ParticipantAddEditDialog implements OnInit {
     data.lastName ? this.lastName = data.lastName : this.lastName = '';
     data.parishId ? this.parishId = data.parishId : this.parishId = '';
     data.pesel ? this.pesel = data.pesel : this.pesel = '';
+    this.parishes = data.parishes;
+    console.log('asd: ' + data.parishes);
   }
 
   // @TODO move address in some fields (to better search functionality in the future)
