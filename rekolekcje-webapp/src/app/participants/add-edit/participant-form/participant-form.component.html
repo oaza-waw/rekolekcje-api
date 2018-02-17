@@ -41,13 +41,22 @@
     </mat-hint>
   </mat-form-field>
   <mat-form-field class="field-wide">
-    <input matInput
-           required
-           placeholder="Parish"
-           formControlName="parish">
-    <mat-hint>
-      <mat-error *ngIf="form.get('parish').touched && form.get('parish').invalid">Parish is required</mat-error>
-    </mat-hint>
+    <mat-select
+      required
+      placeholder="Parish"
+      formControlName="parishId"
+      >
+      <mat-option *ngFor="let parish of parishes" [value]="parish.id">
+        {{parish.name}}
+      </mat-option>
+    </mat-select>
+    <!--<input matInput-->
+           <!--required-->
+           <!--placeholder="Parish"-->
+           <!--formControlName="parish">-->
+    <!--<mat-hint>-->
+      <!--<mat-error *ngIf="form.get('parishId').touched && form.get('parishId').invalid">Parish is required</mat-error>-->
+    <!--</mat-hint>-->
   </mat-form-field>
 </form>
 <button mat-button (click)="cancel()">Cancel</button>

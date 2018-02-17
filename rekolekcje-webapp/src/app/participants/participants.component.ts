@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import { ParticipantsSharedActions } from '../shared/store-shared/participants/participants-actions';
 import { AppSelectors } from '../core/store/app-selectors';
 import { Router } from '@angular/router';
+import { Parish } from '../shared/models/parish.model';
+import { ParishSharedActions } from '../shared/store-shared/parish/parish-actions';
 
 @Component({
   selector: 'participants-root',
@@ -15,6 +17,7 @@ import { Router } from '@angular/router';
 export class ParticipantsComponent implements OnInit, OnDestroy {
 
   participants: Observable<Participant[]>;
+  parishes: Observable<Parish[]>;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -22,7 +25,9 @@ export class ParticipantsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(new ParticipantsSharedActions.LoadParticipantsList());
+    this.store.dispatch(new ParishSharedActions.LoadParishList());
     this.participants = this.store.select(AppSelectors.getParticipantsList);
+    this.parishes = this.store.select(AppSelectors.getParishList);
   }
 
   ngOnDestroy(): void {

@@ -7,6 +7,7 @@ import { Participant } from '../../shared/models/participant.model';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';
 import { ParticipantAddEditDialog } from '../add-edit/participant-dialog/add-edit-dialog.component';
+import { Parish } from '../../shared/models/parish.model';
 
 @Component({
   selector: 'participants-list',
@@ -17,6 +18,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
 
   @Input()
   participants: Participant[];
+  @Input()
+  parishes: Parish[];
 
   @Output()
   addParticipant: EventEmitter<Participant> = new EventEmitter<Participant>();
@@ -77,7 +80,7 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         lastName: participant.lastName,
         pesel: participant.pesel,
         address: participant.address,
-        parish: participant.parish
+        parish: participant.parishId
       },
       disableClose: true
     });

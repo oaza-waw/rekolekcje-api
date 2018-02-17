@@ -14,7 +14,7 @@ export class ParticipantAddEditDialog implements OnInit {
   firstName: string;
   id: number;
   lastName: string;
-  parish: string;
+  parishId: string;
   pesel: string;
 
   constructor(public dialogRef: MatDialogRef<ParticipantAddEditDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -22,7 +22,7 @@ export class ParticipantAddEditDialog implements OnInit {
     this.dialogTitle = data.dialogTitle;
     data.firstName ? this.firstName = data.firstName : this.firstName = '';
     data.lastName ? this.lastName = data.lastName : this.lastName = '';
-    data.parish ? this.parish = data.parish : this.parish = '';
+    data.parishId ? this.parishId = data.parishId : this.parishId = '';
     data.pesel ? this.pesel = data.pesel : this.pesel = '';
   }
 

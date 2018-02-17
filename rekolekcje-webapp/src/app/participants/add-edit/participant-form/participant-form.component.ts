@@ -20,7 +20,7 @@ export class ParticipantFormComponent implements OnInit {
   @Input()
   address: string;
   @Input()
-  parish: number;
+  parishId: string;
 
   @Output()
   formOutput: EventEmitter<Participant> = new EventEmitter<Participant>();
@@ -35,7 +35,7 @@ export class ParticipantFormComponent implements OnInit {
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
       address: [this.address ? this.address : '', Validators.required],
-      parish: [this.parish ? this.parish : '', Validators.required]
+      parishId: [this.parishId ? this.parishId : '', Validators.required]
     });
   }
 
@@ -55,7 +55,7 @@ export class ParticipantFormComponent implements OnInit {
     participant.lastName = this.form.get('lastName').value;
     participant.pesel = this.form.get('pesel').value;
     participant.address = this.form.get('address').value;
-    participant.parish = this.form.get('parish').value;
+    participant.parishId = this.form.get('parishId').value;
     this.formOutput.emit(participant);
   }
 }
