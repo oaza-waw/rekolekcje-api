@@ -78,6 +78,8 @@ dependencies {
   compile 'io.jsonwebtoken:jjwt:0.7.0'
 //  compile 'org.springframework.boot:spring-boot-starter-mobile'
 
+  compile 'com.google.gag:gag:1.0.1'
+
   runtime('org.springframework.boot:spring-boot-devtools')
 
   testCompile('org.springframework.boot:spring-boot-starter-test') {
