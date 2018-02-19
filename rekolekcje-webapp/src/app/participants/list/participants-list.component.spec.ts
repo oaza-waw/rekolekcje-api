@@ -12,7 +12,11 @@ describe('ParticipantsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterModule, ParticipantsModule, MaterialModule],
+      imports: [
+        RouterModule,
+        ParticipantsModule,
+        MaterialModule
+      ],
       // declarations: [ParticipantsListComponent]
     })
       .compileComponents();
@@ -24,8 +28,13 @@ describe('ParticipantsListComponent', () => {
     fixture.detectChanges();
   });
 
-  //TODO: fix after switching to ChromeHeadless
+  //TODO: fix after resolving problems with pagination
   // it('should be created', () => {
   //   expect(component).toBeTruthy();
   // });
+
+  /*
+   * TODO: Implement tests for changing state. This might also be done in participants.component.spec.ts.
+   * See https://github.com/ngrx/platform/blob/master/docs/store/testing.md for details on testing
+   */
 });

@@ -3,12 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { AuthModule } from '../auth.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule
-} from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,10 +12,13 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AuthModule, RouterTestingModule, NoopAnimationsModule, ReactiveFormsModule, MatInputModule, FormsModule],
-      // declarations: [ LoginComponent ]
-    })
-    .compileComponents();
+      imports: [
+        AuthModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -28,8 +27,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  //TODO: fix after switching to ChromeHeadless for tests
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

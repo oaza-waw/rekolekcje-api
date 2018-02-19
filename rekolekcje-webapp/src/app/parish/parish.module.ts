@@ -8,11 +8,13 @@ import { SharedModule } from '../shared/shared.module';
 import { ParishFormComponent } from './add-edit/parish-form/parish-form.component';
 import { ParishAddEditComponent } from './add-edit/parish-add-edit/parish-add-edit.component';
 import { ParishAddEditDialogComponent } from './add-edit/parish-dialog/parish-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    BrowserAnimationsModule,
     MaterialModule,
     ParishRoutingModule
   ],

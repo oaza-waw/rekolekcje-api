@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParishAddEditComponent } from './parish-add-edit.component';
 import { ParishModule } from '../../parish.module';
+import { StoreModule } from '@ngrx/store';
+import { AppReducer } from '../../../core/store/app-store';
+import { ParishReducer } from '../../../core/store/parish/parish-reducer';
 
 describe('ParishAddEditComponent', () => {
   let component: ParishAddEditComponent;
@@ -9,7 +12,11 @@ describe('ParishAddEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ ParishModule ]
+      imports: [
+        StoreModule.forRoot(AppReducer.reducer),
+        StoreModule.forFeature('parishModule', ParishReducer.reducer),
+        ParishModule,
+      ]
     })
     .compileComponents();
   }));
@@ -20,7 +27,7 @@ describe('ParishAddEditComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

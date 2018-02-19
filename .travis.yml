@@ -1,10 +1,16 @@
 language: java
 jdk: oraclejdk8
 
+sudo: required
+
+addons:
+  chrome: stable
+
 after_script:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
 
 cache:
+  bundler: true
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
