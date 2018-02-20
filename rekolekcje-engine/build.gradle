@@ -50,6 +50,17 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+sourceSets {
+  testIntegration {
+    java {
+      compileClasspath += main.output
+      compileClasspath += main.compileClasspath
+      compileClasspath += test.output
+      compileClasspath += test.compileClasspath
+      runtimeClasspath += test.runtimeClasspath
+    }
+  }
+}
 
 dependencies {
   compile 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -74,22 +85,33 @@ dependencies {
   testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3.3'
 }
 
-sourceSets {
-  testIntegration {
-    java {
-      compileClasspath += main.output
-      compileClasspath += main.compileClasspath
-      compileClasspath += test.output
-      compileClasspath += test.compileClasspath
-      runtimeClasspath += test.runtimeClasspath
+test {
+  testLogging {
+    afterSuite {
+      desc, result -> reportTestResults(desc, result)
     }
   }
+  outputs.upToDateWhen { false }
 }
 
 task testIntegration(type: Test) {
   testClassesDir = sourceSets.testIntegration.output.classesDir
   classpath = sourceSets.testIntegration.runtimeClasspath
+  outputs.upToDateWhen { false }
+  testLogging {
+    afterSuite {
+      desc, result -> reportTestResults(desc, result)
+    }
+  }
 }
+
+private void reportTestResults(desc, result) {
+  if (!desc.parent) { // will match the outermost suite
+    println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+  }
+}
+
+check.dependsOn testIntegration
 
 processResources {
   from('../rekolekcje-webapp/dist') {
