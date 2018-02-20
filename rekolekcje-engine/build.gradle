@@ -33,6 +33,7 @@ idea {
     inheritOutputDirs = false
     outputDir = file(project.buildDir.toString() + '/classes/main/')
     testSourceDirs += file('testIntegration')
+//    testOutputDir file(project.buildDir.toString() + '/classes/test')
   }
 }
 
@@ -129,6 +130,16 @@ jacocoTestReport {
     xml.enabled true
   }
   executionData test,testIntegration
+}
+
+tasks.withType(Test) {
+  jacoco {
+    destinationFile = file("${buildDir}/jacoco/test.exec")
+  }
+}
+
+task cleanJacoco(dependsOn: 'clean') {
+  delete "${buildDir}/jacoco"
 }
 
 check.dependsOn jacocoTestReport
