@@ -24,7 +24,7 @@ repositories {
 }
 
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 
@@ -136,3 +136,10 @@ check.dependsOn jacocoTestReport
 bootRun {
   systemProperties System.properties
 }
+
+sonarqube {
+  properties {
+    properties["sonar.tests"] += sourceSets.testIntegration.allSource.srcDirs
+  }
+}
+project.tasks['sonarqube'].dependsOn 'check'
