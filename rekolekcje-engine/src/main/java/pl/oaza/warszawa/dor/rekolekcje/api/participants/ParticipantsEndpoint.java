@@ -31,7 +31,7 @@ class ParticipantsEndpoint {
   }
 
   @GetMapping("/api/participants/{id}")
-  public ParticipantDTO getSingleParticipant(@PathVariable long id) {
+  public ParticipantDTO getSingleParticipant(@PathVariable Long id) {
     return participantsService.find(id);
   }
 
@@ -42,8 +42,8 @@ class ParticipantsEndpoint {
   }
 
   @DeleteMapping("/api/participants/{id}")
-  public long deleteSingleParticipant(@PathVariable long id) {
-    return participantsService.delete(id);
+  public void deleteSingleParticipant(@PathVariable Long id) {
+    participantsService.delete(id);
   }
 
   @PutMapping("/api/participants")

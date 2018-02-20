@@ -1,25 +1,22 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import org.springframework.data.repository.Repository;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
 
 interface ParticipantsRepository extends Repository<Participant, Long> {
 
-  Participant save(Participant entity);
+  Participant findOne(long id);
+  List<Participant> findAll();
+  Participant save(Participant participant);
+  void delete(long id);
 
-  Iterable<Participant> save(Collection<Participant> entities);
-
-  Optional<Participant> findOne(Long id);
-
-  boolean exists(Long id);
-
-  Collection<Participant> findAll();
-
-  long count();
-
-  void delete(Long id);
-
-  void deleteAll();
+  default Participant findOneOrThrow(long id) {
+    Participant participant = findOne(id);
+    if (participant == null) {
+      throw new ParticipantNotFoundException(id);
+    }
+    return participant;
+  }
 }

@@ -48,7 +48,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
 
   private void assertParticipantExistsInSystem(ParticipantDTO addedParticipant) {
     assertThat(addedParticipant).isNotNull();
-    assertThat(addedParticipant.getId()).isNotZero();
+    assertThat(addedParticipant.getId()).isNotNull().isNotZero();
     List<ParticipantDTO> allInSystem = getAllInSystem();
     assertThat(allInSystem).contains(addedParticipant);
   }

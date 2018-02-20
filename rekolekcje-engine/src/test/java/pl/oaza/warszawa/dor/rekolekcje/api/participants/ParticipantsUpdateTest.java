@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     ParticipantDTO existingParticipantWithOldData = getAllInSystem().stream()
             .filter(p -> Objects.equals(p.getLastName(), sampleParticipant2.getLastName()))
             .findAny()
-            .orElseThrow(ParticipantNotFoundException::new);
+            .orElseThrow(() -> new ParticipantNotFoundException(0));
     ParticipantDTO participantWithUpdatedData =
         ParticipantDTO.builder()
             .id(existingParticipantWithOldData.getId())
@@ -62,7 +63,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     ParticipantDTO participantInSystemWithTheSameId = getAllInSystem().stream()
         .filter(p -> p.getId() == participantWithUpdatedData.getId())
         .findAny()
-        .orElseThrow(ParticipantNotFoundException::new);
+        .orElseThrow(() -> new ParticipantNotFoundException(0));
     assertThat(participantInSystemWithTheSameId).isEqualTo(participantWithUpdatedData);
   }
 }

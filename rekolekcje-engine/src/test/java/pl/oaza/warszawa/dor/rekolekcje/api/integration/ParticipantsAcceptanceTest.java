@@ -1,144 +1,146 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.integration;
 
-import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantFactory;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsIntegrationTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsRequestBuilder;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
+public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
-  private final String PARTICIPANTS_API_URI = "/api/participants";
+  private final ParticipantsRequestBuilder requestBuilder = new ParticipantsRequestBuilder();
 
-  private Gson jsonMapper = new Gson();
+  private final ParticipantDTO firstParticipant = ParticipantFactory.participantWithMinimalData(1L);
+  private final ParticipantDTO secondParticipant = ParticipantFactory.participantWithAllData(2L);
 
-  private final ParticipantDTO firstParticipant = ParticipantFactory.participantWithMinimalData();
-  private final ParticipantDTO secondParticipant = ParticipantFactory.participantWithAllData();
+  private final List<ParticipantDTO> participants = Arrays.asList(firstParticipant, secondParticipant);
 
   @Before
-  public void setup() {
+  public void setup() throws Exception {
     super.setup();
 
-    final List<ParticipantDTO> participantDTOs = Arrays.asList(firstParticipant, secondParticipant);
-    saveManyToRepository(participantDTOs);
+    database.saveParticipants(participants);
   }
 
   @After
   public void teardown() {
-    clearRepository();
+    database.clearParticipants();
   }
 
+  @WithMockUser
   @Test
   public void shouldGetAllParticipants() throws Exception {
     // given
-    final MockHttpServletRequestBuilder getAllRequest = get(PARTICIPANTS_API_URI);
+    final MockHttpServletRequestBuilder getAllRequest = requestBuilder.createGetAllRequest();
 
     // when
     final ResultActions response = mockMvc.perform(getAllRequest);
 
     // then
-    final String expectedJsonContent = jsonMapper.toJson(getAllParticipantsCurrentlyInSystem());
+    final String expectedJsonContent = jsonMapper.writeValueAsString(participants);
     response.andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(content().json(expectedJsonContent));
   }
 
+  @WithMockUser
   @Test
   public void shouldGetSingleParticipant() throws Exception {
     // given
-    ParticipantDTO singleParticipant = findOneInSystemWithTheSameData(firstParticipant);
-    long idOfFirstParticipant = singleParticipant.getId();
+    final MockHttpServletRequestBuilder getOneRequest =
+        requestBuilder.createGetOneRequest(firstParticipant.getId());
 
     // when
-    final MockHttpServletRequestBuilder getOneRequest =
-        createGetOneRequest(idOfFirstParticipant);
     final ResultActions response = mockMvc.perform(getOneRequest);
 
     // then
-    final String expectedJsonContent = jsonMapper.toJson(singleParticipant);
+    final String expectedJsonContent = jsonMapper.writeValueAsString(firstParticipant);
     response.andExpect(status().isOk())
         .andExpect(content().json(expectedJsonContent));
   }
 
+  @WithMockUser
   @Test
   public void shouldAddSingleParticipant() throws Exception {
     // given
-    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant();
-    final int numberOfParticipantsBefore = getAllParticipantsCurrentlyInSystem().size();
+    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant(null);
+    final int numberOfParticipantsBefore = participants.size();
 
     // when
     final MockHttpServletRequestBuilder addOneRequest =
-        createAddOneRequest(participantToAdd);
-    final ResultActions response = mockMvc.perform(addOneRequest);
+        requestBuilder.createAddOneRequest(participantToAdd);
+    mockMvc.perform(addOneRequest);
 
     // then
-    assertThat(getAllParticipantsCurrentlyInSystem()).hasSize(numberOfParticipantsBefore + 1);
-    final ParticipantDTO addedParticipant = findOneInSystemWithTheSameData(participantToAdd);
-    final ParticipantDTO participantWithId = participantToAdd.copyWithId(addedParticipant.getId());
-    assertThat(getAllParticipantsCurrentlyInSystem()).contains(participantWithId);
+    final List<ParticipantData> foundParticipantData = database.getAllParticipantData();
+    assertThat(foundParticipantData).hasSize(numberOfParticipantsBefore + 1);
+
+    final ParticipantData participantData = findOneInSystemWithTheSameNameAndPesel(participantToAdd);
+    assertThat(participantData.getId()).isNotNull();
+    assertThatDataIsTheSame(participantToAdd, participantData);
   }
 
+  @WithMockUser
   @Test
   public void shouldReturnResponseWithParticipantWhenAddingOne() throws Exception {
     // given
-    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant();
+    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant(null);
 
     // when
     final MockHttpServletRequestBuilder addOneRequest =
-        createAddOneRequest(participantToAdd);
-    final ResultActions response = mockMvc.perform(addOneRequest);
+        requestBuilder.createAddOneRequest(participantToAdd);
+    final MvcResult result = mockMvc.perform(addOneRequest)
+        .andExpect(status().isCreated())
+        .andReturn();
 
     // then
-    final ParticipantDTO addedParticipant = findOneInSystemWithTheSameData(participantToAdd);
-    assertThat(response.andReturn().getResponse().getContentAsString())
-        .isEqualTo(jsonMapper.toJson(addedParticipant));
+    final ParticipantData participantData = findOneInSystemWithTheSameNameAndPesel(participantToAdd);
+    assertThat(result.getResponse().getContentAsString())
+        .isEqualTo(jsonMapper.writeValueAsString(participantData));
   }
 
+  @WithMockUser
   @Test
   public void shouldDeleteSingleParticipant() throws Exception {
     // given
-    ParticipantDTO singleParticipant = findOneInSystemWithTheSameData(firstParticipant);
-    long idOfParticipantToDelete = singleParticipant.getId();
+    final MockHttpServletRequestBuilder deleteOneRequest =
+        requestBuilder.createDeleteRequest(secondParticipant.getId());
 
     // when
-    final MockHttpServletRequestBuilder deleteOneRequest =
-        createDeleteRequest(idOfParticipantToDelete);
-    final ResultActions response = mockMvc.perform(deleteOneRequest);
+    mockMvc.perform(deleteOneRequest)
+        .andExpect(status().isOk());
 
     // then
-    response.andExpect(status().isOk());
-    assertThat(getAllParticipantsCurrentlyInSystem()).doesNotContain(singleParticipant);
+    final List<Long> idsInSystem = database.getAllParticipantData().stream()
+        .map(ParticipantData::getId)
+        .collect(toList());
+    assertThat(idsInSystem).doesNotContain(secondParticipant.getId());
   }
 
+  @WithMockUser
   @Test
   public void shouldUpdateSingleParticipant() throws Exception {
     // given
-    ParticipantDTO existingParticipant = ParticipantFactory.sampleParticipant();
-    saveOneToRepository(existingParticipant);
-    final long existingParticipantId = findOneInSystemWithTheSameData(existingParticipant).getId();
+    ParticipantDTO existingParticipant = ParticipantFactory.sampleParticipant(3L);
+    database.saveParticipants(Collections.singletonList(existingParticipant));
+    final long existingParticipantId = existingParticipant.getId();
     ParticipantDTO participantWithNewData = ParticipantDTO.builder()
         .id(existingParticipantId)
         .firstName("Luke")
@@ -147,57 +149,31 @@ public class ParticipantsAcceptanceTest extends ParticipantsIntegrationTest {
         .parishId(1L)
         .pesel(80020354321L)
         .build();
+    final MockHttpServletRequestBuilder updateRequest =
+        requestBuilder.createUpdateRequest(participantWithNewData);
 
     // when
-    final MockHttpServletRequestBuilder updateRequest = createUpdateRequest(participantWithNewData);
-    final ResultActions response = mockMvc.perform(updateRequest);
+    mockMvc.perform(updateRequest)
+        .andExpect(status().isOk())
+        .andExpect(content().json(jsonMapper.writeValueAsString(participantWithNewData)));
 
     // then
-    response.andExpect(status().isOk())
-        .andExpect(content().json(jsonMapper.toJson(participantWithNewData)));
-    final ParticipantDTO participantInSystem = findInSystem(existingParticipantId);
-    assertThat(participantInSystem).isEqualTo(participantWithNewData);
+    final ParticipantData participantInSystem = database.getSavedParticipantData(existingParticipantId);
+    assertThat(participantInSystem.getId()).isEqualTo(participantWithNewData.getId());
+    assertThatDataIsTheSame(participantWithNewData, participantInSystem);
   }
 
-  private MockHttpServletRequestBuilder createGetOneRequest(long id) {
-    return get(PARTICIPANTS_API_URI + "/" + id);
+  private void assertThatDataIsTheSame(ParticipantDTO participantToAdd, ParticipantData participantData) {
+    assertThat(participantData.getFirstName()).isEqualTo(participantToAdd.getFirstName());
+    assertThat(participantData.getLastName()).isEqualTo(participantToAdd.getLastName());
+    assertThat(participantData.getAddress()).isEqualTo(participantToAdd.getAddress());
+    assertThat(participantData.getPesel()).isEqualTo(participantToAdd.getPesel());
+    assertThat(participantData.getParishId()).isEqualTo(participantToAdd.getParishId());
   }
 
-  private MockHttpServletRequestBuilder createDeleteRequest(long idOfParticipantToDelete) {
-    return delete(PARTICIPANTS_API_URI + "/" + idOfParticipantToDelete);
-  }
-
-  private MockHttpServletRequestBuilder createAddOneRequest(ParticipantDTO participantToAdd) {
-    return post(PARTICIPANTS_API_URI)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(jsonMapper.toJson(participantToAdd));
-  }
-
-  private MockHttpServletRequestBuilder createUpdateRequest(ParticipantDTO participantWithNewData) {
-    return put(PARTICIPANTS_API_URI)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(jsonMapper.toJson(participantWithNewData));
-  }
-
-  private ParticipantDTO findInSystem(long existingParticipantId) throws ParticipantNotFoundInSystemException {
-    return getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> p.getId() == existingParticipantId)
-        .findAny()
-        .orElseThrow(ParticipantNotFoundInSystemException::new);
-  }
-
-  private ParticipantDTO findOneInSystemWithTheSameData(ParticipantDTO participant)
-      throws ParticipantNotFoundInSystemException {
-    return getAllParticipantsCurrentlyInSystem().stream()
-        .filter(p -> Objects.equals(p.getFirstName(), participant.getFirstName()))
-        .filter(p -> Objects.equals(p.getLastName(), participant.getLastName()))
-        .filter(p -> p.getPesel() == participant.getPesel())
-        .filter(p -> Objects.equals(p.getAddress(), participant.getAddress()))
-        .filter(p -> Objects.equals(p.getParishId(), participant.getParishId()))
-        .findAny()
-        .orElseThrow(ParticipantNotFoundInSystemException::new);
-  }
-
-  private class ParticipantNotFoundInSystemException extends Exception {
+  private ParticipantData findOneInSystemWithTheSameNameAndPesel(ParticipantDTO participant) {
+    return database.getSavedParticipantData(participant.getFirstName(),
+        participant.getLastName(),
+        participant.getPesel());
   }
 }

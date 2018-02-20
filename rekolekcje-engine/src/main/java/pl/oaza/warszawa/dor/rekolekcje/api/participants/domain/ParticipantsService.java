@@ -2,11 +2,15 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
+
 public class ParticipantsService {
 
+  private final ParticipantCreator participantCreator = new ParticipantCreator();
   private final ParticipantsRepository participantsRepository;
 
   public ParticipantsService(ParticipantsRepository participantsRepository) {
@@ -19,24 +23,29 @@ public class ParticipantsService {
         .collect(Collectors.toList());
   }
 
-  public ParticipantDTO find(long participantId) {
-    return participantsRepository.findOne(participantId)
-        .map(Participant::dto)
-        .orElse(null);
+  public ParticipantDTO find(Long id) {
+    requireNonNull(id);
+    final Participant participant = participantsRepository.findOneOrThrow(id);
+    return participant.dto();
   }
 
   public ParticipantDTO save(ParticipantDTO participantDTO) {
-    return participantsRepository
-        .save(new Participant(participantDTO))
-        .dto();
+    requireNonNull(participantDTO);
+    Participant participant = participantCreator.from(participantDTO);
+    participant = participantsRepository.save(participant);
+    return participant.dto();
   }
 
-  public long delete(long participantId) {
-    participantsRepository.delete(participantId);
-    return participantId;
+  public void delete(Long... ids) {
+    requireNonNull(ids);
+    Arrays.asList(ids)
+        .forEach(participantsRepository::delete);
   }
 
   public ParticipantDTO update(ParticipantDTO participantWithUpdatedData) {
-    return participantsRepository.save(new Participant(participantWithUpdatedData)).dto();
+    requireNonNull(participantWithUpdatedData);
+    Participant participant = participantCreator.from(participantWithUpdatedData);
+    participant = participantsRepository.save(participant);
+    return participant.dto();
   }
 }

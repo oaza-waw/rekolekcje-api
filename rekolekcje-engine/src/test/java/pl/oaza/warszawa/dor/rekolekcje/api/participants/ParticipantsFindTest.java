@@ -3,11 +3,13 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ParticipantsFindTest extends ParticipantsTest {
 
@@ -39,12 +41,12 @@ public class ParticipantsFindTest extends ParticipantsTest {
   }
 
   @Test
-  public void shouldFindOneParticipantInRepostitory() throws Exception {
+  public void shouldFindOneParticipantInRepostitory() {
     // given
-    List<ParticipantDTO> savedParticipants = saveAll(Arrays.asList(firstParticipant, secondParticipant));
-    ParticipantDTO expectedParticipant = savedParticipants.stream()
+    saveAll(Arrays.asList(firstParticipant, secondParticipant));
+    ParticipantDTO expectedParticipant = getAllInSystem().stream()
         .findFirst()
-        .orElseThrow(ParticipantNotFoundException::new);
+        .orElseThrow(() -> new ParticipantNotFoundException(0));
     long participantId = expectedParticipant.getId();
 
     // when
@@ -55,14 +57,13 @@ public class ParticipantsFindTest extends ParticipantsTest {
   }
 
   @Test
-  public void shouldReturnNullWhenNoParticipantFound() {
+  public void shouldThrowExceptionWhenNoParticipantFound() {
     // given
     long idOfNotExistingParticipant = 0L;
 
-    // when
-    ParticipantDTO foundParticipant = service.find(idOfNotExistingParticipant);
-
-    // then
-    assertThat(foundParticipant).isNull();
+    // when & then
+    assertThatExceptionOfType(ParticipantNotFoundException.class)
+        .isThrownBy(() -> service.find(idOfNotExistingParticipant))
+        .withMessageContaining("id " + idOfNotExistingParticipant);
   }
 }

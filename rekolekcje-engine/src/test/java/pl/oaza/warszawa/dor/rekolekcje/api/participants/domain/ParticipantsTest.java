@@ -8,29 +8,24 @@ import java.util.stream.Collectors;
 
 public abstract class ParticipantsTest {
 
-  private InMemoryParticipantRepository repository = new InMemoryParticipantRepository();
-  protected ParticipantsService service = new ParticipantsService(repository);
+  protected ParticipantsService service = new ParticipantsConfiguration().participantsService();
 
   protected List<ParticipantDTO> saveAll(List<ParticipantDTO> participantDTOs) {
     return participantDTOs.stream()
-        .map(dto -> repository.save(dto))
+        .map(dto -> service.save(dto))
         .collect(Collectors.toList());
   }
 
   protected List<ParticipantDTO> getAllInSystem() {
-    return repository.findAll().stream()
-        .map(Participant::dto)
-        .collect(Collectors.toList());
+    return service.findAll();
   }
 
   @After
   public void tearDown() {
-    clearRepository();
+    deleteAllParticipants();
   }
 
-  private void clearRepository() {
-    repository.deleteAll();
+  private void deleteAllParticipants() {
+    service.findAll().forEach(p -> service.delete(p.getId()));
   }
-
-  public class ParticipantNotFoundException extends Exception {}
 }

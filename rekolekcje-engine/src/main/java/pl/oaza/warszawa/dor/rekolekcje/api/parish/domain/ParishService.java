@@ -32,7 +32,8 @@ public class ParishService {
 
   public void delete(Long... ids) {
     requireNonNull(ids);
-    Arrays.stream(ids).forEach(id -> parishRepository.delete(id));
+    Arrays.stream(ids)
+        .forEach(parishRepository::delete);
   }
 
   public ParishDTO findOne(Long id) {

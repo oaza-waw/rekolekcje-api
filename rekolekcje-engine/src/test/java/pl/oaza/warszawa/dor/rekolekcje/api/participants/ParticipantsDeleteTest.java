@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
 import java.util.Arrays;
 
@@ -20,14 +21,13 @@ public class ParticipantsDeleteTest extends ParticipantsTest {
     saveAll(Arrays.asList(firstParticipant, secondParticipant, thirdParticipant));
     ParticipantDTO participantToDelete = getAllInSystem().stream()
         .findAny()
-        .orElseThrow(ParticipantNotFoundException::new);
-    long participantId = participantToDelete.getId();
+        .orElseThrow(() -> new ParticipantNotFoundException(0L));
+    Long participantId = participantToDelete.getId();
 
     // when
-    long deletedId = service.delete(participantId);
+    service.delete(participantId);
 
     // then
-    assertThat(deletedId).isEqualTo(participantId);
     assertThat(getAllInSystem()).doesNotContain(participantToDelete);
   }
 }

@@ -1,5 +1,9 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import javax.persistence.Entity;
@@ -8,43 +12,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Builder
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 class Participant {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  private Long id;
   private String firstName;
   private String lastName;
-  private long pesel;
-
-  private long parishId;
+  private Long pesel;
+  private Long parishId;
   private String address;
-
-  @SuppressWarnings("unused")
-  public Participant() {
-    // used by JPA
-  }
-
-  long getId() {
-    return id;
-  }
-
-  void setId(long id) {
-    this.id = id;
-  }
-
-  void setParishId(long parishId) {
-    this.parishId = parishId;
-  }
-
-  Participant(ParticipantDTO dto) {
-    this.id = dto.getId();
-    this.firstName = dto.getFirstName();
-    this.lastName = dto.getLastName();
-    this.pesel = dto.getPesel();
-    this.parishId = dto.getParishId();
-    this.address = dto.getAddress();
-  }
 
   ParticipantDTO dto() {
     return ParticipantDTO.builder()

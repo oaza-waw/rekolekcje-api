@@ -1,12 +1,12 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-
 public class ParticipantFactory {
 
-  public static ParticipantDTO sampleParticipant() {
+  public static ParticipantDTO sampleParticipant(Long id) {
     return ParticipantDTO.builder()
+        .id(id)
         .firstName("Sample")
         .lastName("Participant")
         .address("Address Street no. 123")
@@ -15,16 +15,18 @@ public class ParticipantFactory {
         .build();
   }
 
-  public static ParticipantDTO participantWithMinimalData() {
+  public static ParticipantDTO participantWithMinimalData(Long id) {
     return ParticipantDTO.builder()
+        .id(id)
         .firstName("Minimal")
         .lastName("Participant")
         .parishId(1L)
         .build();
   }
 
-  public static ParticipantDTO participantWithAllData() {
+  public static ParticipantDTO participantWithAllData(Long id) {
     return ParticipantDTO.builder()
+        .id(id)
         .firstName("John")
         .lastName("Smith")
         .address("Street no. 987, City")

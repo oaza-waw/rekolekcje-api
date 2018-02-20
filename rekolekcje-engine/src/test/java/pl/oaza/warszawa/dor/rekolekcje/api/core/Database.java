@@ -40,9 +40,24 @@ public class Database {
     );
   }
 
-  public ParticipantData getParticipantData(Long id) {
+  public ParticipantData getSavedParticipantData(Long id) {
     List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * FROM participant WHERE id = ?",
         new Object[]{id},
+        (rs, rowNum) -> ParticipantData.builder()
+            .id(rs.getLong("id"))
+            .firstName(rs.getString("first_name"))
+            .lastName(rs.getString("last_name"))
+            .address(rs.getString("address"))
+            .pesel(rs.getLong("pesel"))
+            .parishId(rs.getLong("parish_id"))
+            .build()
+    );
+    return foundParticipants.stream().findAny().orElseThrow(RuntimeException::new);
+  }
+
+  public ParticipantData getSavedParticipantData(String firstName, String lastName, Long pesel) {
+    List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * FROM participant WHERE first_name = ? AND last_name = ? AND pesel = ?",
+        new Object[]{firstName, lastName, pesel},
         (rs, rowNum) -> ParticipantData.builder()
             .id(rs.getLong("id"))
             .firstName(rs.getString("first_name"))
