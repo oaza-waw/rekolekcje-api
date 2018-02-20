@@ -32,6 +32,7 @@ idea {
   module {
     inheritOutputDirs = false
     outputDir = file(project.buildDir.toString() + '/classes/main/')
+    testSourceDirs += file('testIntegration')
   }
 }
 
@@ -105,13 +106,13 @@ task testIntegration(type: Test) {
   }
 }
 
+check.dependsOn testIntegration
+
 private void reportTestResults(desc, result) {
   if (!desc.parent) { // will match the outermost suite
     println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
   }
 }
-
-check.dependsOn testIntegration
 
 processResources {
   from('../rekolekcje-webapp/dist') {
@@ -127,6 +128,7 @@ jacocoTestReport {
   reports {
     xml.enabled true
   }
+  executionData test,testIntegration
 }
 
 check.dependsOn jacocoTestReport
