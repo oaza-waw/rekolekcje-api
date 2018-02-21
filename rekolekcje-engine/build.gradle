@@ -28,39 +28,18 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 
-idea {
-  module {
-    inheritOutputDirs = false
-    outputDir = file(project.buildDir.toString() + '/classes/main/')
-    testSourceDirs += file('testIntegration')
-//    testOutputDir file(project.buildDir.toString() + '/classes/test')
-  }
-}
-
-liquibase {
-  activities {
-    main {
-      changeLogFile 'src/main/resources/changelogs.postgresql.sql'
-      url 'jdbc:postgresql://localhost:5432/rekolekcjedb'
-      username 'postgres'
-      password 'postgres'
-    }
-  }
-}
-
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 sourceSets {
-  testIntegration {
+  verify {
     java {
-      compileClasspath += main.output
-      compileClasspath += main.compileClasspath
-      compileClasspath += test.output
-      compileClasspath += test.compileClasspath
+      compileClasspath += main.output + main.compileClasspath
+      compileClasspath += test.output + test.compileClasspath
       runtimeClasspath += test.runtimeClasspath
     }
+    resources.srcDir file('src/verify/resources')
   }
 }
 
@@ -96,9 +75,9 @@ test {
   outputs.upToDateWhen { false }
 }
 
-task testIntegration(type: Test) {
-  testClassesDir = sourceSets.testIntegration.output.classesDir
-  classpath = sourceSets.testIntegration.runtimeClasspath
+task verify(type: Test) {
+  testClassesDir = sourceSets.verify.output.classesDir
+  classpath = sourceSets.verify.runtimeClasspath
   outputs.upToDateWhen { false }
   testLogging {
     afterSuite {
@@ -107,7 +86,7 @@ task testIntegration(type: Test) {
   }
 }
 
-check.dependsOn testIntegration
+check.dependsOn verify
 
 private void reportTestResults(desc, result) {
   if (!desc.parent) { // will match the outermost suite
@@ -129,7 +108,7 @@ jacocoTestReport {
   reports {
     xml.enabled true
   }
-  executionData test,testIntegration
+  executionData test,verify
 }
 
 tasks.withType(Test) {
@@ -150,7 +129,29 @@ bootRun {
 
 sonarqube {
   properties {
-    properties["sonar.tests"] += sourceSets.testIntegration.allSource.srcDirs
+    properties["sonar.tests"] += sourceSets.verify.allSource.srcDirs
   }
 }
 project.tasks['sonarqube'].dependsOn 'check'
+
+idea {
+  module {
+    inheritOutputDirs = false
+    outputDir = file(project.buildDir.toString() + '/classes/main/')
+    testSourceDirs += file('verify')
+//    testOutputDir file(project.buildDir.toString() + '/classes/test')
+    testSourceDirs += project.sourceSets.verify.java.srcDirs
+    testSourceDirs += project.sourceSets.verify.resources.srcDirs
+  }
+}
+
+liquibase {
+  activities {
+    main {
+      changeLogFile 'src/main/resources/changelogs.postgresql.sql'
+      url 'jdbc:postgresql://localhost:5432/rekolekcjedb'
+      username 'postgres'
+      password 'postgres'
+    }
+  }
+}

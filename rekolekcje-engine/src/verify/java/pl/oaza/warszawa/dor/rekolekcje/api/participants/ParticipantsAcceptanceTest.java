@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.integration;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.junit.After;
 import org.junit.Before;

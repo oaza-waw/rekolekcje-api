@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.integration;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Test;
