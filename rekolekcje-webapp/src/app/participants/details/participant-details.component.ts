@@ -9,6 +9,8 @@ import { Participants } from '../../core/store/participants/participants-reducer
 import { ParticipantsSharedActions } from '../../shared/store-shared/participants/participants-actions';
 import { Subject } from 'rxjs/Subject';
 import { AppSelectors } from '../../core/store/app-selectors';
+import { Parish } from '../../shared/models/parish.model';
+import { Parishes } from '../../core/store/parish/parish-reducer';
 
 @Component({
   selector: 'participant-details',
@@ -19,6 +21,7 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
 
   editing: boolean;
   participant: Participant;
+  parishes: Parish[];
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -26,15 +29,19 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private store: Store<Participants.State>,
+    private participantsStore: Store<Participants.State>,
+    private parishStore: Store<Parishes.State>,
     private location: Location
   ) { }
 
   ngOnInit(): void {
     this.editing = false;
-    this.store.select(AppSelectors.getSelectedParticipant)
+    this.participantsStore.select(AppSelectors.getSelectedParticipant)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((participant: Participant) => this.participant = participant);
+    this.parishStore.select(AppSelectors.getParishList)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((parishes: Parish[]) => this.parishes = parishes);
   }
 
   ngOnDestroy(): void {
@@ -53,7 +60,7 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigate(['participants']);
-        this.store.dispatch(new ParticipantsSharedActions.DeleteParticipant(this.participant.id));
+        this.participantsStore.dispatch(new ParticipantsSharedActions.DeleteParticipant(this.participant.id));
       }
     });
   }
@@ -67,7 +74,7 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
       this.editing = false;
     }
     this.participant = participant;
-    this.store.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
+    this.participantsStore.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
   }
 
   goBack(): void {
