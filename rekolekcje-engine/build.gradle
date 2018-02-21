@@ -24,15 +24,16 @@ repositories {
 }
 
 apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
 apply plugin: 'jacoco'
 
 idea {
   module {
     inheritOutputDirs = false
     outputDir = file(project.buildDir.toString() + '/classes/main/')
+    testSourceDirs += file('testIntegration')
+//    testOutputDir file(project.buildDir.toString() + '/classes/test')
   }
 }
 
@@ -47,36 +48,32 @@ liquibase {
   }
 }
 
-//lombok { // optional: values below are the defaults
-//  version = "1.16.20"
-//  sha256 = "3ca225ce3917eac8bf4b7d2186845df4e70dcdede356dca8537b6d78a535c91e"
-//  sha256 = ""
-//}
-
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+sourceSets {
+  testIntegration {
+    java {
+      compileClasspath += main.output
+      compileClasspath += main.compileClasspath
+      compileClasspath += test.output
+      compileClasspath += test.compileClasspath
+      runtimeClasspath += test.runtimeClasspath
+    }
+  }
+}
 
 dependencies {
-//  compileOnly 'org.projectlombok:lombok:1.16.20'
-//  apt 'org.projectlombok:lombok:1.16.20'
-
   compile 'org.springframework.boot:spring-boot-starter-data-jpa'
   compile 'org.springframework.boot:spring-boot-starter-data-rest'
   compile 'org.springframework.boot:spring-boot-starter-web'
   compile 'com.h2database:h2'
   compile 'org.postgresql:postgresql'
-  compile 'com.google.code.gson:gson:2.8.2'
-//  compile group: 'com.fasterxml', name: 'jackson-module-json-org', version: '0.9.1'
-  compile group: 'org.json', name: 'json', version: '20160810'
+  compile 'org.json:json:20160810'
 
-//  compile 'org.liquibase:liquibase-core:3.5.3'
-  compile 'org.liquibase:liquibase-groovy-dsl:1.2.2'
-//  compile 'org.codehaus.groovy:groovy-all:2.4.10'
   compile 'org.springframework.boot:spring-boot-starter-security'
   compile 'io.jsonwebtoken:jjwt:0.7.0'
-//  compile 'org.springframework.boot:spring-boot-starter-mobile'
 
   compile 'com.google.gag:gag:1.0.1'
 
@@ -88,6 +85,34 @@ dependencies {
   testCompile 'org.springframework.security:spring-security-test:5.0.0.RELEASE'
   testCompile 'org.assertj:assertj-core:3.8.0'
   testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3.3'
+}
+
+test {
+  testLogging {
+    afterSuite {
+      desc, result -> reportTestResults(desc, result)
+    }
+  }
+  outputs.upToDateWhen { false }
+}
+
+task testIntegration(type: Test) {
+  testClassesDir = sourceSets.testIntegration.output.classesDir
+  classpath = sourceSets.testIntegration.runtimeClasspath
+  outputs.upToDateWhen { false }
+  testLogging {
+    afterSuite {
+      desc, result -> reportTestResults(desc, result)
+    }
+  }
+}
+
+check.dependsOn testIntegration
+
+private void reportTestResults(desc, result) {
+  if (!desc.parent) { // will match the outermost suite
+    println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+  }
 }
 
 processResources {
@@ -104,6 +129,17 @@ jacocoTestReport {
   reports {
     xml.enabled true
   }
+  executionData test,testIntegration
+}
+
+tasks.withType(Test) {
+  jacoco {
+    destinationFile = file("${buildDir}/jacoco/test.exec")
+  }
+}
+
+task cleanJacoco(dependsOn: 'clean') {
+  delete "${buildDir}/jacoco"
 }
 
 check.dependsOn jacocoTestReport
@@ -111,3 +147,10 @@ check.dependsOn jacocoTestReport
 bootRun {
   systemProperties System.properties
 }
+
+sonarqube {
+  properties {
+    properties["sonar.tests"] += sourceSets.testIntegration.allSource.srcDirs
+  }
+}
+project.tasks['sonarqube'].dependsOn 'check'

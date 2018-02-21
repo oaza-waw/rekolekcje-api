@@ -15,15 +15,4 @@ public class ParticipantData {
   private Long pesel;
   private Long parishId;
   private String address;
-
-  public ParticipantDTO dto() {
-    return ParticipantDTO.builder()
-        .id(id)
-        .firstName(firstName)
-        .lastName(lastName)
-        .address(address)
-        .pesel(pesel)
-        .parishId(parishId)
-        .build();
-  }
 }

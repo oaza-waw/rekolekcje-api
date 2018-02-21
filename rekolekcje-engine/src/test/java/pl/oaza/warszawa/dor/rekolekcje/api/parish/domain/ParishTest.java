@@ -13,14 +13,6 @@ public class ParishTest {
   private ParishDTO firstParish = createParish(1L,"First", "Address no 1.");
   private ParishDTO secondParish = createParish(2L,"Second", "Address no 2.");
 
-  private ParishDTO createParish(long id, String name, String address) {
-    return ParishDTO.builder()
-        .id(id)
-        .name(name)
-        .address(address)
-        .build();
-  }
-
   private ParishService parishService = new ParishConfiguration().parishService();
 
   @After
@@ -65,5 +57,13 @@ public class ParishTest {
     final List<ParishDTO> remainingParishes = parishService.findAll();
     assertThat(remainingParishes).hasSize(1);
     assertThat(remainingParishes).containsOnly(secondParish);
+  }
+
+  private ParishDTO createParish(long id, String name, String address) {
+    return ParishDTO.builder()
+        .id(id)
+        .name(name)
+        .address(address)
+        .build();
   }
 }
