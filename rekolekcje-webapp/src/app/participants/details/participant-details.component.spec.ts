@@ -3,15 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ParticipantDetailsComponent } from './participant-details.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ParticipantsModule } from '../participants.module';
-import { Store, StoreModule } from '@ngrx/store';
-import {
-  Participants,
-  ParticipantsReducer
-} from '../../core/store/participants/participants-reducer';
-import { AppReducer } from '../../core/store/app-store';
-import { ParishReducer } from '../../core/store/parish/parish-reducer';
+import { Store } from '@ngrx/store';
+import { Participants } from '../../core/store/participants/participants-reducer';
+import { participantsTestingModule } from '../participants-testing.module';
 
 describe('ParticipantDetailsComponent', () => {
   let component: ParticipantDetailsComponent;
@@ -21,15 +15,7 @@ describe('ParticipantDetailsComponent', () => {
   let store: Store<Participants.State>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(AppReducer.reducer),
-        StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
-        StoreModule.forFeature('parishModule', ParishReducer.reducer),
-        RouterTestingModule,
-        ParticipantsModule
-      ],
-    });
+    TestBed.configureTestingModule(participantsTestingModule);
     store = TestBed.get(Store);
     spyOn(store, 'dispatch').and.callThrough();
     router = TestBed.get(Router);
