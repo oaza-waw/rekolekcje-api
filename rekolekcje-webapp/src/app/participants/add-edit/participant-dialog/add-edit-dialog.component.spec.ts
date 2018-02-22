@@ -4,6 +4,9 @@ import { ParticipantAddEditDialog } from './add-edit-dialog.component';
 import { ParticipantsModule } from '../../participants.module';
 import { MaterialModule } from '../../../shared/material/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { AppReducer } from '../../../core/store/app-store';
+import { StoreModule } from '@ngrx/store';
+import { ParishReducer } from '../../../core/store/parish/parish-reducer';
 
 class MatDialogRefMock {
 }
@@ -14,8 +17,12 @@ describe('ParticipantAddEditDialog', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ParticipantsModule, MaterialModule],
-      // declarations: [ ParticipantAddEditDialog ]
+      imports: [
+        StoreModule.forRoot(AppReducer.reducer),
+        StoreModule.forFeature('parishModule', ParishReducer.reducer),
+        ParticipantsModule,
+        MaterialModule
+      ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useClass: MatDialogRefMock }

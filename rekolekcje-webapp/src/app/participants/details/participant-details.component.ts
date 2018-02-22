@@ -65,6 +65,20 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  getParishName(parishId: number): string {
+    let parish = this.findParish(parishId);
+    return parish ? parish.name : '';
+  }
+
+  getParishAddress(parishId: number): string {
+    let parish = this.findParish(parishId);
+    return parish ? parish.address : '';
+  }
+
+  private findParish(parishId: number): Parish {
+    return this.parishes.find(p => p.id === parishId);
+  }
+
   edit(): void {
     this.editing = true;
   }

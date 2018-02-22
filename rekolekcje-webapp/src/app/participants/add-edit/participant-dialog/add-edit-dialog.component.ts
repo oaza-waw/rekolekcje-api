@@ -26,8 +26,7 @@ export class ParticipantAddEditDialog implements OnInit {
     data.lastName ? this.lastName = data.lastName : this.lastName = '';
     data.parishId ? this.parishId = data.parishId : this.parishId = '';
     data.pesel ? this.pesel = data.pesel : this.pesel = '';
-    this.parishes = data.parishes;
-    console.log('asd: ' + data.parishes);
+    data.parishes ? this.parishes = data.parishes : this.parishes = [];
   }
 
   // @TODO move address in some fields (to better search functionality in the future)

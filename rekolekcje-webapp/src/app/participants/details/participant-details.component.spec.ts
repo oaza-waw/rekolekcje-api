@@ -11,6 +11,7 @@ import {
   ParticipantsReducer
 } from '../../core/store/participants/participants-reducer';
 import { AppReducer } from '../../core/store/app-store';
+import { ParishReducer } from '../../core/store/parish/parish-reducer';
 
 describe('ParticipantDetailsComponent', () => {
   let component: ParticipantDetailsComponent;
@@ -24,6 +25,7 @@ describe('ParticipantDetailsComponent', () => {
       imports: [
         StoreModule.forRoot(AppReducer.reducer),
         StoreModule.forFeature('participantsModule', ParticipantsReducer.reducer),
+        StoreModule.forFeature('parishModule', ParishReducer.reducer),
         RouterTestingModule,
         ParticipantsModule
       ],

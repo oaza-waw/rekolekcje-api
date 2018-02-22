@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParishFormComponent } from './parish-form.component';
-import { MaterialModule } from '../../../shared/material/material.module';
 import { ParishModule } from '../../parish.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -11,7 +10,6 @@ describe('ParishFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      // declarations: [ ParishFormComponent ],
       imports: [
         ParishModule,
         NoopAnimationsModule
