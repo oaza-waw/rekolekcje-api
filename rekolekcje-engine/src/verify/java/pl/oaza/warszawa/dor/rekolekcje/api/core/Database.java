@@ -15,6 +15,28 @@ public class Database {
     this.jdbcTemplate = jdbcTemplate;
   }
 
+  public List<ParishData> getAllParishData() {
+    return jdbcTemplate.query("SELECT * FROM parish",
+        (rs, rowNum) -> ParishData.builder()
+            .id(rs.getLong("id"))
+            .name(rs.getString("name"))
+            .address(rs.getString("address"))
+            .build()
+    );
+  }
+
+  public ParishData getSavedParishData(Long parishId) {
+    List<ParishData> foundParishes = jdbcTemplate.query("SELECT id, name, address FROM parish WHERE id = ?",
+        new Object[]{parishId},
+        (rs, rowNum) -> ParishData.builder()
+            .id(rs.getLong("id"))
+            .name(rs.getString("name"))
+            .address(rs.getString("address"))
+            .build()
+    );
+    return foundParishes.stream().findAny().orElseThrow(RuntimeException::new);
+  }
+
   public ParishData getSavedParishData(String parishName) {
     List<ParishData> foundParishes = jdbcTemplate.query("SELECT id, name, address FROM parish WHERE name = ?",
         new Object[]{parishName},

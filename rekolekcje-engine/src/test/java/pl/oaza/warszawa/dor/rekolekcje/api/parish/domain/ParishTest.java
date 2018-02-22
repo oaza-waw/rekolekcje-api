@@ -3,10 +3,12 @@ package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 import org.junit.After;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ParishTest {
 
@@ -48,6 +50,15 @@ public class ParishTest {
   }
 
   @Test
+  public void shouldThrowExceptionWhenParishNotFound() {
+    parishService.add(firstParish);
+
+    assertThatExceptionOfType(ParishNotFoundException.class)
+        .isThrownBy(() -> parishService.findOne(secondParish.getId()))
+        .withMessageContaining("id " + secondParish.getId());
+  }
+
+  @Test
   public void shouldDeleteParish() {
     parishService.add(firstParish);
     parishService.add(secondParish);
@@ -57,6 +68,19 @@ public class ParishTest {
     final List<ParishDTO> remainingParishes = parishService.findAll();
     assertThat(remainingParishes).hasSize(1);
     assertThat(remainingParishes).containsOnly(secondParish);
+  }
+
+  @Test
+  public void shouldUpdateParish() {
+    parishService.add(firstParish);
+    parishService.add(secondParish);
+    final ParishDTO parishWithUpdatedData =
+        createParish(secondParish.getId(), "New name", "New address");
+
+    parishService.add(parishWithUpdatedData);
+
+    final ParishDTO foundParish = parishService.findOne(secondParish.getId());
+    assertThat(foundParish).isEqualTo(parishWithUpdatedData);
   }
 
   private ParishDTO createParish(long id, String name, String address) {
