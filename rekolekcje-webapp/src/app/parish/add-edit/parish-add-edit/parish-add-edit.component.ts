@@ -4,6 +4,7 @@ import { Parishes } from '../../../core/store/parish/parish-reducer';
 import { Store } from '@ngrx/store';
 import { Parish } from '../../../shared/models/parish.model';
 import { ParishSharedActions } from '../../../shared/store-shared/parish/parish-actions';
+import { AppSelectors } from '../../../core/store/app-selectors';
 
 @Component({
   selector: 'parish-add-edit',
@@ -12,11 +13,17 @@ import { ParishSharedActions } from '../../../shared/store-shared/parish/parish-
 })
 export class ParishAddEditComponent implements OnInit, OnDestroy {
 
+  editing: boolean;
+  parishToEdit: Parish;
+
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private store: Store<Parishes.State>) { }
 
   ngOnInit() {
+    this.store.select(AppSelectors.getSelectedParish)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((parish: Parish) => this.parishToEdit = parish);
   }
 
   ngOnDestroy(): void {
@@ -26,5 +33,9 @@ export class ParishAddEditComponent implements OnInit, OnDestroy {
 
   addParish(parish: Parish): void {
     this.store.dispatch(new ParishSharedActions.CreateParish(parish));
+  }
+
+  updateParish(parish: Parish): void {
+    this.store.dispatch(new ParishSharedActions.UpdateParish(parish));
   }
 }

@@ -31,4 +31,9 @@ export namespace AppSelectors {
     getParishModuleState,
     (state: Parishes.State) => state.parishList
   );
+
+  export const getSelectedParish = createSelector(
+    getParishModuleState,
+    (state: Parishes.State) => state.selectedParish
+  );
 }

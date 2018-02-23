@@ -10,13 +10,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.domain.ParishService;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -175,6 +173,6 @@ public class ParishAcceptanceTest extends BaseIntegrationTest {
   }
 
   private void saveAllParishes(List<ParishDTO> parishes) {
-    parishes.forEach(parishDTO -> parishService.add(parishDTO));
+    parishes.forEach(parishDTO -> parishService.save(parishDTO));
   }
 }

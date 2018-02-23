@@ -17,7 +17,7 @@ public class ParishService {
     this.parishRepository = parishRepository;
   }
 
-  public ParishDTO add(ParishDTO parishDTO) {
+  public ParishDTO save(ParishDTO parishDTO) {
     requireNonNull(parishDTO);
     Parish parish = parishCreator.from(parishDTO);
     parish = parishRepository.save(parish);

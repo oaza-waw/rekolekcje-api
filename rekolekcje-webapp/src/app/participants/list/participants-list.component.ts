@@ -112,8 +112,9 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
   }
 
   getParishName(parishId: number): string {
-    console.log('id: ' + parishId);
-    console.log('parishes: ' + this.parishes.length);
-    return this.parishes.find(p => p.id === parishId).name;
+    // console.log('id: ' + parishId);
+    // console.log('parishes: ' + this.parishes.length);
+    let parish = this.parishes.find(p => p.id === parishId);
+    return parish ? parish.name : '';
   }
 }

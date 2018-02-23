@@ -1,2 +1,14 @@
-<parish-form (formOutput)="addParish($event)">
-</parish-form>
+<ng-container [ngSwitch]="editing">
+  <ng-container *ngSwitchCase="true">
+    <parish-form
+      [id]="parishToEdit.id"
+      [name]="parishToEdit.name"
+      [address]="parishToEdit.address"
+      (formOutput)="updateParish($event)">
+    </parish-form>
+  </ng-container>
+  <ng-container *ngSwitchCase="false">
+    <parish-form (formOutput)="addParish($event)">
+    </parish-form>
+  </ng-container>
+</ng-container>

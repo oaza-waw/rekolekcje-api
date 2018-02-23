@@ -33,7 +33,7 @@ class ParishEndpoint {
 
   @PostMapping("/api/parish")
   ParishDTO createParish(@RequestBody ParishDTO newParish) {
-    return parishService.add(newParish);
+    return parishService.save(newParish);
   }
 
   @DeleteMapping("/api/parish/{id}")
@@ -43,6 +43,6 @@ class ParishEndpoint {
 
   @PutMapping("/api/parish")
   ParishDTO updateParish(@RequestBody ParishDTO parishWithNewData) {
-    return parishService.add(parishWithNewData);
+    return parishService.save(parishWithNewData);
   }
 }

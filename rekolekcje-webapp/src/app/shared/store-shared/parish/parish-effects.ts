@@ -13,6 +13,11 @@ import CreateParishFail = ParishSharedActions.CreateParishFail;
 import LoadParishListSuccess = ParishSharedActions.LoadParishListSuccess;
 import LoadParishListFail = ParishSharedActions.LoadParishListFail;
 import { Parish } from '../../models/parish.model';
+import DeleteParishSuccess = ParishSharedActions.DeleteParishSuccess;
+import DeleteParishFail = ParishSharedActions.DeleteParishFail;
+import UpdateParishSuccess = ParishSharedActions.UpdateParishSuccess;
+import UpdateParishFail = ParishSharedActions.UpdateParishFail;
+import SelectParishSuccess = ParishSharedActions.SelectParishSuccess;
 
 @Injectable()
 export class ParishEffects {
@@ -44,5 +49,38 @@ export class ParishEffects {
             catchError(error => of(new LoadParishListFail(error)))
           )
       )
+    );
+
+  @Effect()
+  DeleteParish: Observable<Action> = this.actions
+    .ofType(ParishSharedActions.types.DeleteParish)
+    .pipe(
+      switchMap((action: ParishSharedActions.DeleteParish) =>
+        this.http.delete<Parish>(Config.endpoints.parishModule + '/' + action.payload)
+          .pipe(
+            map(data => new DeleteParishSuccess(action.payload)),
+            catchError(error => of(new DeleteParishFail(error)))
+          )
+      )
+    );
+
+  @Effect()
+  UpdateParish: Observable<Action> = this.actions
+    .ofType(ParishSharedActions.types.UpdateParish)
+    .pipe(
+      switchMap((action: ParishSharedActions.UpdateParish) =>
+        this.http.put<Parish>(Config.endpoints.parishModule, action.payload)
+          .pipe(
+            map(data => new UpdateParishSuccess(data)),
+            catchError(error => of(new UpdateParishFail(error)))
+          )
+      )
+    );
+
+  @Effect()
+  SelectParish: Observable<Action> = this.actions
+    .ofType(ParishSharedActions.types.SelectParish)
+    .pipe(
+      switchMap((action: ParishSharedActions.SelectParish) => of(new SelectParishSuccess(action.payload)))
     );
 }

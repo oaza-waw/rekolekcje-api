@@ -24,7 +24,7 @@ public class ParishTest {
 
   @Test
   public void shouldAddNewParish() {
-    parishService.add(firstParish);
+    parishService.save(firstParish);
 
     final ParishDTO foundParish = parishService.findOne(firstParish.getId());
     assertThat(foundParish).isEqualTo(firstParish);
@@ -32,8 +32,8 @@ public class ParishTest {
 
   @Test
   public void shouldGetAllParishes() {
-    parishService.add(firstParish);
-    parishService.add(secondParish);
+    parishService.save(firstParish);
+    parishService.save(secondParish);
 
     final List<ParishDTO> foundParishes = parishService.findAll();
     assertThat(foundParishes).hasSize(2);
@@ -42,8 +42,8 @@ public class ParishTest {
 
   @Test
   public void shouldGetSingleParish() {
-    parishService.add(firstParish);
-    parishService.add(secondParish);
+    parishService.save(firstParish);
+    parishService.save(secondParish);
 
     final ParishDTO foundParish = parishService.findOne(secondParish.getId());
     assertThat(foundParish).isEqualTo(secondParish);
@@ -51,7 +51,7 @@ public class ParishTest {
 
   @Test
   public void shouldThrowExceptionWhenParishNotFound() {
-    parishService.add(firstParish);
+    parishService.save(firstParish);
 
     assertThatExceptionOfType(ParishNotFoundException.class)
         .isThrownBy(() -> parishService.findOne(secondParish.getId()))
@@ -60,8 +60,8 @@ public class ParishTest {
 
   @Test
   public void shouldDeleteParish() {
-    parishService.add(firstParish);
-    parishService.add(secondParish);
+    parishService.save(firstParish);
+    parishService.save(secondParish);
 
     parishService.delete(firstParish.getId());
 
@@ -72,12 +72,12 @@ public class ParishTest {
 
   @Test
   public void shouldUpdateParish() {
-    parishService.add(firstParish);
-    parishService.add(secondParish);
+    parishService.save(firstParish);
+    parishService.save(secondParish);
     final ParishDTO parishWithUpdatedData =
         createParish(secondParish.getId(), "New name", "New address");
 
-    parishService.add(parishWithUpdatedData);
+    parishService.save(parishWithUpdatedData);
 
     final ParishDTO foundParish = parishService.findOne(secondParish.getId());
     assertThat(foundParish).isEqualTo(parishWithUpdatedData);
