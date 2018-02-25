@@ -7,6 +7,7 @@ import { Participant } from '../../shared/models/participant.model';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';
 import { ParticipantAddEditDialog } from '../add-edit/participant-dialog/add-edit-dialog.component';
+import { Parish } from '../../shared/models/parish.model';
 
 @Component({
   selector: 'participants-list',
@@ -17,6 +18,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
 
   @Input()
   participants: Participant[];
+  @Input()
+  parishes: Parish[];
 
   @Output()
   addParticipant: EventEmitter<Participant> = new EventEmitter<Participant>();
@@ -57,7 +60,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
   openAddParticipantDialog(): void {
     const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
       data: {
-        dialogTitle: 'Add new participant'
+        dialogTitle: 'Add new participant',
+        parishes: this.parishes
       },
       disableClose: true
     });
@@ -77,7 +81,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         lastName: participant.lastName,
         pesel: participant.pesel,
         address: participant.address,
-        parish: participant.parish
+        parishId: participant.parishId,
+        parishes: this.parishes
       },
       disableClose: true
     });
@@ -104,5 +109,12 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         this.deleteParticipant.emit(id);
       }
     });
+  }
+
+  getParishName(parishId: number): string {
+    // console.log('id: ' + parishId);
+    // console.log('parishes: ' + this.parishes.length);
+    let parish = this.parishes.find(p => p.id === parishId);
+    return parish ? parish.name : '';
   }
 }

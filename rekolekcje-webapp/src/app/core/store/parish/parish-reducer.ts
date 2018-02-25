@@ -23,11 +23,31 @@ export namespace ParishReducer {
       case ParishSharedActions.types.CreateParishSuccess: {
         const list: Parish[] = [...state.parishList];
         list.push(action.payload);
-        return {...state, parishList: list};
+        return { ...state, parishList: list };
       }
 
       case ParishSharedActions.types.LoadParishListSuccess: {
-        return {...state, parishList: action.payload};
+        return { ...state, parishList: action.payload };
+      }
+
+      case ParishSharedActions.types.DeleteParishSuccess: {
+        return {
+          ...state,
+          parishList: state.parishList.filter((parish: Parish) => parish.id !== action.payload)
+        };
+      }
+
+      case ParishSharedActions.types.UpdateParishSuccess: {
+        return {
+          ...state,
+          parishList: state.parishList.map((parish: Parish) => {
+            if (parish.id === action.payload.id) {
+              return action.payload;
+            } else {
+              return parish;
+            }
+          })
+        };
       }
 
       default:

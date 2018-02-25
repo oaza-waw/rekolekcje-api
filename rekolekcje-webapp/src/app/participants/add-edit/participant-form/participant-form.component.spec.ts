@@ -1,20 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParticipantFormComponent } from './participant-form.component';
-import { MaterialModule } from '../../../shared/material/material.module';
-import { SharedModule } from '../../../shared/shared.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { participantsTestingModule } from '../../participants-testing.module';
 
 describe('ParticipantFormComponent', () => {
   let component: ParticipantFormComponent;
   let fixture: ComponentFixture<ParticipantFormComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [SharedModule, NoopAnimationsModule],
-      declarations: [ ParticipantFormComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule(participantsTestingModule).compileComponents();
   }));
 
   beforeEach(() => {

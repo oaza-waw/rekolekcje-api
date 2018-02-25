@@ -5,7 +5,7 @@ export class Participant {
     public lastName?: string,
     public pesel?: number,
     public address?: string,
-    public parish?: number
+    public parishId?: number
   ) {}
 
   static mapFromForm(input: any): Participant {
@@ -14,7 +14,7 @@ export class Participant {
     p.lastName = input.result.lastName;
     p.pesel = input.result.pesel;
     p.address = input.result.address;
-    p.parish = input.result.parish;
+    p.parishId = input.result.parishId;
     return p;
   }
 }

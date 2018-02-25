@@ -56,21 +56,21 @@
                   Parish
                 </mat-panel-title>
                 <mat-panel-description>
-                  {{participant.parish}}
+                  {{participant.parishId}} - {{getParishName(participant.parishId)}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
               <div class="form-group row">
                 <label class="col-sm-2">Parish name</label>
-                <div class="col-sm-6">{{participant.parish}}</div>
+                <div class="col-sm-6">{{getParishName(participant.parishId)}}</div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2">Parish address</label>
-                <div class="col-sm-6">{{participant.parish}}</div>
+                <div class="col-sm-6">{{getParishAddress(participant.parishId)}}</div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2">Parish region</label>
-                <div class="col-sm-6">{{participant.parish}}</div>
+                <div class="col-sm-6">{{participant.parishId}}</div>
               </div>
 
               <!--<mat-list>-->
@@ -186,7 +186,7 @@
         [firstName]="participant.firstName"
         [id]="participant.id"
         [lastName]="participant.lastName"
-        [parish]="participant.parish"
+        [parishId]="participant.parishId"
         [pesel]="participant.pesel"
         (formOutput)="save($event)">
       </participiant-form>

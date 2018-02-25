@@ -34,4 +34,12 @@ export class ParishComponent implements OnInit, OnDestroy {
   onAddParish(parish: Parish): void {
     this.store.dispatch(new ParishSharedActions.CreateParish(parish))
   }
+
+  onDeleteParish(id: number): void {
+    this.store.dispatch(new ParishSharedActions.DeleteParish(id))
+  }
+
+  onEditParish(parish: Parish): void {
+    this.store.dispatch(new ParishSharedActions.UpdateParish(parish))
+  }
 }

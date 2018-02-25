@@ -1,4 +1,6 @@
 <parish-list
   [parishes]="(parishes | async)"
-  (addParish)="onAddParish($event)">
+  (addParish)="onAddParish($event)"
+  (deleteParish)="onDeleteParish($event)"
+  (editParish)="onEditParish($event)">
 </parish-list>
