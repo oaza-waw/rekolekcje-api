@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Participant } from '../../shared/models/participant.model';
+import { Participant } from '../models/participant.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';
 import { Store } from '@ngrx/store';
-import { Participants } from '../../core/store/participants/participants-reducer';
-import { ParticipantsSharedActions } from '../../shared/store-shared/participants/participants-actions';
+import { Participants } from '../store/participants-reducer';
+import { ParticipantsSharedActions } from '../store/participants-actions';
 import { Subject } from 'rxjs/Subject';
 import { AppSelectors } from '../../core/store/app-selectors';
-import { Parish } from '../../shared/models/parish.model';
-import { Parishes } from '../../core/store/parish/parish-reducer';
+import { Parish } from '../../parish/models/parish.model';
+import { Parishes } from '../../parish/store/parish-reducer';
 
 @Component({
   selector: 'participant-details',

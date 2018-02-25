@@ -1,5 +1,5 @@
-import { Participant } from '../../../shared/models/participant.model';
-import { ParticipantsSharedActions } from '../../../shared/store-shared/participants/participants-actions';
+import { Participant } from '../models/participant.model';
+import { ParticipantsSharedActions } from './participants-actions';
 
 export namespace Participants {
   export interface State {

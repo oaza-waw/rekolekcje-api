@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Participant } from '../shared/models/participant.model';
+import { Participant } from './models/participant.model';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
-import { Participants } from '../core/store/participants/participants-reducer';
+import { Participants } from './store/participants-reducer';
 import { Observable } from 'rxjs/Observable';
-import { ParticipantsSharedActions } from '../shared/store-shared/participants/participants-actions';
+import { ParticipantsSharedActions } from './store/participants-actions';
 import { AppSelectors } from '../core/store/app-selectors';
 import { Router } from '@angular/router';
-import { Parish } from '../shared/models/parish.model';
-import { ParishSharedActions } from '../shared/store-shared/parish/parish-actions';
+import { Parish } from '../parish/models/parish.model';
+import { ParishSharedActions } from '../parish/store/parish-actions';
 
 @Component({
   selector: 'participants-root',

@@ -1,7 +1,7 @@
 import { StoreModule } from '@ngrx/store';
 import { AppReducer } from '../core/store/app-store';
-import { ParticipantsReducer } from '../core/store/participants/participants-reducer';
-import { ParishReducer } from '../core/store/parish/parish-reducer';
+import { ParticipantsReducer } from './store/participants-reducer';
+import { ParishReducer } from '../parish/store/parish-reducer';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ParticipantsModule } from './participants.module';
 import { SharedModule } from '../shared/shared.module';

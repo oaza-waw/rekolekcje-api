@@ -3,7 +3,6 @@ import { ParticipantsComponent } from './participants.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ParticipantDetailsComponent } from './details/participant-details.component';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ParticipantsListComponent } from './list/participants-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

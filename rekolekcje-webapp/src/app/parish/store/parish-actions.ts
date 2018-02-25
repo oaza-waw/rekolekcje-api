@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Parish } from '../../models/parish.model';
+import { Parish } from '../models/parish.model';
 
 export namespace ParishSharedActions {
   export const types = {

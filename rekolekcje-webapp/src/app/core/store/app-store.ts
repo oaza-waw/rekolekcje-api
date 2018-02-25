@@ -1,5 +1,5 @@
-import { Participants } from './participants/participants-reducer';
-import { Parishes } from './parish/parish-reducer';
+import { Participants } from '../../participants/store/participants-reducer';
+import { Parishes } from '../../parish/store/parish-reducer';
 
 export namespace App {
   export interface State {

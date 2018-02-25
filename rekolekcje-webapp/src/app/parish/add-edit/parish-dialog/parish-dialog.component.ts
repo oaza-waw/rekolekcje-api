@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Parish } from '../../../shared/models/parish.model';
+import { Parish } from '../../models/parish.model';
 
 @Component({
   selector: 'parish-dialog',

@@ -1,5 +1,5 @@
-import { Parish } from '../../../shared/models/parish.model';
-import { ParishSharedActions } from '../../../shared/store-shared/parish/parish-actions';
+import { Parish } from '../models/parish.model';
+import { ParishSharedActions } from './parish-actions';
 
 export namespace Parishes {
   export interface State {

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Parish } from '../shared/models/parish.model';
+import { Parish } from './models/parish.model';
 import { Subject } from 'rxjs/Subject';
-import { Parishes } from '../core/store/parish/parish-reducer';
+import { Parishes } from './store/parish-reducer';
 import { Store } from '@ngrx/store';
-import { ParishSharedActions } from '../shared/store-shared/parish/parish-actions';
+import { ParishSharedActions } from './store/parish-actions';
 import { AppSelectors } from '../core/store/app-selectors';
 
 @Component({

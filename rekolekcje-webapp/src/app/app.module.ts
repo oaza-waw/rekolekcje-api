@@ -10,14 +10,14 @@ import { NavigationModule } from './navigation/navigation.module';
 import { SharedModule } from './shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { ParticipantsEffects } from './shared/store-shared/participants/participants-effects';
-import { ParticipantsReducer } from './core/store/participants/participants-reducer';
+import { ParticipantsEffects } from './participants/store/participants-effects';
+import { ParticipantsReducer } from './participants/store/participants-reducer';
 import { AppReducer } from './core/store/app-store';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { ParishModule } from './parish/parish.module';
-import { ParishReducer } from './core/store/parish/parish-reducer';
-import { ParishEffects } from './shared/store-shared/parish/parish-effects';
+import { ParishReducer } from './parish/store/parish-reducer';
+import { ParishEffects } from './parish/store/parish-effects';
 
 @NgModule({
   declarations: [

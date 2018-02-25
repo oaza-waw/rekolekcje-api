@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Participant } from '../../models/participant.model';
+import { Participant } from '../models/participant.model';
 
 export namespace ParticipantsSharedActions {
   export const types = {

@@ -1,6 +1,6 @@
 import { StoreModule } from '@ngrx/store';
 import { AppReducer } from '../core/store/app-store';
-import { ParishReducer } from '../core/store/parish/parish-reducer';
+import { ParishReducer } from './store/parish-reducer';
 import { ParishModule } from './parish.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';

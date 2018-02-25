@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Parish } from '../../shared/models/parish.model';
+import { Parish } from '../models/parish.model';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { ParishAddEditDialogComponent } from '../add-edit/parish-dialog/parish-dialog.component';
 import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';

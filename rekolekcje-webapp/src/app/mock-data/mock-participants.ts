@@ -1,4 +1,4 @@
-import { Participant } from '../shared/models/participant.model';
+import { Participant } from '../participants/models/participant.model';
 
 export const MOCK_PARTICIPANTS: Participant[] = [
   {id: 1, firstName: 'Paul', lastName: 'Pierce', address: 'TD Garden', parishId: 1, pesel: 85010212345},

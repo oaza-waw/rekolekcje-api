@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Participant } from '../../../shared/models/participant.model';
+import { Participant } from '../../models/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Parish } from '../../../shared/models/parish.model';
+import { Parish } from '../../../parish/models/parish.model';
 import { AppSelectors } from '../../../core/store/app-selectors';
 import { Subject } from 'rxjs/Subject';
-import { Parishes } from '../../../core/store/parish/parish-reducer';
+import { Parishes } from '../../../parish/store/parish-reducer';
 import { Store } from '@ngrx/store';
 
 @Component({

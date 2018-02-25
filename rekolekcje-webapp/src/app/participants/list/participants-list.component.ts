@@ -3,11 +3,11 @@ import {
   Component, EventEmitter, Input, OnChanges, Output,
   ViewChild
 } from '@angular/core';
-import { Participant } from '../../shared/models/participant.model';
+import { Participant } from '../models/participant.model';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { DeleteConfirmAlertDialog } from '../../shared/delete-confirm-alert/delete-confirm-alert.component';
 import { ParticipantAddEditDialog } from '../add-edit/participant-dialog/add-edit-dialog.component';
-import { Parish } from '../../shared/models/parish.model';
+import { Parish } from '../../parish/models/parish.model';
 
 @Component({
   selector: 'participants-list',

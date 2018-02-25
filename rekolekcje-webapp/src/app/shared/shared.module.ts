@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthHttpInterceptor } from '../auth/http-interceptor';
-import { AuthService } from '../auth/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -23,8 +21,5 @@ import { AuthService } from '../auth/auth.service';
     MaterialModule,
     ReactiveFormsModule
   ],
-  providers: [
-    // AuthService
-  ]
 })
 export class SharedModule { }

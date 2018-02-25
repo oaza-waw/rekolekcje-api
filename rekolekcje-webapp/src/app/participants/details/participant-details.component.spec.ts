@@ -4,7 +4,7 @@ import { ParticipantDetailsComponent } from './participant-details.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Participants } from '../../core/store/participants/participants-reducer';
+import { Participants } from '../store/participants-reducer';
 import { participantsTestingModule } from '../participants-testing.module';
 
 describe('ParticipantDetailsComponent', () => {

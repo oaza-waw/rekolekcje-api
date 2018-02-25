@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
-import { Participant } from '../../../shared/models/participant.model';
+import { Participant } from '../../models/participant.model';
 import { Store } from '@ngrx/store';
-import { Participants } from '../../../core/store/participants/participants-reducer';
-import { ParticipantsSharedActions } from '../../../shared/store-shared/participants/participants-actions';
+import { Participants } from '../../store/participants-reducer';
+import { ParticipantsSharedActions } from '../../store/participants-actions';
 import { AppSelectors } from '../../../core/store/app-selectors';
 
 @Component({

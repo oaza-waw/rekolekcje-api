@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Parish } from '../../../shared/models/parish.model';
+import { Parish } from '../../models/parish.model';
 
 @Component({
   selector: 'parish-form',
