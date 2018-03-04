@@ -51,12 +51,15 @@ export class ParticipantsEffects {
   LoadParticipantsList: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.LoadParticipantsList)
     .pipe(
-      switchMap((action: ParticipantsSharedActions.LoadParticipantsList) =>
-        this.http.get<Participant[]>(Config.endpoints.participantsModule)
+      switchMap((action: ParticipantsSharedActions.LoadParticipantsList) => {
+        console.log('endpoint: ' + Config.endpoints.participantsModule);
+        return this.http.get<Participant[]>(Config.endpoints.participantsModule)
           .pipe(
             map((data: Participant[]) => new LoadParticipantsListSuccess(data)),
             catchError(error => of(new LoadParticipantsListFail(error)))
-          ))
+          )
+        }
+      )
     );
 
   @Effect()

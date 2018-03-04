@@ -102,7 +102,9 @@ processResources {
 }
 
 //frontend:build will be run before the processResources
-processResources.dependsOn(':rekolekcje-webapp:build')
+processResources.dependsOn(':rekolekcje-webapp:buildClient')
+//bootRun.dependsOn(':rekolekcje-webapp:buildClientDev')
+//jar.dependsOn(':rekolekcje-webapp:buildClient')
 
 jacocoTestReport {
   reports {
