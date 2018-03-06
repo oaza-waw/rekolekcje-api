@@ -133,6 +133,13 @@ task stage {
   dependsOn build
 }
 
+gradle.taskGraph.whenReady { graph ->
+  if (graph.hasTask(stage)) {
+    test.enabled = false
+    verify.enabled = false
+  }
+}
+
 sonarqube {
   properties {
     properties["sonar.tests"] += sourceSets.verify.allSource.srcDirs
