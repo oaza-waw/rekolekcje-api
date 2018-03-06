@@ -129,6 +129,10 @@ bootRun {
   systemProperties System.properties
 }
 
+task stage {
+  dependsOn build
+}
+
 sonarqube {
   properties {
     properties["sonar.tests"] += sourceSets.verify.allSource.srcDirs

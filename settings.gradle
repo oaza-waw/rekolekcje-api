@@ -1,1 +1,2 @@
+rootProject.name='Rekolekcje-API'
 include 'rekolekcje-engine', 'rekolekcje-webapp'
