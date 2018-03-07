@@ -5,7 +5,10 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
+  h2:
+    console:
+      enabled: true
   datasource:
     url: jdbc:h2:mem:rekolekcje_test_db;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
@@ -15,7 +18,7 @@ liquibase:
 
 jwt:
   header: Authorization
-  secret: mySecret
+  secret: mySecretForTests
   expiration: 604800
   route:
     authentication:
