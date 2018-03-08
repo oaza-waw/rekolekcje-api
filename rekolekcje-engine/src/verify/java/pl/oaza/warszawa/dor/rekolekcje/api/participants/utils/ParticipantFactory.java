@@ -20,6 +20,7 @@ public class ParticipantFactory {
         .id(id)
         .firstName("Minimal")
         .lastName("Participant")
+        .pesel(92042312345L)
         .parishId(1L)
         .build();
   }

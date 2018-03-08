@@ -23,7 +23,7 @@ public class User {
 
   @Id
   @Column(name = "ID")
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
   @Column(name = "USERNAME", length = 50, unique = true)

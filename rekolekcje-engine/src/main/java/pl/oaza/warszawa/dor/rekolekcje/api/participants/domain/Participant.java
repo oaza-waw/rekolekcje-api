@@ -19,7 +19,7 @@ import javax.persistence.Id;
 class Participant {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
   private String firstName;
   private String lastName;

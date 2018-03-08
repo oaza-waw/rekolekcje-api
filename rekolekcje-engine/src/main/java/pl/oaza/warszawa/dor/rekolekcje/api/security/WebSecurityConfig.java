@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .authorizeRequests()
+        .antMatchers("/", "/*.js", "/fontawesome-webfont*", "/*css").permitAll()
         .antMatchers("/api/users/sign-up").permitAll()
         .antMatchers("/api/auth").permitAll()
         .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()

@@ -1,9 +1,9 @@
-export const apiUrl = 'http://localhost:4200/api';
+import { environment } from './environments/environment';
 
 export const Config = {
   endpoints: {
-    participantsModule: apiUrl + '/participants',
-    parishModule: apiUrl + '/parish'
+    participantsModule: environment.apiUrl + '/participants',
+    parishModule: environment.apiUrl + '/parish'
   },
 
   inputDebounceTime: 250,
