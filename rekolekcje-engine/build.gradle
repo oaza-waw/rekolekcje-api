@@ -165,7 +165,7 @@ idea {
 liquibase {
   activities {
     main {
-      changeLogFile 'src/main/resources/changelogs.postgresql.sql'
+      changeLogFile 'src/main/resources/pl.oaza.warszawa.dor.rekolekcje/changelogs.xml'
       url 'jdbc:postgresql://localhost:5432/rekolekcjedb'
       username 'postgres'
       password 'postgres'
