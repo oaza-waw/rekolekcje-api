@@ -5,17 +5,23 @@
 
 Aplikacja do przechowywania danych uczestników rekolekcji.
 
+**Przed wprowadzaniem zmian w repozytorium przeczytaj [Contribution Guide](docs/CONTRIBUTING.md).**
+
+## Zależności
+
+Do kompilacji i uruchomienia aplikacji lokalnie potrzebne są następujące zależności:
+
+- Java 8 (JDK 8)
+- PostgreSQL (przynajmniej wersja 9.4). Należy stworzyć bazę o nazwie `rekolekcjedb`, lub skonfigurować aplikację do połączenia z inną bazą.
+
+
 ## Uruchomienie
 
-Aplikację mozna uruchomić w dwóch trybach:
-- produkcyjnym - system budowany jest jako pojedyncza aplikacja, która laczy się z produkcyjna baza danych i wymaga konfiguracji kont uzytkownikow
-- developerskim - mozliwe jest niezalezne uruchomienie aplikacji backendowej i frontendowej, oraz uzycie innej bazy danych, na przyklad pamieciowej lub testowej
+Aplikację można uruchomić w dwóch trybach:
+- produkcyjnym - system budowany jest jako pojedyncza aplikacja, która łaczy się z produkcyjną bazą danych i wymaga konfiguracji kont uzytkownikow
+- developerskim - możliwe jest niezależne uruchomienie aplikacji backendowej i frontendowej, oraz użycie innej bazy danych, na przykład pamieciowej lub testowej
 
 ### Tryb produkcyjny
-
-Zaleznosci:
-- Java 8 (JDK 8)
-- PostgreSQL (przynajmniej wersja 9.4)
 
 Aby uruchomić aplikację:
 ```$xslt
@@ -26,14 +32,17 @@ Aplikacja bedzie dostepna na porcie wyswietlonym w konsoli (`http://localhost:50
 
 ### Tryb developerski
 
-Zaleznosci:
-- Java 8
-- PostgreSQL (opcjonalnie)
-- NodeJS
+Dodatkowe zależnosci:
+- NodeJS (wersja 9.x)
 
 Aby uruchomic serwer (engine)
 ```$xslt
-./gradlew -Dspring.profiles.active=dev bootRun 
+./gradlew bootRun
+```
+
+lub w trybie developerskim, na pamięciowej bazie danych:
+```$xslt
+./gradlew -Dspring.profiles.active=dev bootRun
 ```
 
 Backend bedzie dostepny na porcie `5000`.
@@ -45,3 +54,19 @@ npm start
 
 Frontend bedzie dostepny na porcie `4200`.
 
+### Testy automatyczne
+
+Wszystkie testy z konsoli:
+```$xslt
+./gradlew verify
+```
+
+Testy jednostkowe:
+```$xslt
+./gradlew test
+```
+
+Testy webowe jednostkowe (uruchamiane z modulu `rekolekcje-webapp`):
+```$xslt
+ng test
+```
