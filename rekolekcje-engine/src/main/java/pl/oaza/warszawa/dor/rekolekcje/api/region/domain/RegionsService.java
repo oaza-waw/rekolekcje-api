@@ -2,20 +2,19 @@ package pl.oaza.warszawa.dor.rekolekcje.api.region.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.region.dto.RegionDTO;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RegionsService {
 
-  private final RegionsRepository participantsRepository;
+  private final RegionsRepository repository;
 
-  public RegionsService(RegionsRepository participantsRepository) {
-    this.participantsRepository = participantsRepository;
+  public RegionsService(RegionsRepository repository) {
+    this.repository = repository;
   }
 
   public List<RegionDTO> findAll() {
-    return participantsRepository.findAll().stream()
+    return repository.findAll().stream()
             .map(Region::dto)
             .collect(Collectors.toList());
   }
