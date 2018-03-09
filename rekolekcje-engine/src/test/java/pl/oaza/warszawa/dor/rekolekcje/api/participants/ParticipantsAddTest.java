@@ -2,7 +2,6 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Collections;
@@ -15,10 +14,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddSingleParticipantWithMinimalDataToEmptySystem() {
     // given
-    ParticipantDTO participantDTO = ParticipantDTO.builder()
-        .firstName("Jack")
-        .lastName("Frost")
-        .build();
+    ParticipantDTO participantDTO = ParticipantsTestData.participantWithMinimalData;
 
     // when
     ParticipantDTO addedParticipant = service.save(participantDTO);
@@ -33,10 +29,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAssignIdWhenAddingNewParticipant() {
     // given
-    ParticipantDTO participantDTO = ParticipantDTO.builder()
-        .firstName("Jack")
-        .lastName("Frost")
-        .build();
+    ParticipantDTO participantDTO = ParticipantsTestData.participantWithMinimalData;
 
     // when
     ParticipantDTO addedParticipant = service.save(participantDTO);
@@ -49,18 +42,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddSingleParticipantWithFullDataToEmptySystem() {
     // given
-    ParentsDTO parents = ParentsDTO.builder()
-        .motherName("Mary")
-        .fatherName("Jake")
-        .build();
-    ParticipantDTO participantWithFullData = ParticipantDTO.builder()
-        .firstName("Paul")
-        .lastName("Pierce")
-        .pesel(987654L)
-        .address("Boston")
-        .parishId(1L)
-        .parents(parents)
-        .build();
+    ParticipantDTO participantWithFullData = ParticipantsTestData.participantWithFullData;
 
     // when
     ParticipantDTO addedParticipant = service.save(participantWithFullData);
@@ -73,18 +55,11 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddParticipantToSystemWithExistingParticipants() {
     // given
-    ParticipantDTO existingParticipant = ParticipantDTO.builder()
-        .firstName("Sample")
-        .lastName("Participant")
-        .build();
+    ParticipantDTO existingParticipant = ParticipantsTestData.sampleParticipant1;
     saveAll(Collections.singletonList(existingParticipant));
-    ParticipantDTO participantToAdd = ParticipantDTO.builder()
-        .firstName("Jack")
-        .lastName("Frost")
-        .build();
 
     // when
-    ParticipantDTO addedParticipant = service.save(participantToAdd);
+    ParticipantDTO addedParticipant = service.save(ParticipantsTestData.sampleParticipant2);
 
     // then
     final List<ParticipantDTO> allInSystem = getAllInSystem();
