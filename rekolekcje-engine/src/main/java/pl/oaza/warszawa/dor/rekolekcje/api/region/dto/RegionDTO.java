@@ -11,7 +11,7 @@ import org.hibernate.annotations.Immutable;
 @AllArgsConstructor
 public class RegionDTO {
 
-  private final long id;
+  private final Long id;
   private final String name;
 
 }
