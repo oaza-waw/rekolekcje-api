@@ -21,5 +21,6 @@ public final class ParticipantDTO {
   private Long pesel;
   private Long parishId;
   private String address;
+  private ParentsDTO parents;
 
 }

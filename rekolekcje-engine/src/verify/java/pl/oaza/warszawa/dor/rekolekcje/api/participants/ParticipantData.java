@@ -15,4 +15,5 @@ public class ParticipantData {
   private Long pesel;
   private Long parishId;
   private String address;
+  private ParentsData parents;
 }

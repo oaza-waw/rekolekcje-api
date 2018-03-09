@@ -11,6 +11,8 @@ class ParticipantCreator {
         .pesel(participantDTO.getPesel())
         .address(participantDTO.getAddress())
         .parishId(participantDTO.getParishId())
+        .motherName(getMotherNameFromDto(participantDTO))
+        .fatherName(getFatherNameFromDto(participantDTO))
         .build();
   }
 
@@ -22,6 +24,16 @@ class ParticipantCreator {
         .pesel(participant.getPesel())
         .address(participant.getAddress())
         .parishId(participant.getParishId())
+        .motherName(participant.getMotherName())
+        .fatherName(participant.getFatherName())
         .build();
+  }
+
+  private String getMotherNameFromDto(ParticipantDTO participantDTO) {
+    return participantDTO.getParents() != null ? participantDTO.getParents().getMotherName() : null;
+  }
+
+  private String getFatherNameFromDto(ParticipantDTO participantDTO) {
+    return participantDTO.getParents() != null ? participantDTO.getParents().getFatherName() : null;
   }
 }

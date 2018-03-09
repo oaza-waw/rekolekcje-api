@@ -61,7 +61,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     // then
     assertThat(participantAfterUpdate).isEqualTo(participantWithUpdatedData);
     ParticipantDTO participantInSystemWithTheSameId = getAllInSystem().stream()
-        .filter(p -> p.getId() == participantWithUpdatedData.getId())
+        .filter(p -> Objects.equals(p.getId(), participantWithUpdatedData.getId()))
         .findAny()
         .orElseThrow(() -> new ParticipantNotFoundException(0));
     assertThat(participantInSystemWithTheSameId).isEqualTo(participantWithUpdatedData);

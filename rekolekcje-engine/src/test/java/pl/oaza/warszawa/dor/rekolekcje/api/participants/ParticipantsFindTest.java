@@ -2,11 +2,13 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -41,12 +43,24 @@ public class ParticipantsFindTest extends ParticipantsTest {
   }
 
   @Test
-  public void shouldFindOneParticipantInRepostitory() {
+  public void shouldFindSingleParticipantWithAllDataFilled() {
     // given
-    saveAll(Arrays.asList(firstParticipant, secondParticipant));
+    ParentsDTO parents = ParentsDTO.builder()
+        .motherName("Mary")
+        .fatherName("Jake")
+        .build();
+    ParticipantDTO participantWithFullData = ParticipantDTO.builder()
+        .firstName("Paul")
+        .lastName("Pierce")
+        .pesel(987654L)
+        .address("Boston")
+        .parishId(1L)
+        .build();
+    saveAll(Arrays.asList(firstParticipant, secondParticipant, participantWithFullData));
     ParticipantDTO expectedParticipant = getAllInSystem().stream()
-        .findFirst()
-        .orElseThrow(() -> new ParticipantNotFoundException(0));
+        .filter(p -> Objects.equals(p.getPesel(), participantWithFullData.getPesel()))
+        .findAny()
+        .orElseThrow(() -> new ParticipantNotFoundException(participantWithFullData.getPesel()));
     long participantId = expectedParticipant.getId();
 
     // when

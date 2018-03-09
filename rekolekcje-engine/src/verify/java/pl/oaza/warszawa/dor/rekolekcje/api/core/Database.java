@@ -77,6 +77,12 @@ public class Database {
     return foundParticipants.stream().findAny().orElseThrow(RuntimeException::new);
   }
 
+  public ParticipantData getSavedParticipantData(ParticipantDTO participantDTO) {
+    return getSavedParticipantData(participantDTO.getFirstName(),
+        participantDTO.getLastName(),
+        participantDTO.getPesel());
+  }
+
   public ParticipantData getSavedParticipantData(String firstName, String lastName, Long pesel) {
     List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * FROM participant WHERE first_name = ? AND last_name = ? AND pesel = ?",
         new Object[]{firstName, lastName, pesel},

@@ -9,7 +9,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsRequestBuilder;
@@ -62,16 +61,18 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
   @WithMockUser
   @Test
-  public void shouldGetSingleParticipant() throws Exception {
-    // given
+  public void shouldGetFullDataOfSingleParticipant() throws Exception {
+    // given participant with full data is in the system
+    final ParticipantData participantDataToFind = database.getSavedParticipantData(secondParticipant);
+    final Long idToFind = participantDataToFind.getId();
     final MockHttpServletRequestBuilder getOneRequest =
-        requestBuilder.createGetOneRequest(firstParticipant.getId());
+        requestBuilder.createGetOneRequest(idToFind);
 
-    // when
+    // when requesting this participant
     final ResultActions response = mockMvc.perform(getOneRequest);
 
-    // then
-    final String expectedJsonContent = jsonMapper.writeValueAsString(firstParticipant);
+    // then all his data is retrieved
+    final String expectedJsonContent = jsonMapper.writeValueAsString(participantDataToFind);
     response.andExpect(status().isOk())
         .andExpect(content().json(expectedJsonContent));
   }
