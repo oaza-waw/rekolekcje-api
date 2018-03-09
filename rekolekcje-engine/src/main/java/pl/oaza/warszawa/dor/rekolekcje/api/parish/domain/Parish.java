@@ -20,12 +20,14 @@ class Parish {
   private Long id;
   private String name;
   private String address;
+  private Long region;
 
   public ParishDTO dto() {
     return ParishDTO.builder()
         .id(id)
         .name(name)
         .address(address)
+        .region(region)
         .build();
   }
 }
