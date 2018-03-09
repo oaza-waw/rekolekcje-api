@@ -16,4 +16,5 @@ public final class ParishDTO {
   private final Long id;
   private final String name;
   private final String address;
+  private final Long region;
 }
