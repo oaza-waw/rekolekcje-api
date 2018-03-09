@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Region {
   @Id
-  private long id;
+  private Long id;
   private String name;
 
   RegionDTO dto() {
