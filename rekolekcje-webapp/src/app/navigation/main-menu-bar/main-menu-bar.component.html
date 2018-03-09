@@ -14,30 +14,12 @@
 
 <!--</nav>-->
 <mat-toolbar role="heading">
-  <span>Rekolekcje</span>
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link
-       routerLinkActive="active"
-       routerLink="/home"
-       #homeLinkActive="routerLinkActive"
-       [active]="homeLinkActive.isActive">
-      Home
-    </a>
-    <a mat-tab-link
-       routerLinkActive="active"
-       routerLink="/participants"
-       #participantsLinkActive="routerLinkActive"
-       [active]="participantsLinkActive.isActive">
-      Participants
-    </a>
-    <a mat-tab-link
-       routerLinkActive="active"
-       routerLink="/parish"
-       #parishLinkActive="routerLinkActive"
-       [active]="parishLinkActive.isActive">
-      Parish
-    </a>
-  </nav>
+  <a [routerLink]="['/']">
+    <span class="main-heading">Rekolekcje</span>
+  </a>
+  <a [routerLink]="['home']">Home</a>
+  <a [routerLink]="['participants']">Participants</a>
+  <a [routerLink]="['parish']">Parish</a>
   <span class="fill-space"></span>
   <user-menu></user-menu>
 </mat-toolbar>
