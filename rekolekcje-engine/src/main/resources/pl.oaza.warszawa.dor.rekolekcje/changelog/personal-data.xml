@@ -8,4 +8,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="personal-data-2" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="CHRISTENING_PLACE" type="VARCHAR(255)" />
+            <column name="CHRISTENING_DATE" type="DATE" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

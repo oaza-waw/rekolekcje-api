@@ -15,12 +15,13 @@ import org.hibernate.annotations.Immutable;
 @AllArgsConstructor
 public final class ParticipantDTO {
 
-  private Long id;
-  private String firstName;
-  private String lastName;
-  private Long pesel;
-  private Long parishId;
-  private String address;
-  private ParentsDTO parents;
+  private final Long id;
+  private final String firstName;
+  private final String lastName;
+  private final Long pesel;
+  private final Long parishId;
+  private final String address;
+  private final ParentsDTO parents;
+  private final ChristeningDTO christening;
 
 }
