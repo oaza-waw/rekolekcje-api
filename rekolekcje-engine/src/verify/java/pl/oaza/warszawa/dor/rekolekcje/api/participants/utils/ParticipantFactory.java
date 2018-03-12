@@ -1,6 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ChristeningDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+
+import java.time.LocalDate;
 
 public class ParticipantFactory {
 
@@ -25,6 +29,16 @@ public class ParticipantFactory {
         .build();
   }
 
+  private static final ParentsDTO sampleParents = ParentsDTO.builder()
+      .motherName("Mary")
+      .fatherName("Jake")
+      .build();
+
+  private static final ChristeningDTO sampleChristening = ChristeningDTO.builder()
+      .place("Los Angeles")
+      .date(LocalDate.of(1980, 1, 2))
+      .build();
+
   public static ParticipantDTO participantWithAllData(Long id) {
     return ParticipantDTO.builder()
         .id(id)
@@ -33,6 +47,8 @@ public class ParticipantFactory {
         .address("Street no. 987, City")
         .pesel(90042312345L)
         .parishId(1L)
+        .parents(sampleParents)
+        .christening(sampleChristening)
         .build();
   }
 }

@@ -16,4 +16,5 @@ public class ParticipantData {
   private Long parishId;
   private String address;
   private ParentsData parents;
+  private ChristeningData christening;
 }

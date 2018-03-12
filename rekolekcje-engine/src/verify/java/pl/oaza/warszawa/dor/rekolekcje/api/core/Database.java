@@ -2,9 +2,16 @@ package pl.oaza.warszawa.dor.rekolekcje.api.core;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.ChristeningData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParentsData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Database {
@@ -86,22 +93,55 @@ public class Database {
   public ParticipantData getSavedParticipantData(String firstName, String lastName, Long pesel) {
     List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * FROM participant WHERE first_name = ? AND last_name = ? AND pesel = ?",
         new Object[]{firstName, lastName, pesel},
-        (rs, rowNum) -> ParticipantData.builder()
-            .id(rs.getLong("id"))
-            .firstName(rs.getString("first_name"))
-            .lastName(rs.getString("last_name"))
-            .address(rs.getString("address"))
-            .pesel(rs.getLong("pesel"))
-            .parishId(rs.getLong("parish_id"))
-            .build()
+        (rs, rowNum) -> {
+          ParentsData parentsData = getParentsData(rs.getString("father_name"),
+              rs.getString("mother_name"));
+          final Date date = rs.getDate("christening_date");
+          ChristeningData christeningData = getChristeningData(date, rs.getString("christening_place"));
+          return ParticipantData.builder()
+              .id(rs.getLong("id"))
+              .firstName(rs.getString("first_name"))
+              .lastName(rs.getString("last_name"))
+              .address(rs.getString("address"))
+              .pesel(rs.getLong("pesel"))
+              .parishId(rs.getLong("parish_id"))
+              .parents(parentsData)
+              .christening(christeningData)
+              .build();
+        }
     );
     return foundParticipants.stream().findAny().orElseThrow(RuntimeException::new);
   }
 
+  private ParentsData getParentsData(String fatherName, String motherName) {
+    return (fatherName != null || motherName != null) ?
+        ParentsData.builder()
+                .fatherName(fatherName)
+                .motherName(motherName)
+                .build()
+        : null;
+  }
+
+  private ChristeningData getChristeningData(Date date, String place) {
+    if (date == null && place == null) {
+      return null;
+    } else {
+      final LocalDate christeningDate = date != null ? date.toLocalDate() : null;
+      return ChristeningData.builder()
+              .place(place)
+              .date(christeningDate)
+              .build();
+    }
+  }
+
   public void saveParticipants(List<ParticipantDTO> participantDTOs) {
     participantDTOs.forEach(participant -> {
-      jdbcTemplate.update("INSERT INTO participant(id, first_name, last_name, pesel, address, parish_id) VALUES (?, ?, ?, ?, ?, ?)",
-          participant.getId(), participant.getFirstName(), participant.getLastName(), participant.getPesel(), participant.getAddress(), participant.getParishId());
+      String fatherName = participant.getParents() != null ? participant.getParents().getFatherName() : null;
+      String motherName = participant.getParents() != null ? participant.getParents().getMotherName() : null;
+      String christeningPlace = participant.getChristening() != null ? participant.getChristening().getPlace() : null;
+      LocalDate christeningDate = participant.getChristening() != null ? participant.getChristening().getDate() : null;
+      jdbcTemplate.update("INSERT INTO participant(id, first_name, last_name, pesel, address, parish_id, father_name, mother_name, christening_place, christening_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          participant.getId(), participant.getFirstName(), participant.getLastName(), participant.getPesel(), participant.getAddress(), participant.getParishId(), fatherName, motherName, christeningPlace, christeningDate);
     });
   }
 
