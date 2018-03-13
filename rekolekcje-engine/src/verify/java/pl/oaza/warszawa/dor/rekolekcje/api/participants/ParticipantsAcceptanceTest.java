@@ -7,12 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsRequestBuilder;
 
@@ -20,7 +19,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -183,19 +181,13 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     assertThat(dto.getAddress()).isEqualTo(data.getAddress());
     assertThat(dto.getPesel()).isEqualTo(data.getPesel());
     assertThat(dto.getParishId()).isEqualTo(data.getParishId());
-    if (dto.getParents() != null) {
-      assertThat(dto.getParents().getFatherName()).isEqualTo(data.getFatherName());
-      assertThat(dto.getParents().getMotherName()).isEqualTo(data.getMotherName());
-    }
-    if (dto.getChristening() != null) {
-      assertThat(dto.getChristening().getPlace()).isEqualTo(data.getChristeningPlace());
-      assertThat(dto.getChristening().getDate()).isEqualTo(data.getChristeningDate());
-    }
+    assertThat(dto.getFatherName()).isEqualTo(data.getFatherName());
+    assertThat(dto.getMotherName()).isEqualTo(data.getMotherName());
+    assertThat(dto.getChristeningPlace()).isEqualTo(data.getChristeningPlace());
+    assertThat(dto.getChristeningDate()).isEqualTo(data.getChristeningDate());
   }
 
   private ParticipantData findOneInSystemWithTheSameNameAndPesel(ParticipantDTO participant) {
-    return database.getSavedParticipantData(participant.getFirstName(),
-        participant.getLastName(),
-        participant.getPesel());
+    return database.getSavedParticipantData(participant);
   }
 }

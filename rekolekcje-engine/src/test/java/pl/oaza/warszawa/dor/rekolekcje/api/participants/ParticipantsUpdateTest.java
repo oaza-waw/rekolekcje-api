@@ -2,12 +2,10 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,10 +41,6 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     // given
     saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
     ParticipantDTO existingParticipantWithOldData = getCorrespondingParticipantFromSystem(sampleParticipant2);
-    ParentsDTO parents = ParentsDTO.builder()
-        .fatherName("Father")
-        .motherName("Mother")
-        .build();
     ParticipantDTO participantWithUpdatedData =
         ParticipantDTO.builder()
             .id(existingParticipantWithOldData.getId())
@@ -55,7 +49,10 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
             .pesel(95010112345L)
             .address("New City 123")
             .parishId(1L)
-            .parents(parents)
+            .fatherName("Father")
+            .motherName("Mother")
+            .christeningPlace("Christening address")
+            .christeningDate(LocalDate.of(1995,12,3))
             .build();
 
     // when

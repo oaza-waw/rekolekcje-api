@@ -1,22 +1,22 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.core;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsDatabase;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Database {
 
   private JdbcTemplate jdbcTemplate;
+  private ParticipantsDatabase participantsDatabase;
 
   Database(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
+    this.participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
   }
 
   public List<ParishData> getAllParishData() {
@@ -57,81 +57,28 @@ public class Database {
         .orElseThrow(() -> new ParishNotFoundException(0));
   }
 
+  public void clearParish() {
+    jdbcTemplate.execute("DELETE FROM parish");
+  }
+
   public List<ParticipantData> getAllParticipantData() {
-    return jdbcTemplate.query("SELECT * FROM participant",
-        (rs, rowNum) -> ParticipantData.builder()
-            .id(rs.getLong("id"))
-            .firstName(rs.getString("first_name"))
-            .lastName(rs.getString("last_name"))
-            .address(rs.getString("address"))
-            .pesel(rs.getLong("pesel"))
-            .parishId(rs.getLong("parish_id"))
-            .build()
-    );
+    return participantsDatabase.getAllParticipantData();
   }
 
   public ParticipantData getSavedParticipantData(Long id) {
-    List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * FROM participant WHERE id = ?",
-        new Object[]{id},
-        getParticipantDataRowMapper()
-    );
-    return foundParticipants.stream()
-        .findAny()
-        .orElseThrow(RuntimeException::new);
+    return participantsDatabase.getSavedParticipantData(id);
   }
 
   public ParticipantData getSavedParticipantData(ParticipantDTO participantDTO) {
-    return getSavedParticipantData(participantDTO.getFirstName(),
-        participantDTO.getLastName(),
-        participantDTO.getPesel());
-  }
-
-  public ParticipantData getSavedParticipantData(String firstName, String lastName, Long pesel) {
-    List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * FROM participant WHERE first_name = ? AND last_name = ? AND pesel = ?",
-        new Object[]{firstName, lastName, pesel},
-        getParticipantDataRowMapper()
-    );
-    return foundParticipants.stream()
-        .findAny()
-        .orElseThrow(RuntimeException::new);
-  }
-
-  private RowMapper<ParticipantData> getParticipantDataRowMapper() {
-    return (rs, rowNum) -> ParticipantData.builder()
-        .id(rs.getLong("id"))
-        .firstName(rs.getString("first_name"))
-        .lastName(rs.getString("last_name"))
-        .address(rs.getString("address"))
-        .pesel(rs.getLong("pesel"))
-        .parishId(rs.getLong("parish_id"))
-        .fatherName(rs.getString("father_name"))
-        .motherName(rs.getString("mother_name"))
-        .christeningPlace(rs.getString("christening_place"))
-        .christeningDate(extractLocalDate(rs.getDate("christening_date")))
-        .build();
-  }
-
-  private LocalDate extractLocalDate(Date date) {
-    return date != null ? date.toLocalDate() : null;
+    return participantsDatabase.getSavedParticipantData(participantDTO);
   }
 
   public void saveParticipants(List<ParticipantDTO> participantDTOs) {
-    participantDTOs.forEach(dto -> {
-      String fatherName = dto.getParents() != null ? dto.getParents().getFatherName() : null;
-      String motherName = dto.getParents() != null ? dto.getParents().getMotherName() : null;
-      String christeningPlace = dto.getChristening() != null ? dto.getChristening().getPlace() : null;
-      LocalDate christeningDate = dto.getChristening() != null ? dto.getChristening().getDate() : null;
-      jdbcTemplate.update("INSERT INTO participant(id, first_name, last_name, pesel, address, parish_id, father_name, mother_name, christening_place, christening_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          dto.getId(), dto.getFirstName(), dto.getLastName(), dto.getPesel(), dto.getAddress(), dto.getParishId(), fatherName, motherName, christeningPlace, christeningDate);
-    });
+    participantsDatabase.saveParticipants(participantDTOs);
   }
 
   public void clearParticipants() {
-    jdbcTemplate.execute("DELETE FROM participant");
-  }
-
-  public void clearParish() {
-    jdbcTemplate.execute("DELETE FROM parish");
+    participantsDatabase.clearParticipants();
   }
 }
 

@@ -2,8 +2,6 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.time.LocalDate;
-
 class ParticipantCreator {
   Participant from(ParticipantDTO participantDTO) {
     return Participant.builder()
@@ -13,10 +11,10 @@ class ParticipantCreator {
         .pesel(participantDTO.getPesel())
         .address(participantDTO.getAddress())
         .parishId(participantDTO.getParishId())
-        .motherName(getMotherNameFromDto(participantDTO))
-        .fatherName(getFatherNameFromDto(participantDTO))
-        .christeningPlace(getChristeningPlaceFromDto(participantDTO))
-        .christeningDate(getChristeningDateFromDto(participantDTO))
+        .motherName(participantDTO.getMotherName())
+        .fatherName(participantDTO.getFatherName())
+        .christeningPlace(participantDTO.getChristeningPlace())
+        .christeningDate(participantDTO.getChristeningDate())
         .build();
   }
 
@@ -33,21 +31,5 @@ class ParticipantCreator {
         .christeningDate(participant.getChristeningDate())
         .christeningPlace(participant.getChristeningPlace())
         .build();
-  }
-
-  private String getMotherNameFromDto(ParticipantDTO participantDTO) {
-    return participantDTO.getParents() != null ? participantDTO.getParents().getMotherName() : null;
-  }
-
-  private String getFatherNameFromDto(ParticipantDTO participantDTO) {
-    return participantDTO.getParents() != null ? participantDTO.getParents().getFatherName() : null;
-  }
-
-  private String getChristeningPlaceFromDto(ParticipantDTO dto) {
-    return dto.getChristening() != null ? dto.getChristening().getPlace() : null;
-  }
-
-  private LocalDate getChristeningDateFromDto(ParticipantDTO dto) {
-    return dto.getChristening() != null ? dto.getChristening().getDate() : null;
   }
 }

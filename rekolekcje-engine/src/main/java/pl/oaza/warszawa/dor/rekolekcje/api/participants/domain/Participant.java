@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ChristeningDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import javax.persistence.Entity;
@@ -35,8 +33,6 @@ class Participant {
   private LocalDate christeningDate;
 
   ParticipantDTO dto() {
-    ParentsDTO parents = mapParentsToDTO();
-    ChristeningDTO christening = mapChristeningToDTO();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
@@ -44,30 +40,10 @@ class Participant {
         .pesel(pesel)
         .parishId(parishId)
         .address(address)
-        .parents(parents)
-        .christening(christening)
+        .fatherName(fatherName)
+        .motherName(motherName)
+        .christeningDate(christeningDate)
+        .christeningPlace(christeningPlace)
         .build();
-  }
-
-  private ParentsDTO mapParentsToDTO() {
-    if (motherName != null || fatherName != null) {
-      return ParentsDTO.builder()
-          .motherName(motherName)
-          .fatherName(fatherName)
-          .build();
-    } else {
-      return null;
-    }
-  }
-
-  private ChristeningDTO mapChristeningToDTO() {
-    if (christeningDate != null || christeningPlace != null) {
-      return ChristeningDTO.builder()
-          .place(christeningPlace)
-          .date(christeningDate)
-          .build();
-    } else {
-      return null;
-    }
   }
 }

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
+import java.time.LocalDate;
+
 @Immutable
 @Builder
 @EqualsAndHashCode
@@ -21,7 +23,9 @@ public final class ParticipantDTO {
   private final Long pesel;
   private final Long parishId;
   private final String address;
-  private final ParentsDTO parents;
-  private final ChristeningDTO christening;
+  private final String fatherName;
+  private final String motherName;
+  private final String christeningPlace;
+  private final LocalDate christeningDate;
 
 }

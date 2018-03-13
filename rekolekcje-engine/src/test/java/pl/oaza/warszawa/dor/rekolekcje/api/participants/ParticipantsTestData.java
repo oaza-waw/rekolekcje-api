@@ -1,7 +1,5 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ChristeningDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParentsDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.time.LocalDate;
@@ -14,24 +12,16 @@ class ParticipantsTestData {
       .pesel(93010100000L)
       .build();
 
-  private static final ParentsDTO sampleParents = ParentsDTO.builder()
-      .motherName("Mary")
-      .fatherName("Jake")
-      .build();
-
-  private static final ChristeningDTO sampleChristening = ChristeningDTO.builder()
-      .place("Los Angeles")
-      .date(LocalDate.of(1980, 1, 2))
-      .build();
-
   public static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()
       .firstName("Paul")
       .lastName("Pierce")
       .pesel(987654L)
       .address("Boston")
       .parishId(1L)
-      .parents(sampleParents)
-      .christening(sampleChristening)
+      .motherName("Mary")
+      .fatherName("Jake")
+      .christeningPlace("Los Angeles")
+      .christeningDate(LocalDate.of(1980, 1, 2))
       .build();
 
   public static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()

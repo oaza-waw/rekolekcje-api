@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import lombok.Builder;
 import lombok.Value;
