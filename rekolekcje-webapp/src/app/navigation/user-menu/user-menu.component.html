@@ -1,12 +1,10 @@
-<nav mat-tab-nav-bar>
-  <a mat-tab-link
-    *ngIf="!authService.isAuthenticated()"
-    routerLink="/login">
-    <i class="fa fa-user"></i> LOGIN
-  </a>
-  <a mat-tab-link
-    *ngIf="authService.isAuthenticated()"
-    (click)="onLogout()">
-    <i class="fa fa-user"></i> LOGOUT
-  </a>
-</nav>
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>account_circle</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+  <ng-container [ngSwitch]="isAuthenticated">
+    <button *ngSwitchCase="true" mat-menu-item (click)="onLogout()">Logout</button>
+    <a *ngSwitchCase="false" mat-menu-item [routerLink]="['login']">Login</a>
+  </ng-container>
+</mat-menu>
