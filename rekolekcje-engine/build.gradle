@@ -54,6 +54,7 @@ dependencies {
   compile 'com.google.gag:gag:1.0.1'
   compile 'org.liquibase:liquibase-core:3.5.3'
   compile 'org.hibernate:hibernate-java8:5.1.0.Final'
+  compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
   runtime 'com.h2database:h2'
   runtime 'org.postgresql:postgresql'

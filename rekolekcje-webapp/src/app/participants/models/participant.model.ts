@@ -5,6 +5,10 @@ export class Participant {
     public lastName?: string,
     public pesel?: number,
     public address?: string,
+    public fatherName?: string,
+    public motherName?: string,
+    public christeningPlace?: string,
+    public christeningDate?: Date,
     public parishId?: number
   ) {}
 
@@ -15,6 +19,10 @@ export class Participant {
     p.pesel = input.result.pesel;
     p.address = input.result.address;
     p.parishId = input.result.parishId;
+    p.fatherName = input.result.fatherName;
+    p.motherName = input.result.motherName;
+    p.christeningPlace = input.result.christeningPlace;
+    p.christeningDate = input.result.christeningDate;
     return p;
   }
 }

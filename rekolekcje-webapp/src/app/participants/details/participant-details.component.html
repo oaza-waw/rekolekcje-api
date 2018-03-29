@@ -17,36 +17,44 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
-              <!--<mat-list>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.firstName}}</p>-->
-                  <!--<label matLine> First name </label>-->
-                <!--</mat-list-item>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.lastName}}</p>-->
-                  <!--<label matLine> Last name </label>-->
-                <!--</mat-list-item>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.pesel}}</p>-->
-                  <!--<label matLine>PESEL</label>-->
-                <!--</mat-list-item>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.address}}</p>-->
-                  <!--<label matLine>Address</label>-->
-                <!--</mat-list-item>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.parish}}</p>-->
-                  <!--<label matLine>Parish</label>-->
-                <!--</mat-list-item>-->
-              <!--</mat-list>-->
-              <ul class="list-group">
-                <li class="list-group-item">First name <label>{{participant.firstName}}</label> </li>
-                <li class="list-group-item">Last name <label>{{participant.lastName}}</label> </li>
-                <li class="list-group-item">PESEL <label>{{participant.pesel}}</label> </li>
-                <li class="list-group-item">Address <label>{{participant.address}}</label> </li>
-                <li class="list-group-item">Christening <label>date and time</label> </li>
-                <li class="list-group-item">Relative <label>Contact information to close relative</label> </li>
-              </ul>
+              <table class="field-wide">
+                <td><mat-form-field class="field-wide">
+                  <input matInput placeholder="First name" disabled value="{{participant.firstName}}">
+                </mat-form-field></td>
+                <td><mat-form-field class="field-wide">
+                  <input matInput disabled value="{{participant.lastName}}" placeholder="Last name">
+                </mat-form-field></td>
+                <td><mat-form-field class="field-wide">
+                  <input matInput disabled value="{{participant.pesel}}" placeholder="PESEL">
+                </mat-form-field></td>
+              </table>
+              <mat-form-field class="field-wide">
+                <input matInput disabled value="{{participant.address}}" placeholder="Address">
+              </mat-form-field>
+              <table class="field-wide">
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.fatherName}}" placeholder="Father name">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.motherName}}" placeholder="Mother name">
+                </mat-form-field></td>
+              </table>
+              <table class="field-wide">
+                <td><mat-form-field>
+                  <input matInput disabled value="sample data" placeholder="Close relative">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="sample data" placeholder="Relative phone number">
+                </mat-form-field></td>
+              </table>
+              <table class="field-wide">
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.christeningPlace}}" placeholder="Christening place">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.christeningDate}}" placeholder="Christening date">
+                </mat-form-field></td>
+              </table>
 
             </mat-expansion-panel>
 

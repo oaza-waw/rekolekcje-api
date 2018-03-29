@@ -1,6 +1,8 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,11 @@ public abstract class BaseIntegrationTest {
   protected ObjectMapper jsonMapper = new ObjectMapper();
 
   protected Database database;
+
+  public BaseIntegrationTest() {
+    jsonMapper.registerModule(new JavaTimeModule());
+    jsonMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+  }
 
   @Before
   public void setup() throws Exception {
