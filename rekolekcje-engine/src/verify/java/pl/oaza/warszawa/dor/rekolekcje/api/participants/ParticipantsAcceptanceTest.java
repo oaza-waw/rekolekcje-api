@@ -1,16 +1,17 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsRequestBuilder;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
@@ -62,18 +64,25 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
   @WithMockUser
   @Test
-  public void shouldGetSingleParticipant() throws Exception {
-    // given
+  public void shouldGetFullDataOfSingleParticipant() throws Exception {
+    // given participant with full data is in the system
+    final ParticipantData participantDataToFind = database.getSavedParticipantData(secondParticipant);
+    final Long idToFind = participantDataToFind.getId();
     final MockHttpServletRequestBuilder getOneRequest =
-        requestBuilder.createGetOneRequest(firstParticipant.getId());
+        requestBuilder.createGetOneRequest(idToFind);
 
-    // when
-    final ResultActions response = mockMvc.perform(getOneRequest);
+    // when requesting this participant
+    final ResultActions response = mockMvc.perform(getOneRequest)
+        .andExpect(status().isOk());
 
-    // then
-    final String expectedJsonContent = jsonMapper.writeValueAsString(firstParticipant);
-    response.andExpect(status().isOk())
-        .andExpect(content().json(expectedJsonContent));
+    // then all his data is retrieved
+//    final String expectedJsonContent = jsonMapper.writeValueAsString(participantDataToFind);
+    final String content = response.andReturn().getResponse().getContentAsString();
+    final DocumentContext parsedJson = JsonPath.parse(content);
+    assertThat(parsedJson.read("$.id", Long.class)).isEqualTo(participantDataToFind.getId());
+    assertThat(parsedJson.read("$.pesel", Long.class)).isEqualTo(participantDataToFind.getPesel());
+    assertThat(parsedJson.read("$.firstName", String.class)).isEqualTo(participantDataToFind.getFirstName());
+    assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(participantDataToFind.getLastName());
   }
 
   @WithMockUser
@@ -106,14 +115,17 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     // when
     final MockHttpServletRequestBuilder addOneRequest =
         requestBuilder.createAddOneRequest(participantToAdd);
-    final MvcResult result = mockMvc.perform(addOneRequest)
-        .andExpect(status().isCreated())
-        .andReturn();
+    final ResultActions resultActions = mockMvc.perform(addOneRequest)
+        .andExpect(status().isCreated());
 
     // then
-    final ParticipantData participantData = findOneInSystemWithTheSameNameAndPesel(participantToAdd);
-    assertThat(result.getResponse().getContentAsString())
-        .isEqualTo(jsonMapper.writeValueAsString(participantData));
+    final ParticipantData participantInSystem = findOneInSystemWithTheSameNameAndPesel(participantToAdd);
+    final String content = resultActions.andReturn().getResponse().getContentAsString();
+    final DocumentContext parsedJson = JsonPath.parse(content);
+    assertThat(parsedJson.read("$.id", Long.class)).isEqualTo(participantInSystem.getId());
+    assertThat(parsedJson.read("$.firstName", String.class)).isEqualTo(participantInSystem.getFirstName());
+    assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(participantInSystem.getLastName());
+    assertThat(parsedJson.read("$.pesel", Long.class)).isEqualTo(participantInSystem.getPesel());
   }
 
   @WithMockUser
@@ -163,17 +175,19 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     assertThatDataIsTheSame(participantWithNewData, participantInSystem);
   }
 
-  private void assertThatDataIsTheSame(ParticipantDTO participantToAdd, ParticipantData participantData) {
-    assertThat(participantData.getFirstName()).isEqualTo(participantToAdd.getFirstName());
-    assertThat(participantData.getLastName()).isEqualTo(participantToAdd.getLastName());
-    assertThat(participantData.getAddress()).isEqualTo(participantToAdd.getAddress());
-    assertThat(participantData.getPesel()).isEqualTo(participantToAdd.getPesel());
-    assertThat(participantData.getParishId()).isEqualTo(participantToAdd.getParishId());
+  private void assertThatDataIsTheSame(ParticipantDTO dto, ParticipantData data) {
+    assertThat(dto.getFirstName()).isEqualTo(data.getFirstName());
+    assertThat(dto.getLastName()).isEqualTo(data.getLastName());
+    assertThat(dto.getAddress()).isEqualTo(data.getAddress());
+    assertThat(dto.getPesel()).isEqualTo(data.getPesel());
+    assertThat(dto.getParishId()).isEqualTo(data.getParishId());
+    assertThat(dto.getFatherName()).isEqualTo(data.getFatherName());
+    assertThat(dto.getMotherName()).isEqualTo(data.getMotherName());
+    assertThat(dto.getChristeningPlace()).isEqualTo(data.getChristeningPlace());
+    assertThat(dto.getChristeningDate()).isEqualTo(data.getChristeningDate());
   }
 
   private ParticipantData findOneInSystemWithTheSameNameAndPesel(ParticipantDTO participant) {
-    return database.getSavedParticipantData(participant.getFirstName(),
-        participant.getLastName(),
-        participant.getPesel());
+    return database.getSavedParticipantData(participant);
   }
 }

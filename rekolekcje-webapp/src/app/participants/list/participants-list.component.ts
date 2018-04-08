@@ -82,7 +82,11 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         pesel: participant.pesel,
         address: participant.address,
         parishId: participant.parishId,
-        parishes: this.parishes
+        parishes: this.parishes,
+        christeningDate: participant.christeningDate,
+        christeningPlace: participant.christeningPlace,
+        fatherName: participant.fatherName,
+        motherName: participant.motherName
       },
       disableClose: true
     });

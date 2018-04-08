@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="personal-data-1" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="MOTHER_NAME" type="VARCHAR(255)" />
+            <column name="FATHER_NAME" type="VARCHAR(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="personal-data-2" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="CHRISTENING_PLACE" type="VARCHAR(255)" />
+            <column name="CHRISTENING_DATE" type="DATE" />
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -13,8 +13,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ParticipantsFindTest extends ParticipantsTest {
 
-  private final ParticipantDTO firstParticipant = ParticipantDTO.builder().firstName("Will").lastName("Smith").build();
-  private final ParticipantDTO secondParticipant = ParticipantDTO.builder().firstName("Nicolas").lastName("Cage").build();
+  private final ParticipantDTO firstParticipant = ParticipantsTestData.sampleParticipant1;
+  private final ParticipantDTO secondParticipant = ParticipantsTestData.sampleParticipant2;
 
   @Test
   public void shouldFindAllParticipantsInRepository() {
@@ -41,12 +41,12 @@ public class ParticipantsFindTest extends ParticipantsTest {
   }
 
   @Test
-  public void shouldFindOneParticipantInRepostitory() {
+  public void shouldFindSingleParticipantWithAllDataFilled() {
     // given
-    saveAll(Arrays.asList(firstParticipant, secondParticipant));
-    ParticipantDTO expectedParticipant = getAllInSystem().stream()
-        .findFirst()
-        .orElseThrow(() -> new ParticipantNotFoundException(0));
+    ParticipantDTO participantWithFullData = ParticipantsTestData.participantWithFullData;
+    saveAll(Arrays.asList(firstParticipant, secondParticipant, participantWithFullData));
+    ParticipantDTO expectedParticipant =
+        getCorrespondingParticipantFromSystem(participantWithFullData);
     long participantId = expectedParticipant.getId();
 
     // when

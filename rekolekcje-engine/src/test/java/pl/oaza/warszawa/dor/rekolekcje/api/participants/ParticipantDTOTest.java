@@ -7,7 +7,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 public class ParticipantDTOTest {
 
   @Test
-  public void equalsContract() {
+  public void equalsContractForParticipantDTO() {
     EqualsVerifier.forClass(ParticipantDTO.class)
         .withNonnullFields("firstName", "lastName")
         .verify();

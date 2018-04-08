@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 @Builder
@@ -26,6 +27,10 @@ class Participant {
   private Long pesel;
   private Long parishId;
   private String address;
+  private String motherName;
+  private String fatherName;
+  private String christeningPlace;
+  private LocalDate christeningDate;
 
   ParticipantDTO dto() {
     return ParticipantDTO.builder()
@@ -35,6 +40,10 @@ class Participant {
         .pesel(pesel)
         .parishId(parishId)
         .address(address)
+        .fatherName(fatherName)
+        .motherName(motherName)
+        .christeningDate(christeningDate)
+        .christeningPlace(christeningPlace)
         .build();
   }
 }

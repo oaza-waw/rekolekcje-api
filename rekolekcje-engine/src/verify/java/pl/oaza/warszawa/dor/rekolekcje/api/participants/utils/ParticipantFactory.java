@@ -2,6 +2,8 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
+import java.time.LocalDate;
+
 public class ParticipantFactory {
 
   public static ParticipantDTO sampleParticipant(Long id) {
@@ -33,6 +35,10 @@ public class ParticipantFactory {
         .address("Street no. 987, City")
         .pesel(90042312345L)
         .parishId(1L)
+        .motherName("Mary")
+        .fatherName("Jake")
+        .christeningPlace("Los Angeles")
+        .christeningDate(LocalDate.of(1980, 1, 2))
         .build();
   }
 }

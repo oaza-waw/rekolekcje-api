@@ -52,6 +52,30 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Father name"
+           formControlName="fatherName">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Mother name"
+           formControlName="motherName">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Christening place"
+           formControlName="christeningPlace">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           [matDatepicker]="picker"
+           placeholder="Christening date"
+           [value]="form.get('christeningDate').value"
+           formControlName="christeningDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 </form>
 <button mat-button (click)="cancel()">Cancel</button>
 <button mat-button (click)="submit()">Save</button>

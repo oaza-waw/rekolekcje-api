@@ -19,9 +19,7 @@ public class ParticipantsDeleteTest extends ParticipantsTest {
   public void shouldDeleteParticipantFromSystem() throws Exception {
     // given
     saveAll(Arrays.asList(firstParticipant, secondParticipant, thirdParticipant));
-    ParticipantDTO participantToDelete = getAllInSystem().stream()
-        .findAny()
-        .orElseThrow(() -> new ParticipantNotFoundException(0L));
+    ParticipantDTO participantToDelete = getCorrespondingParticipantFromSystem(secondParticipant);
     Long participantId = participantToDelete.getId();
 
     // when

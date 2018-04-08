@@ -11,6 +11,10 @@ class ParticipantCreator {
         .pesel(participantDTO.getPesel())
         .address(participantDTO.getAddress())
         .parishId(participantDTO.getParishId())
+        .motherName(participantDTO.getMotherName())
+        .fatherName(participantDTO.getFatherName())
+        .christeningPlace(participantDTO.getChristeningPlace())
+        .christeningDate(participantDTO.getChristeningDate())
         .build();
   }
 
@@ -22,6 +26,10 @@ class ParticipantCreator {
         .pesel(participant.getPesel())
         .address(participant.getAddress())
         .parishId(participant.getParishId())
+        .motherName(participant.getMotherName())
+        .fatherName(participant.getFatherName())
+        .christeningDate(participant.getChristeningDate())
+        .christeningPlace(participant.getChristeningPlace())
         .build();
   }
 }

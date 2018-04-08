@@ -3,10 +3,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,10 +40,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
   public void shouldUpdateExistingParticipant() throws Exception {
     // given
     saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
-    ParticipantDTO existingParticipantWithOldData = getAllInSystem().stream()
-            .filter(p -> Objects.equals(p.getLastName(), sampleParticipant2.getLastName()))
-            .findAny()
-            .orElseThrow(() -> new ParticipantNotFoundException(0));
+    ParticipantDTO existingParticipantWithOldData = getCorrespondingParticipantFromSystem(sampleParticipant2);
     ParticipantDTO participantWithUpdatedData =
         ParticipantDTO.builder()
             .id(existingParticipantWithOldData.getId())
@@ -53,6 +49,10 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
             .pesel(95010112345L)
             .address("New City 123")
             .parishId(1L)
+            .fatherName("Father")
+            .motherName("Mother")
+            .christeningPlace("Christening address")
+            .christeningDate(LocalDate.of(1995,12,3))
             .build();
 
     // when
@@ -60,10 +60,8 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
 
     // then
     assertThat(participantAfterUpdate).isEqualTo(participantWithUpdatedData);
-    ParticipantDTO participantInSystemWithTheSameId = getAllInSystem().stream()
-        .filter(p -> p.getId() == participantWithUpdatedData.getId())
-        .findAny()
-        .orElseThrow(() -> new ParticipantNotFoundException(0));
+    ParticipantDTO participantInSystemWithTheSameId =
+        getParticipantFromSystemWithTheSameId(participantWithUpdatedData);
     assertThat(participantInSystemWithTheSameId).isEqualTo(participantWithUpdatedData);
   }
 }
