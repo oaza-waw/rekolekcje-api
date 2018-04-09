@@ -13,7 +13,7 @@ spring:
     password: postgres
 
 liquibase:
-  change-log: classpath:/pl.oaza.warszawa.dor.rekolekcje/changelogs.xml
+  change-log: classpath:/db/master-changelog.xml
 
 jwt:
   header: Authorization
