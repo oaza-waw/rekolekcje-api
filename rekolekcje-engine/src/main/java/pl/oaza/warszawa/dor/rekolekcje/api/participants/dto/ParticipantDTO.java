@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Immutable
 @Builder
@@ -26,6 +26,6 @@ public final class ParticipantDTO {
   private final String fatherName;
   private final String motherName;
   private final String christeningPlace;
-  private final LocalDate christeningDate;
+  private final ZonedDateTime christeningDate;
 
 }

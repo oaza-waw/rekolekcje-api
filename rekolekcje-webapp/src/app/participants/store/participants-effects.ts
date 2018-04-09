@@ -73,12 +73,15 @@ export class ParticipantsEffects {
   UpdateParticipant: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.UpdateParticipant)
     .pipe(
-      switchMap((action: ParticipantsSharedActions.UpdateParticipant) =>
-        this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
+      switchMap((action: ParticipantsSharedActions.UpdateParticipant) => {
+        console.log('sending PUT request with updated participant...');
+        return this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
           .pipe(
             map(data => new UpdateParticipantSuccess(data)),
             catchError(error => of(new UpdateParticipantFail(error)))
-          ))
+          );
+        }
+      )
     );
 
   constructor(private actions: Actions, private store: Store<Participants.State>, private http: HttpClient) {

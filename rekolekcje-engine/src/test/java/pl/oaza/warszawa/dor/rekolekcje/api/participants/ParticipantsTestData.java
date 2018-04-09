@@ -2,7 +2,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 class ParticipantsTestData {
 
@@ -21,7 +23,7 @@ class ParticipantsTestData {
       .motherName("Mary")
       .fatherName("Jake")
       .christeningPlace("Los Angeles")
-      .christeningDate(LocalDate.of(1980, 1, 2))
+      .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
       .build();
 
   public static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()

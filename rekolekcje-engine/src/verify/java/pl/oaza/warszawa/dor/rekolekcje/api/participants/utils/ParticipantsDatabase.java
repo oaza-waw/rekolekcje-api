@@ -4,8 +4,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ParticipantsDatabase {
@@ -66,19 +67,24 @@ public class ParticipantsDatabase {
         .fatherName(rs.getString("father_name"))
         .motherName(rs.getString("mother_name"))
         .christeningPlace(rs.getString("christening_place"))
-        .christeningDate(extractLocalDate(rs.getDate("christening_date")))
+        .christeningDate(extractLocalDate(rs.getTimestamp("christening_date")))
         .build();
   }
 
-  private LocalDate extractLocalDate(Date date) {
-    return date != null ? date.toLocalDate() : null;
+  private LocalDateTime extractLocalDate(Timestamp timestamp) {
+    return timestamp != null ? timestamp.toLocalDateTime() : null;
   }
 
   public void saveParticipants(List<ParticipantDTO> participantDTOs) {
     participantDTOs.forEach(dto -> {
       jdbcTemplate.update("INSERT INTO participant(id, first_name, last_name, pesel, address, parish_id, father_name, mother_name, christening_place, christening_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          dto.getId(), dto.getFirstName(), dto.getLastName(), dto.getPesel(), dto.getAddress(), dto.getParishId(), dto.getFatherName(), dto.getMotherName(), dto.getChristeningPlace(), dto.getChristeningDate());
+          dto.getId(), dto.getFirstName(), dto.getLastName(), dto.getPesel(), dto.getAddress(), dto.getParishId(), dto.getFatherName(), dto.getMotherName(), dto.getChristeningPlace(), getChristeningDate(dto));
     });
+  }
+
+  private LocalDateTime getChristeningDate(ParticipantDTO dto) {
+    final ZonedDateTime christeningDate = dto.getChristeningDate();
+    return christeningDate != null ? christeningDate.toLocalDateTime() : null;
   }
 
   public void clearParticipants() {

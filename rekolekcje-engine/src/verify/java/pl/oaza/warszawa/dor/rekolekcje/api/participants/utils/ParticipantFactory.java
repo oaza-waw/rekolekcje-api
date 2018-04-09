@@ -2,7 +2,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class ParticipantFactory {
 
@@ -38,7 +40,7 @@ public class ParticipantFactory {
         .motherName("Mary")
         .fatherName("Jake")
         .christeningPlace("Los Angeles")
-        .christeningDate(LocalDate.of(1980, 1, 2))
+        .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
         .build();
   }
 }

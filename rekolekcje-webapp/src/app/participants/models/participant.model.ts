@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export class Participant {
   constructor(
     public id?: number,
@@ -8,7 +10,7 @@ export class Participant {
     public fatherName?: string,
     public motherName?: string,
     public christeningPlace?: string,
-    public christeningDate?: Date,
+    public christeningDate?: Moment,
     public parishId?: number
   ) {}
 

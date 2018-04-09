@@ -66,4 +66,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
     assertThat(allInSystem).hasSize(2);
     assertThat(allInSystem).contains(addedParticipant);
   }
+
+  //TODO: test for various time zones, i.e. when DTO has date with TZ different than UTC, it should be converted to UTC before saving.
+  // Also, service should always return dates in UTC TZ.
 }

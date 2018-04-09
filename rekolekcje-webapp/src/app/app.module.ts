@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ParticipantsModule } from './participants/participants.module';
@@ -26,7 +25,6 @@ import { ParishEffects } from './parish/store/parish-effects';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     NavigationModule,
     ParticipantsModule,
     AuthModule,

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Participant } from '../../models/participant.model';
 import { Parish } from '../../../parish/models/parish.model';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'add-edit-dialog',
@@ -18,7 +19,7 @@ export class ParticipantAddEditDialog implements OnInit {
   parishId: string;
   pesel: string;
   parishes: Parish[];
-  christeningDate: Date;
+  christeningDate: Moment;
   christeningPlace: string;
   fatherName: string;
   motherName: string;

@@ -2,6 +2,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
 class ParticipantCreator {
   Participant from(ParticipantDTO participantDTO) {
     return Participant.builder()
@@ -14,8 +17,12 @@ class ParticipantCreator {
         .motherName(participantDTO.getMotherName())
         .fatherName(participantDTO.getFatherName())
         .christeningPlace(participantDTO.getChristeningPlace())
-        .christeningDate(participantDTO.getChristeningDate())
+        .christeningDate(convertToDateTime(participantDTO.getChristeningDate()))
         .build();
+  }
+
+  private LocalDateTime convertToDateTime(ZonedDateTime zonedDateTime) {
+    return zonedDateTime != null ? zonedDateTime.toLocalDateTime() : null;
   }
 
   Participant withId(Participant participant, Long id) {

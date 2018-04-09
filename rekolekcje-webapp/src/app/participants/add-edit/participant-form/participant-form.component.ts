@@ -6,20 +6,17 @@ import { AppSelectors } from '../../../core/store/app-selectors';
 import { Subject } from 'rxjs/Subject';
 import { Parishes } from '../../../parish/store/parish-reducer';
 import { Store } from '@ngrx/store';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'participiant-form',
   templateUrl: './participant-form.component.html',
   styleUrls: ['./participant-form.component.css'],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pl'}
-  ]
 })
 export class ParticipantFormComponent implements OnInit, OnDestroy {
 
   @Input() address: string;
-  @Input() christeningDate: Date;
+  @Input() christeningDate: Moment;
   @Input() christeningPlace: string;
   @Input() fatherName: string;
   @Input() firstName: string;

@@ -3,7 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 import lombok.Builder;
 import lombok.Value;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Value
 @Builder
@@ -17,5 +17,5 @@ public class ParticipantData {
   String fatherName;
   String motherName;
   String christeningPlace;
-  LocalDate christeningDate;
+  LocalDateTime christeningDate;
 }

@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Entity
 @Builder
@@ -30,7 +32,7 @@ class Participant {
   private String motherName;
   private String fatherName;
   private String christeningPlace;
-  private LocalDate christeningDate;
+  private LocalDateTime christeningDate;
 
   ParticipantDTO dto() {
     return ParticipantDTO.builder()
@@ -42,8 +44,12 @@ class Participant {
         .address(address)
         .fatherName(fatherName)
         .motherName(motherName)
-        .christeningDate(christeningDate)
+        .christeningDate(convertToUtc(christeningDate))
         .christeningPlace(christeningPlace)
         .build();
+  }
+
+  private ZonedDateTime convertToUtc(LocalDateTime dateTime) {
+    return dateTime != null ? ZonedDateTime.of(dateTime, ZoneId.of("UTC")) : null;
   }
 }

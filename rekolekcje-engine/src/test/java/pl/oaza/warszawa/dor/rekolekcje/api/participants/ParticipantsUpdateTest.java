@@ -4,7 +4,9 @@ import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +54,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
             .fatherName("Father")
             .motherName("Mother")
             .christeningPlace("Christening address")
-            .christeningDate(LocalDate.of(1995,12,3))
+            .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
             .build();
 
     // when
