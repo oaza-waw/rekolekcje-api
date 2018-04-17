@@ -3,20 +3,15 @@ package pl.oaza.warszawa.dor.rekolekcje.api.core;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
 
 import java.util.List;
 
 public class Database {
 
   private JdbcTemplate jdbcTemplate;
-  private ParticipantsDatabase participantsDatabase;
 
   Database(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
-    this.participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
   }
 
   public List<ParishData> getAllParishData() {
@@ -61,24 +56,5 @@ public class Database {
     jdbcTemplate.execute("DELETE FROM parish");
   }
 
-  public List<ParticipantData> getAllParticipantData() {
-    return participantsDatabase.getAllParticipantData();
-  }
-
-  public ParticipantData getSavedParticipantData(Long id) {
-    return participantsDatabase.getSavedParticipantData(id);
-  }
-
-  public ParticipantData getSavedParticipantData(ParticipantDTO participantDTO) {
-    return participantsDatabase.getSavedParticipantData(participantDTO);
-  }
-
-  public void saveParticipants(List<ParticipantDTO> participantDTOs) {
-    participantsDatabase.saveParticipants(participantDTOs);
-  }
-
-  public void clearParticipants() {
-    participantsDatabase.clearParticipants();
-  }
 }
 

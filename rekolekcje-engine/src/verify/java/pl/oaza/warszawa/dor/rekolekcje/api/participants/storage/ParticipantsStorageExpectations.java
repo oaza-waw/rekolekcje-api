@@ -1,6 +1,5 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.core.Database;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.List;
@@ -10,9 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParticipantsStorageExpectations {
 
-    private final Database database;
+    private final ParticipantsDatabase database;
 
-    public ParticipantsStorageExpectations(Database database) {
+    public ParticipantsStorageExpectations(ParticipantsDatabase database) {
         this.database = database;
     }
 

@@ -20,7 +20,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 public abstract class BaseIntegrationTest {
 
   @Autowired
-  private JdbcTemplate jdbcTemplate;
+  protected JdbcTemplate jdbcTemplate;
 
   @Autowired
   protected WebApplicationContext webApplicationContext;

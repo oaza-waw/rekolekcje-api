@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
@@ -19,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
+
+    private ParticipantsDatabase participantsDatabase;
 
     private ParticipantsStorageBehaviour whenInStorage;
     private ParticipantsStorageExpectations thenInStorage;
@@ -35,8 +38,10 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     public void setup() throws Exception {
         super.setup();
 
-        whenInStorage = new ParticipantsStorageBehaviour(database);
-        thenInStorage = new ParticipantsStorageExpectations(database);
+        participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
+
+        whenInStorage = new ParticipantsStorageBehaviour(participantsDatabase);
+        thenInStorage = new ParticipantsStorageExpectations(participantsDatabase);
 
         whenInParticipantsApi = new ParticipantsApiBehaviour(mockMvc);
         thenInParticipantsApi = new ParticipantsApiExpectations(jsonMapper);
@@ -44,7 +49,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
     @After
     public void teardown() {
-        database.clearParticipants();
+        participantsDatabase.clearParticipants();
     }
 
     @WithMockUser
@@ -59,7 +64,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     @Test
     public void shouldGetFullDataOfSingleParticipant() throws Exception {
         whenInStorage.existSomeParticipants(participants);
-        final ParticipantData storedParticipant = database.getSavedParticipantData(secondParticipant);
+        final ParticipantData storedParticipant = participantsDatabase.getSavedParticipantData(secondParticipant);
         final ResultActions response = whenInParticipantsApi.singleParticipantIsRequested(storedParticipant.getId());
         thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
     }
