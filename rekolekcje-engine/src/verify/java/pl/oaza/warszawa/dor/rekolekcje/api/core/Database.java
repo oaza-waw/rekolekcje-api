@@ -3,9 +3,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.core;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsDatabase;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
 
 import java.util.List;
 

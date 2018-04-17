@@ -8,12 +8,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsStorageBehaviour;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsStorageExpectations;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageBehaviour;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageExpectations;
 
 import java.util.Arrays;
 import java.util.List;

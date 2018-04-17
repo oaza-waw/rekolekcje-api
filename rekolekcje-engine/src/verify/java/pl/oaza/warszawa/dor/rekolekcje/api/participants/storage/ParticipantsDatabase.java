@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
