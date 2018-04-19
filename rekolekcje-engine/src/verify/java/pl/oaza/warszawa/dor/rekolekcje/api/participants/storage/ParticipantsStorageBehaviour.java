@@ -6,13 +6,13 @@ import java.util.List;
 
 public class ParticipantsStorageBehaviour {
 
-    private ParticipantsDatabase database;
+  private ParticipantsDatabase database;
 
-    public ParticipantsStorageBehaviour(ParticipantsDatabase database) {
-        this.database = database;
-    }
+  public ParticipantsStorageBehaviour(ParticipantsDatabase database) {
+    this.database = database;
+  }
 
-    public void existSomeParticipants(List<ParticipantDTO> participants) {
-        database.saveParticipants(participants);
-    }
+  public void existSomeParticipants(List<ParticipantDTO> participants) {
+    database.saveParticipants(participants);
+  }
 }
