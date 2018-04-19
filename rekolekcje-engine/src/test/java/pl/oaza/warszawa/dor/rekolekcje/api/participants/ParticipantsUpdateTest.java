@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -43,6 +44,12 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     // given
     saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
     ParticipantDTO existingParticipantWithOldData = getCorrespondingParticipantFromSystem(sampleParticipant2);
+    PersonalData updatedPersonalData = PersonalData.builder()
+        .fatherName("Father")
+        .motherName("Mother")
+        .christeningPlace("Christening address")
+        .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
+        .build();
     ParticipantDTO participantWithUpdatedData =
         ParticipantDTO.builder()
             .id(existingParticipantWithOldData.getId())
@@ -51,10 +58,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
             .pesel(95010112345L)
             .address("New City 123")
             .parishId(1L)
-            .fatherName("Father")
-            .motherName("Mother")
-            .christeningPlace("Christening address")
-            .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
+            .personalData(updatedPersonalData)
             .build();
 
     // when

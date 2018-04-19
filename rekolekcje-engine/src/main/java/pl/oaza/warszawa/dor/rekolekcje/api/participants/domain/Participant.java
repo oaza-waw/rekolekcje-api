@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,12 @@ class Participant {
   private LocalDateTime christeningDate;
 
   ParticipantDTO dto() {
+    PersonalData personalData = PersonalData.builder()
+        .fatherName(fatherName)
+        .motherName(motherName)
+        .christeningPlace(christeningPlace)
+        .christeningDate(convertToUtc(christeningDate))
+        .build();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
@@ -42,10 +49,7 @@ class Participant {
         .pesel(pesel)
         .parishId(parishId)
         .address(address)
-        .fatherName(fatherName)
-        .motherName(motherName)
-        .christeningDate(convertToUtc(christeningDate))
-        .christeningPlace(christeningPlace)
+        .personalData(personalData)
         .build();
   }
 

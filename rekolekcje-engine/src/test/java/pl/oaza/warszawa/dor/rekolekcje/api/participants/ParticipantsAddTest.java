@@ -26,8 +26,9 @@ public class ParticipantsAddTest extends ParticipantsTest {
     // then
     final List<ParticipantDTO> allInSystem = getAllInSystem();
     assertThat(allInSystem).hasSize(1);
-    assertThat(allInSystem.get(0)).isEqualToIgnoringGivenFields(participantDTO, "id");
-    assertThat(allInSystem.get(0)).isEqualTo(addedParticipant);
+    final ParticipantDTO storedParticipant = allInSystem.get(0);
+    assertThat(storedParticipant).isEqualToIgnoringGivenFields(participantDTO, "id", "personalData");
+    assertThat(storedParticipant).isEqualTo(addedParticipant);
   }
 
   @Test

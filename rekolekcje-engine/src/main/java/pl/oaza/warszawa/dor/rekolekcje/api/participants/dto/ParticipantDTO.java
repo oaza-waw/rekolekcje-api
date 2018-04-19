@@ -6,8 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
-
-import java.time.ZonedDateTime;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 @Immutable
 @Builder
@@ -23,9 +22,5 @@ public final class ParticipantDTO {
   private final Long pesel;
   private final Long parishId;
   private final String address;
-  private final String fatherName;
-  private final String motherName;
-  private final String christeningPlace;
-  private final ZonedDateTime christeningDate;
-
+  private final PersonalData personalData;
 }

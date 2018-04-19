@@ -1,6 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -8,18 +9,23 @@ import java.time.ZonedDateTime;
 
 class ParticipantCreator {
   Participant from(ParticipantDTO participantDTO) {
-    return Participant.builder()
+    final Participant.ParticipantBuilder participantBuilder = Participant.builder()
         .id(participantDTO.getId())
         .firstName(participantDTO.getFirstName())
         .lastName(participantDTO.getLastName())
         .pesel(participantDTO.getPesel())
         .address(participantDTO.getAddress())
-        .parishId(participantDTO.getParishId())
-        .motherName(participantDTO.getMotherName())
-        .fatherName(participantDTO.getFatherName())
-        .christeningPlace(participantDTO.getChristeningPlace())
-        .christeningDate(convertToDateTime(participantDTO.getChristeningDate()))
-        .build();
+        .parishId(participantDTO.getParishId());
+
+    if (participantDTO.getPersonalData() != null) {
+      final PersonalData personalData = participantDTO.getPersonalData();
+      participantBuilder.motherName(personalData.getMotherName())
+          .fatherName(personalData.getFatherName())
+          .christeningDate(convertToDateTime(personalData.getChristeningDate()))
+          .christeningPlace(personalData.getChristeningPlace());
+    }
+
+    return participantBuilder.build();
   }
 
   private LocalDateTime convertToDateTime(ZonedDateTime zonedDateTime) {
