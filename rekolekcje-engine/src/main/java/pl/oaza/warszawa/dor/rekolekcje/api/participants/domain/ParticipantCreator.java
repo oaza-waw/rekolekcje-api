@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 class ParticipantCreator {
@@ -22,7 +23,7 @@ class ParticipantCreator {
   }
 
   private LocalDateTime convertToDateTime(ZonedDateTime zonedDateTime) {
-    return zonedDateTime != null ? zonedDateTime.toLocalDateTime() : null;
+    return zonedDateTime != null ? zonedDateTime.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime() : null;
   }
 
   Participant withId(Participant participant, Long id) {
