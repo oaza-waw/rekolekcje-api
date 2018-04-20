@@ -18,35 +18,44 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 class Participant {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Long id;
-  private String firstName;
-  private String lastName;
-  private Long pesel;
-  private Long parishId;
-  private String address;
-  private String motherName;
-  private String fatherName;
-  private String christeningPlace;
-  private LocalDateTime christeningDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private Long pesel;
+    private Long parishId;
+    private String address;
+    private String motherName;
+    private String fatherName;
+    private String christeningPlace;
+    private LocalDateTime christeningDate;
+    private String currentTreatment;
+    private String medications;
+    private String allergies;
+    private String other;
 
-  ParticipantDTO dto() {
-    return ParticipantDTO.builder()
-        .id(id)
-        .firstName(firstName)
-        .lastName(lastName)
-        .pesel(pesel)
-        .parishId(parishId)
-        .address(address)
-        .fatherName(fatherName)
-        .motherName(motherName)
-        .christeningDate(convertToUtc(christeningDate))
-        .christeningPlace(christeningPlace)
-        .build();
-  }
 
-  private ZonedDateTime convertToUtc(LocalDateTime dateTime) {
-    return dateTime != null ? ZonedDateTime.of(dateTime, ZoneId.of("UTC")) : null;
-  }
+    ParticipantDTO dto() {
+        return ParticipantDTO.builder()
+                .id(id)
+                .firstName(firstName)
+                .lastName(lastName)
+                .pesel(pesel)
+                .parishId(parishId)
+                .address(address)
+                .fatherName(fatherName)
+                .motherName(motherName)
+                .christeningDate(convertToUtc(christeningDate))
+                .christeningPlace(christeningPlace)
+                .currentTreatment(currentTreatment)
+                .medications(medications)
+                .allergies(allergies)
+                .other(other)
+                .build();
+    }
+
+    private ZonedDateTime convertToUtc(LocalDateTime dateTime) {
+        return dateTime != null ? ZonedDateTime.of(dateTime, ZoneId.of("UTC")) : null;
+    }
 }
