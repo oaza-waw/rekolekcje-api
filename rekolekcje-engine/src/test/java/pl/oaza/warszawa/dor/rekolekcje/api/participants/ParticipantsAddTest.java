@@ -72,6 +72,40 @@ public class ParticipantsAddTest extends ParticipantsTest {
   }
 
   @Test
+  public void shouldAddParticipantWithHealthStatusDataAndDataShouldExistInDB(){
+    //given participant with full data in heath status section
+    ParticipantDTO participantWithHealthStatusData = ParticipantsTestData.getSampleParticipantWithHealthReport1;
+
+    //when I ask to save participant with heath status data in db
+    ParticipantDTO addedParticipant = service.save(participantWithHealthStatusData);
+
+    //then participantWithHealthStatusData and addedParticipant should equals excluding id
+    //and one in system should be
+    final List<ParticipantDTO> allInSystem = getAllInSystem();
+    assertThat(getAllInSystem().get(0).getCurrentTreatment()).isEqualTo(participantWithHealthStatusData.getCurrentTreatment());
+    assertThat(getAllInSystem().get(0).getMedications()).isEqualTo(participantWithHealthStatusData.getMedications());
+    assertThat(getAllInSystem().get(0).getAllergies()).isEqualTo(participantWithHealthStatusData.getAllergies());
+    assertThat(getAllInSystem().get(0).getOther()).isEqualTo(participantWithHealthStatusData.getOther());
+  }
+
+  @Test
+  public void shouldAddParticipantWithVeryLongHealthStatusDataAndDataShouldExistInDB(){
+    //given participant with full data in heath status section
+    ParticipantDTO participantWithHealthStatusData = ParticipantsTestData.getSampleParticipantWithVeryLongHealthReport1;
+
+    //when I ask to save participant with heath status data in db
+    ParticipantDTO addedParticipant = service.save(participantWithHealthStatusData);
+
+    //then participantWithHealthStatusData and addedParticipant should equals excluding id
+    //and one in system should be
+    final List<ParticipantDTO> allInSystem = getAllInSystem();
+    assertThat(getAllInSystem().get(0).getCurrentTreatment()).isEqualTo(participantWithHealthStatusData.getCurrentTreatment());
+    assertThat(getAllInSystem().get(0).getMedications()).isEqualTo(participantWithHealthStatusData.getMedications());
+    assertThat(getAllInSystem().get(0).getAllergies()).isEqualTo(participantWithHealthStatusData.getAllergies());
+    assertThat(getAllInSystem().get(0).getOther()).isEqualTo(participantWithHealthStatusData.getOther());
+  }
+
+  @Test
   public void shouldConvertDateToUtcTimezone() {
     // given participant with date in GMT+1 timezone
     final ZonedDateTime dateInParis = dateInCET();
