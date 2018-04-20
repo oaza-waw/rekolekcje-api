@@ -51,7 +51,7 @@ class ParticipantsTestData {
             .other("None")
             .build();
 
-    public static final ParticipantDTO getSampleParticipantWithHealthReport2 = ParticipantDTO.builder()
+    public static final ParticipantDTO getSampleParticipantWithVeryLongHealthReport1 = ParticipantDTO.builder()
             .firstName("Norman")
             .lastName("Stone")
             .pesel(93110304778L)
