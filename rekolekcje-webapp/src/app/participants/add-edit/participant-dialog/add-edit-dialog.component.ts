@@ -23,6 +23,11 @@ export class ParticipantAddEditDialog implements OnInit {
   christeningPlace: string;
   fatherName: string;
   motherName: string;
+  currentTreatment: string;
+  medications: string;
+  allergies: string;
+  other: string;
+
 
   constructor(public dialogRef: MatDialogRef<ParticipantAddEditDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
     data.address ? this.address = data.address : this.address = '';
@@ -36,6 +41,10 @@ export class ParticipantAddEditDialog implements OnInit {
     data.christeningPlace ? this.christeningPlace = data.christeningPlace : this.christeningPlace = '';
     data.fatherName ? this.fatherName = data.fatherName : this.fatherName = '';
     data.motherName ? this.motherName = data.motherName : this.motherName = '';
+    data.currentTreatment ? this.currentTreatment = data.currentTreatment : this.currentTreatment;
+    data.medications ? this.medications = data.medications : this.medications;
+    data.allergies ? this.allergies = data.allergies : this.allergies;
+    data.other ? this.other = data.other : this.other;
   }
 
   // @TODO move address in some fields (to better search functionality in the future)
