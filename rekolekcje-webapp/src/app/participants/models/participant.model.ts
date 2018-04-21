@@ -11,7 +11,11 @@ export class Participant {
     public motherName?: string,
     public christeningPlace?: string,
     public christeningDate?: Moment,
-    public parishId?: number
+    public parishId?: number,
+    public currentTreatment?: string,
+    public medications?: string,
+    public allergies?: string,
+    public other?: string
   ) {}
 
   static mapFromForm(input: any): Participant {
@@ -25,6 +29,11 @@ export class Participant {
     p.motherName = input.result.motherName;
     p.christeningPlace = input.result.christeningPlace;
     p.christeningDate = input.result.christeningDate;
+    p.currentTreatment = input.result.currentTreatment;
+    p.medications = input.result.medications;
+    p.allergies = input.result.allergies;
+    p.other = input.result.other;
+
     return p;
   }
 }
