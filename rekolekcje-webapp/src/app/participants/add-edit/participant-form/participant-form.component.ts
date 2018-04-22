@@ -25,6 +25,10 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   @Input() motherName: string;
   @Input() pesel: string;
   @Input() parishId: string;
+  @Input() currentTreatment: string;
+  @Input() medications: string;
+  @Input() allergies: string;
+  @Input() other: string;
 
   parishes: Parish[];
 
@@ -51,6 +55,10 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       christeningPlace: [this.christeningPlace ? this.christeningPlace : ''],
       fatherName: [this.fatherName ? this.fatherName : ''],
       motherName: [this.motherName ? this.motherName : ''],
+      currentTreatment: [this.currentTreatment ? this.currentTreatment : ''],
+      medications: [this.medications ? this.medications : ''],
+      allergies: [this.allergies ? this.allergies : ''],
+      other: [this.other ? this.other : '']
     });
   }
 
@@ -80,6 +88,10 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     participant.christeningPlace = this.form.get('christeningPlace').value;
     participant.fatherName = this.form.get('fatherName').value;
     participant.motherName = this.form.get('motherName').value;
+    participant.currentTreatment = this.form.get('currentTreatment').value;
+    participant.medications = this.form.get('medications').value;
+    participant.allergies = this.form.get('allergies').value;
+    participant.other = this.form.get('other').value;
     this.formOutput.emit(participant);
   }
 }

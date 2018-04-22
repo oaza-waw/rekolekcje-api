@@ -27,5 +27,9 @@ public final class ParticipantDTO {
   private final String motherName;
   private final String christeningPlace;
   private final ZonedDateTime christeningDate;
+  private final String currentTreatment;
+  private final String medications;
+  private final String allergies;
+  private final String other;
 
 }

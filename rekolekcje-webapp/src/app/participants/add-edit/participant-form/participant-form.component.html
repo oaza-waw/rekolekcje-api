@@ -76,6 +76,26 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Current treatment"
+           formControlName="currentTreatment">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Medications"
+           formControlName="medications">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Allergies"
+           formControlName="allergies">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Other informations"
+           formControlName="other">
+  </mat-form-field>
 </form>
 <button mat-button (click)="cancel()">Cancel</button>
 <button mat-button (click)="submit()">Save</button>

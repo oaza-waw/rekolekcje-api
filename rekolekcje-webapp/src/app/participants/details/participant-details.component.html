@@ -106,19 +106,19 @@
 
               <div class="form-group row">
                 <label class="col-sm-2">Current treatment</label>
-                <div class="col-sm-6">data</div>
+                <div class="col-sm-6">{{participant.currentTreatment}}</div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2">Medication</label>
-                <div class="col-sm-6">data</div>
+                <div class="col-sm-6">{{participant.medications}}</div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2">Allergies</label>
-                <div class="col-sm-6">data</div>
+                <div class="col-sm-6">{{participant.allergies}}</div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2">Other</label>
-                <div class="col-sm-6">data</div>
+                <div class="col-sm-6">{{participant.other}}</div>
               </div>
 
             </mat-expansion-panel>
@@ -196,6 +196,14 @@
         [lastName]="participant.lastName"
         [parishId]="participant.parishId"
         [pesel]="participant.pesel"
+        [christeningDate]="christeningDate"
+        [christeningPlace]="christeningPlace"
+        [motherName]="motherName"
+        [fatherName]="fatherName"
+        [currentTreatment]="currentTreatment"
+        [medications]="medications"
+        [allergies]="allergies"
+        [other]="other"
         (formOutput)="save($event)">
       </participiant-form>
     </div>
