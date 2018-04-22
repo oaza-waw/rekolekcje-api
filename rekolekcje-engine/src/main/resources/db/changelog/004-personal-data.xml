@@ -17,8 +17,7 @@
 
     <changeSet id="personal-data-3" author="klc">
         <addColumn tableName="PARTICIPANT">
-            <!--Reason it has to be commented is not known. It's magic-->
-            <!--<column name="CURRENT_TREATMENT" type="VARCHAR(255)" />-->
+            <column name="CURRENT_TREATMENT" type="VARCHAR(255)" />
             <column name="MEDICATIONS" type="VARCHAR(255)" />
             <column name="ALLERGIES" type="VARCHAR(255)" />
             <column name="OTHER" type="VARCHAR(255)" />
