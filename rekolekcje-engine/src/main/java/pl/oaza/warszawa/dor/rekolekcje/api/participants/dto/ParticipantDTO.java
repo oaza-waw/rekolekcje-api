@@ -22,5 +22,7 @@ public final class ParticipantDTO {
   private final Long pesel;
   private final Long parishId;
   private final String address;
-  private final PersonalData personalData;
+
+  @Builder.Default
+  private final PersonalData personalData = PersonalData.builder().build();
 }

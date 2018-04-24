@@ -30,6 +30,10 @@ public class ParticipantsApiExpectations {
   }
 
   public void responseHasAllParticipants(ResultActions response, List<ParticipantDTO> participants) throws Exception {
+//    final List<ParticipantDTO> mappedParticipants = participants.stream()
+//        .map(p -> ParticipantDTO.builder()
+//            .build())
+//        .collect(Collectors.toList());
     final String expectedJsonContent = jsonMapper.writeValueAsString(participants);
     response.andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -62,10 +66,10 @@ public class ParticipantsApiExpectations {
     assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(expectedParticipant.getLastName());
     assertThat(parsedJson.read("$.address", String.class)).isEqualTo(expectedParticipant.getAddress());
     assertThat(parsedJson.read("$.parishId", Long.class)).isEqualTo(expectedParticipant.getParishId());
-    assertThat(parsedJson.read("$.motherName", String.class)).isEqualTo(expectedParticipant.getMotherName());
-    assertThat(parsedJson.read("$.fatherName", String.class)).isEqualTo(expectedParticipant.getFatherName());
-    assertThat(parsedJson.read("$.christeningPlace", String.class)).isEqualTo(expectedParticipant.getChristeningPlace());
-    compareDates(parsedJson.read("$.christeningDate", String.class), expectedParticipant.getChristeningDate());
+    assertThat(parsedJson.read("$.personalData.motherName", String.class)).isEqualTo(expectedParticipant.getMotherName());
+    assertThat(parsedJson.read("$.personalData.fatherName", String.class)).isEqualTo(expectedParticipant.getFatherName());
+    assertThat(parsedJson.read("$.personalData.christeningPlace", String.class)).isEqualTo(expectedParticipant.getChristeningPlace());
+    compareDates(parsedJson.read("$.personalData.christeningDate", String.class), expectedParticipant.getChristeningDate());
   }
 
   @Hack("too tired to think...")

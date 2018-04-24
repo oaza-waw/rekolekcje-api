@@ -83,15 +83,30 @@ public class ParticipantsDatabase {
           dto.getPesel(),
           dto.getAddress(),
           dto.getParishId(),
-          dto.getFatherName(),
-          dto.getMotherName(),
-          dto.getChristeningPlace(),
+          getFatherName(dto),
+          getMotherName(dto),
+          getChristeningPlace(dto),
           getChristeningDate(dto));
     });
   }
 
+  private String getFatherName(ParticipantDTO dto) {
+    return dto.getPersonalData() == null ? null : dto.getPersonalData().getFatherName();
+  }
+
+  private String getMotherName(ParticipantDTO dto) {
+    return dto.getPersonalData() == null ? null : dto.getPersonalData().getMotherName();
+  }
+
+  private String getChristeningPlace(ParticipantDTO dto) {
+    return dto.getPersonalData() == null ? null : dto.getPersonalData().getChristeningPlace();
+  }
+
   private LocalDateTime getChristeningDate(ParticipantDTO dto) {
-    final ZonedDateTime christeningDate = dto.getChristeningDate();
+    if (dto.getPersonalData() == null) {
+      return null;
+    }
+    final ZonedDateTime christeningDate = dto.getPersonalData().getChristeningDate();
     return christeningDate != null ? christeningDate.toLocalDateTime() : null;
   }
 

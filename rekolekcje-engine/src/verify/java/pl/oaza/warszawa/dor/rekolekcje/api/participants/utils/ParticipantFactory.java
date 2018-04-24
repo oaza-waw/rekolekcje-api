@@ -1,6 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -37,6 +38,12 @@ public class ParticipantFactory {
         .address("Street no. 987, City")
         .pesel(90042312345L)
         .parishId(1L)
+        .personalData(fullPersonalData())
+        .build();
+  }
+
+  private static PersonalData fullPersonalData() {
+    return PersonalData.builder()
         .motherName("Mary")
         .fatherName("Jake")
         .christeningPlace("Los Angeles")
