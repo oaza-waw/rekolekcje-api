@@ -7,10 +7,10 @@
       [lastName]="participantToEdit.lastName"
       [parishId]="participantToEdit.parishId"
       [pesel]="participantToEdit.pesel"
-      [christeningPlace]="participantToEdit.christeningPlace"
-      [christeningDate]="participantToEdit.christeningDate"
-      [motherName]="participantToEdit.motherName"
-      [fatherName]="participantToEdit.fatherName"
+      [christeningPlace]="participantToEdit.personalData.christeningPlace"
+      [christeningDate]="participantToEdit.personalData.christeningDate"
+      [motherName]="participantToEdit.personalData.motherName"
+      [fatherName]="participantToEdit.personalData.fatherName"
       (formOutput)="updateParticipant($event)">
     </participiant-form>
   </ng-container>

@@ -7,11 +7,8 @@ export class Participant {
     public lastName?: string,
     public pesel?: number,
     public address?: string,
-    public fatherName?: string,
-    public motherName?: string,
-    public christeningPlace?: string,
-    public christeningDate?: Moment,
-    public parishId?: number
+    public parishId?: number,
+    public personalData?: PersonalData
   ) {}
 
   static mapFromForm(input: any): Participant {
@@ -21,10 +18,25 @@ export class Participant {
     p.pesel = input.result.pesel;
     p.address = input.result.address;
     p.parishId = input.result.parishId;
-    p.fatherName = input.result.fatherName;
-    p.motherName = input.result.motherName;
-    p.christeningPlace = input.result.christeningPlace;
-    p.christeningDate = input.result.christeningDate;
+    p.personalData = PersonalData.mapFromForm(input);
     return p;
+  }
+}
+
+export class PersonalData {
+  constructor(
+    public fatherName?: string,
+    public motherName?: string,
+    public christeningPlace?: string,
+    public christeningDate?: Moment,
+  ) {}
+
+  static mapFromForm(input: any): PersonalData {
+    const personalData: PersonalData = new PersonalData();
+    personalData.fatherName = input.result.personalData.fatherName;
+    personalData.motherName = input.result.personalData.motherName;
+    personalData.christeningPlace = input.result.personalData.christeningPlace;
+    personalData.christeningDate = input.result.personalData.christeningDate;
+    return personalData;
   }
 }

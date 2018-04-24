@@ -83,10 +83,10 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         address: participant.address,
         parishId: participant.parishId,
         parishes: this.parishes,
-        christeningDate: participant.christeningDate,
-        christeningPlace: participant.christeningPlace,
-        fatherName: participant.fatherName,
-        motherName: participant.motherName
+        christeningDate: participant.personalData.christeningDate,
+        christeningPlace: participant.personalData.christeningPlace,
+        fatherName: participant.personalData.fatherName,
+        motherName: participant.personalData.motherName
       },
       disableClose: true
     });
@@ -116,8 +116,6 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
   }
 
   getParishName(parishId: number): string {
-    // console.log('id: ' + parishId);
-    // console.log('parishes: ' + this.parishes.length);
     let parish = this.parishes.find(p => p.id === parishId);
     return parish ? parish.name : '';
   }

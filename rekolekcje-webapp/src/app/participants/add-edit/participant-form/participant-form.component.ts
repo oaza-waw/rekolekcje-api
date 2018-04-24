@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Participant } from '../../models/participant.model';
+import {Participant, PersonalData} from '../../models/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Parish } from '../../../parish/models/parish.model';
 import { AppSelectors } from '../../../core/store/app-selectors';
@@ -76,10 +76,12 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     participant.pesel = this.form.get('pesel').value;
     participant.address = this.form.get('address').value;
     participant.parishId = this.form.get('parishId').value;
-    participant.christeningDate = this.form.get('christeningDate').value;
-    participant.christeningPlace = this.form.get('christeningPlace').value;
-    participant.fatherName = this.form.get('fatherName').value;
-    participant.motherName = this.form.get('motherName').value;
+    const personalData = new PersonalData();
+    personalData.christeningDate = this.form.get('christeningDate').value;
+    personalData.christeningPlace = this.form.get('christeningPlace').value;
+    personalData.fatherName = this.form.get('fatherName').value;
+    personalData.motherName = this.form.get('motherName').value;
+    participant.personalData = personalData;
     this.formOutput.emit(participant);
   }
 }
