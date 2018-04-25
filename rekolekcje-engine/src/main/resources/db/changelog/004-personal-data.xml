@@ -15,4 +15,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="personal-data-3" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="CLOSE_RELATIVE_NAME" type="VARCHAR(255)" />
+            <column name="CLOSE_RELATIVE_NUMBER" type="BIGINT" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

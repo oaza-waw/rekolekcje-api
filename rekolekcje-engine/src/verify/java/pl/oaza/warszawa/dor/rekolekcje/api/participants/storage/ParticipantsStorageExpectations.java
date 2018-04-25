@@ -45,5 +45,7 @@ public class ParticipantsStorageExpectations {
     assertThat(dto.getPersonalData().getMotherName()).isEqualTo(data.getMotherName());
     assertThat(dto.getPersonalData().getChristeningPlace()).isEqualTo(data.getChristeningPlace());
     assertThat(dto.getPersonalData().getChristeningDate()).isEqualTo(data.getChristeningDate());
+    assertThat(dto.getPersonalData().getCloseRelativeName()).isEqualTo(data.getCloseRelativeName());
+    assertThat(dto.getPersonalData().getCloseRelativeNumber()).isEqualTo(data.getCloseRelativeNumber());
   }
 }

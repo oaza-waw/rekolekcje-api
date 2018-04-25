@@ -1,10 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
+import com.google.gag.annotation.remark.ThisWouldBeOneLineIn;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import pl.oaza.warszawa.dor.rekolekcje.api.core.DaoTools;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -43,21 +44,19 @@ public class ParticipantsDatabase {
 
   private RowMapper<ParticipantData> getParticipantDataRowMapper() {
     return (rs, rowNum) -> ParticipantData.builder()
-        .id(rs.getLong("id"))
+        .id(DaoTools.getLong(rs, "id"))
         .firstName(rs.getString("first_name"))
         .lastName(rs.getString("last_name"))
         .address(rs.getString("address"))
-        .pesel(rs.getLong("pesel"))
-        .parishId(rs.getLong("parish_id"))
+        .pesel(DaoTools.getLong(rs, "pesel"))
+        .parishId(DaoTools.getLong(rs, "parish_id"))
         .fatherName(rs.getString("father_name"))
         .motherName(rs.getString("mother_name"))
         .christeningPlace(rs.getString("christening_place"))
-        .christeningDate(extractLocalDate(rs.getTimestamp("christening_date")))
+        .christeningDate(DaoTools.getLocalDate(rs, "christening_date"))
+        .closeRelativeName(rs.getString("close_relative_name"))
+        .closeRelativeNumber(DaoTools.getLong(rs, "close_relative_number"))
         .build();
-  }
-
-  private LocalDateTime extractLocalDate(Timestamp timestamp) {
-    return timestamp != null ? timestamp.toLocalDateTime() : null;
   }
 
   public void saveParticipants(List<ParticipantDTO> participantDTOs) {
@@ -74,9 +73,11 @@ public class ParticipantsDatabase {
               "father_name, " +
               "mother_name, " +
               "christening_place, " +
-              "christening_date" +
+              "christening_date, " +
+              "close_relative_name, " +
+              "close_relative_number" +
               ") " +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           dto.getId(),
           dto.getFirstName(),
           dto.getLastName(),
@@ -86,10 +87,14 @@ public class ParticipantsDatabase {
           getFatherName(dto),
           getMotherName(dto),
           getChristeningPlace(dto),
-          getChristeningDate(dto));
+          getChristeningDate(dto),
+          dto.getPersonalData().getCloseRelativeName(),
+          dto.getPersonalData().getCloseRelativeNumber()
+          );
     });
   }
 
+  @ThisWouldBeOneLineIn(language = "groovy", toWit = "return dto?.getPersonalData()?.getFatherName()")
   private String getFatherName(ParticipantDTO dto) {
     return dto.getPersonalData() == null ? null : dto.getPersonalData().getFatherName();
   }

@@ -18,6 +18,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   @Input() address: string;
   @Input() christeningDate: Moment;
   @Input() christeningPlace: string;
+  @Input() closeRelativeName: string;
+  @Input() closeRelativeNumber: number;
   @Input() fatherName: string;
   @Input() firstName: string;
   @Input() id: number;
@@ -51,6 +53,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       christeningPlace: [this.christeningPlace ? this.christeningPlace : ''],
       fatherName: [this.fatherName ? this.fatherName : ''],
       motherName: [this.motherName ? this.motherName : ''],
+      closeRelativeName: [this.closeRelativeName ? this.closeRelativeName : ''],
+      closeRelativeNumber: [this.closeRelativeNumber ? this.closeRelativeNumber : null]
     });
   }
 
@@ -81,6 +85,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     personalData.christeningPlace = this.form.get('christeningPlace').value;
     personalData.fatherName = this.form.get('fatherName').value;
     personalData.motherName = this.form.get('motherName').value;
+    personalData.closeRelativeName = this.form.get('closeRelativeName').value;
+    personalData.closeRelativeNumber = this.form.get('closeRelativeNumber').value;
     participant.personalData = personalData;
     this.formOutput.emit(participant);
   }

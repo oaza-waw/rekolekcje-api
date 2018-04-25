@@ -34,6 +34,8 @@ class Participant {
   private String fatherName;
   private String christeningPlace;
   private LocalDateTime christeningDate;
+  private String closeRelativeName;
+  private Long closeRelativeNumber;
 
   ParticipantDTO dto() {
     PersonalData personalData = PersonalData.builder()
@@ -41,6 +43,8 @@ class Participant {
         .motherName(motherName)
         .christeningPlace(christeningPlace)
         .christeningDate(convertToUtc(christeningDate))
+        .closeRelativeName(closeRelativeName)
+        .closeRelativeNumber(closeRelativeNumber)
         .build();
     return ParticipantDTO.builder()
         .id(id)

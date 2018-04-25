@@ -27,13 +27,11 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  // @TODO bula z ta location, do poprawy. Tak sie nie robi
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private participantsStore: Store<Participants.State>,
     private parishStore: Store<Parishes.State>,
-    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -102,7 +100,7 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
       this.editing = false;
       return;
     } else {
-      this.location.back();
+      this.router.navigate(['participants']);
     }
   }
 }

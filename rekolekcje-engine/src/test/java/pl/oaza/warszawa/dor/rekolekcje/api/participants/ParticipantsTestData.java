@@ -14,6 +14,8 @@ class ParticipantsTestData {
       .fatherName("Jake")
       .christeningPlace("Los Angeles")
       .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
+      .closeRelativeName("Uncle Bob")
+      .closeRelativeNumber(111222333L)
       .build();
 
   static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()

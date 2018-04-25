@@ -66,6 +66,8 @@ public class ParticipantsApiExpectations {
     assertThat(parsedJson.read("$.personalData.fatherName", String.class)).isEqualTo(expectedParticipant.getFatherName());
     assertThat(parsedJson.read("$.personalData.christeningPlace", String.class)).isEqualTo(expectedParticipant.getChristeningPlace());
     compareDates(parsedJson.read("$.personalData.christeningDate", String.class), expectedParticipant.getChristeningDate());
+    assertThat(parsedJson.read("$.personalData.closeRelativeName", String.class)).isEqualTo(expectedParticipant.getCloseRelativeName());
+    assertThat(parsedJson.read("$.personalData.closeRelativeNumber", Long.class)).isEqualTo(expectedParticipant.getCloseRelativeNumber());
   }
 
   @Hack("too tired to think...")
