@@ -30,10 +30,6 @@ public class ParticipantsApiExpectations {
   }
 
   public void responseHasAllParticipants(ResultActions response, List<ParticipantDTO> participants) throws Exception {
-//    final List<ParticipantDTO> mappedParticipants = participants.stream()
-//        .map(p -> ParticipantDTO.builder()
-//            .build())
-//        .collect(Collectors.toList());
     final String expectedJsonContent = jsonMapper.writeValueAsString(participants);
     response.andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))

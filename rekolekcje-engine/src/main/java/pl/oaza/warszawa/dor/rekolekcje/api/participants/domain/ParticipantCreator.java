@@ -17,13 +17,11 @@ class ParticipantCreator {
         .address(participantDTO.getAddress())
         .parishId(participantDTO.getParishId());
 
-    if (participantDTO.getPersonalData() != null) {
-      final PersonalData personalData = participantDTO.getPersonalData();
-      participantBuilder.motherName(personalData.getMotherName())
-          .fatherName(personalData.getFatherName())
-          .christeningDate(convertToDateTime(personalData.getChristeningDate()))
-          .christeningPlace(personalData.getChristeningPlace());
-    }
+    final PersonalData personalData = participantDTO.getPersonalData();
+    participantBuilder.motherName(personalData.getMotherName())
+        .fatherName(personalData.getFatherName())
+        .christeningDate(convertToDateTime(personalData.getChristeningDate()))
+        .christeningPlace(personalData.getChristeningPlace());
 
     return participantBuilder.build();
   }
