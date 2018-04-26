@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +31,9 @@ class Participant {
   private String lastName;
   private Long pesel;
   private Long parishId;
-  private String address;
+
+  @Embedded
+  private Address address;
   private String motherName;
   private String fatherName;
   private String christeningPlace;
@@ -38,23 +42,42 @@ class Participant {
   private Long closeRelativeNumber;
 
   ParticipantDTO dto() {
-    PersonalData personalData = PersonalData.builder()
-        .fatherName(fatherName)
-        .motherName(motherName)
-        .christeningPlace(christeningPlace)
-        .christeningDate(convertToUtc(christeningDate))
-        .closeRelativeName(closeRelativeName)
-        .closeRelativeNumber(closeRelativeNumber)
-        .build();
+    PersonalData personalData = getPersonalData();
+    AddressValue addressValue = getAddressValue();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
         .parishId(parishId)
-        .address(address)
+        .address(addressValue)
         .personalData(personalData)
         .build();
+  }
+
+  private PersonalData getPersonalData() {
+    return PersonalData.builder()
+          .fatherName(fatherName)
+          .motherName(motherName)
+          .christeningPlace(christeningPlace)
+          .christeningDate(convertToUtc(christeningDate))
+          .closeRelativeName(closeRelativeName)
+          .closeRelativeNumber(closeRelativeNumber)
+          .build();
+  }
+
+  private AddressValue getAddressValue() {
+    if (address != null) {
+       return AddressValue.builder()
+          .city(address.getCity())
+          .code(address.getPostalCode())
+          .flat(address.getFlatNumber())
+          .number(address.getStreetNumber())
+          .street(address.getStreet())
+          .build();
+    } else {
+      return AddressValue.builder().build();
+    }
   }
 
   private ZonedDateTime convertToUtc(LocalDateTime dateTime) {

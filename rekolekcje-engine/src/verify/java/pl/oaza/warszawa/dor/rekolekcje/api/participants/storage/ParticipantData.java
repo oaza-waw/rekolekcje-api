@@ -13,11 +13,19 @@ public class ParticipantData {
   private final String lastName;
   private final Long pesel;
   private final Long parishId;
-  private final String address;
+
+  // personal data
   private final String fatherName;
   private final String motherName;
   private final String christeningPlace;
   private final LocalDateTime christeningDate;
   private final String closeRelativeName;
   private final Long closeRelativeNumber;
+
+  // address
+  private final String street;
+  private final Integer streetNumber;
+  private final Integer flatNumber;
+  private final String postalCode;
+  private final String city;
 }

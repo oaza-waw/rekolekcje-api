@@ -28,9 +28,23 @@
                   <input matInput disabled value="{{participant.pesel}}" placeholder="PESEL">
                 </mat-form-field></td>
               </table>
-              <mat-form-field class="field-wide">
-                <input matInput disabled value="{{participant.address}}" placeholder="Address">
-              </mat-form-field>
+              <table class="field-wide">
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.street}}" placeholder="Street">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.number}}" placeholder="Street number">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.flat}}" placeholder="Flat number">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.code}}" placeholder="Postal code">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.city}}" placeholder="City">
+                </mat-form-field></td>
+              </table>
               <table class="field-wide">
                 <td><mat-form-field>
                   <input matInput disabled value="{{participant.personalData.fatherName}}" placeholder="Father name">
@@ -190,7 +204,6 @@
     </div>
     <div *ngSwitchCase="true">
       <participiant-form
-        [address]="participant.address"
         [firstName]="participant.firstName"
         [id]="participant.id"
         [lastName]="participant.lastName"

@@ -11,7 +11,6 @@ import { Moment } from 'moment';
 })
 export class ParticipantAddEditDialog implements OnInit {
 
-  address: string;
   dialogTitle: string;
   firstName: string;
   id: number;
@@ -23,9 +22,15 @@ export class ParticipantAddEditDialog implements OnInit {
   christeningPlace: string;
   fatherName: string;
   motherName: string;
+  closeRelativeName: string;
+  closeRelativeNumber: number;
+  street: string;
+  number: number;
+  flat: number;
+  code: string;
+  city: string;
 
   constructor(public dialogRef: MatDialogRef<ParticipantAddEditDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    data.address ? this.address = data.address : this.address = '';
     this.dialogTitle = data.dialogTitle;
     data.firstName ? this.firstName = data.firstName : this.firstName = '';
     data.lastName ? this.lastName = data.lastName : this.lastName = '';
@@ -36,6 +41,13 @@ export class ParticipantAddEditDialog implements OnInit {
     data.christeningPlace ? this.christeningPlace = data.christeningPlace : this.christeningPlace = '';
     data.fatherName ? this.fatherName = data.fatherName : this.fatherName = '';
     data.motherName ? this.motherName = data.motherName : this.motherName = '';
+    data.closeRelativeName ? this.closeRelativeName = data.closeRelativeName : '';
+    this.closeRelativeNumber = data.closeRelativeNumber ? data.closeRelativeNumber : null;
+    this.street = data.street ? data.street : '';
+    this.number = data.number ? data.number : null;
+    this.code = data.code ? data.code : '';
+    this.flat = data.flat ? data.flat : null;
+    this.city = data.city ? data.city : '';
   }
 
   // @TODO move address in some fields (to better search functionality in the future)

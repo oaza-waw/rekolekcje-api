@@ -100,7 +100,6 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
         .id(existingParticipantId)
         .firstName("Luke")
         .lastName("Skywalker")
-        .address("Tatooine")
         .parishId(1L)
         .pesel(80020354321L)
         .build();

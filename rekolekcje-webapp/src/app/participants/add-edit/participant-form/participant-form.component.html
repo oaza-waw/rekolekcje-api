@@ -27,18 +27,33 @@
     </mat-hint>
   </mat-form-field>
   <mat-form-field class="field-wide">
-    <!--<textarea matTextareaAutosize-->
-    <!--required-->
-    <!--placeholder="Address"-->
-    <!--formControlName="address">-->
-    <!--</textarea>-->
     <input matInput
            required
-           placeholder="Address"
-           formControlName="address">
+           placeholder="Address: street"
+           formControlName="street">
     <mat-hint>
-      <mat-error *ngIf="form.get('address').touched && form.get('address').invalid">Address is required</mat-error>
+      <mat-error *ngIf="form.get('street').touched && form.get('street').invalid">Address is required</mat-error>
     </mat-hint>
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Address: number"
+           formControlName="number">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Address: flat"
+           formControlName="flat">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Address: code"
+           formControlName="code">
+  </mat-form-field>
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Address: city"
+           formControlName="city">
   </mat-form-field>
   <mat-form-field class="field-wide">
     <mat-select

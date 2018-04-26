@@ -12,6 +12,11 @@ public class DaoTools {
     return resultSet.wasNull() ? null : value;
   }
 
+  public static Integer getInt(ResultSet resultSet, String columnName) throws SQLException {
+    int value = resultSet.getInt(columnName);
+    return resultSet.wasNull() ? null : value;
+  }
+
   public static LocalDateTime getLocalDate(ResultSet resultSet, String columnName) throws SQLException {
     Timestamp timestamp = resultSet.getTimestamp(columnName);
     return timestamp != null ? timestamp.toLocalDateTime() : null;

@@ -1,7 +1,6 @@
 <ng-container [ngSwitch]="editing">
   <ng-container *ngSwitchCase="true">
     <participiant-form
-      [address]="participantToEdit.address"
       [firstName]="participantToEdit.firstName"
       [id]="participantToEdit.id"
       [lastName]="participantToEdit.lastName"
@@ -11,6 +10,13 @@
       [christeningDate]="participantToEdit.personalData.christeningDate"
       [motherName]="participantToEdit.personalData.motherName"
       [fatherName]="participantToEdit.personalData.fatherName"
+      [closeRelativeName]="participantToEdit.personalData.closeRelativeName"
+      [closeRelativeNumber]="participantToEdit.personalData.closeRelativeNumber"
+      [street]="participantToEdit.address.street"
+      [number]="participantToEdit.address.number"
+      [flat]="participantToEdit.address.flat"
+      [code]="participantToEdit.address.code"
+      [city]="participantToEdit.address.city"
       (formOutput)="updateParticipant($event)">
     </participiant-form>
   </ng-container>

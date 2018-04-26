@@ -47,7 +47,6 @@ public class ParticipantsDatabase {
         .id(DaoTools.getLong(rs, "id"))
         .firstName(rs.getString("first_name"))
         .lastName(rs.getString("last_name"))
-        .address(rs.getString("address"))
         .pesel(DaoTools.getLong(rs, "pesel"))
         .parishId(DaoTools.getLong(rs, "parish_id"))
         .fatherName(rs.getString("father_name"))
@@ -56,6 +55,11 @@ public class ParticipantsDatabase {
         .christeningDate(DaoTools.getLocalDate(rs, "christening_date"))
         .closeRelativeName(rs.getString("close_relative_name"))
         .closeRelativeNumber(DaoTools.getLong(rs, "close_relative_number"))
+        .street(rs.getString("street"))
+        .streetNumber(DaoTools.getInt(rs, "street_number"))
+        .flatNumber(DaoTools.getInt(rs, "flat_number"))
+        .postalCode(rs.getString("postal_code"))
+        .city(rs.getString("city"))
         .build();
   }
 
@@ -68,28 +72,36 @@ public class ParticipantsDatabase {
               "first_name, " +
               "last_name, " +
               "pesel, " +
-              "address, " +
               "parish_id, " +
               "father_name, " +
               "mother_name, " +
               "christening_place, " +
               "christening_date, " +
               "close_relative_name, " +
-              "close_relative_number" +
+              "close_relative_number, " +
+              "street, " +
+              "street_number, " +
+              "flat_number, " +
+              "postal_code, " +
+              "city" +
               ") " +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           dto.getId(),
           dto.getFirstName(),
           dto.getLastName(),
           dto.getPesel(),
-          dto.getAddress(),
           dto.getParishId(),
           getFatherName(dto),
           getMotherName(dto),
           getChristeningPlace(dto),
           getChristeningDate(dto),
           dto.getPersonalData().getCloseRelativeName(),
-          dto.getPersonalData().getCloseRelativeNumber()
+          dto.getPersonalData().getCloseRelativeNumber(),
+          dto.getAddress().getStreet(),
+          dto.getAddress().getNumber(),
+          dto.getAddress().getFlat(),
+          dto.getAddress().getCode(),
+          dto.getAddress().getCity()
           );
     });
   }

@@ -6,7 +6,7 @@ export class Participant {
     public firstName?: string,
     public lastName?: string,
     public pesel?: number,
-    public address?: string,
+    public address?: Address,
     public parishId?: number,
     public personalData?: PersonalData
   ) {}
@@ -16,7 +16,7 @@ export class Participant {
     p.firstName = input.result.firstName;
     p.lastName = input.result.lastName;
     p.pesel = input.result.pesel;
-    p.address = input.result.address;
+    p.address = Address.mapFromForm(input);
     p.parishId = input.result.parishId;
     p.personalData = PersonalData.mapFromForm(input);
     return p;
@@ -42,5 +42,25 @@ export class PersonalData {
     personalData.closeRelativeName = input.result.personalData.closeRelativeName;
     personalData.closeRelativeNumber = input.result.personalData.closeRelativeNumber;
     return personalData;
+  }
+}
+
+export class Address {
+  constructor(
+    public street?: string,
+    public number?: number,
+    public flat?: number,
+    public code?: string,
+    public city?: string,
+  ) {}
+
+  static mapFromForm(input: any): Address {
+    const address = new Address();
+    address.street = input.result.address.street;
+    address.number = input.result.address.number;
+    address.flat = input.result.address.flat;
+    address.code = input.result.address.code;
+    address.city = input.result.address.city;
+    return address;
   }
 }

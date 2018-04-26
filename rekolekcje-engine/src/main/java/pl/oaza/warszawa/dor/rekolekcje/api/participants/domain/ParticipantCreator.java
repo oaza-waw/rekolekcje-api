@@ -1,6 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
@@ -14,8 +15,10 @@ class ParticipantCreator {
         .firstName(participantDTO.getFirstName())
         .lastName(participantDTO.getLastName())
         .pesel(participantDTO.getPesel())
-        .address(participantDTO.getAddress())
         .parishId(participantDTO.getParishId());
+
+    final Address address = from(participantDTO.getAddress());
+    participantBuilder.address(address);
 
     final PersonalData personalData = participantDTO.getPersonalData();
     participantBuilder.motherName(personalData.getMotherName())
@@ -46,6 +49,16 @@ class ParticipantCreator {
         .christeningPlace(participant.getChristeningPlace())
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
+        .build();
+  }
+
+  Address from(AddressValue addressValue) {
+    return Address.builder()
+        .street(addressValue.getStreet())
+        .streetNumber(addressValue.getNumber())
+        .flatNumber(addressValue.getFlat())
+        .postalCode(addressValue.getCode())
+        .city(addressValue.getCity())
         .build();
   }
 }

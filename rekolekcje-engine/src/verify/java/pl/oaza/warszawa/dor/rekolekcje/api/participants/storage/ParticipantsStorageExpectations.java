@@ -38,7 +38,6 @@ public class ParticipantsStorageExpectations {
   private void assertThatDataIsTheSame(ParticipantDTO dto, ParticipantData data) {
     assertThat(dto.getFirstName()).isEqualTo(data.getFirstName());
     assertThat(dto.getLastName()).isEqualTo(data.getLastName());
-    assertThat(dto.getAddress()).isEqualTo(data.getAddress());
     assertThat(dto.getPesel()).isEqualTo(data.getPesel());
     assertThat(dto.getParishId()).isEqualTo(data.getParishId());
     assertThat(dto.getPersonalData().getFatherName()).isEqualTo(data.getFatherName());
@@ -47,5 +46,10 @@ public class ParticipantsStorageExpectations {
     assertThat(dto.getPersonalData().getChristeningDate()).isEqualTo(data.getChristeningDate());
     assertThat(dto.getPersonalData().getCloseRelativeName()).isEqualTo(data.getCloseRelativeName());
     assertThat(dto.getPersonalData().getCloseRelativeNumber()).isEqualTo(data.getCloseRelativeNumber());
+    assertThat(dto.getAddress().getStreet()).isEqualTo(data.getStreet());
+    assertThat(dto.getAddress().getNumber()).isEqualTo(data.getStreetNumber());
+    assertThat(dto.getAddress().getFlat()).isEqualTo(data.getFlatNumber());
+    assertThat(dto.getAddress().getCode()).isEqualTo(data.getPostalCode());
+    assertThat(dto.getAddress().getCity()).isEqualTo(data.getCity());
   }
 }
