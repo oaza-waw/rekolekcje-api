@@ -23,3 +23,6 @@ jwt:
     authentication:
       path: api/auth
       refresh: api/refresh
+
+management:
+  port: ${PORT:5001}
