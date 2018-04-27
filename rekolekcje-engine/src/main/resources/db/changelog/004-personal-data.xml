@@ -15,4 +15,21 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="personal-data-3" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="CLOSE_RELATIVE_NAME" type="VARCHAR(255)" />
+            <column name="CLOSE_RELATIVE_NUMBER" type="BIGINT" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="personal-data-4" author="qiubix">
+        <renameColumn tableName="PARTICIPANT" oldColumnName="ADDRESS" newColumnName="STREET" />
+        <addColumn tableName="PARTICIPANT">
+            <column name="CITY" type="VARCHAR(255)" />
+            <column name="POSTAL_CODE" type="VARCHAR(255)" />
+            <column name="STREET_NUMBER" type="INT" />
+            <column name="FLAT_NUMBER" type="INT" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

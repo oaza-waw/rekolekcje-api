@@ -28,31 +28,45 @@
                   <input matInput disabled value="{{participant.pesel}}" placeholder="PESEL">
                 </mat-form-field></td>
               </table>
-              <mat-form-field class="field-wide">
-                <input matInput disabled value="{{participant.address}}" placeholder="Address">
-              </mat-form-field>
               <table class="field-wide">
                 <td><mat-form-field>
-                  <input matInput disabled value="{{participant.fatherName}}" placeholder="Father name">
+                  <input matInput disabled value="{{participant.address.street}}" placeholder="Street">
                 </mat-form-field></td>
                 <td><mat-form-field>
-                  <input matInput disabled value="{{participant.motherName}}" placeholder="Mother name">
+                  <input matInput disabled value="{{participant.address.number}}" placeholder="Street number">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.flat}}" placeholder="Flat number">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.code}}" placeholder="Postal code">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.address.city}}" placeholder="City">
                 </mat-form-field></td>
               </table>
               <table class="field-wide">
                 <td><mat-form-field>
-                  <input matInput disabled value="sample data" placeholder="Close relative">
+                  <input matInput disabled value="{{participant.personalData.fatherName}}" placeholder="Father name">
                 </mat-form-field></td>
                 <td><mat-form-field>
-                  <input matInput disabled value="sample data" placeholder="Relative phone number">
+                  <input matInput disabled value="{{participant.personalData.motherName}}" placeholder="Mother name">
                 </mat-form-field></td>
               </table>
               <table class="field-wide">
                 <td><mat-form-field>
-                  <input matInput disabled value="{{participant.christeningPlace}}" placeholder="Christening place">
+                  <input matInput disabled value="{{participant.personalData.closeRelativeName}}" placeholder="Close relative">
                 </mat-form-field></td>
                 <td><mat-form-field>
-                  <input matInput disabled value="{{formatDate(participant.christeningDate)}}" placeholder="Christening date">
+                  <input matInput disabled value="{{participant.personalData.closeRelativeNumber}}" placeholder="Relative phone number">
+                </mat-form-field></td>
+              </table>
+              <table class="field-wide">
+                <td><mat-form-field>
+                  <input matInput disabled value="{{participant.personalData.christeningPlace}}" placeholder="Christening place">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput disabled value="{{formatDate(participant.personalData.christeningDate)}}" placeholder="Christening date">
                 </mat-form-field></td>
               </table>
 
@@ -190,7 +204,6 @@
     </div>
     <div *ngSwitchCase="true">
       <participiant-form
-        [address]="participant.address"
         [firstName]="participant.firstName"
         [id]="participant.id"
         [lastName]="participant.lastName"

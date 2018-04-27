@@ -1,16 +1,22 @@
 <h2 mat-dialog-title>{{ dialogTitle }}</h2>
 <mat-dialog-content class="dialog">
   <participiant-form
-    [address]="address"
     [firstName]="firstName"
     [id]="id"
     [lastName]="lastName"
-    [pesel]="pesel"
     [parishId]="parishId"
-    [christeningDate]="christeningDate"
+    [pesel]="pesel"
     [christeningPlace]="christeningPlace"
+    [christeningDate]="christeningDate"
     [motherName]="motherName"
     [fatherName]="fatherName"
+    [closeRelativeName]="closeRelativeName"
+    [closeRelativeNumber]="closeRelativeNumber"
+    [street]="street"
+    [number]="number"
+    [flat]="flat"
+    [code]="code"
+    [city]="city"
     (formOutput)="submit($event)">
   </participiant-form>
 </mat-dialog-content>

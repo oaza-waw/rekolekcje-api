@@ -75,6 +75,7 @@ export class ParticipantsEffects {
     .pipe(
       switchMap((action: ParticipantsSharedActions.UpdateParticipant) => {
         console.log('sending PUT request with updated participant...');
+        console.log('Payload: ' + JSON.stringify(action.payload));
         return this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
           .pipe(
             map(data => new UpdateParticipantSuccess(data)),

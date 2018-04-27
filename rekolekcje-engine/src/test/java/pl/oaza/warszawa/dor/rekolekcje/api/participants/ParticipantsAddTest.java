@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,8 +27,9 @@ public class ParticipantsAddTest extends ParticipantsTest {
     // then
     final List<ParticipantDTO> allInSystem = getAllInSystem();
     assertThat(allInSystem).hasSize(1);
-    assertThat(allInSystem.get(0)).isEqualToIgnoringGivenFields(participantDTO, "id");
-    assertThat(allInSystem.get(0)).isEqualTo(addedParticipant);
+    final ParticipantDTO storedParticipant = allInSystem.get(0);
+    assertThat(storedParticipant).isEqualToIgnoringGivenFields(participantDTO, "id");
+    assertThat(storedParticipant).isEqualTo(addedParticipant);
   }
 
   @Test
@@ -74,12 +76,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldConvertDateToUtcTimezone() {
     // given participant with date in GMT+1 timezone
-    final ZonedDateTime dateInParis = dateInCET();
-    ParticipantDTO participant = ParticipantDTO.builder()
-            .firstName("Sample")
-            .lastName("Participant")
-            .christeningDate(dateInParis)
-            .build();
+    ParticipantDTO participant = createParticipantWithDateInParisTimezone();
 
     // when participant is saved
     service.save(participant);
@@ -88,25 +85,32 @@ public class ParticipantsAddTest extends ParticipantsTest {
     final List<ParticipantDTO> allInSystem = getAllInSystem();
     final ParticipantDTO storedParticipant = allInSystem.get(0);
     final ZonedDateTime dateInLondon = dateInUTC();
-    assertThat(storedParticipant.getChristeningDate()).isEqualTo(dateInLondon);
+    assertThat(storedParticipant.getPersonalData().getChristeningDate()).isEqualTo(dateInLondon);
   }
 
   @Test
   public void shouldAlwaysReturnDateInUtcTimezone() {
     // given participant with date in GMT+1 timezone
-    final ZonedDateTime dateInParis = dateInCET();
-    ParticipantDTO participant = ParticipantDTO.builder()
-            .firstName("Sample")
-            .lastName("Participant")
-            .christeningDate(dateInParis)
-            .build();
+    ParticipantDTO participant = createParticipantWithDateInParisTimezone();
 
     // when participant is saved
     final ParticipantDTO returnedParticipant = service.save(participant);
 
     // then returned participant has date in UTC
     final ZonedDateTime dateInLondon = dateInUTC();
-    assertThat(returnedParticipant.getChristeningDate()).isEqualTo(dateInLondon);
+    assertThat(returnedParticipant.getPersonalData().getChristeningDate()).isEqualTo(dateInLondon);
+  }
+
+  private ParticipantDTO createParticipantWithDateInParisTimezone() {
+    final ZonedDateTime dateInParis = dateInCET();
+    PersonalData personalData = PersonalData.builder()
+        .christeningDate(dateInParis)
+        .build();
+    return ParticipantDTO.builder()
+        .firstName("Sample")
+        .lastName("Participant")
+        .personalData(personalData)
+        .build();
   }
 
   private ZonedDateTime dateInUTC() {

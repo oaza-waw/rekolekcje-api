@@ -21,7 +21,7 @@
 
       <ng-container matColumnDef="address">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
-        <mat-cell *matCellDef="let participant">{{participant.address}}</mat-cell>
+        <mat-cell *matCellDef="let participant">{{participant.address.city}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="parish">

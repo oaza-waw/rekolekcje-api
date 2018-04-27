@@ -60,12 +60,18 @@ public class ParticipantsApiExpectations {
     assertThat(parsedJson.read("$.pesel", Long.class)).isEqualTo(expectedParticipant.getPesel());
     assertThat(parsedJson.read("$.firstName", String.class)).isEqualTo(expectedParticipant.getFirstName());
     assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(expectedParticipant.getLastName());
-    assertThat(parsedJson.read("$.address", String.class)).isEqualTo(expectedParticipant.getAddress());
     assertThat(parsedJson.read("$.parishId", Long.class)).isEqualTo(expectedParticipant.getParishId());
-    assertThat(parsedJson.read("$.motherName", String.class)).isEqualTo(expectedParticipant.getMotherName());
-    assertThat(parsedJson.read("$.fatherName", String.class)).isEqualTo(expectedParticipant.getFatherName());
-    assertThat(parsedJson.read("$.christeningPlace", String.class)).isEqualTo(expectedParticipant.getChristeningPlace());
-    compareDates(parsedJson.read("$.christeningDate", String.class), expectedParticipant.getChristeningDate());
+    assertThat(parsedJson.read("$.personalData.motherName", String.class)).isEqualTo(expectedParticipant.getMotherName());
+    assertThat(parsedJson.read("$.personalData.fatherName", String.class)).isEqualTo(expectedParticipant.getFatherName());
+    assertThat(parsedJson.read("$.personalData.christeningPlace", String.class)).isEqualTo(expectedParticipant.getChristeningPlace());
+    compareDates(parsedJson.read("$.personalData.christeningDate", String.class), expectedParticipant.getChristeningDate());
+    assertThat(parsedJson.read("$.personalData.closeRelativeName", String.class)).isEqualTo(expectedParticipant.getCloseRelativeName());
+    assertThat(parsedJson.read("$.personalData.closeRelativeNumber", Long.class)).isEqualTo(expectedParticipant.getCloseRelativeNumber());
+    assertThat(parsedJson.read("$.address.street", String.class)).isEqualTo(expectedParticipant.getStreet());
+    assertThat(parsedJson.read("$.address.number", Integer.class)).isEqualTo(expectedParticipant.getStreetNumber());
+    assertThat(parsedJson.read("$.address.flat", Integer.class)).isEqualTo(expectedParticipant.getFlatNumber());
+    assertThat(parsedJson.read("$.address.code", String.class)).isEqualTo(expectedParticipant.getPostalCode());
+    assertThat(parsedJson.read("$.address.city", String.class)).isEqualTo(expectedParticipant.getCity());
   }
 
   @Hack("too tired to think...")
