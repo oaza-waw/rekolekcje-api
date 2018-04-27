@@ -12,6 +12,7 @@ import { ParticipantFormComponent } from './add-edit/participant-form/participan
 import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/participant-add-edit.component';
 import { MaterialModule } from '../shared/material/material.module';
 import { ParticipantsRoutingModule } from './participants-routing.module';
+import {PersonalDataComponent} from "./details/personal-data/personal-data.component";
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ParticipantsRoutingModule } from './participants-routing.module';
     ParticipantFormComponent,
     ParticipantsComponent,
     ParticipantDetailsComponent,
+    PersonalDataComponent,
     ParticipantsListComponent,
     ParticipantAddEditComponent,
   ],

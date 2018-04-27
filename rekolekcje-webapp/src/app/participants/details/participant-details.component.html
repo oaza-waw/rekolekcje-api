@@ -17,58 +17,13 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
-              <table class="field-wide">
-                <td><mat-form-field class="field-wide">
-                  <input matInput placeholder="First name" disabled value="{{participant.firstName}}">
-                </mat-form-field></td>
-                <td><mat-form-field class="field-wide">
-                  <input matInput disabled value="{{participant.lastName}}" placeholder="Last name">
-                </mat-form-field></td>
-                <td><mat-form-field class="field-wide">
-                  <input matInput disabled value="{{participant.pesel}}" placeholder="PESEL">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.street}}" placeholder="Street">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.number}}" placeholder="Street number">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.flat}}" placeholder="Flat number">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.code}}" placeholder="Postal code">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.city}}" placeholder="City">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.fatherName}}" placeholder="Father name">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.motherName}}" placeholder="Mother name">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.closeRelativeName}}" placeholder="Close relative">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.closeRelativeNumber}}" placeholder="Relative phone number">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.christeningPlace}}" placeholder="Christening place">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{formatDate(participant.personalData.christeningDate)}}" placeholder="Christening date">
-                </mat-form-field></td>
-              </table>
+              <personal-data
+                [firstName]="participant.firstName"
+                [lastName]="participant.lastName"
+                [pesel]="participant.pesel"
+                [address]="participant.address"
+                [personalData]="participant.personalData">
+              </personal-data>
 
             </mat-expansion-panel>
 
@@ -94,17 +49,6 @@
                 <label class="col-sm-2">Parish region</label>
                 <div class="col-sm-6">{{participant.parishId}}</div>
               </div>
-
-              <!--<mat-list>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.parish}}</p>-->
-                  <!--<label matLine>Parish name</label>-->
-                <!--</mat-list-item>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.address}}</p>-->
-                  <!--<label matLine>Parish address</label>-->
-                <!--</mat-list-item>-->
-              <!--</mat-list>-->
 
             </mat-expansion-panel>
 

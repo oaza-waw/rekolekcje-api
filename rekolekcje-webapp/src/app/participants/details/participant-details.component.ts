@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Participant } from '../models/participant.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -11,8 +10,6 @@ import { Subject } from 'rxjs/Subject';
 import { AppSelectors } from '../../core/store/app-selectors';
 import { Parish } from '../../parish/models/parish.model';
 import { Parishes } from '../../parish/store/parish-reducer';
-import { Moment } from 'moment';
-import * as moment from 'moment';
 
 @Component({
   selector: 'participant-details',
@@ -63,10 +60,6 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
         this.participantsStore.dispatch(new ParticipantsSharedActions.DeleteParticipant(this.participant.id));
       }
     });
-  }
-
-  formatDate(date: Moment): string {
-    return moment(date).local().format('LL');
   }
 
   getParishName(parishId: number): string {
