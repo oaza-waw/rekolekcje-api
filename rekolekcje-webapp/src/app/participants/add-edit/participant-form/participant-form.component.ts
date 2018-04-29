@@ -26,11 +26,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   @Input() motherName: string;
   @Input() pesel: string;
   @Input() parishId: string;
-  @Input() street: string;
-  @Input() number: number;
-  @Input() flat: number;
-  @Input() code: string;
-  @Input() city: string;
+  @Input() address: Address;
 
   parishes: Parish[];
 
@@ -51,11 +47,13 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
-      street: [this.street ? this.street : '', Validators.required],
-      number: [this.number ? this.number : ''],
-      flat: [this.flat ? this.flat : ''],
-      code: [this.code ? this.code : ''],
-      city: [this.city ? this.city : ''],
+      address: this.fb.group({
+        street: [this.address.street ? this.address.street : '', Validators.required],
+        number: [this.address.number ? this.address.number : ''],
+        flat: [this.address.flat ? this.address.flat : ''],
+        code: [this.address.code ? this.address.code : ''],
+        city: [this.address.city ? this.address.city : ''],
+      }),
       parishId: [this.parishId ? this.parishId : '', Validators.required],
       christeningDate: [this.christeningDate ? this.christeningDate : null],
       christeningPlace: [this.christeningPlace ? this.christeningPlace : ''],
@@ -96,11 +94,11 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     personalData.closeRelativeNumber = this.form.get('closeRelativeNumber').value;
     participant.personalData = personalData;
     const address = new Address();
-    address.street = this.form.get('street').value;
-    address.number = this.form.get('number').value;
-    address.flat = this.form.get('flat').value;
-    address.code = this.form.get('code').value;
-    address.city = this.form.get('city').value;
+    address.street = this.form.get('address.street').value;
+    address.number = this.form.get('address.number').value;
+    address.flat = this.form.get('address.flat').value;
+    address.code = this.form.get('address.code').value;
+    address.city = this.form.get('address.city').value;
     participant.address = address;
     this.formOutput.emit(participant);
   }

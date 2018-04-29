@@ -12,11 +12,7 @@
       [fatherName]="participantToEdit.personalData.fatherName"
       [closeRelativeName]="participantToEdit.personalData.closeRelativeName"
       [closeRelativeNumber]="participantToEdit.personalData.closeRelativeNumber"
-      [street]="participantToEdit.address.street"
-      [number]="participantToEdit.address.number"
-      [flat]="participantToEdit.address.flat"
-      [code]="participantToEdit.address.code"
-      [city]="participantToEdit.address.city"
+      [address]="participantToEdit.address"
       (formOutput)="updateParticipant($event)">
     </participiant-form>
   </ng-container>
