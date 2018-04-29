@@ -24,11 +24,11 @@ describe('ParticipantFormComponent', () => {
 
   // it('should create', () => {
   //   hostComponent.componentUnderTestComponent.address = {
-  //     street: '',
-  //     number: null,
-  //     flat: null,
+  //     streetName: '',
+  //     streetNumber: null,
+  //     flatNumber: null,
   //     city: '',
-  //     code: '',
+  //     postalCode: '',
   //   };
   //   expect(component).toBeTruthy();
   // });

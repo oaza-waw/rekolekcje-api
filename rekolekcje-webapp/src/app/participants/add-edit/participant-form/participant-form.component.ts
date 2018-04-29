@@ -48,10 +48,10 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
       address: this.fb.group({
-        street: [this.address.street ? this.address.street : '', Validators.required],
-        number: [this.address.number ? this.address.number : ''],
-        flat: [this.address.flat ? this.address.flat : ''],
-        code: [this.address.code ? this.address.code : ''],
+        streetName: [this.address.streetName ? this.address.streetName : '', Validators.required],
+        streetNumber: [this.address.streetNumber ? this.address.streetNumber : ''],
+        flatNumber: [this.address.flatNumber ? this.address.flatNumber : ''],
+        postalCode: [this.address.postalCode ? this.address.postalCode : ''],
         city: [this.address.city ? this.address.city : ''],
       }),
       parishId: [this.parishId ? this.parishId : '', Validators.required],
@@ -94,10 +94,10 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     personalData.closeRelativeNumber = this.form.get('closeRelativeNumber').value;
     participant.personalData = personalData;
     const address = new Address();
-    address.street = this.form.get('address.street').value;
-    address.number = this.form.get('address.number').value;
-    address.flat = this.form.get('address.flat').value;
-    address.code = this.form.get('address.code').value;
+    address.streetName = this.form.get('address.streetName').value;
+    address.streetNumber = this.form.get('address.number').value;
+    address.flatNumber = this.form.get('address.flatNumber').value;
+    address.postalCode = this.form.get('address.code').value;
     address.city = this.form.get('address.city').value;
     participant.address = address;
     this.formOutput.emit(participant);

@@ -19,10 +19,10 @@ export class AddressFormComponent {
 
   // ngOnInit(): void {
   //   this.addressForm = this.fb.group({
-  //     street: [this.addressData.street ? this.addressData.street : '', Validators.required],
-  //     number: [this.addressData.number ? this.addressData.number : ''],
-  //     flat: [this.addressData.flat ? this.addressData.flat : ''],
-  //     code: [this.addressData.code ? this.addressData.code : ''],
+  //     streetName: [this.addressData.streetName ? this.addressData.streetName : '', Validators.required],
+  //     streetNumber: [this.addressData.streetNumber ? this.addressData.streetNumber : ''],
+  //     flatNumber: [this.addressData.flatNumber ? this.addressData.flatNumber : ''],
+  //     postalCode: [this.addressData.postalCode ? this.addressData.postalCode : ''],
   //     city: [this.addressData.city ? this.addressData.city : ''],
   //   })
   // }

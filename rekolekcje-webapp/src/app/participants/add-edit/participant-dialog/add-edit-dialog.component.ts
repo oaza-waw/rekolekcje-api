@@ -40,10 +40,10 @@ export class ParticipantAddEditDialog implements OnInit {
     data.closeRelativeName ? this.closeRelativeName = data.closeRelativeName : '';
     this.closeRelativeNumber = data.closeRelativeNumber ? data.closeRelativeNumber : null;
     this.address = {
-      street: data.street ? data.street : '',
-      number: data.number ? data.number : null,
-      code: data.code ? data.code : '',
-      flat: data.flat ? data.flat : null,
+      streetName: data.streetName ? data.streetName : '',
+      streetNumber: data.streetNumber ? data.streetNumber : null,
+      postalCode: data.postalCode ? data.postalCode : '',
+      flatNumber: data.flatNumber ? data.flatNumber : null,
       city: data.city ? data.city : '',
     };
   }

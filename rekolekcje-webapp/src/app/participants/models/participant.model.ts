@@ -47,19 +47,19 @@ export class PersonalData {
 
 export class Address {
   constructor(
-    public street?: string,
-    public number?: number,
-    public flat?: number,
-    public code?: string,
+    public streetName?: string,
+    public streetNumber?: number,
+    public flatNumber?: number,
+    public postalCode?: string,
     public city?: string,
   ) {}
 
   static mapFromForm(input: any): Address {
     const address = new Address();
-    address.street = input.result.address.street;
-    address.number = input.result.address.number;
-    address.flat = input.result.address.flat;
-    address.code = input.result.address.code;
+    address.streetName = input.result.address.streetName;
+    address.streetNumber = input.result.address.streetNumber;
+    address.flatNumber = input.result.address.flatNumber;
+    address.postalCode = input.result.address.postalCode;
     address.city = input.result.address.city;
     return address;
   }
