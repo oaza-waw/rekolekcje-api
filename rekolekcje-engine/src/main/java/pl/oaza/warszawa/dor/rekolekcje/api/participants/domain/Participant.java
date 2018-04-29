@@ -70,10 +70,10 @@ class Participant {
     if (address != null) {
        return AddressValue.builder()
           .city(address.getCity())
-          .code(address.getPostalCode())
-          .flat(address.getFlatNumber())
-          .number(address.getStreetNumber())
-          .street(address.getStreet())
+          .postalCode(address.getPostalCode())
+          .flatNumber(address.getFlatNumber())
+          .streetNumber(address.getStreetNumber())
+          .streetName(address.getStreet())
           .build();
     } else {
       return AddressValue.builder().build();

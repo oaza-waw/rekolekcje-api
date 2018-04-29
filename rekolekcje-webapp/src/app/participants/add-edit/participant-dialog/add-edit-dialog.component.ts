@@ -39,13 +39,14 @@ export class ParticipantAddEditDialog implements OnInit {
     data.motherName ? this.motherName = data.motherName : this.motherName = '';
     data.closeRelativeName ? this.closeRelativeName = data.closeRelativeName : '';
     this.closeRelativeNumber = data.closeRelativeNumber ? data.closeRelativeNumber : null;
-    this.address = {
-      streetName: data.streetName ? data.streetName : '',
-      streetNumber: data.streetNumber ? data.streetNumber : null,
-      postalCode: data.postalCode ? data.postalCode : '',
-      flatNumber: data.flatNumber ? data.flatNumber : null,
-      city: data.city ? data.city : '',
-    };
+    this.address = data.address;
+    // this.address = {
+    //   streetName: data.streetName ? data.streetName : '',
+    //   streetNumber: data.streetNumber ? data.streetNumber : null,
+    //   postalCode: data.postalCode ? data.postalCode : '',
+    //   flatNumber: data.flatNumber ? data.flatNumber : null,
+    //   city: data.city ? data.city : '',
+    // };
   }
 
   // @TODO move address in some fields (to better search functionality in the future)

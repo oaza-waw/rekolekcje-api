@@ -18,8 +18,8 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
   private AddressValue sampleAddress =
       AddressValue.builder()
           .city("Default City")
-          .number(42)
-          .street("Some street")
+          .streetNumber(42)
+          .streetName("Some street")
           .build();
 
   private ParticipantDTO sampleParticipant1 =
@@ -59,10 +59,10 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
         .build();
     AddressValue updatedAddress = AddressValue.builder()
         .city("New City")
-        .street("Brand new street")
-        .number(432)
-        .flat(11)
-        .code("54-351")
+        .streetName("Brand new street")
+        .streetNumber(432)
+        .flatNumber(11)
+        .postalCode("54-351")
         .build();
     ParticipantDTO participantWithUpdatedData =
         ParticipantDTO.builder()

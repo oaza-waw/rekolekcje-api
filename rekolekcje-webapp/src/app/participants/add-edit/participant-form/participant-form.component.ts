@@ -95,9 +95,9 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     participant.personalData = personalData;
     const address = new Address();
     address.streetName = this.form.get('address.streetName').value;
-    address.streetNumber = this.form.get('address.number').value;
+    address.streetNumber = this.form.get('address.streetNumber').value;
     address.flatNumber = this.form.get('address.flatNumber').value;
-    address.postalCode = this.form.get('address.code').value;
+    address.postalCode = this.form.get('address.postalCode').value;
     address.city = this.form.get('address.city').value;
     participant.address = address;
     this.formOutput.emit(participant);

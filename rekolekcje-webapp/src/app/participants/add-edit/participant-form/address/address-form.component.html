@@ -3,7 +3,7 @@
     <input matInput
            required
            placeholder="Address: street"
-           formControlName="street">
+           formControlName="streetName">
     <mat-hint>
       <mat-error *ngIf="addressForm.get('streetName').touched && addressForm.get('streetName').invalid">Street is required</mat-error>
     </mat-hint>
@@ -11,17 +11,17 @@
   <mat-form-field class="field-wide">
     <input matInput
            placeholder="Address: number"
-           formControlName="number">
+           formControlName="streetNumber">
   </mat-form-field>
   <mat-form-field class="field-wide">
     <input matInput
            placeholder="Address: flat"
-           formControlName="flat">
+           formControlName="flatNumber">
   </mat-form-field>
   <mat-form-field class="field-wide">
     <input matInput
            placeholder="Address: code"
-           formControlName="code">
+           formControlName="postalCode">
   </mat-form-field>
   <mat-form-field class="field-wide">
     <input matInput

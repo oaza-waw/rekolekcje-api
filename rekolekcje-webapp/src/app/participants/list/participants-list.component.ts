@@ -88,12 +88,12 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         motherName: participant.personalData.motherName,
         closeRelativeName: participant.personalData.closeRelativeName,
         closeRelativeNumber: participant.personalData.closeRelativeNumber,
-        // address: participant.address,
-        streetName: participant.address.streetName,
-        streetNumber: participant.address.streetNumber,
-        flatNumber: participant.address.flatNumber,
-        postalCode: participant.address.postalCode,
-        city: participant.address.city,
+        address: participant.address,
+        // streetName: participant.address.streetName,
+        // streetNumber: participant.address.streetNumber,
+        // flatNumber: participant.address.flatNumber,
+        // postalCode: participant.address.postalCode,
+        // city: participant.address.city,
       },
       disableClose: true
     });

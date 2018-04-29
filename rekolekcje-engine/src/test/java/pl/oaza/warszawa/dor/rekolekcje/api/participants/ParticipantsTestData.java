@@ -21,18 +21,18 @@ class ParticipantsTestData {
 
   private static final AddressValue sampleAddress = AddressValue.builder()
       .city("New York")
-      .code("01-234")
-      .street("42nd")
-      .number(23)
-      .flat(125)
+      .postalCode("01-234")
+      .streetName("42nd")
+      .streetNumber(23)
+      .flatNumber(125)
       .build();
 
   private static final AddressValue sampleAddress2 = AddressValue.builder()
       .city("Boston")
-      .code("01-423")
-      .street("TD Garden")
-      .number(23)
-      .flat(125)
+      .postalCode("01-423")
+      .streetName("TD Garden")
+      .streetNumber(23)
+      .flatNumber(125)
       .build();
 
   static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()
