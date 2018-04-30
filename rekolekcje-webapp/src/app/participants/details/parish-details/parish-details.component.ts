@@ -10,28 +10,10 @@ import {AppSelectors} from "../../../core/store/app-selectors";
   templateUrl: './parish-details.component.html',
   styleUrls: ['./parish-details.component.css']
 })
-export class ParishDetailsComponent implements OnInit, OnDestroy {
+export class ParishDetailsComponent {
 
   @Input() parishId: number;
-
-  parishes: Parish[];
-
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(
-    private parishStore: Store<Parishes.State>,
-  ) { }
-
-  ngOnInit() {
-    this.parishStore.select(AppSelectors.getParishList)
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe((parishes: Parish[]) => this.parishes = parishes);
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
+  @Input() parishes: Parish[];
 
   getParishName(parishId: number): string {
     let parish = this.findParish(parishId);

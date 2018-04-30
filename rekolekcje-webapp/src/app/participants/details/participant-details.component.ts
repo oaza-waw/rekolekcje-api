@@ -10,6 +10,7 @@ import { Subject } from 'rxjs/Subject';
 import { AppSelectors } from '../../core/store/app-selectors';
 import { Parish } from '../../parish/models/parish.model';
 import { Parishes } from '../../parish/store/parish-reducer';
+import {ParticipantAddEditDialog} from "../add-edit/participant-dialog/add-edit-dialog.component";
 
 @Component({
   selector: 'participant-details',
@@ -18,8 +19,8 @@ import { Parishes } from '../../parish/store/parish-reducer';
 })
 export class ParticipantDetailsComponent implements OnInit, OnDestroy {
 
-  editing: boolean;
   participant: Participant;
+  parishes: Parish[];
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -27,13 +28,16 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private router: Router,
     private participantsStore: Store<Participants.State>,
+    private parishStore: Store<Parishes.State>,
   ) { }
 
   ngOnInit(): void {
-    this.editing = false;
     this.participantsStore.select(AppSelectors.getSelectedParticipant)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((participant: Participant) => this.participant = participant);
+    this.parishStore.select(AppSelectors.getParishList)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe((parishes: Parish[]) => this.parishes = parishes);
   }
 
   ngOnDestroy(): void {
@@ -58,23 +62,31 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
   }
 
   edit(): void {
-    this.editing = true;
-  }
+    const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
+      data: {
+        dialogTitle: 'Edit participant',
+        firstName: this.participant.firstName,
+        lastName: this.participant.lastName,
+        pesel: this.participant.pesel,
+        parishId: this.participant.parishId,
+        parishes: this.parishes,
+        personalData: this.participant.personalData,
+        address: this.participant.address,
+      },
+      disableClose: true
+    });
 
-  save(participant: Participant): void {
-    if (!participant) {
-      this.editing = false;
-    }
-    this.participant = participant;
-    this.participantsStore.dispatch(new ParticipantsSharedActions.UpdateParticipant(participant));
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const p = Participant.mapFromForm(result);
+        p.id = this.participant.id;
+        this.participant = p;
+        this.participantsStore.dispatch(new ParticipantsSharedActions.UpdateParticipant(p));
+      }
+    })
   }
 
   goBack(): void {
-    if (this.editing) {
-      this.editing = false;
-      return;
-    } else {
-      this.router.navigate(['participants']);
-    }
+    this.router.navigate(['participants']);
   }
 }
