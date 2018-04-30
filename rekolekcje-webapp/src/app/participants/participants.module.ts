@@ -14,6 +14,10 @@ import { MaterialModule } from '../shared/material/material.module';
 import { ParticipantsRoutingModule } from './participants-routing.module';
 import {PersonalDataComponent} from "./details/personal-data/personal-data.component";
 import {AddressFormComponent} from "./add-edit/participant-form/address/address-form.component";
+import {ParishDetailsComponent} from "./details/parish-details/parish-details.component";
+import {HealthReportComponent} from "./details/health-report/health-report.component";
+import {ExperienceDetailsComponent} from "./details/experience-details/experience-details.component";
+import {OpinionsDetailsComponent} from "./details/opinions-details/opinions-details.component";
 
 @NgModule({
   imports: [
@@ -30,6 +34,10 @@ import {AddressFormComponent} from "./add-edit/participant-form/address/address-
     ParticipantFormComponent,
     ParticipantsComponent,
     ParticipantDetailsComponent,
+    ParishDetailsComponent,
+    HealthReportComponent,
+    ExperienceDetailsComponent,
+    OpinionsDetailsComponent,
     PersonalDataComponent,
     AddressFormComponent,
     ParticipantsListComponent,

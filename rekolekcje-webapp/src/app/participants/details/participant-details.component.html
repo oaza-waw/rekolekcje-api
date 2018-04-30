@@ -7,16 +7,12 @@
         </mat-card-header>
         <mat-card-content>
           <mat-accordion>
+
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Personal data
-                </mat-panel-title>
-                <mat-panel-description>
-                  Basic personal data and information
-                </mat-panel-description>
+                <mat-panel-title> Personal data </mat-panel-title>
+                <mat-panel-description> Basic personal data and information </mat-panel-description>
               </mat-expansion-panel-header>
-
               <personal-data
                 [firstName]="participant.firstName"
                 [lastName]="participant.lastName"
@@ -24,111 +20,38 @@
                 [address]="participant.address"
                 [personalData]="participant.personalData">
               </personal-data>
-
             </mat-expansion-panel>
 
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Parish
-                </mat-panel-title>
-                <mat-panel-description>
-                  {{participant.parishId}} - {{getParishName(participant.parishId)}}
-                </mat-panel-description>
+                <mat-panel-title> Parish </mat-panel-title>
+                <mat-panel-description> Detailed information about parish - {{participant.parishId}} </mat-panel-description>
               </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Parish name</label>
-                <div class="col-sm-6">{{getParishName(participant.parishId)}}</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Parish address</label>
-                <div class="col-sm-6">{{getParishAddress(participant.parishId)}}</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Parish region</label>
-                <div class="col-sm-6">{{participant.parishId}}</div>
-              </div>
-
+              <parish-details [parishId]="participant.parishId"></parish-details>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Health report
-                </mat-panel-title>
-                <mat-panel-description>
-                  Information about the state of participant's health
-                </mat-panel-description>
+                <mat-panel-title>Health report</mat-panel-title>
+                <mat-panel-description>Information about the state of participant's health</mat-panel-description>
               </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Current treatment</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Medication</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Allergies</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Other</label>
-                <div class="col-sm-6">data</div>
-              </div>
-
+              <health-report></health-report>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Experience in Oasis
-                </mat-panel-title>
-                <mat-panel-description>
-                  Information about previous formation and retreats
-                </mat-panel-description>
+                <mat-panel-title> Experience in Oasis </mat-panel-title>
+                <mat-panel-description> Information about previous formation and retreats </mat-panel-description>
               </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Retreats</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">KWC</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Prayer retreats</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Other</label>
-                <div class="col-sm-6">data</div>
-              </div>
-
+              <experience-details></experience-details>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Opinions
-                </mat-panel-title>
-                <mat-panel-description>
-                  Collection of opinions on participant
-                </mat-panel-description>
+                <mat-panel-title> Opinions </mat-panel-title>
+                <mat-panel-description> Collection of opinions on participant </mat-panel-description>
               </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Animator's opinion</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Moderator's opinion</label>
-                <div class="col-sm-6">data</div>
-              </div>
-
+              <opinions-details></opinions-details>
             </mat-expansion-panel>
 
           </mat-accordion>

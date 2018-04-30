@@ -20,7 +20,6 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
 
   editing: boolean;
   participant: Participant;
-  parishes: Parish[];
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -28,7 +27,6 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private router: Router,
     private participantsStore: Store<Participants.State>,
-    private parishStore: Store<Parishes.State>,
   ) { }
 
   ngOnInit(): void {
@@ -36,9 +34,6 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     this.participantsStore.select(AppSelectors.getSelectedParticipant)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((participant: Participant) => this.participant = participant);
-    this.parishStore.select(AppSelectors.getParishList)
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe((parishes: Parish[]) => this.parishes = parishes);
   }
 
   ngOnDestroy(): void {
@@ -60,20 +55,6 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
         this.participantsStore.dispatch(new ParticipantsSharedActions.DeleteParticipant(this.participant.id));
       }
     });
-  }
-
-  getParishName(parishId: number): string {
-    let parish = this.findParish(parishId);
-    return parish ? parish.name : '';
-  }
-
-  getParishAddress(parishId: number): string {
-    let parish = this.findParish(parishId);
-    return parish ? parish.address : '';
-  }
-
-  private findParish(parishId: number): Parish {
-    return this.parishes.find(p => p.id === parishId);
   }
 
   edit(): void {
