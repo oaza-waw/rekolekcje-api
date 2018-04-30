@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import moment = require("moment");
+import moment from "moment";
 import {Moment} from "moment";
 import {PersonalData} from "../../models/personal-data.model";
 import {Address} from "../../models/address.model";
