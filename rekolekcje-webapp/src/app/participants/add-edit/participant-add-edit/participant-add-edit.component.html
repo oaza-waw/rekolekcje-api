@@ -6,12 +6,7 @@
       [lastName]="participantToEdit.lastName"
       [parishId]="participantToEdit.parishId"
       [pesel]="participantToEdit.pesel"
-      [christeningPlace]="participantToEdit.personalData.christeningPlace"
-      [christeningDate]="participantToEdit.personalData.christeningDate"
-      [motherName]="participantToEdit.personalData.motherName"
-      [fatherName]="participantToEdit.personalData.fatherName"
-      [closeRelativeName]="participantToEdit.personalData.closeRelativeName"
-      [closeRelativeNumber]="participantToEdit.personalData.closeRelativeNumber"
+      [personalData]="participantToEdit.personalData"
       [address]="participantToEdit.address"
       (formOutput)="updateParticipant($event)">
     </participiant-form>

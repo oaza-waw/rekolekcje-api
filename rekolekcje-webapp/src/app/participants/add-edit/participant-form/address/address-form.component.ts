@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Address} from "../../../models/participant.model";
+import {Address} from "../../../models/address.model";
 
 @Component({
   selector: 'address-form',
@@ -14,16 +14,4 @@ export class AddressFormComponent {
 
   @Input()
   public addressForm: FormGroup;
-
-  // constructor(private fb: FormBuilder) { }
-
-  // ngOnInit(): void {
-  //   this.addressForm = this.fb.group({
-  //     streetName: [this.addressData.streetName ? this.addressData.streetName : '', Validators.required],
-  //     streetNumber: [this.addressData.streetNumber ? this.addressData.streetNumber : ''],
-  //     flatNumber: [this.addressData.flatNumber ? this.addressData.flatNumber : ''],
-  //     postalCode: [this.addressData.postalCode ? this.addressData.postalCode : ''],
-  //     city: [this.addressData.city ? this.addressData.city : ''],
-  //   })
-  // }
 }

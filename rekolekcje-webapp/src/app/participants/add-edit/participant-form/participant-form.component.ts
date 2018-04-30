@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {Address, Participant, PersonalData} from '../../models/participant.model';
+import {Participant} from '../../models/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Parish } from '../../../parish/models/parish.model';
 import { AppSelectors } from '../../../core/store/app-selectors';
@@ -7,6 +7,8 @@ import { Subject } from 'rxjs/Subject';
 import { Parishes } from '../../../parish/store/parish-reducer';
 import { Store } from '@ngrx/store';
 import { Moment } from 'moment';
+import {Address} from "../../models/address.model";
+import {PersonalData} from "../../models/personal-data.model";
 
 @Component({
   selector: 'participiant-form',
@@ -15,18 +17,13 @@ import { Moment } from 'moment';
 })
 export class ParticipantFormComponent implements OnInit, OnDestroy {
 
-  @Input() christeningDate: Moment;
-  @Input() christeningPlace: string;
-  @Input() closeRelativeName: string;
-  @Input() closeRelativeNumber: number;
-  @Input() fatherName: string;
   @Input() firstName: string;
   @Input() id: number;
   @Input() lastName: string;
-  @Input() motherName: string;
   @Input() pesel: string;
   @Input() parishId: string;
   @Input() address: Address;
+  @Input() personalData: PersonalData;
 
   parishes: Parish[];
 
@@ -55,12 +52,12 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
         city: [this.address.city ? this.address.city : ''],
       }),
       parishId: [this.parishId ? this.parishId : '', Validators.required],
-      christeningDate: [this.christeningDate ? this.christeningDate : null],
-      christeningPlace: [this.christeningPlace ? this.christeningPlace : ''],
-      fatherName: [this.fatherName ? this.fatherName : ''],
-      motherName: [this.motherName ? this.motherName : ''],
-      closeRelativeName: [this.closeRelativeName ? this.closeRelativeName : ''],
-      closeRelativeNumber: [this.closeRelativeNumber ? this.closeRelativeNumber : null]
+      christeningDate: [this.personalData.christeningDate ? this.personalData.christeningDate : null],
+      christeningPlace: [this.personalData.christeningPlace ? this.personalData.christeningPlace : ''],
+      fatherName: [this.personalData.fatherName ? this.personalData.fatherName : ''],
+      motherName: [this.personalData.motherName ? this.personalData.motherName : ''],
+      closeRelativeName: [this.personalData.closeRelativeName ? this.personalData.closeRelativeName : ''],
+      closeRelativeNumber: [this.personalData.closeRelativeNumber ? this.personalData.closeRelativeNumber : null]
     });
   }
 
