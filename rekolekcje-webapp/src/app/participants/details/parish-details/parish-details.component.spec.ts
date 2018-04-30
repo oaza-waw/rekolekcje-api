@@ -16,6 +16,7 @@ describe('ParishDetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ParishDetailsComponent);
     component = fixture.componentInstance;
+    component.parishes = [];
     fixture.detectChanges();
   });
 
