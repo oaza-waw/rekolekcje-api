@@ -1,21 +1,20 @@
+import { PersonalDataComponent } from './personal-data.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ParticipantAddEditDialog } from './add-edit-dialog.component';
 import { participantsTestingModule } from '../../participants-testing.module';
 
-describe('ParticipantAddEditDialog', () => {
-  let component: ParticipantAddEditDialog;
-  let fixture: ComponentFixture<ParticipantAddEditDialog>;
+describe('PersonalDataComponent', () => {
+  let component: PersonalDataComponent;
+  let fixture: ComponentFixture<PersonalDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule(participantsTestingModule).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ParticipantAddEditDialog);
+    fixture = TestBed.createComponent(PersonalDataComponent);
     component = fixture.componentInstance;
-    component.address = {};
     component.personalData = {};
+    component.address = {};
     fixture.detectChanges();
   });
 

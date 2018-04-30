@@ -14,6 +14,8 @@ describe('ParticipantFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ParticipantFormComponent);
     component = fixture.componentInstance;
+    component.address = {};
+    component.personalData = {};
     fixture.detectChanges();
   });
 

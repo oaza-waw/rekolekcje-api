@@ -25,8 +25,8 @@ class ParticipantCreator {
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))
         .christeningPlace(personalData.getChristeningPlace())
-        .closeRelativeName(personalData.getCloseRelativeName())
-        .closeRelativeNumber(personalData.getCloseRelativeNumber());
+        .closeRelativeName(personalData.getEmergencyContactName())
+        .closeRelativeNumber(personalData.getEmergencyContactNumber());
 
     return participantBuilder.build();
   }
@@ -54,10 +54,10 @@ class ParticipantCreator {
 
   Address from(AddressValue addressValue) {
     return Address.builder()
-        .street(addressValue.getStreet())
-        .streetNumber(addressValue.getNumber())
-        .flatNumber(addressValue.getFlat())
-        .postalCode(addressValue.getCode())
+        .street(addressValue.getStreetName())
+        .streetNumber(addressValue.getStreetNumber())
+        .flatNumber(addressValue.getFlatNumber())
+        .postalCode(addressValue.getPostalCode())
         .city(addressValue.getCity())
         .build();
   }

@@ -6,17 +6,8 @@
       [lastName]="participantToEdit.lastName"
       [parishId]="participantToEdit.parishId"
       [pesel]="participantToEdit.pesel"
-      [christeningPlace]="participantToEdit.personalData.christeningPlace"
-      [christeningDate]="participantToEdit.personalData.christeningDate"
-      [motherName]="participantToEdit.personalData.motherName"
-      [fatherName]="participantToEdit.personalData.fatherName"
-      [closeRelativeName]="participantToEdit.personalData.closeRelativeName"
-      [closeRelativeNumber]="participantToEdit.personalData.closeRelativeNumber"
-      [street]="participantToEdit.address.street"
-      [number]="participantToEdit.address.number"
-      [flat]="participantToEdit.address.flat"
-      [code]="participantToEdit.address.code"
-      [city]="participantToEdit.address.city"
+      [personalData]="participantToEdit.personalData"
+      [address]="participantToEdit.address"
       (formOutput)="updateParticipant($event)">
     </participiant-form>
   </ng-container>

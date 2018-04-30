@@ -1,216 +1,74 @@
 <div class="container-fluid" *ngIf="participant">
-  <ng-container [ngSwitch]="editing">
-    <div *ngSwitchCase="false">
-      <mat-card>
-        <mat-card-header>
-          <h2>Details of {{participant.firstName}} {{participant.lastName}}</h2>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-accordion>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Personal data
-                </mat-panel-title>
-                <mat-panel-description>
-                  Basic personal data and information
-                </mat-panel-description>
-              </mat-expansion-panel-header>
+  <ng-container>
+    <mat-card>
+      <mat-card-header>
+        <h2>Details of {{participant.firstName}} {{participant.lastName}}</h2>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-accordion>
 
-              <table class="field-wide">
-                <td><mat-form-field class="field-wide">
-                  <input matInput placeholder="First name" disabled value="{{participant.firstName}}">
-                </mat-form-field></td>
-                <td><mat-form-field class="field-wide">
-                  <input matInput disabled value="{{participant.lastName}}" placeholder="Last name">
-                </mat-form-field></td>
-                <td><mat-form-field class="field-wide">
-                  <input matInput disabled value="{{participant.pesel}}" placeholder="PESEL">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.street}}" placeholder="Street">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.number}}" placeholder="Street number">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.flat}}" placeholder="Flat number">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.code}}" placeholder="Postal code">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.address.city}}" placeholder="City">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.fatherName}}" placeholder="Father name">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.motherName}}" placeholder="Mother name">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.closeRelativeName}}" placeholder="Close relative">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.closeRelativeNumber}}" placeholder="Relative phone number">
-                </mat-form-field></td>
-              </table>
-              <table class="field-wide">
-                <td><mat-form-field>
-                  <input matInput disabled value="{{participant.personalData.christeningPlace}}" placeholder="Christening place">
-                </mat-form-field></td>
-                <td><mat-form-field>
-                  <input matInput disabled value="{{formatDate(participant.personalData.christeningDate)}}" placeholder="Christening date">
-                </mat-form-field></td>
-              </table>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Personal data </mat-panel-title>
+              <mat-panel-description> Basic personal data and information </mat-panel-description>
+            </mat-expansion-panel-header>
+            <personal-data
+              [firstName]="participant.firstName"
+              [lastName]="participant.lastName"
+              [pesel]="participant.pesel"
+              [address]="participant.address"
+              [personalData]="participant.personalData">
+            </personal-data>
+          </mat-expansion-panel>
 
-            </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Parish </mat-panel-title>
+              <mat-panel-description> Detailed information about parish - {{participant.parishId}} </mat-panel-description>
+            </mat-expansion-panel-header>
+            <parish-details
+              [parishId]="participant.parishId"
+              [parishes]="parishes"></parish-details>
+          </mat-expansion-panel>
 
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Parish
-                </mat-panel-title>
-                <mat-panel-description>
-                  {{participant.parishId}} - {{getParishName(participant.parishId)}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Health report</mat-panel-title>
+              <mat-panel-description>Information about the state of participant's health</mat-panel-description>
+            </mat-expansion-panel-header>
+            <health-report></health-report>
+          </mat-expansion-panel>
 
-              <div class="form-group row">
-                <label class="col-sm-2">Parish name</label>
-                <div class="col-sm-6">{{getParishName(participant.parishId)}}</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Parish address</label>
-                <div class="col-sm-6">{{getParishAddress(participant.parishId)}}</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Parish region</label>
-                <div class="col-sm-6">{{participant.parishId}}</div>
-              </div>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Experience in Oasis </mat-panel-title>
+              <mat-panel-description> Information about previous formation and retreats </mat-panel-description>
+            </mat-expansion-panel-header>
+            <experience-details></experience-details>
+          </mat-expansion-panel>
 
-              <!--<mat-list>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.parish}}</p>-->
-                  <!--<label matLine>Parish name</label>-->
-                <!--</mat-list-item>-->
-                <!--<mat-list-item>-->
-                  <!--<p matLine>{{participant.address}}</p>-->
-                  <!--<label matLine>Parish address</label>-->
-                <!--</mat-list-item>-->
-              <!--</mat-list>-->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Opinions </mat-panel-title>
+              <mat-panel-description> Collection of opinions on participant </mat-panel-description>
+            </mat-expansion-panel-header>
+            <opinions-details></opinions-details>
+          </mat-expansion-panel>
 
-            </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
 
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Health report
-                </mat-panel-title>
-                <mat-panel-description>
-                  Information about the state of participant's health
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Current treatment</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Medication</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Allergies</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Other</label>
-                <div class="col-sm-6">data</div>
-              </div>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Experience in Oasis
-                </mat-panel-title>
-                <mat-panel-description>
-                  Information about previous formation and retreats
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Retreats</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">KWC</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Prayer retreats</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Other</label>
-                <div class="col-sm-6">data</div>
-              </div>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Opinions
-                </mat-panel-title>
-                <mat-panel-description>
-                  Collection of opinions on participant
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              <div class="form-group row">
-                <label class="col-sm-2">Animator's opinion</label>
-                <div class="col-sm-6">data</div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2">Moderator's opinion</label>
-                <div class="col-sm-6">data</div>
-              </div>
-
-            </mat-expansion-panel>
-
-          </mat-accordion>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="goBack()">
-            <i class="fa fa-chevron-left"></i> Back
-          </button>
-          <button mat-raised-button (click)="edit()">
-            <mat-icon>mode_edit</mat-icon> Edit
-          </button>
-          <button mat-raised-button (click)="delete()">
-            <mat-icon>delete</mat-icon> Delete
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div *ngSwitchCase="true">
-      <participiant-form
-        [firstName]="participant.firstName"
-        [id]="participant.id"
-        [lastName]="participant.lastName"
-        [parishId]="participant.parishId"
-        [pesel]="participant.pesel"
-        (formOutput)="save($event)">
-      </participiant-form>
-    </div>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="goBack()">
+          <i class="fa fa-chevron-left"></i> Back
+        </button>
+        <button mat-raised-button (click)="edit()">
+          <mat-icon>mode_edit</mat-icon> Edit
+        </button>
+        <button mat-raised-button (click)="delete()">
+          <mat-icon>delete</mat-icon> Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </ng-container>
 </div>

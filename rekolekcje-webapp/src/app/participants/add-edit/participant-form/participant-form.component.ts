@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {Address, Participant, PersonalData} from '../../models/participant.model';
+import { Participant } from '../../models/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Parish } from '../../../parish/models/parish.model';
 import { AppSelectors } from '../../../core/store/app-selectors';
 import { Subject } from 'rxjs/Subject';
 import { Parishes } from '../../../parish/store/parish-reducer';
 import { Store } from '@ngrx/store';
-import { Moment } from 'moment';
+import { Address } from '../../models/address.model';
+import { PersonalData } from '../../models/personal-data.model';
 
 @Component({
   selector: 'participiant-form',
@@ -15,22 +16,13 @@ import { Moment } from 'moment';
 })
 export class ParticipantFormComponent implements OnInit, OnDestroy {
 
-  @Input() christeningDate: Moment;
-  @Input() christeningPlace: string;
-  @Input() closeRelativeName: string;
-  @Input() closeRelativeNumber: number;
-  @Input() fatherName: string;
   @Input() firstName: string;
   @Input() id: number;
   @Input() lastName: string;
-  @Input() motherName: string;
   @Input() pesel: string;
   @Input() parishId: string;
-  @Input() street: string;
-  @Input() number: number;
-  @Input() flat: number;
-  @Input() code: string;
-  @Input() city: string;
+  @Input() address: Address;
+  @Input() personalData: PersonalData;
 
   parishes: Parish[];
 
@@ -51,18 +43,20 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
-      street: [this.street ? this.street : '', Validators.required],
-      number: [this.number ? this.number : ''],
-      flat: [this.flat ? this.flat : ''],
-      code: [this.code ? this.code : ''],
-      city: [this.city ? this.city : ''],
+      address: this.fb.group({
+        streetName: [this.address.streetName ? this.address.streetName : '', Validators.required],
+        streetNumber: [this.address.streetNumber ? this.address.streetNumber : ''],
+        flatNumber: [this.address.flatNumber ? this.address.flatNumber : ''],
+        postalCode: [this.address.postalCode ? this.address.postalCode : ''],
+        city: [this.address.city ? this.address.city : ''],
+      }),
       parishId: [this.parishId ? this.parishId : '', Validators.required],
-      christeningDate: [this.christeningDate ? this.christeningDate : null],
-      christeningPlace: [this.christeningPlace ? this.christeningPlace : ''],
-      fatherName: [this.fatherName ? this.fatherName : ''],
-      motherName: [this.motherName ? this.motherName : ''],
-      closeRelativeName: [this.closeRelativeName ? this.closeRelativeName : ''],
-      closeRelativeNumber: [this.closeRelativeNumber ? this.closeRelativeNumber : null]
+      christeningDate: [this.personalData.christeningDate ? this.personalData.christeningDate : null],
+      christeningPlace: [this.personalData.christeningPlace ? this.personalData.christeningPlace : ''],
+      fatherName: [this.personalData.fatherName ? this.personalData.fatherName : ''],
+      motherName: [this.personalData.motherName ? this.personalData.motherName : ''],
+      emergencyContactName: [this.personalData.emergencyContactName ? this.personalData.emergencyContactName : ''],
+      emergencyContactNumber: [this.personalData.emergencyContactNumber ? this.personalData.emergencyContactNumber : null]
     });
   }
 
@@ -92,15 +86,15 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     personalData.christeningPlace = this.form.get('christeningPlace').value;
     personalData.fatherName = this.form.get('fatherName').value;
     personalData.motherName = this.form.get('motherName').value;
-    personalData.closeRelativeName = this.form.get('closeRelativeName').value;
-    personalData.closeRelativeNumber = this.form.get('closeRelativeNumber').value;
+    personalData.emergencyContactName = this.form.get('emergencyContactName').value;
+    personalData.emergencyContactNumber = this.form.get('emergencyContactNumber').value;
     participant.personalData = personalData;
     const address = new Address();
-    address.street = this.form.get('street').value;
-    address.number = this.form.get('number').value;
-    address.flat = this.form.get('flat').value;
-    address.code = this.form.get('code').value;
-    address.city = this.form.get('city').value;
+    address.streetName = this.form.get('address.streetName').value;
+    address.streetNumber = this.form.get('address.streetNumber').value;
+    address.flatNumber = this.form.get('address.flatNumber').value;
+    address.postalCode = this.form.get('address.postalCode').value;
+    address.city = this.form.get('address.city').value;
     participant.address = address;
     this.formOutput.emit(participant);
   }

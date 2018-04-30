@@ -1,0 +1,52 @@
+<table class="field-wide">
+  <td><mat-form-field class="field-wide">
+    <input matInput placeholder="First name" disabled value="{{firstName}}">
+  </mat-form-field></td>
+  <td><mat-form-field class="field-wide">
+    <input matInput disabled value="{{lastName}}" placeholder="Last name">
+  </mat-form-field></td>
+  <td><mat-form-field class="field-wide">
+    <input matInput disabled value="{{pesel}}" placeholder="PESEL">
+  </mat-form-field></td>
+</table>
+<table class="field-wide">
+  <td><mat-form-field>
+    <input matInput disabled value="{{address.streetName}}" placeholder="Street">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{address.streetNumber}}" placeholder="Street number">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{address.flatNumber}}" placeholder="Flat number">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{address.postalCode}}" placeholder="Postal code">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{address.city}}" placeholder="City">
+  </mat-form-field></td>
+</table>
+<table class="field-wide">
+  <td><mat-form-field>
+    <input matInput disabled value="{{personalData.fatherName}}" placeholder="Father name">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{personalData.motherName}}" placeholder="Mother name">
+  </mat-form-field></td>
+</table>
+<table class="field-wide">
+  <td><mat-form-field>
+    <input matInput disabled value="{{personalData.emergencyContactName}}" placeholder="Emergency contact">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{personalData.emergencyContactNumber}}" placeholder="Emergency contact phone number">
+  </mat-form-field></td>
+</table>
+<table class="field-wide">
+  <td><mat-form-field>
+    <input matInput disabled value="{{personalData.christeningPlace}}" placeholder="Christening place">
+  </mat-form-field></td>
+  <td><mat-form-field>
+    <input matInput disabled value="{{formatDate(personalData.christeningDate)}}" placeholder="Christening date">
+  </mat-form-field></td>
+</table>

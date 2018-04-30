@@ -95,12 +95,12 @@ public class ParticipantsDatabase {
           getMotherName(dto),
           getChristeningPlace(dto),
           getChristeningDate(dto),
-          dto.getPersonalData().getCloseRelativeName(),
-          dto.getPersonalData().getCloseRelativeNumber(),
-          dto.getAddress().getStreet(),
-          dto.getAddress().getNumber(),
-          dto.getAddress().getFlat(),
-          dto.getAddress().getCode(),
+          dto.getPersonalData().getEmergencyContactName(),
+          dto.getPersonalData().getEmergencyContactNumber(),
+          dto.getAddress().getStreetName(),
+          dto.getAddress().getStreetNumber(),
+          dto.getAddress().getFlatNumber(),
+          dto.getAddress().getPostalCode(),
           dto.getAddress().getCity()
           );
     });

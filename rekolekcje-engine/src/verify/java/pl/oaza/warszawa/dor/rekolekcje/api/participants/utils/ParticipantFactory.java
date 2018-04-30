@@ -12,8 +12,8 @@ public class ParticipantFactory {
 
   private static AddressValue sampleAddress = AddressValue.builder()
       .city("Chicago")
-      .street("Narrow")
-      .number(44)
+      .streetName("Narrow")
+      .streetNumber(44)
       .build();
 
   public static ParticipantDTO sampleParticipant(Long id) {
@@ -55,17 +55,17 @@ public class ParticipantFactory {
         .fatherName("Jake")
         .christeningPlace("Los Angeles")
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
-        .closeRelativeName("Uncle Bob")
-        .closeRelativeNumber(444555666L)
+        .emergencyContactName("Uncle Bob")
+        .emergencyContactNumber(444555666L)
         .build();
   }
 
   private static AddressValue fullAddress() {
     return AddressValue.builder()
-        .street("Broadway")
-        .number(987)
-        .flat(13)
-        .code("12-654")
+        .streetName("Broadway")
+        .streetNumber(987)
+        .flatNumber(13)
+        .postalCode("12-654")
         .city("New York")
         .build();
   }
