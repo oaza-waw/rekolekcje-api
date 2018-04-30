@@ -1,7 +1,5 @@
 <div [formGroup]="addressForm">
-  <table class="field-wide">
-    <td>
-      <mat-form-field>
+      <mat-form-field style="width: 65%;">
         <input matInput
                required
                placeholder="Address: street"
@@ -10,22 +8,16 @@
           <mat-error *ngIf="addressForm.get('streetName').touched && addressForm.get('streetName').invalid">Street is required</mat-error>
         </mat-hint>
       </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
+      <mat-form-field style="width: 10%;">
         <input matInput
-               placeholder="Address: number"
+               placeholder="number"
                formControlName="streetNumber">
       </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
+      <mat-form-field style="width: 10%">
         <input matInput
-               placeholder="Address: flat"
+               placeholder="flat"
                formControlName="flatNumber">
       </mat-form-field>
-    </td>
-  </table>
 
   <table class="field-wide">
     <td>
