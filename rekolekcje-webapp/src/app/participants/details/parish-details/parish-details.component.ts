@@ -1,9 +1,5 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Parish} from "../../../parish/models/parish.model";
-import {Subject} from "rxjs/Subject";
-import {Store} from "@ngrx/store";
-import {Parishes} from "../../../parish/store/parish-reducer";
-import {AppSelectors} from "../../../core/store/app-selectors";
+import { Component, Input } from '@angular/core';
+import { Parish } from '../../../parish/models/parish.model';
 
 @Component({
   selector: 'parish-details',

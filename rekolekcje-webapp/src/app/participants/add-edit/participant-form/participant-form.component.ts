@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {Participant} from '../../models/participant.model';
+import { Participant } from '../../models/participant.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Parish } from '../../../parish/models/parish.model';
 import { AppSelectors } from '../../../core/store/app-selectors';
 import { Subject } from 'rxjs/Subject';
 import { Parishes } from '../../../parish/store/parish-reducer';
 import { Store } from '@ngrx/store';
-import { Moment } from 'moment';
-import {Address} from "../../models/address.model";
-import {PersonalData} from "../../models/personal-data.model";
+import { Address } from '../../models/address.model';
+import { PersonalData } from '../../models/personal-data.model';
 
 @Component({
   selector: 'participiant-form',

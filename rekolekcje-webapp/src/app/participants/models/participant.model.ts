@@ -1,5 +1,5 @@
-import {Address} from "./address.model";
-import {PersonalData} from "./personal-data.model";
+import { Address } from './address.model';
+import { PersonalData } from './personal-data.model';
 
 export class Participant {
   constructor(
@@ -10,7 +10,7 @@ export class Participant {
     public address?: Address,
     public parishId?: number,
     public personalData?: PersonalData
-  ) {}
+  ) { }
 
   static mapFromForm(input: any): Participant {
     const p: Participant = new Participant();

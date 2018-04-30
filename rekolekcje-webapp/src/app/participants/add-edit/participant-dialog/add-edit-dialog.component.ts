@@ -1,10 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import {Participant} from '../../models/participant.model';
+import { Participant } from '../../models/participant.model';
 import { Parish } from '../../../parish/models/parish.model';
-import { Moment } from 'moment';
-import {Address} from "../../models/address.model";
-import {PersonalData} from "../../models/personal-data.model";
+import { Address } from '../../models/address.model';
+import { PersonalData } from '../../models/personal-data.model';
 
 @Component({
   selector: 'add-edit-dialog',

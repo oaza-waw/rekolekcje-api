@@ -1,8 +1,8 @@
-import {Component, Input} from "@angular/core";
-import moment from "moment";
-import {Moment} from "moment";
-import {PersonalData} from "../../models/personal-data.model";
-import {Address} from "../../models/address.model";
+import { Component, Input } from '@angular/core';
+import * as moment from 'moment';
+import { Moment } from 'moment';
+import { PersonalData } from '../../models/personal-data.model';
+import { Address } from '../../models/address.model';
 
 @Component({
   selector: 'personal-data',
@@ -17,8 +17,8 @@ export class PersonalDataComponent {
   @Input() address: Address;
   @Input() personalData: PersonalData;
 
-  constructor(
-  ) { }
+  constructor() {
+  }
 
   formatDate(date: Moment): string {
     return moment(date).local().format('LL');

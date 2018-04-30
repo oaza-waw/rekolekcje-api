@@ -1,4 +1,4 @@
-import {Moment} from "moment";
+import { Moment } from 'moment';
 
 export class PersonalData {
   constructor(
@@ -8,8 +8,7 @@ export class PersonalData {
     public christeningDate?: Moment,
     public emergencyContactName?: string,
     public emergencyContactNumber?: number,
-  ) {
-  }
+  ) { }
 
   static mapFromForm(input: any): PersonalData {
     const personalData: PersonalData = new PersonalData();

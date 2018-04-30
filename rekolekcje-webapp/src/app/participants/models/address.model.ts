@@ -5,8 +5,7 @@ export class Address {
     public flatNumber?: number,
     public postalCode?: string,
     public city?: string,
-  ) {
-  }
+  ) { }
 
   static mapFromForm(input: any): Address {
     const address = new Address();

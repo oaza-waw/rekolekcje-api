@@ -10,7 +10,7 @@ import { Subject } from 'rxjs/Subject';
 import { AppSelectors } from '../../core/store/app-selectors';
 import { Parish } from '../../parish/models/parish.model';
 import { Parishes } from '../../parish/store/parish-reducer';
-import {ParticipantAddEditDialog} from "../add-edit/participant-dialog/add-edit-dialog.component";
+import { ParticipantAddEditDialog } from '../add-edit/participant-dialog/add-edit-dialog.component';
 
 @Component({
   selector: 'participant-details',
