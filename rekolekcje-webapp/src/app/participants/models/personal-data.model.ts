@@ -6,8 +6,8 @@ export class PersonalData {
     public motherName?: string,
     public christeningPlace?: string,
     public christeningDate?: Moment,
-    public closeRelativeName?: string,
-    public closeRelativeNumber?: number,
+    public emergencyContactName?: string,
+    public emergencyContactNumber?: number,
   ) {
   }
 
@@ -17,8 +17,8 @@ export class PersonalData {
     personalData.motherName = input.result.personalData.motherName;
     personalData.christeningPlace = input.result.personalData.christeningPlace;
     personalData.christeningDate = input.result.personalData.christeningDate;
-    personalData.closeRelativeName = input.result.personalData.closeRelativeName;
-    personalData.closeRelativeNumber = input.result.personalData.closeRelativeNumber;
+    personalData.emergencyContactName = input.result.personalData.emergencyContactName;
+    personalData.emergencyContactNumber = input.result.personalData.emergencyContactNumber;
     return personalData;
   }
 }

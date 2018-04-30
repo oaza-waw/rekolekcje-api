@@ -13,7 +13,7 @@ public class PersonalData {
   private final String motherName;
   private final String christeningPlace;
   private final ZonedDateTime christeningDate;
-  private final String closeRelativeName;
-  private final Long closeRelativeNumber;
+  private final String emergencyContactName;
+  private final Long emergencyContactNumber;
 
 }

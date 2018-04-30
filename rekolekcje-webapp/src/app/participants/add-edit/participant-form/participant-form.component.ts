@@ -56,8 +56,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       christeningPlace: [this.personalData.christeningPlace ? this.personalData.christeningPlace : ''],
       fatherName: [this.personalData.fatherName ? this.personalData.fatherName : ''],
       motherName: [this.personalData.motherName ? this.personalData.motherName : ''],
-      closeRelativeName: [this.personalData.closeRelativeName ? this.personalData.closeRelativeName : ''],
-      closeRelativeNumber: [this.personalData.closeRelativeNumber ? this.personalData.closeRelativeNumber : null]
+      emergencyContactName: [this.personalData.emergencyContactName ? this.personalData.emergencyContactName : ''],
+      emergencyContactNumber: [this.personalData.emergencyContactNumber ? this.personalData.emergencyContactNumber : null]
     });
   }
 
@@ -87,8 +87,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     personalData.christeningPlace = this.form.get('christeningPlace').value;
     personalData.fatherName = this.form.get('fatherName').value;
     personalData.motherName = this.form.get('motherName').value;
-    personalData.closeRelativeName = this.form.get('closeRelativeName').value;
-    personalData.closeRelativeNumber = this.form.get('closeRelativeNumber').value;
+    personalData.emergencyContactName = this.form.get('emergencyContactName').value;
+    personalData.emergencyContactNumber = this.form.get('emergencyContactNumber').value;
     participant.personalData = personalData;
     const address = new Address();
     address.streetName = this.form.get('address.streetName').value;

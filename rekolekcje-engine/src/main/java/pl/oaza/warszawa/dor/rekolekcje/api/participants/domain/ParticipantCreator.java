@@ -25,8 +25,8 @@ class ParticipantCreator {
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))
         .christeningPlace(personalData.getChristeningPlace())
-        .closeRelativeName(personalData.getCloseRelativeName())
-        .closeRelativeNumber(personalData.getCloseRelativeNumber());
+        .closeRelativeName(personalData.getEmergencyContactName())
+        .closeRelativeNumber(personalData.getEmergencyContactNumber());
 
     return participantBuilder.build();
   }

@@ -55,8 +55,8 @@ public class ParticipantFactory {
         .fatherName("Jake")
         .christeningPlace("Los Angeles")
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
-        .closeRelativeName("Uncle Bob")
-        .closeRelativeNumber(444555666L)
+        .emergencyContactName("Uncle Bob")
+        .emergencyContactNumber(444555666L)
         .build();
   }
 

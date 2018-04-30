@@ -61,8 +61,8 @@ class Participant {
           .motherName(motherName)
           .christeningPlace(christeningPlace)
           .christeningDate(convertToUtc(christeningDate))
-          .closeRelativeName(closeRelativeName)
-          .closeRelativeNumber(closeRelativeNumber)
+          .emergencyContactName(closeRelativeName)
+          .emergencyContactNumber(closeRelativeNumber)
           .build();
   }
 
