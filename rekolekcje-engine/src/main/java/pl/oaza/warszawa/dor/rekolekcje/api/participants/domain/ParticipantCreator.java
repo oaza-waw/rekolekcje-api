@@ -2,12 +2,15 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class ParticipantCreator {
   Participant from(ParticipantDTO participantDTO) {
@@ -22,7 +25,8 @@ class ParticipantCreator {
     participantBuilder.address(address);
 
     final PersonalData personalData = participantDTO.getPersonalData();
-    participantBuilder.motherName(personalData.getMotherName())
+    participantBuilder
+        .motherName(personalData.getMotherName())
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))
         .christeningPlace(personalData.getChristeningPlace())
@@ -31,6 +35,12 @@ class ParticipantCreator {
 
     final HealthReport healthReport = from(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
+
+    final ExperienceValue experienceValue = participantDTO.getExperience();
+    participantBuilder
+        .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
+        .kwcStatus(experienceValue.getKwcStatus())
+        .summerRetreats(getRetreatsEntry(participantDTO));
 
     return participantBuilder.build();
   }
@@ -54,6 +64,9 @@ class ParticipantCreator {
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
         .healthReport(participant.getHealthReport())
+        .summerRetreats(participant.getSummerRetreats())
+        .kwcStatus(participant.getKwcStatus())
+        .kwcSince(participant.getKwcSince())
         .build();
   }
 
@@ -76,5 +89,17 @@ class ParticipantCreator {
         .allergies(healthReportValue.getAllergies())
         .other(healthReportValue.getOther())
         .build();
+  }
+
+  List<Retreats> getRetreatsEntry(ParticipantDTO participantDTO) {
+    final List<String> summerRetreats = participantDTO.getExperience().getSummerRetreats();
+    if (summerRetreats == null) {
+      return null;
+    }
+    return summerRetreats.stream()
+        .map(retreatDescription -> Retreats.builder()
+            .description(retreatDescription)
+            .build())
+        .collect(Collectors.toList());
   }
 }

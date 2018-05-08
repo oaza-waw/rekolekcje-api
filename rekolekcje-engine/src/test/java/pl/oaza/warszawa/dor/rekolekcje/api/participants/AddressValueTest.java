@@ -7,7 +7,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 public class AddressValueTest {
 
   @Test
-  public void equalsContractForParticipantDTO() {
+  public void equalsContractForAddressValue() {
     EqualsVerifier.forClass(AddressValue.class)
         .verify();
   }

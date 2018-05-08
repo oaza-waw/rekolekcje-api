@@ -7,7 +7,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 public class PersonalDataTest {
 
   @Test
-  public void equalsContractForParticipantDTO() {
+  public void equalsContractForPersonalData() {
     EqualsVerifier.forClass(PersonalData.class)
         .verify();
   }

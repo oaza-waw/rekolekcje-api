@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
@@ -30,4 +31,7 @@ public final class ParticipantDTO {
 
   @Builder.Default
   private final HealthReportValue healthReport = HealthReportValue.builder().build();
+
+  @Builder.Default
+  private final ExperienceValue experience = ExperienceValue.builder().build();
 }

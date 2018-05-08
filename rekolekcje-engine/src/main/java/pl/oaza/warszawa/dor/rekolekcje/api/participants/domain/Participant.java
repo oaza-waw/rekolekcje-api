@@ -6,17 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -42,13 +47,20 @@ class Participant {
   private String closeRelativeName;
   private Long closeRelativeNumber;
 
+  private LocalDateTime kwcSince;
+  private String kwcStatus;
+
+  @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
+  private List<Retreats> summerRetreats;
+
   @Embedded
   private HealthReport healthReport;
 
   ParticipantDTO dto() {
-    PersonalData personalData = getPersonalData();
-    AddressValue addressValue = getAddressValue();
-    HealthReportValue healthReportValue = getHealthStatusValue();
+    final PersonalData personalData = getPersonalData();
+    final AddressValue addressValue = getAddressValue();
+    final ExperienceValue experienceValue = getExperienceValue();
+    final HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
@@ -57,6 +69,7 @@ class Participant {
         .parishId(parishId)
         .address(addressValue)
         .personalData(personalData)
+        .experience(experienceValue)
         .healthReport(healthReportValue)
         .build();
   }
@@ -95,6 +108,20 @@ class Participant {
         .allergies(healthReport.getAllergies())
         .other(healthReport.getOther())
         .build();
+  }
+
+  private ExperienceValue getExperienceValue() {
+    final ExperienceValue.ExperienceValueBuilder experienceValueBuilder = ExperienceValue.builder()
+        .kwcSince(convertToUtc(kwcSince))
+        .kwcStatus(kwcStatus);
+    if (summerRetreats != null) {
+      final List<String> retreats = summerRetreats.stream()
+          .map(Retreats::getDescription)
+          .collect(Collectors.toList());
+      experienceValueBuilder
+          .summerRetreats(retreats);
+    }
+    return experienceValueBuilder.build();
   }
 
   private ZonedDateTime convertToUtc(LocalDateTime dateTime) {
