@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthStatusValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,9 @@ class ParticipantCreator {
         .closeRelativeName(personalData.getEmergencyContactName())
         .closeRelativeNumber(personalData.getEmergencyContactNumber());
 
+    final HealthStatus healthStatus = from(participantDTO.getHealthStatus());
+    participantBuilder.healthStatus(healthStatus);
+
     return participantBuilder.build();
   }
 
@@ -49,6 +53,7 @@ class ParticipantCreator {
         .christeningPlace(participant.getChristeningPlace())
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
+        .healthStatus(participant.getHealthStatus())
         .build();
   }
 
@@ -59,6 +64,15 @@ class ParticipantCreator {
         .flatNumber(addressValue.getFlatNumber())
         .postalCode(addressValue.getPostalCode())
         .city(addressValue.getCity())
+        .build();
+  }
+
+  HealthStatus from(HealthStatusValue healthStatusValue){
+    return HealthStatus.builder()
+        .currentTreatment(healthStatusValue.getCurrentTreatment())
+        .medications(healthStatusValue.getMedications())
+        .allergies(healthStatusValue.getAllergies())
+        .other(healthStatusValue.getOther())
         .build();
   }
 }
