@@ -12,16 +12,12 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -49,9 +45,8 @@ class Participant {
 
   private LocalDateTime kwcSince;
   private String kwcStatus;
-
-  @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
-  private List<Retreats> summerRetreats;
+  private Integer numberOfSummerRetreats;
+  private Integer numberOfPrayerRetreats;
 
   @Embedded
   private HealthReport healthReport;
@@ -111,17 +106,12 @@ class Participant {
   }
 
   private ExperienceValue getExperienceValue() {
-    final ExperienceValue.ExperienceValueBuilder experienceValueBuilder = ExperienceValue.builder()
+    return ExperienceValue.builder()
         .kwcSince(convertToUtc(kwcSince))
-        .kwcStatus(kwcStatus);
-    if (summerRetreats != null) {
-      final List<String> retreats = summerRetreats.stream()
-          .map(Retreats::getDescription)
-          .collect(Collectors.toList());
-      experienceValueBuilder
-          .summerRetreats(retreats);
-    }
-    return experienceValueBuilder.build();
+        .kwcStatus(kwcStatus)
+        .numberOfSummerRetreats(numberOfSummerRetreats)
+        .numberOfPrayerRetreats(numberOfPrayerRetreats)
+        .build();
   }
 
   private ZonedDateTime convertToUtc(LocalDateTime dateTime) {

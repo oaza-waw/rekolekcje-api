@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
@@ -50,32 +51,36 @@ public class ParticipantFactory {
         .id(id)
         .firstName("John")
         .lastName("Smith")
-        .address(fullAddress())
+        .address(fullAddress)
         .pesel(90042312345L)
         .parishId(1L)
-        .personalData(fullPersonalData())
+        .personalData(fullPersonalData)
+        .experience(fullExperienceValue)
         .healthReport(sampleHealthStatus)
         .build();
   }
 
-  private static PersonalData fullPersonalData() {
-    return PersonalData.builder()
-        .motherName("Mary")
-        .fatherName("Jake")
-        .christeningPlace("Los Angeles")
-        .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
-        .emergencyContactName("Uncle Bob")
-        .emergencyContactNumber(444555666L)
-        .build();
-  }
+  private static PersonalData fullPersonalData = PersonalData.builder()
+      .motherName("Mary")
+      .fatherName("Jake")
+      .christeningPlace("Los Angeles")
+      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
+      .emergencyContactName("Uncle Bob")
+      .emergencyContactNumber(444555666L)
+      .build();
 
-  private static AddressValue fullAddress() {
-    return AddressValue.builder()
-        .streetName("Broadway")
-        .streetNumber(987)
-        .flatNumber(13)
-        .postalCode("12-654")
-        .city("New York")
-        .build();
-  }
+  private static AddressValue fullAddress = AddressValue.builder()
+      .streetName("Broadway")
+      .streetNumber(987)
+      .flatNumber(13)
+      .postalCode("12-654")
+      .city("New York")
+      .build();
+
+  private static ExperienceValue fullExperienceValue = ExperienceValue.builder()
+      .kwcStatus("Active")
+      .kwcSince(ZonedDateTime.of(LocalDateTime.of(1995, 5, 4, 12, 0), ZoneId.of("UTC")))
+      .numberOfSummerRetreats(3)
+      .numberOfPrayerRetreats(5)
+      .build();
 }

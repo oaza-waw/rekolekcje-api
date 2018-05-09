@@ -4,12 +4,12 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @Value
 @Builder
 public class ExperienceValue {
-  private final List<String> summerRetreats;
   private final String kwcStatus;
   private final ZonedDateTime kwcSince;
+  private final Integer numberOfSummerRetreats;
+  private final Integer numberOfPrayerRetreats;
 }

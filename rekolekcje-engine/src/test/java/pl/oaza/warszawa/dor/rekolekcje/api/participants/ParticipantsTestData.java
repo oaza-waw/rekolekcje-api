@@ -9,7 +9,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
 
 class ParticipantsTestData {
 
@@ -59,9 +58,10 @@ class ParticipantsTestData {
       .build();
 
   private static final ExperienceValue sampleExperienceValue = ExperienceValue.builder()
-      .summerRetreats(Arrays.asList("First camp", "Children retreat"))
       .kwcStatus("Member")
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1990, 5, 20, 4, 0), ZoneId.of("UTC")))
+      .numberOfPrayerRetreats(2)
+      .numberOfSummerRetreats(3)
       .build();
 
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()

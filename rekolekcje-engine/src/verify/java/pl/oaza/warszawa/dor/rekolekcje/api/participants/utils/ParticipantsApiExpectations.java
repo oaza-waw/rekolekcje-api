@@ -61,18 +61,34 @@ public class ParticipantsApiExpectations {
     assertThat(parsedJson.read("$.firstName", String.class)).isEqualTo(expectedParticipant.getFirstName());
     assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(expectedParticipant.getLastName());
     assertThat(parsedJson.read("$.parishId", Long.class)).isEqualTo(expectedParticipant.getParishId());
+    verifyPersonalDataInResponse(parsedJson, expectedParticipant);
+    verifyAddressValueInResponse(parsedJson, expectedParticipant);
+    verifyExperienceValueInResponse(parsedJson, expectedParticipant);
+  }
+
+  private void verifyPersonalDataInResponse(DocumentContext parsedJson, ParticipantData expectedParticipant) {
     assertThat(parsedJson.read("$.personalData.motherName", String.class)).isEqualTo(expectedParticipant.getMotherName());
     assertThat(parsedJson.read("$.personalData.fatherName", String.class)).isEqualTo(expectedParticipant.getFatherName());
     assertThat(parsedJson.read("$.personalData.christeningPlace", String.class)).isEqualTo(expectedParticipant.getChristeningPlace());
     compareDates(parsedJson.read("$.personalData.christeningDate", String.class), expectedParticipant.getChristeningDate());
     assertThat(parsedJson.read("$.personalData.emergencyContactName", String.class)).isEqualTo(expectedParticipant.getCloseRelativeName());
     assertThat(parsedJson.read("$.personalData.emergencyContactNumber", Long.class)).isEqualTo(expectedParticipant.getCloseRelativeNumber());
+  }
+
+  private void verifyAddressValueInResponse(DocumentContext parsedJson, ParticipantData expectedParticipant) {
     assertThat(parsedJson.read("$.address.streetName", String.class)).isEqualTo(expectedParticipant.getStreet());
     assertThat(parsedJson.read("$.address.streetNumber", Integer.class)).isEqualTo(expectedParticipant.getStreetNumber());
     assertThat(parsedJson.read("$.address.flatNumber", Integer.class)).isEqualTo(expectedParticipant.getFlatNumber());
     assertThat(parsedJson.read("$.address.postalCode", String.class)).isEqualTo(expectedParticipant.getPostalCode());
     assertThat(parsedJson.read("$.address.city", String.class)).isEqualTo(expectedParticipant.getCity());
     assertThat(parsedJson.read("$.healthReport.currentTreatment", String.class)).isEqualTo(expectedParticipant.getCurrentTreatment());
+  }
+
+  private void verifyExperienceValueInResponse(DocumentContext parsedJson, ParticipantData expectedParticipant) {
+    assertThat(parsedJson.read("$.experience.kwcStatus", String.class)).isEqualTo(expectedParticipant.getKwcStatus());
+    compareDates(parsedJson.read("$.experience.kwcSince", String.class), expectedParticipant.getKwcSince());
+    assertThat(parsedJson.read("$.experience.numberOfSummerRetreats", Integer.class)).isEqualTo(expectedParticipant.getNumberOfSummerRetreats());
+    assertThat(parsedJson.read("$.experience.numberOfPrayerRetreats", Integer.class)).isEqualTo(expectedParticipant.getNumberOfPrayerRetreats());
   }
 
   @Hack("too tired to think...")

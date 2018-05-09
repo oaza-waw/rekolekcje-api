@@ -18,7 +18,7 @@ public class ParticipantsDatabase {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  public List<ParticipantData> getAllParticipantData() {
+  List<ParticipantData> getAllParticipantData() {
     return jdbcTemplate.query("SELECT * FROM participant", getParticipantDataRowMapper());
   }
 
@@ -64,10 +64,14 @@ public class ParticipantsDatabase {
         .medications(rs.getString("medications"))
         .allergies(rs.getString("allergies"))
         .other(rs.getString("other"))
+        .kwcStatus(rs.getString("kwc_status"))
+        .kwcSince(DaoTools.getLocalDate(rs, "kwc_since"))
+        .numberOfSummerRetreats(DaoTools.getInt(rs, "number_of_summer_retreats"))
+        .numberOfPrayerRetreats(DaoTools.getInt(rs, "number_of_prayer_retreats"))
         .build();
   }
 
-  public void saveParticipants(List<ParticipantDTO> participantDTOs) {
+  void saveParticipants(List<ParticipantDTO> participantDTOs) {
     participantDTOs.forEach(dto -> {
       jdbcTemplate.update(
           "INSERT INTO " +
@@ -91,9 +95,13 @@ public class ParticipantsDatabase {
               "current_treatment, " +
               "medications, " +
               "allergies, " +
-              "other" +
+              "other," +
+              "kwc_status, " +
+              "kwc_since, " +
+              "number_of_summer_retreats, " +
+              "number_of_prayer_retreats " +
               ") " +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           dto.getId(),
           dto.getFirstName(),
           dto.getLastName(),
@@ -102,7 +110,7 @@ public class ParticipantsDatabase {
           getFatherName(dto),
           getMotherName(dto),
           getChristeningPlace(dto),
-          getChristeningDate(dto),
+          convertToLocalDate(dto.getPersonalData().getChristeningDate()),
           dto.getPersonalData().getEmergencyContactName(),
           dto.getPersonalData().getEmergencyContactNumber(),
           dto.getAddress().getStreetName(),
@@ -113,7 +121,11 @@ public class ParticipantsDatabase {
           dto.getHealthReport().getCurrentTreatment(),
           dto.getHealthReport().getMedications(),
           dto.getHealthReport().getAllergies(),
-          dto.getHealthReport().getOther()
+          dto.getHealthReport().getOther(),
+          dto.getExperience().getKwcStatus(),
+          convertToLocalDate(dto.getExperience().getKwcSince()),
+          dto.getExperience().getNumberOfSummerRetreats(),
+          dto.getExperience().getNumberOfPrayerRetreats()
           );
     });
   }
@@ -131,12 +143,8 @@ public class ParticipantsDatabase {
     return dto.getPersonalData() == null ? null : dto.getPersonalData().getChristeningPlace();
   }
 
-  private LocalDateTime getChristeningDate(ParticipantDTO dto) {
-    if (dto.getPersonalData() == null) {
-      return null;
-    }
-    final ZonedDateTime christeningDate = dto.getPersonalData().getChristeningDate();
-    return christeningDate != null ? christeningDate.toLocalDateTime() : null;
+  private LocalDateTime convertToLocalDate(ZonedDateTime zonedDateTime) {
+    return zonedDateTime != null ? zonedDateTime.toLocalDateTime() : null;
   }
 
   public void clearParticipants() {

@@ -9,8 +9,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 class ParticipantCreator {
   Participant from(ParticipantDTO participantDTO) {
@@ -40,7 +38,8 @@ class ParticipantCreator {
     participantBuilder
         .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
         .kwcStatus(experienceValue.getKwcStatus())
-        .summerRetreats(getRetreatsEntry(participantDTO));
+        .numberOfPrayerRetreats(experienceValue.getNumberOfPrayerRetreats())
+        .numberOfSummerRetreats(experienceValue.getNumberOfSummerRetreats());
 
     return participantBuilder.build();
   }
@@ -64,9 +63,10 @@ class ParticipantCreator {
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
         .healthReport(participant.getHealthReport())
-        .summerRetreats(participant.getSummerRetreats())
         .kwcStatus(participant.getKwcStatus())
         .kwcSince(participant.getKwcSince())
+        .numberOfSummerRetreats(participant.getNumberOfSummerRetreats())
+        .numberOfPrayerRetreats(participant.getNumberOfPrayerRetreats())
         .build();
   }
 
@@ -89,17 +89,5 @@ class ParticipantCreator {
         .allergies(healthReportValue.getAllergies())
         .other(healthReportValue.getOther())
         .build();
-  }
-
-  List<Retreats> getRetreatsEntry(ParticipantDTO participantDTO) {
-    final List<String> summerRetreats = participantDTO.getExperience().getSummerRetreats();
-    if (summerRetreats == null) {
-      return null;
-    }
-    return summerRetreats.stream()
-        .map(retreatDescription -> Retreats.builder()
-            .description(retreatDescription)
-            .build())
-        .collect(Collectors.toList());
   }
 }
