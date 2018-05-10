@@ -60,7 +60,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       return { streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: '' }
     } else {
       return {
-        streetName: [this.address.streetName ? this.address.streetName : '', Validators.required],
+        streetName: [this.address.streetName ? this.address.streetName : ''],
         streetNumber: [this.address.streetNumber ? this.address.streetNumber : ''],
         flatNumber: [this.address.flatNumber ? this.address.flatNumber : ''],
         postalCode: [this.address.postalCode ? this.address.postalCode : ''],
