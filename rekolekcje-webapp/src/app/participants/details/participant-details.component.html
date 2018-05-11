@@ -38,11 +38,7 @@
               <mat-panel-description>Information about the state of participant's health</mat-panel-description>
             </mat-expansion-panel-header>
             <health-report
-              [currentTreatment]="participant.healthReport.currentTreatment"
-              [medications]="participant.healthReport.medications"
-              [allergies]="participant.healthReport.allergies"
-              [other]="participant.healthReport.other"
-              ></health-report>
+              [healthReportData]="participant.healthReport"></health-report>
           </mat-expansion-panel>
 
           <mat-expansion-panel>

@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {HealthReport} from "../../models/heath-report.model";
 
 @Component({
   selector: 'health-report',
@@ -7,10 +8,8 @@ import {Component, Input} from '@angular/core';
 })
 export class HealthReportComponent {
 
-  @Input() currentTreatment: string;
-  @Input() medications: string;
-  @Input() allergies: string;
-  @Input() other: string;
+
+  @Input() healthReportData: HealthReport;
 
   constructor(){}
 }
