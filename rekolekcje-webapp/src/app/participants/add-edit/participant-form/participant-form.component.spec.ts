@@ -16,6 +16,7 @@ describe('ParticipantFormComponent', () => {
     component = fixture.componentInstance;
     component.address = {};
     component.personalData = {};
+    component.healthReport = {};
     fixture.detectChanges();
   });
 

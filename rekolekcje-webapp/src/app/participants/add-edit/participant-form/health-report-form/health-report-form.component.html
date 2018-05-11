@@ -1,0 +1,22 @@
+<div [formGroup]="healthReportForm">
+  <mat-form-field style="width: 65%;">
+    <input matInput
+           placeholder="Current treatment"
+           formControlName="currentTreatment">
+  </mat-form-field>
+  <mat-form-field style="width: 10%;">
+    <input matInput
+           placeholder="Medications"
+           formControlName="medications">
+  </mat-form-field>
+  <mat-form-field style="width: 10%">
+    <input matInput
+           placeholder="allergies"
+           formControlName="allergies">
+  </mat-form-field>
+  <mat-form-field style="width: 10%">
+    <input matInput
+           placeholder="other"
+           formControlName="other">
+  </mat-form-field>
+</div>
