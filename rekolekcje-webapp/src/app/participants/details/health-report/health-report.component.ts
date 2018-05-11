@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'health-report',
@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./health-report.component.css']
 })
 export class HealthReportComponent {
+
+  @Input() currentTreatment: string;
+  @Input() medications: string;
+  @Input() allergies: string;
+  @Input() other: string;
+
+  constructor(){}
 }

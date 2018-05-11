@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
-import { Moment } from 'moment';
-import { PersonalData } from '../../models/personal-data.model';
-import { Address } from '../../models/address.model';
-import {HealthReport} from "../../models/heath-report.model";
+import {Moment} from 'moment';
+import {PersonalData} from '../../models/personal-data.model';
+import {Address} from '../../models/address.model';
 
 @Component({
   selector: 'personal-data',
@@ -17,7 +16,6 @@ export class PersonalDataComponent {
   @Input() pesel: number;
   @Input() address: Address;
   @Input() personalData: PersonalData;
-  @Input() healthReport: HealthReport;
 
   constructor() {
   }

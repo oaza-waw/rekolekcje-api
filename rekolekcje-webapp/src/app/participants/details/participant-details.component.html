@@ -9,8 +9,8 @@
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title> Personal data </mat-panel-title>
-              <mat-panel-description> Basic personal data and information </mat-panel-description>
+              <mat-panel-title> Personal data</mat-panel-title>
+              <mat-panel-description> Basic personal data and information</mat-panel-description>
             </mat-expansion-panel-header>
             <personal-data
               [firstName]="participant.firstName"
@@ -23,8 +23,9 @@
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title> Parish </mat-panel-title>
-              <mat-panel-description> Detailed information about parish - {{participant.parishId}} </mat-panel-description>
+              <mat-panel-title> Parish</mat-panel-title>
+              <mat-panel-description> Detailed information about parish - {{participant.parishId}}
+              </mat-panel-description>
             </mat-expansion-panel-header>
             <parish-details
               [parishId]="participant.parishId"
@@ -36,21 +37,23 @@
               <mat-panel-title>Health report</mat-panel-title>
               <mat-panel-description>Information about the state of participant's health</mat-panel-description>
             </mat-expansion-panel-header>
-            <health-report></health-report>
+            <health-report
+              [currentTreatment]="participant.healthReport.currentTreatment"
+              ></health-report>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title> Experience in Oasis </mat-panel-title>
-              <mat-panel-description> Information about previous formation and retreats </mat-panel-description>
+              <mat-panel-title> Experience in Oasis</mat-panel-title>
+              <mat-panel-description> Information about previous formation and retreats</mat-panel-description>
             </mat-expansion-panel-header>
             <experience-details></experience-details>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title> Opinions </mat-panel-title>
-              <mat-panel-description> Collection of opinions on participant </mat-panel-description>
+              <mat-panel-title> Opinions</mat-panel-title>
+              <mat-panel-description> Collection of opinions on participant</mat-panel-description>
             </mat-expansion-panel-header>
             <opinions-details></opinions-details>
           </mat-expansion-panel>
@@ -63,10 +66,12 @@
           <i class="fa fa-chevron-left"></i> Back
         </button>
         <button mat-raised-button (click)="edit()">
-          <mat-icon>mode_edit</mat-icon> Edit
+          <mat-icon>mode_edit</mat-icon>
+          Edit
         </button>
         <button mat-raised-button (click)="delete()">
-          <mat-icon>delete</mat-icon> Delete
+          <mat-icon>delete</mat-icon>
+          Delete
         </button>
       </mat-card-actions>
     </mat-card>

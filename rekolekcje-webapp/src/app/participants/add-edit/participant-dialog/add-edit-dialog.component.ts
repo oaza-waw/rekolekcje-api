@@ -4,6 +4,7 @@ import { Participant } from '../../models/participant.model';
 import { Parish } from '../../../parish/models/parish.model';
 import { Address } from '../../models/address.model';
 import { PersonalData } from '../../models/personal-data.model';
+import {HealthReport} from "../../models/heath-report.model";
 
 @Component({
   selector: 'add-edit-dialog',
@@ -21,6 +22,7 @@ export class ParticipantAddEditDialog implements OnInit {
   parishes: Parish[];
   personalData: PersonalData;
   address: Address;
+  healthReport: HealthReport;
 
   constructor(public dialogRef: MatDialogRef<ParticipantAddEditDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dialogTitle = data.dialogTitle;
@@ -31,6 +33,7 @@ export class ParticipantAddEditDialog implements OnInit {
     data.parishes ? this.parishes = data.parishes : this.parishes = [];
     this.personalData = data.personalData;
     this.address = data.address;
+    this.healthReport = data.healthReport;
   }
 
   // @TODO move address in some fields (to better search functionality in the future)
