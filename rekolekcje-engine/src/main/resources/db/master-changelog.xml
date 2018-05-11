@@ -6,5 +6,6 @@
     <include file="changelog/002-security.xml" relativeToChangelogFile="true" />
     <include file="changelog/003-parish.xml" relativeToChangelogFile="true" />
     <include file="changelog/004-personal-data.xml" relativeToChangelogFile="true" />
+    <include file="demo/demo-data.sql" relativeToChangelogFile="true" />
 
 </databaseChangeLog>
