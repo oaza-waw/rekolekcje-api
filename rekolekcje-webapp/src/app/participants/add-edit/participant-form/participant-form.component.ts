@@ -1,14 +1,15 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Participant} from '../../models/participant.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Parish} from '../../../parish/models/parish.model';
-import {AppSelectors} from '../../../core/store/app-selectors';
-import {Subject} from 'rxjs/Subject';
-import {Parishes} from '../../../parish/store/parish-reducer';
-import {Store} from '@ngrx/store';
-import {Address} from '../../models/address.model';
-import {PersonalData} from '../../models/personal-data.model';
-import {HealthReport} from "../../models/heath-report.model";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Participant } from '../../models/participant.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Parish } from '../../../parish/models/parish.model';
+import { AppSelectors } from '../../../core/store/app-selectors';
+import { Subject } from 'rxjs/Subject';
+import { Parishes } from '../../../parish/store/parish-reducer';
+import { Store } from '@ngrx/store';
+import { Address } from '../../models/address.model';
+import { PersonalData } from '../../models/personal-data.model';
+import { HealthReport } from '../../models/heath-report.model';
+import { Experience } from '../../models/experience.model';
 
 @Component({
   selector: 'participiant-form',
@@ -25,6 +26,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   @Input() address: Address;
   @Input() personalData: PersonalData;
   @Input() healthReport: HealthReport;
+  @Input() experience: Experience;
 
   parishes: Parish[];
 
@@ -42,7 +44,6 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     this.store.select(AppSelectors.getParishList)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((parishes: Parish[]) => this.parishes = parishes);
-    console.log('personal data: ' + JSON.stringify(this.personalData));
     this.form = this.fb.group({
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
@@ -55,7 +56,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       motherName: [this.getMotherName()],
       emergencyContactName: [this.getEmergencyContactName()],
       emergencyContactNumber: [this.getEmergencyContactNumber()],
-      healthReport: this.fb.group(this.getHealthReport())
+      healthReport: this.fb.group(this.getHealthReport()),
+      experience: this.fb.group(this.getExperience())
     });
   }
 
@@ -69,7 +71,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
         city: [this.address.city ? this.address.city : ''],
       }
     } else {
-      return {streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: ''}
+      return { streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: '' }
     }
   }
 
@@ -88,6 +90,19 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
         allergies: '',
         other: '',
       }
+    }
+  }
+
+  private getExperience() {
+    if (this.experience != null) {
+      return {
+        kwcStatus: [this.experience.kwcStatus],
+        kwcSince: [this.experience.kwcSince],
+        numberOfSummerRetreats: [this.experience.numberOfSummerRetreats],
+        numberOfPrayerRetreats: [this.experience.numberOfPrayerRetreats]
+      }
+    } else {
+      return { kwcStatus: '', kwcSince: '', numberOfSummerRetreats: '', numberOfPrayerRetreats: '' }
     }
   }
 
@@ -136,23 +151,20 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const participant = new Participant();
-    this.parseParticipantDataFromFrom(participant);
-    this.parsePersonalDataFromFormToParticipant(participant);
-    this.parseAddressDataFromFormToParticipant(participant);
-    this.parseHealthReportDataFromFormToParticipant(participant);
-    this.formOutput.emit(participant);
-  }
-
-  private parseParticipantDataFromFrom(participant: Participant): void {
+    let participant = new Participant();
     participant.id = this.id;
     participant.firstName = this.form.get('firstName').value;
     participant.lastName = this.form.get('lastName').value;
     participant.pesel = this.form.get('pesel').value;
     participant.parishId = this.form.get('parishId').value;
+    participant.personalData = this.getPersonalDataFromForm();
+    participant.address = this.getAddressFromForm();
+    participant.healthReport = this.getHealthReportFromForm();
+    participant.experience = this.getExperienceFromForm();
+    this.formOutput.emit(participant);
   }
 
-  private parsePersonalDataFromFormToParticipant(participant: Participant): void {
+  private getPersonalDataFromForm(): PersonalData {
     const personalData = new PersonalData();
     personalData.christeningDate = this.form.get('christeningDate').value;
     personalData.christeningPlace = this.form.get('christeningPlace').value;
@@ -160,26 +172,34 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     personalData.motherName = this.form.get('motherName').value;
     personalData.emergencyContactName = this.form.get('emergencyContactName').value;
     personalData.emergencyContactNumber = this.form.get('emergencyContactNumber').value;
-    participant.personalData = personalData;
+    return personalData;
   }
 
-  private parseAddressDataFromFormToParticipant(participant: Participant): void {
+  private getAddressFromForm(): Address {
     const address = new Address();
     address.streetName = this.form.get('address.streetName').value;
     address.streetNumber = this.form.get('address.streetNumber').value;
     address.flatNumber = this.form.get('address.flatNumber').value;
     address.postalCode = this.form.get('address.postalCode').value;
     address.city = this.form.get('address.city').value;
-    participant.address = address;
+    return address;
   }
 
-  private parseHealthReportDataFromFormToParticipant(participant: Participant): void {
+  private getHealthReportFromForm(): HealthReport {
     const healthReport = new HealthReport();
     healthReport.currentTreatment = this.form.get('healthReport.currentTreatment').value;
     healthReport.medications = this.form.get('healthReport.medications').value;
     healthReport.allergies = this.form.get('healthReport.allergies').value;
     healthReport.other = this.form.get('healthReport.other').value;
-    participant.healthReport = healthReport;
-    console.log(JSON.stringify(participant));
+    return healthReport;
+  }
+
+  private getExperienceFromForm(): Experience {
+    const experience = new Experience();
+    experience.kwcStatus = this.form.get('experience.kwcStatus').value;
+    experience.kwcSince = this.form.get('experience.kwcSince').value;
+    experience.numberOfSummerRetreats = this.form.get('experience.numberOfSummerRetreats').value;
+    experience.numberOfPrayerRetreats = this.form.get('experience.numberOfPrayerRetreats').value;
+    return experience;
   }
 }

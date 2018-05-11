@@ -115,6 +115,13 @@
       [healthReportForm]="form.controls.healthReport"></health-report-form>
   </div>
 
+  <div formGroupName="experience">
+    <experience-form
+      [experienceData]="experience"
+      [experienceForm]="form.controls.experience">
+    </experience-form>
+  </div>
+
 </form>
 <button mat-button (click)="cancel()">Cancel</button>
 <button mat-button (click)="submit()">Save</button>
