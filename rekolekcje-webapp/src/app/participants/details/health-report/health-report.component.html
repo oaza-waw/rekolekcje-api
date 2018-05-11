@@ -1,28 +1,12 @@
-<table class="field-wide">
-<td><mat-form-field>
+<mat-form-field class="field-wide">
   <input matInput disabled value="{{healthReportData.currentTreatment}}" placeholder="Current treatment">
-</mat-form-field></td>
-<td><mat-form-field>
+</mat-form-field>
+<mat-form-field class="field-wide">
   <input matInput disabled value="{{healthReportData.medications}}" placeholder="Medications">
-</mat-form-field></td>
-</table>
-
-<!--
-<div class="form-group row">
-  <label class="col-sm-2">Current treatment</label>
-  <div class="col-sm-6">{{healthReportData.currentTreatment}}</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Medication</label>
-  <div class="col-sm-6">{{healthReportData.medications}}</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Allergies</label>
-  <div class="col-sm-6">{{healthReportData.allergies}}</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Other</label>
-  <div class="col-sm-6">{{healthReportData.other}}</div>
-</div>
-
--->
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{healthReportData.allergies}}" placeholder="Allergies">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{healthReportData.other}}" placeholder="Other">
+</mat-form-field>
