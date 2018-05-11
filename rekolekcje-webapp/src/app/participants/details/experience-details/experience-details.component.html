@@ -1,17 +1,13 @@
-<div class="form-group row">
-  <label class="col-sm-2">Retreats</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">KWC</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Prayer retreats</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Other</label>
-  <div class="col-sm-6">data</div>
-</div>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.kwcStatus}}" placeholder="KWC status">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.kwcSince}}" placeholder="In KWC since">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.numberOfSummerRetreats}}" placeholder="Number of summer retreats">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.numberOfPrayerRetreats}}" placeholder="Number of prayer retreats">
+</mat-form-field>
 
