@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {HealthReport} from "../../models/heath-report.model";
 
 @Component({
   selector: 'health-report',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./health-report.component.css']
 })
 export class HealthReportComponent {
+
+
+  @Input() healthReportData: HealthReport;
+
+  constructor(){}
 }

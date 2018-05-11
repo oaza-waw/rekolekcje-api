@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import * as moment from 'moment';
-import { Moment } from 'moment';
-import { PersonalData } from '../../models/personal-data.model';
-import { Address } from '../../models/address.model';
+import {Moment} from 'moment';
+import {PersonalData} from '../../models/personal-data.model';
+import {Address} from '../../models/address.model';
 
 @Component({
   selector: 'personal-data',

@@ -1,5 +1,6 @@
 import { Address } from './address.model';
 import { PersonalData } from './personal-data.model';
+import {HealthReport} from "./heath-report.model";
 
 export class Participant {
   constructor(
@@ -9,7 +10,8 @@ export class Participant {
     public pesel?: number,
     public address?: Address,
     public parishId?: number,
-    public personalData?: PersonalData
+    public personalData?: PersonalData,
+    public healthReport?: HealthReport
   ) { }
 
   static mapFromForm(input: any): Participant {
@@ -20,6 +22,7 @@ export class Participant {
     p.address = Address.mapFromForm(input);
     p.parishId = input.result.parishId;
     p.personalData = PersonalData.mapFromForm(input);
+    p.healthReport = HealthReport.mapFromForm(input);
     return p;
   }
 }

@@ -18,6 +18,7 @@ import { ParishDetailsComponent } from './details/parish-details/parish-details.
 import { HealthReportComponent } from './details/health-report/health-report.component';
 import { ExperienceDetailsComponent } from './details/experience-details/experience-details.component';
 import { OpinionsDetailsComponent } from './details/opinions-details/opinions-details.component';
+import { HealthReportFormComponent } from './add-edit/participant-form/health-report-form/health-report-form.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { OpinionsDetailsComponent } from './details/opinions-details/opinions-de
     AddressFormComponent,
     ParticipantsListComponent,
     ParticipantAddEditComponent,
+    HealthReportFormComponent,
   ],
   providers: [],
   exports: [

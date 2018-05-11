@@ -1,17 +1,12 @@
-<div class="form-group row">
-  <label class="col-sm-2">Current treatment</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Medication</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Allergies</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Other</label>
-  <div class="col-sm-6">data</div>
-</div>
-
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{healthReportData.currentTreatment}}" placeholder="Current treatment">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{healthReportData.medications}}" placeholder="Medications">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{healthReportData.allergies}}" placeholder="Allergies">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{healthReportData.other}}" placeholder="Other">
+</mat-form-field>

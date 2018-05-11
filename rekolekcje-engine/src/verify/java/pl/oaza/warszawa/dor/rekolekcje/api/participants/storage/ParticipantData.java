@@ -28,4 +28,10 @@ public class ParticipantData {
   private final Integer flatNumber;
   private final String postalCode;
   private final String city;
+
+  //health report
+  private final String currentTreatment;
+  private final String medications;
+  private final String allergies;
+  private final String other;
 }

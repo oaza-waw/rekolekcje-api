@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import javax.persistence.Embedded;
@@ -41,9 +42,13 @@ class Participant {
   private String closeRelativeName;
   private Long closeRelativeNumber;
 
+  @Embedded
+  private HealthReport healthReport;
+
   ParticipantDTO dto() {
     PersonalData personalData = getPersonalData();
     AddressValue addressValue = getAddressValue();
+    HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
@@ -52,23 +57,24 @@ class Participant {
         .parishId(parishId)
         .address(addressValue)
         .personalData(personalData)
+        .healthReport(healthReportValue)
         .build();
   }
 
   private PersonalData getPersonalData() {
     return PersonalData.builder()
-          .fatherName(fatherName)
-          .motherName(motherName)
-          .christeningPlace(christeningPlace)
-          .christeningDate(convertToUtc(christeningDate))
-          .emergencyContactName(closeRelativeName)
-          .emergencyContactNumber(closeRelativeNumber)
-          .build();
+        .fatherName(fatherName)
+        .motherName(motherName)
+        .christeningPlace(christeningPlace)
+        .christeningDate(convertToUtc(christeningDate))
+        .emergencyContactName(closeRelativeName)
+        .emergencyContactNumber(closeRelativeNumber)
+        .build();
   }
 
   private AddressValue getAddressValue() {
     if (address != null) {
-       return AddressValue.builder()
+      return AddressValue.builder()
           .city(address.getCity())
           .postalCode(address.getPostalCode())
           .flatNumber(address.getFlatNumber())
@@ -78,6 +84,17 @@ class Participant {
     } else {
       return AddressValue.builder().build();
     }
+  }
+
+  private HealthReportValue getHealthStatusValue() {
+    if (healthReport == null) return HealthReportValue.builder().build();
+
+    return HealthReportValue.builder()
+        .currentTreatment(healthReport.getCurrentTreatment())
+        .medications(healthReport.getMedications())
+        .allergies(healthReport.getAllergies())
+        .other(healthReport.getOther())
+        .build();
   }
 
   private ZonedDateTime convertToUtc(LocalDateTime dateTime) {

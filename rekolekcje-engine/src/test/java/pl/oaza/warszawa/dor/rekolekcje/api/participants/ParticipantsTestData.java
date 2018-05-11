@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,20 @@ class ParticipantsTestData {
       .flatNumber(125)
       .build();
 
+  private static final HealthReportValue sampleHealthReport = HealthReportValue.builder()
+      .currentTreatment("Some theraphy")
+      .medications("LSD")
+      .allergies("Social interactions")
+      .other("None")
+      .build();
+
+  private static final HealthReportValue sampleHealthReport2 = HealthReportValue.builder()
+      .currentTreatment("Standard treatment for diabetes")
+      .medications("Insuline")
+      .allergies("Peanuts, lactose")
+      .other("May be very weird sometimes")
+      .build();
+
   static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()
       .firstName("Jack")
       .lastName("Frost")
@@ -48,6 +63,7 @@ class ParticipantsTestData {
       .parishId(1L)
       .address(sampleAddress)
       .personalData(samplePersonalData)
+      .healthReport(sampleHealthReport)
       .build();
 
   static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()
@@ -64,4 +80,5 @@ class ParticipantsTestData {
       .address(sampleAddress2)
       .parishId(2L)
       .build();
+
 }

@@ -72,6 +72,7 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
         parishes: this.parishes,
         personalData: this.participant.personalData,
         address: this.participant.address,
+        healthReport: this.participant.healthReport
       },
       disableClose: true
     });

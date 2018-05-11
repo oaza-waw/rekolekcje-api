@@ -1,12 +1,12 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 @Immutable
@@ -14,7 +14,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 @EqualsAndHashCode
 @ToString
 @Getter
-@AllArgsConstructor
 public final class ParticipantDTO {
 
   private final Long id;
@@ -28,4 +27,7 @@ public final class ParticipantDTO {
 
   @Builder.Default
   private final PersonalData personalData = PersonalData.builder().build();
+
+  @Builder.Default
+  private final HealthReportValue healthReport = HealthReportValue.builder().build();
 }

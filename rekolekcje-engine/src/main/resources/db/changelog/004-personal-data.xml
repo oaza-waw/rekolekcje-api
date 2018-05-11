@@ -32,4 +32,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="personal-data-5" author="krystiano">
+        <addColumn tableName="PARTICIPANT">
+            <column name="CURRENT_TREATMENT" type="VARCHAR(255)" />
+            <column name="MEDICATIONS" type="VARCHAR(255)" />
+            <column name="ALLERGIES" type="VARCHAR(255)" />
+            <column name="OTHER" type="VARCHAR(255)" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

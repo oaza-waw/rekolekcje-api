@@ -7,7 +7,8 @@
                placeholder="First name"
                formControlName="firstName">
         <mat-hint>
-          <mat-error *ngIf="form.get('firstName').touched && form.get('firstName').invalid">First name is required</mat-error>
+          <mat-error *ngIf="form.get('firstName').touched && form.get('firstName').invalid">First name is required
+          </mat-error>
         </mat-hint>
       </mat-form-field>
     </td>
@@ -18,7 +19,8 @@
                placeholder="Last name"
                formControlName="lastName">
         <mat-hint>
-          <mat-error *ngIf="form.get('lastName').touched && form.get('lastName').invalid">Last name is required</mat-error>
+          <mat-error *ngIf="form.get('lastName').touched && form.get('lastName').invalid">Last name is required
+          </mat-error>
         </mat-hint>
       </mat-form-field>
     </td>
@@ -106,6 +108,12 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <div formGroupName="healthReport">
+    <health-report-form
+      [healthReportData]="healthReport"
+      [healthReportForm]="form.controls.healthReport"></health-report-form>
+  </div>
 
 </form>
 <button mat-button (click)="cancel()">Cancel</button>
