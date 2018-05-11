@@ -8,7 +8,7 @@ export class HealthReport {
 
 
   static mapFromForm(input: any): HealthReport {
-    const healthReport = new HealthReport();
+    const healthReport: HealthReport = new HealthReport();
     healthReport.currentTreatment = input.result.healthReport.currentTreatment;
     healthReport.medications = input.result.healthReport.medications;
     healthReport.allergies = input.result.healthReport.allergies;
