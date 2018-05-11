@@ -60,6 +60,10 @@ public class ParticipantsDatabase {
         .flatNumber(DaoTools.getInt(rs, "flat_number"))
         .postalCode(rs.getString("postal_code"))
         .city(rs.getString("city"))
+        .currentTreatment(rs.getString("current_treatment"))
+        .medications(rs.getString("medications"))
+        .allergies(rs.getString("allergies"))
+        .other(rs.getString("other"))
         .build();
   }
 
@@ -83,9 +87,13 @@ public class ParticipantsDatabase {
               "street_number, " +
               "flat_number, " +
               "postal_code, " +
-              "city" +
+              "city, " +
+              "current_treatment, " +
+              "medications, " +
+              "allergies, " +
+              "other" +
               ") " +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           dto.getId(),
           dto.getFirstName(),
           dto.getLastName(),
@@ -101,7 +109,11 @@ public class ParticipantsDatabase {
           dto.getAddress().getStreetNumber(),
           dto.getAddress().getFlatNumber(),
           dto.getAddress().getPostalCode(),
-          dto.getAddress().getCity()
+          dto.getAddress().getCity(),
+          dto.getHealthReport().getCurrentTreatment(),
+          dto.getHealthReport().getMedications(),
+          dto.getHealthReport().getAllergies(),
+          dto.getHealthReport().getOther()
           );
     });
   }

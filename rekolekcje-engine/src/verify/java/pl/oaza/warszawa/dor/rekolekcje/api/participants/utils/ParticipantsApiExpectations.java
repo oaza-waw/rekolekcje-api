@@ -72,6 +72,7 @@ public class ParticipantsApiExpectations {
     assertThat(parsedJson.read("$.address.flatNumber", Integer.class)).isEqualTo(expectedParticipant.getFlatNumber());
     assertThat(parsedJson.read("$.address.postalCode", String.class)).isEqualTo(expectedParticipant.getPostalCode());
     assertThat(parsedJson.read("$.address.city", String.class)).isEqualTo(expectedParticipant.getCity());
+    assertThat(parsedJson.read("$.healthReport.currentTreatment", String.class)).isEqualTo(expectedParticipant.getCurrentTreatment());
   }
 
   @Hack("too tired to think...")

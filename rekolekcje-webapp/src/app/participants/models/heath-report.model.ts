@@ -13,6 +13,7 @@ export class HealthReport {
     healthReport.medications = input.result.healthReport.medications;
     healthReport.allergies = input.result.healthReport.allergies;
     healthReport.other = input.result.healthReport.other;
+    console.log("map from form HealthRepoer -> " + JSON.stringify(healthReport));
     return healthReport;
   }
 }

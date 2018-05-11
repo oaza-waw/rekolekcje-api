@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthStatusValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import javax.persistence.Embedded;
@@ -43,12 +43,12 @@ class Participant {
   private Long closeRelativeNumber;
 
   @Embedded
-  private HealthStatus healthStatus;
+  private HealthReport healthReport;
 
   ParticipantDTO dto() {
     PersonalData personalData = getPersonalData();
     AddressValue addressValue = getAddressValue();
-    HealthStatusValue healthStatusValue = getHealthStatusValue();
+    HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
@@ -57,7 +57,7 @@ class Participant {
         .parishId(parishId)
         .address(addressValue)
         .personalData(personalData)
-        .healthStatus(healthStatusValue)
+        .healthReport(healthReportValue)
         .build();
   }
 
@@ -86,14 +86,14 @@ class Participant {
     }
   }
 
-  private HealthStatusValue getHealthStatusValue() {
-    if (healthStatus == null) return HealthStatusValue.builder().build();
+  private HealthReportValue getHealthStatusValue() {
+    if (healthReport == null) return HealthReportValue.builder().build();
 
-    return HealthStatusValue.builder()
-        .currentTreatment(healthStatus.getCurrentTreatment())
-        .medications(healthStatus.getMedications())
-        .allergies(healthStatus.getAllergies())
-        .other(healthStatus.getOther())
+    return HealthReportValue.builder()
+        .currentTreatment(healthReport.getCurrentTreatment())
+        .medications(healthReport.getMedications())
+        .allergies(healthReport.getAllergies())
+        .other(healthReport.getOther())
         .build();
   }
 

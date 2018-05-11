@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,13 @@ public class ParticipantFactory {
       .city("Chicago")
       .streetName("Narrow")
       .streetNumber(44)
+      .build();
+
+  private static final HealthReportValue sampleHealthStatus = HealthReportValue.builder()
+      .currentTreatment("Standard treatment for diabetes")
+      .medications("Insuline")
+      .allergies("Peanuts, lactose")
+      .other("May be very weird sometimes")
       .build();
 
   public static ParticipantDTO sampleParticipant(Long id) {
@@ -46,6 +54,7 @@ public class ParticipantFactory {
         .pesel(90042312345L)
         .parishId(1L)
         .personalData(fullPersonalData())
+        .healthReport(sampleHealthStatus)
         .build();
   }
 

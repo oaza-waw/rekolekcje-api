@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HealthReportComponent } from './health-report.component';
+import {HealthReportComponent} from './health-report.component';
 
 describe('HealthReportComponent', () => {
   let component: HealthReportComponent;
@@ -8,13 +8,14 @@ describe('HealthReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HealthReportComponent ]
+      declarations: [HealthReportComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HealthReportComponent);
     component = fixture.componentInstance;
+    component.healthReportData = {};
     fixture.detectChanges();
   });
 

@@ -2,7 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthStatusValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import java.time.LocalDateTime;
@@ -29,8 +29,8 @@ class ParticipantCreator {
         .closeRelativeName(personalData.getEmergencyContactName())
         .closeRelativeNumber(personalData.getEmergencyContactNumber());
 
-    final HealthStatus healthStatus = from(participantDTO.getHealthStatus());
-    participantBuilder.healthStatus(healthStatus);
+    final HealthReport healthReport = from(participantDTO.getHealthReport());
+    participantBuilder.healthReport(healthReport);
 
     return participantBuilder.build();
   }
@@ -53,7 +53,7 @@ class ParticipantCreator {
         .christeningPlace(participant.getChristeningPlace())
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
-        .healthStatus(participant.getHealthStatus())
+        .healthReport(participant.getHealthReport())
         .build();
   }
 
@@ -67,14 +67,14 @@ class ParticipantCreator {
         .build();
   }
 
-  HealthStatus from(HealthStatusValue healthStatusValue) {
-    if (healthStatusValue == null) return HealthStatus.builder().build();
+  HealthReport from(HealthReportValue healthReportValue) {
+    if (healthReportValue == null) return HealthReport.builder().build();
 
-    return HealthStatus.builder()
-        .currentTreatment(healthStatusValue.getCurrentTreatment())
-        .medications(healthStatusValue.getMedications())
-        .allergies(healthStatusValue.getAllergies())
-        .other(healthStatusValue.getOther())
+    return HealthReport.builder()
+        .currentTreatment(healthReportValue.getCurrentTreatment())
+        .medications(healthReportValue.getMedications())
+        .allergies(healthReportValue.getAllergies())
+        .other(healthReportValue.getOther())
         .build();
   }
 }

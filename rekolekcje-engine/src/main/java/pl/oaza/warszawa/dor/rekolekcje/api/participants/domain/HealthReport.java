@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @Builder
 @Getter
-class HealthStatus {
+class HealthReport {
   private String currentTreatment;
   private String medications;
   private String allergies;

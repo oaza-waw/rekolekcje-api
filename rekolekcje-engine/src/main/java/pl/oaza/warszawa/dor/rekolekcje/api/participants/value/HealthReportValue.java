@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class HealthStatusValue {
+public class HealthReportValue {
   private final String currentTreatment;
   private final String medications;
   private final String allergies;

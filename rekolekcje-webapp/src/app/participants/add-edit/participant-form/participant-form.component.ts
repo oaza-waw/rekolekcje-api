@@ -180,5 +180,6 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     healthReport.allergies = this.form.get('healthReport.allergies').value;
     healthReport.other = this.form.get('healthReport.other').value;
     participant.healthReport = healthReport;
+    console.log(JSON.stringify(participant));
   }
 }
