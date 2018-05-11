@@ -39,25 +39,64 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     this.store.select(AppSelectors.getParishList)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((parishes: Parish[]) => this.parishes = parishes);
+    console.log('personal data: ' + JSON.stringify(this.personalData));
     this.form = this.fb.group({
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
-      address: this.fb.group({
-        streetName: [this.address.streetName ? this.address.streetName : '', Validators.required],
+      address: this.fb.group(this.getAddress()),
+      parishId: [this.parishId ? this.parishId : '', Validators.required],
+      christeningDate: [this.getChristeningDate()],
+      christeningPlace: [this.getChristeningPlace()],
+      fatherName: [this.getFatherName()],
+      motherName: [this.getMotherName()],
+      emergencyContactName: [this.getEmergencyContactName()],
+      emergencyContactNumber: [this.getEmergencyContactNumber()]
+    });
+  }
+
+  private getAddress() {
+    if (this.address == null) {
+      return { streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: '' }
+    } else {
+      return {
+        streetName: [this.address.streetName ? this.address.streetName : ''],
         streetNumber: [this.address.streetNumber ? this.address.streetNumber : ''],
         flatNumber: [this.address.flatNumber ? this.address.flatNumber : ''],
         postalCode: [this.address.postalCode ? this.address.postalCode : ''],
         city: [this.address.city ? this.address.city : ''],
-      }),
-      parishId: [this.parishId ? this.parishId : '', Validators.required],
-      christeningDate: [this.personalData.christeningDate ? this.personalData.christeningDate : null],
-      christeningPlace: [this.personalData.christeningPlace ? this.personalData.christeningPlace : ''],
-      fatherName: [this.personalData.fatherName ? this.personalData.fatherName : ''],
-      motherName: [this.personalData.motherName ? this.personalData.motherName : ''],
-      emergencyContactName: [this.personalData.emergencyContactName ? this.personalData.emergencyContactName : ''],
-      emergencyContactNumber: [this.personalData.emergencyContactNumber ? this.personalData.emergencyContactNumber : null]
-    });
+      }
+    }
+  }
+
+  private getChristeningDate() {
+    if (this.personalData == null) return null;
+    return this.personalData.christeningDate ? this.personalData.christeningDate : null;
+  }
+
+  private getChristeningPlace() {
+    if (this.personalData == null) return null;
+    return this.personalData.christeningPlace ? this.personalData.christeningPlace : null;
+  }
+
+  private getFatherName() {
+    if (this.personalData == null) return null;
+    return this.personalData.fatherName ? this.personalData.fatherName : null;
+  }
+
+  private getMotherName() {
+    if (this.personalData == null) return null;
+    return this.personalData.motherName ? this.personalData.motherName : null;
+  }
+
+  private getEmergencyContactName() {
+    if (this.personalData == null) return null;
+    return this.personalData.emergencyContactName ? this.personalData.emergencyContactName : null;
+  }
+
+  private getEmergencyContactNumber() {
+    if (this.personalData == null) return null;
+    return this.personalData.emergencyContactNumber ? this.personalData.emergencyContactNumber : null;
   }
 
   ngOnDestroy(): void {

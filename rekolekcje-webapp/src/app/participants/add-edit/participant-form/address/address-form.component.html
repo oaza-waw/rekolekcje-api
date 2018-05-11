@@ -1,12 +1,8 @@
 <div [formGroup]="addressForm">
       <mat-form-field style="width: 65%;">
         <input matInput
-               required
                placeholder="Address: street"
                formControlName="streetName">
-        <mat-hint>
-          <mat-error *ngIf="addressForm.get('streetName').touched && addressForm.get('streetName').invalid">Street is required</mat-error>
-        </mat-hint>
       </mat-form-field>
       <mat-form-field style="width: 10%;">
         <input matInput
