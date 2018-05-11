@@ -1,7 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -33,8 +33,9 @@ public class ParishAcceptanceTest extends BaseIntegrationTest {
   @Autowired
   private ParishService parishService;
 
-  @After
-  public void tearDown() {
+  @Before
+  public void setUp() throws Exception {
+    super.setup();
     database.clearParish();
   }
 
