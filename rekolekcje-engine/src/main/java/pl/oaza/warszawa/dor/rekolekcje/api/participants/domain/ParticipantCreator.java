@@ -67,7 +67,9 @@ class ParticipantCreator {
         .build();
   }
 
-  HealthStatus from(HealthStatusValue healthStatusValue){
+  HealthStatus from(HealthStatusValue healthStatusValue) {
+    if (healthStatusValue == null) return HealthStatus.builder().build();
+
     return HealthStatus.builder()
         .currentTreatment(healthStatusValue.getCurrentTreatment())
         .medications(healthStatusValue.getMedications())
