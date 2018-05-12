@@ -4,10 +4,14 @@
            placeholder="KWC status"
            formControlName="kwcStatus">
   </mat-form-field>
-  <mat-form-field class="field-wide">
+  <mat-form-field>
     <input matInput
+           [matDatepicker]="picker"
            placeholder="In KWC since"
+           [value]="experienceForm.get('kwcSince').value"
            formControlName="kwcSince">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="field-wide">
     <input matInput
