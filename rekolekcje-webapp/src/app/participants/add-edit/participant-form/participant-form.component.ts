@@ -98,11 +98,11 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       return {
         kwcStatus: [this.experience.kwcStatus],
         kwcSince: [this.experience.kwcSince],
-        numberOfSummerRetreats: [this.experience.numberOfSummerRetreats],
+        numberOfCommunionDays: [this.experience.numberOfCommunionDays],
         numberOfPrayerRetreats: [this.experience.numberOfPrayerRetreats]
       }
     } else {
-      return { kwcStatus: '', kwcSince: '', numberOfSummerRetreats: '', numberOfPrayerRetreats: '' }
+      return { kwcStatus: '', kwcSince: '', numberOfCommunionDays: '', numberOfPrayerRetreats: '' }
     }
   }
 
@@ -198,7 +198,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     const experience = new Experience();
     experience.kwcStatus = this.form.get('experience.kwcStatus').value;
     experience.kwcSince = this.form.get('experience.kwcSince').value;
-    experience.numberOfSummerRetreats = this.form.get('experience.numberOfSummerRetreats').value;
+    experience.numberOfCommunionDays = this.form.get('experience.numberOfCommunionDays').value;
     experience.numberOfPrayerRetreats = this.form.get('experience.numberOfPrayerRetreats').value;
     return experience;
   }

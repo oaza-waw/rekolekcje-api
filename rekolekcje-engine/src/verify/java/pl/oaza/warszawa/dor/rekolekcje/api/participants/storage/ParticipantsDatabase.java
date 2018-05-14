@@ -66,7 +66,7 @@ public class ParticipantsDatabase {
         .other(rs.getString("other"))
         .kwcStatus(rs.getString("kwc_status"))
         .kwcSince(DaoTools.getLocalDate(rs, "kwc_since"))
-        .numberOfSummerRetreats(DaoTools.getInt(rs, "number_of_summer_retreats"))
+        .numberOfCommunionDays(DaoTools.getInt(rs, "number_of_communion_days"))
         .numberOfPrayerRetreats(DaoTools.getInt(rs, "number_of_prayer_retreats"))
         .build();
   }
@@ -98,7 +98,7 @@ public class ParticipantsDatabase {
               "other," +
               "kwc_status, " +
               "kwc_since, " +
-              "number_of_summer_retreats, " +
+              "number_of_communion_days, " +
               "number_of_prayer_retreats " +
               ") " +
               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -124,7 +124,7 @@ public class ParticipantsDatabase {
           dto.getHealthReport().getOther(),
           dto.getExperience().getKwcStatus(),
           convertToLocalDate(dto.getExperience().getKwcSince()),
-          dto.getExperience().getNumberOfSummerRetreats(),
+          dto.getExperience().getNumberOfCommunionDays(),
           dto.getExperience().getNumberOfPrayerRetreats()
           );
     });

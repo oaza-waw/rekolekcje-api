@@ -4,7 +4,7 @@ export class Experience {
   constructor(
     public kwcStatus?: string,
     public kwcSince?: Moment,
-    public numberOfSummerRetreats?: number,
+    public numberOfCommunionDays?: number,
     public numberOfPrayerRetreats?: number
   ) {}
 
@@ -12,7 +12,7 @@ export class Experience {
     const experience: Experience = new Experience();
     experience.kwcStatus = input.result.experience.kwcStatus;
     experience.kwcSince = input.result.experience.kwcSince;
-    experience.numberOfSummerRetreats = input.result.experience.numberOfSummerRetreats;
+    experience.numberOfCommunionDays = input.result.experience.numberOfCommunionDays;
     experience.numberOfPrayerRetreats = input.result.experience.numberOfPrayerRetreats;
     return experience;
   }

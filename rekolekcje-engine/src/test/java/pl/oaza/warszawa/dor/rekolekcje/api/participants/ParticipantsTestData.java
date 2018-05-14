@@ -61,7 +61,7 @@ class ParticipantsTestData {
       .kwcStatus("Member")
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1990, 5, 20, 4, 0), ZoneId.of("UTC")))
       .numberOfPrayerRetreats(2)
-      .numberOfSummerRetreats(3)
+      .numberOfCommunionDays(3)
       .build();
 
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()

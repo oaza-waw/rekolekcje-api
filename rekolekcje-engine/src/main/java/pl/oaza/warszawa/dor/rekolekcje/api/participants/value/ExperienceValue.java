@@ -10,6 +10,6 @@ import java.time.ZonedDateTime;
 public class ExperienceValue {
   private final String kwcStatus;
   private final ZonedDateTime kwcSince;
-  private final Integer numberOfSummerRetreats;
+  private final Integer numberOfCommunionDays;
   private final Integer numberOfPrayerRetreats;
 }

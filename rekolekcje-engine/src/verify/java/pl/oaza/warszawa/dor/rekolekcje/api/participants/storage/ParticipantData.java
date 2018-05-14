@@ -38,6 +38,6 @@ public class ParticipantData {
   // experience
   private final String kwcStatus;
   private final LocalDateTime kwcSince;
-  private final Integer numberOfSummerRetreats;
+  private final Integer numberOfCommunionDays;
   private final Integer numberOfPrayerRetreats;
 }

@@ -39,7 +39,7 @@ class ParticipantCreator {
         .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
         .kwcStatus(experienceValue.getKwcStatus())
         .numberOfPrayerRetreats(experienceValue.getNumberOfPrayerRetreats())
-        .numberOfSummerRetreats(experienceValue.getNumberOfSummerRetreats());
+        .numberOfCommunionDays(experienceValue.getNumberOfCommunionDays());
 
     return participantBuilder.build();
   }
@@ -65,7 +65,7 @@ class ParticipantCreator {
         .healthReport(participant.getHealthReport())
         .kwcStatus(participant.getKwcStatus())
         .kwcSince(participant.getKwcSince())
-        .numberOfSummerRetreats(participant.getNumberOfSummerRetreats())
+        .numberOfCommunionDays(participant.getNumberOfCommunionDays())
         .numberOfPrayerRetreats(participant.getNumberOfPrayerRetreats())
         .build();
   }

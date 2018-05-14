@@ -45,7 +45,7 @@ class Participant {
 
   private LocalDateTime kwcSince;
   private String kwcStatus;
-  private Integer numberOfSummerRetreats;
+  private Integer numberOfCommunionDays;
   private Integer numberOfPrayerRetreats;
 
   @Embedded
@@ -109,7 +109,7 @@ class Participant {
     return ExperienceValue.builder()
         .kwcSince(convertToUtc(kwcSince))
         .kwcStatus(kwcStatus)
-        .numberOfSummerRetreats(numberOfSummerRetreats)
+        .numberOfCommunionDays(numberOfCommunionDays)
         .numberOfPrayerRetreats(numberOfPrayerRetreats)
         .build();
   }

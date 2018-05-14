@@ -53,7 +53,7 @@ public class ParticipantsStorageExpectations {
     assertThat(dto.getAddress().getCity()).isEqualTo(data.getCity());
     assertThat(dto.getExperience().getKwcSince()).isEqualTo(data.getKwcSince());
     assertThat(dto.getExperience().getKwcStatus()).isEqualTo(data.getKwcStatus());
-    assertThat(dto.getExperience().getNumberOfSummerRetreats()).isEqualTo(data.getNumberOfSummerRetreats());
+    assertThat(dto.getExperience().getNumberOfCommunionDays()).isEqualTo(data.getNumberOfCommunionDays());
     assertThat(dto.getExperience().getNumberOfPrayerRetreats()).isEqualTo(data.getNumberOfPrayerRetreats());
   }
 }

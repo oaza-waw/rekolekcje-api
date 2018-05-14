@@ -87,7 +87,7 @@ public class ParticipantsApiExpectations {
   private void verifyExperienceValueInResponse(DocumentContext parsedJson, ParticipantData expectedParticipant) {
     assertThat(parsedJson.read("$.experience.kwcStatus", String.class)).isEqualTo(expectedParticipant.getKwcStatus());
     compareDates(parsedJson.read("$.experience.kwcSince", String.class), expectedParticipant.getKwcSince());
-    assertThat(parsedJson.read("$.experience.numberOfSummerRetreats", Integer.class)).isEqualTo(expectedParticipant.getNumberOfSummerRetreats());
+    assertThat(parsedJson.read("$.experience.numberOfCommunionDays", Integer.class)).isEqualTo(expectedParticipant.getNumberOfCommunionDays());
     assertThat(parsedJson.read("$.experience.numberOfPrayerRetreats", Integer.class)).isEqualTo(expectedParticipant.getNumberOfPrayerRetreats());
   }
 

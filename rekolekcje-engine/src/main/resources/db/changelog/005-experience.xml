@@ -5,7 +5,7 @@
         <addColumn tableName="PARTICIPANT">
             <column name="KWC_SINCE" type="TIMESTAMP" />
             <column name="KWC_STATUS" type="VARCHAR(50)" />
-            <column name="NUMBER_OF_SUMMER_RETREATS" type="INT" />
+            <column name="NUMBER_OF_COMMUNION_DAYS" type="INT" />
             <column name="NUMBER_OF_PRAYER_RETREATS" type="INT" />
         </addColumn>
     </changeSet>

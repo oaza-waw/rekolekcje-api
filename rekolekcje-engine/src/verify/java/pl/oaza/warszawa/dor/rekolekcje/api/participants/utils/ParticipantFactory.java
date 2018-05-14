@@ -80,7 +80,7 @@ public class ParticipantFactory {
   private static ExperienceValue fullExperienceValue = ExperienceValue.builder()
       .kwcStatus("Active")
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1995, 5, 4, 12, 0), ZoneId.of("UTC")))
-      .numberOfSummerRetreats(3)
+      .numberOfCommunionDays(3)
       .numberOfPrayerRetreats(5)
       .build();
 }
