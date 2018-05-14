@@ -10,5 +10,6 @@
     <include file="changelog/005-experience.xml" relativeToChangelogFile="true" />
     <include file="changelog/006-health.xml" relativeToChangelogFile="true"/>
     <include file="changelog/007-retreat-application.xml" relativeToChangelogFile="true" />
+    <include file="changelog/008-region.xml" relativeToChangelogFile="true" />
 
 </databaseChangeLog>

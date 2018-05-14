@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
+import pl.oaza.warszawa.dor.rekolekcje.api.region.RegionData;
 
 public class Database {
 
@@ -53,6 +54,15 @@ public class Database {
 
   public void clearParish() {
     jdbcTemplate.execute("DELETE FROM parish");
+  }
+
+  public List<RegionData> getAllRegions() {
+    return jdbcTemplate.query("SELECT * FROM region",
+      (rs, rowNum) -> new RegionData(rs.getLong("id"), rs.getString("name")));
+  }
+
+  public void clearRegion() {
+    jdbcTemplate.execute("DELETE FROM region");
   }
 
 }
