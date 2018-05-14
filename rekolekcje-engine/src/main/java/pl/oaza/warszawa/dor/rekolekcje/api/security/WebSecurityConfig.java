@@ -57,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/", "/*.js", "/fontawesome-webfont*", "/*css").permitAll()
         .antMatchers("/api/users/sign-up").permitAll()
         .antMatchers("/api/auth").permitAll()
-        .antMatchers("/regions").permitAll()
         .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
         .anyRequest().authenticated().and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
