@@ -11,6 +11,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 class ParticipantCreator {
+
   Participant from(ParticipantDTO participantDTO) {
     final Participant.ParticipantBuilder participantBuilder = Participant.builder()
         .id(participantDTO.getId())
@@ -19,7 +20,7 @@ class ParticipantCreator {
         .pesel(participantDTO.getPesel())
         .parishId(participantDTO.getParishId());
 
-    final Address address = from(participantDTO.getAddress());
+    final Address address = fromValue(participantDTO.getAddress());
     participantBuilder.address(address);
 
     final PersonalData personalData = participantDTO.getPersonalData();
@@ -31,15 +32,11 @@ class ParticipantCreator {
         .closeRelativeName(personalData.getEmergencyContactName())
         .closeRelativeNumber(personalData.getEmergencyContactNumber());
 
-    final HealthReport healthReport = from(participantDTO.getHealthReport());
+    final HealthReport healthReport = fromValue(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
 
-    final ExperienceValue experienceValue = participantDTO.getExperience();
-    participantBuilder
-        .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
-        .kwcStatus(experienceValue.getKwcStatus())
-        .numberOfPrayerRetreats(experienceValue.getNumberOfPrayerRetreats())
-        .numberOfCommunionDays(experienceValue.getNumberOfCommunionDays());
+    final Experience experience = fromValue(participantDTO.getExperience());
+    participantBuilder.experience(experience);
 
     return participantBuilder.build();
   }
@@ -63,14 +60,11 @@ class ParticipantCreator {
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
         .healthReport(participant.getHealthReport())
-        .kwcStatus(participant.getKwcStatus())
-        .kwcSince(participant.getKwcSince())
-        .numberOfCommunionDays(participant.getNumberOfCommunionDays())
-        .numberOfPrayerRetreats(participant.getNumberOfPrayerRetreats())
+        .experience(participant.getExperience())
         .build();
   }
 
-  Address from(AddressValue addressValue) {
+  private Address fromValue(AddressValue addressValue) {
     return Address.builder()
         .street(addressValue.getStreetName())
         .streetNumber(addressValue.getStreetNumber())
@@ -80,7 +74,7 @@ class ParticipantCreator {
         .build();
   }
 
-  HealthReport from(HealthReportValue healthReportValue) {
+  private HealthReport fromValue(HealthReportValue healthReportValue) {
     if (healthReportValue == null) return HealthReport.builder().build();
 
     return HealthReport.builder()
@@ -88,6 +82,18 @@ class ParticipantCreator {
         .medications(healthReportValue.getMedications())
         .allergies(healthReportValue.getAllergies())
         .other(healthReportValue.getOther())
+        .build();
+  }
+
+  private Experience fromValue(ExperienceValue experienceValue) {
+    if (experienceValue == null) {
+      return Experience.builder().build();
+    }
+    return Experience.builder()
+        .kwcStatus(experienceValue.getKwcStatus())
+        .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
+        .numberOfCommunionDays(experienceValue.getNumberOfCommunionDays())
+        .numberOfPrayerRetreats(experienceValue.getNumberOfPrayerRetreats())
         .build();
   }
 }

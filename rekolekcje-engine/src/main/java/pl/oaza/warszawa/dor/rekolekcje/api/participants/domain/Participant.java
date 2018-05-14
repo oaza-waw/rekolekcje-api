@@ -43,13 +43,11 @@ class Participant {
   private String closeRelativeName;
   private Long closeRelativeNumber;
 
-  private LocalDateTime kwcSince;
-  private String kwcStatus;
-  private Integer numberOfCommunionDays;
-  private Integer numberOfPrayerRetreats;
-
   @Embedded
   private HealthReport healthReport;
+
+  @Embedded
+  private Experience experience;
 
   ParticipantDTO dto() {
     final PersonalData personalData = getPersonalData();
@@ -95,7 +93,9 @@ class Participant {
   }
 
   private HealthReportValue getHealthStatusValue() {
-    if (healthReport == null) return HealthReportValue.builder().build();
+    if (healthReport == null) {
+      return HealthReportValue.builder().build();
+    }
 
     return HealthReportValue.builder()
         .currentTreatment(healthReport.getCurrentTreatment())
@@ -106,11 +106,15 @@ class Participant {
   }
 
   private ExperienceValue getExperienceValue() {
+    if (experience == null) {
+      return ExperienceValue.builder().build();
+    }
+
     return ExperienceValue.builder()
-        .kwcSince(convertToUtc(kwcSince))
-        .kwcStatus(kwcStatus)
-        .numberOfCommunionDays(numberOfCommunionDays)
-        .numberOfPrayerRetreats(numberOfPrayerRetreats)
+        .kwcSince(convertToUtc(experience.getKwcSince()))
+        .kwcStatus(experience.getKwcStatus())
+        .numberOfCommunionDays(experience.getNumberOfCommunionDays())
+        .numberOfPrayerRetreats(experience.getNumberOfPrayerRetreats())
         .build();
   }
 
