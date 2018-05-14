@@ -3,6 +3,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.core;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.ParticipantData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.region.RegionData;
 
 import java.util.List;
 
@@ -56,5 +59,13 @@ public class Database {
     jdbcTemplate.execute("DELETE FROM parish");
   }
 
+  public List<RegionData> getAllRegions() {
+    return jdbcTemplate.query("SELECT * FROM region",
+      (rs, rowNum) -> new RegionData(rs.getLong("id"), rs.getString("name")));
+  }
+
+  public void clearRegion() {
+    jdbcTemplate.execute("DELETE FROM region");
+  }
 }
 

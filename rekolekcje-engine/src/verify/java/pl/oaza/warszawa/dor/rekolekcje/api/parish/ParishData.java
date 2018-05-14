@@ -16,4 +16,5 @@ public class ParishData {
   private final Long id;
   private final String name;
   private final String address;
+  private final Long region;
 }
