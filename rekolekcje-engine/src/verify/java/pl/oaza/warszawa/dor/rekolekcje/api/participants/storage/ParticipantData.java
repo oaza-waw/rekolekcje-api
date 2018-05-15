@@ -40,4 +40,11 @@ public class ParticipantData {
   private final LocalDateTime kwcSince;
   private final Integer numberOfCommunionDays;
   private final Integer numberOfPrayerRetreats;
+  private Integer formationMeetingsInMonth;
+  private String leadingGroupToFormationStage;
+  private Integer deuterocatechumenateYear;
+  private Integer stepsTaken;
+  private Integer stepsPlannedThisYear;
+  private Integer celebrationsTaken;
+  private Integer celebrationsPlannedThisYear;
 }

@@ -12,4 +12,11 @@ public class ExperienceValue {
   private final ZonedDateTime kwcSince;
   private final Integer numberOfCommunionDays;
   private final Integer numberOfPrayerRetreats;
+  private Integer formationMeetingsInMonth;
+  private String leadingGroupToFormationStage;
+  private Integer deuterocatechumenateYear;
+  private Integer stepsTaken;
+  private Integer stepsPlannedThisYear;
+  private Integer celebrationsTaken;
+  private Integer celebrationsPlannedThisYear;
 }

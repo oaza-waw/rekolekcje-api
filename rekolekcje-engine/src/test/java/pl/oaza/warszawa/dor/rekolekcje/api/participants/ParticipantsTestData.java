@@ -44,13 +44,6 @@ class ParticipantsTestData {
       .other("None")
       .build();
 
-  private static final HealthReportValue sampleHealthReport2 = HealthReportValue.builder()
-      .currentTreatment("Standard treatment for diabetes")
-      .medications("Insuline")
-      .allergies("Peanuts, lactose")
-      .other("May be very weird sometimes")
-      .build();
-
   static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()
       .firstName("Jack")
       .lastName("Frost")
@@ -62,6 +55,13 @@ class ParticipantsTestData {
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1990, 5, 20, 4, 0), ZoneId.of("UTC")))
       .numberOfPrayerRetreats(2)
       .numberOfCommunionDays(3)
+      .leadingGroupToFormationStage("OND")
+      .formationMeetingsInMonth(4)
+      .celebrationsTaken(3)
+      .celebrationsPlannedThisYear(5)
+      .stepsTaken(10)
+      .stepsPlannedThisYear(0)
+      .deuterocatechumenateYear(2013)
       .build();
 
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()

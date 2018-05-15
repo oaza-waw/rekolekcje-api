@@ -115,6 +115,13 @@ class Participant {
         .kwcStatus(experience.getKwcStatus())
         .numberOfCommunionDays(experience.getNumberOfCommunionDays())
         .numberOfPrayerRetreats(experience.getNumberOfPrayerRetreats())
+        .formationMeetingsInMonth(experience.getFormationMeetingsInMonth())
+        .leadingGroupToFormationStage(experience.getLeadingGroupToFormationStage())
+        .deuterocatechumenateYear(experience.getDeuterocatechumenateYear())
+        .stepsTaken(experience.getStepsTaken())
+        .stepsPlannedThisYear(experience.getStepsPlannedThisYear())
+        .celebrationsTaken(experience.getCelebrationsTaken())
+        .celebrationsPlannedThisYear(experience.getCelebrationsPlannedThisYear())
         .build();
   }
 

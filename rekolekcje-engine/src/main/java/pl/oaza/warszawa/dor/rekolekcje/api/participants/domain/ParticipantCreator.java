@@ -94,6 +94,13 @@ class ParticipantCreator {
         .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
         .numberOfCommunionDays(experienceValue.getNumberOfCommunionDays())
         .numberOfPrayerRetreats(experienceValue.getNumberOfPrayerRetreats())
+        .formationMeetingsInMonth(experienceValue.getFormationMeetingsInMonth())
+        .leadingGroupToFormationStage(experienceValue.getLeadingGroupToFormationStage())
+        .deuterocatechumenateYear(experienceValue.getDeuterocatechumenateYear())
+        .stepsTaken(experienceValue.getStepsTaken())
+        .stepsPlannedThisYear(experienceValue.getStepsPlannedThisYear())
+        .celebrationsTaken(experienceValue.getCelebrationsTaken())
+        .celebrationsPlannedThisYear(experienceValue.getCelebrationsPlannedThisYear())
         .build();
   }
 }

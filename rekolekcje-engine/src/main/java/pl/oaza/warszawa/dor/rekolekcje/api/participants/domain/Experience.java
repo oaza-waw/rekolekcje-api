@@ -18,4 +18,11 @@ class Experience {
   private String kwcStatus;
   private Integer numberOfCommunionDays;
   private Integer numberOfPrayerRetreats;
+  private Integer formationMeetingsInMonth;
+  private String leadingGroupToFormationStage;
+  private Integer deuterocatechumenateYear;
+  private Integer stepsTaken;
+  private Integer stepsPlannedThisYear;
+  private Integer celebrationsTaken;
+  private Integer celebrationsPlannedThisYear;
 }

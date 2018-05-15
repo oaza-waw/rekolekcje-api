@@ -82,5 +82,12 @@ public class ParticipantFactory {
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1995, 5, 4, 12, 0), ZoneId.of("UTC")))
       .numberOfCommunionDays(3)
       .numberOfPrayerRetreats(5)
+      .leadingGroupToFormationStage("ONŻ I")
+      .formationMeetingsInMonth(3)
+      .celebrationsTaken(5)
+      .celebrationsPlannedThisYear(5)
+      .stepsTaken(4)
+      .stepsPlannedThisYear(6)
+      .deuterocatechumenateYear(2016)
       .build();
 }

@@ -68,6 +68,13 @@ public class ParticipantsDatabase {
         .kwcSince(DaoTools.getLocalDate(rs, "kwc_since"))
         .numberOfCommunionDays(DaoTools.getInt(rs, "number_of_communion_days"))
         .numberOfPrayerRetreats(DaoTools.getInt(rs, "number_of_prayer_retreats"))
+        .leadingGroupToFormationStage(rs.getString("leading_group_to_formation_stage"))
+        .formationMeetingsInMonth(DaoTools.getInt(rs, "formation_meetings_in_month"))
+        .deuterocatechumenateYear(DaoTools.getInt(rs, "deuterocatechumenate_year"))
+        .stepsTaken(DaoTools.getInt(rs, "steps_taken"))
+        .stepsPlannedThisYear(DaoTools.getInt(rs, "steps_planned_this_year"))
+        .celebrationsTaken(DaoTools.getInt(rs, "celebrations_taken"))
+        .celebrationsPlannedThisYear(DaoTools.getInt(rs, "celebrations_planned_this_year"))
         .build();
   }
 
@@ -99,9 +106,16 @@ public class ParticipantsDatabase {
               "kwc_status, " +
               "kwc_since, " +
               "number_of_communion_days, " +
-              "number_of_prayer_retreats " +
+              "number_of_prayer_retreats, " +
+              "FORMATION_MEETINGS_IN_MONTH, " +
+              "LEADING_GROUP_TO_FORMATION_STAGE, " +
+              "DEUTEROCATECHUMENATE_YEAR, " +
+              "STEPS_TAKEN, " +
+              "STEPS_PLANNED_THIS_YEAR, " +
+              "CELEBRATIONS_TAKEN, " +
+              "CELEBRATIONS_PLANNED_THIS_YEAR " +
               ") " +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           dto.getId(),
           dto.getFirstName(),
           dto.getLastName(),
@@ -125,7 +139,14 @@ public class ParticipantsDatabase {
           dto.getExperience().getKwcStatus(),
           convertToLocalDate(dto.getExperience().getKwcSince()),
           dto.getExperience().getNumberOfCommunionDays(),
-          dto.getExperience().getNumberOfPrayerRetreats()
+          dto.getExperience().getNumberOfPrayerRetreats(),
+          dto.getExperience().getFormationMeetingsInMonth(),
+          dto.getExperience().getLeadingGroupToFormationStage(),
+          dto.getExperience().getDeuterocatechumenateYear(),
+          dto.getExperience().getStepsTaken(),
+          dto.getExperience().getStepsPlannedThisYear(),
+          dto.getExperience().getCelebrationsTaken(),
+          dto.getExperience().getCelebrationsPlannedThisYear()
           );
     });
   }
