@@ -9,9 +9,6 @@ import { Address } from '../../../models/address.model';
 })
 export class AddressFormComponent {
 
-  @Input()
-  public addressData: Address;
-
-  @Input()
-  public addressForm: FormGroup;
+  @Input() public addressData: Address;
+  @Input() public addressForm: FormGroup;
 }

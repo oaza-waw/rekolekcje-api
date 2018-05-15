@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
@@ -45,10 +46,14 @@ class Participant {
   @Embedded
   private HealthReport healthReport;
 
+  @Embedded
+  private Experience experience;
+
   ParticipantDTO dto() {
-    PersonalData personalData = getPersonalData();
-    AddressValue addressValue = getAddressValue();
-    HealthReportValue healthReportValue = getHealthStatusValue();
+    final PersonalData personalData = getPersonalData();
+    final AddressValue addressValue = getAddressValue();
+    final ExperienceValue experienceValue = getExperienceValue();
+    final HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
         .firstName(firstName)
@@ -57,6 +62,7 @@ class Participant {
         .parishId(parishId)
         .address(addressValue)
         .personalData(personalData)
+        .experience(experienceValue)
         .healthReport(healthReportValue)
         .build();
   }
@@ -87,13 +93,35 @@ class Participant {
   }
 
   private HealthReportValue getHealthStatusValue() {
-    if (healthReport == null) return HealthReportValue.builder().build();
+    if (healthReport == null) {
+      return HealthReportValue.builder().build();
+    }
 
     return HealthReportValue.builder()
         .currentTreatment(healthReport.getCurrentTreatment())
         .medications(healthReport.getMedications())
         .allergies(healthReport.getAllergies())
         .other(healthReport.getOther())
+        .build();
+  }
+
+  private ExperienceValue getExperienceValue() {
+    if (experience == null) {
+      return ExperienceValue.builder().build();
+    }
+
+    return ExperienceValue.builder()
+        .kwcSince(convertToUtc(experience.getKwcSince()))
+        .kwcStatus(experience.getKwcStatus())
+        .numberOfCommunionDays(experience.getNumberOfCommunionDays())
+        .numberOfPrayerRetreats(experience.getNumberOfPrayerRetreats())
+        .formationMeetingsInMonth(experience.getFormationMeetingsInMonth())
+        .leadingGroupToFormationStage(experience.getLeadingGroupToFormationStage())
+        .deuterocatechumenateYear(experience.getDeuterocatechumenateYear())
+        .stepsTaken(experience.getStepsTaken())
+        .stepsPlannedThisYear(experience.getStepsPlannedThisYear())
+        .celebrationsTaken(experience.getCelebrationsTaken())
+        .celebrationsPlannedThisYear(experience.getCelebrationsPlannedThisYear())
         .build();
   }
 

@@ -19,6 +19,7 @@ import { HealthReportComponent } from './details/health-report/health-report.com
 import { ExperienceDetailsComponent } from './details/experience-details/experience-details.component';
 import { OpinionsDetailsComponent } from './details/opinions-details/opinions-details.component';
 import { HealthReportFormComponent } from './add-edit/participant-form/health-report-form/health-report-form.component';
+import { ExperienceFormComponent } from './add-edit/participant-form/experience-form/experience-form.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { HealthReportFormComponent } from './add-edit/participant-form/health-re
     ParticipantsListComponent,
     ParticipantAddEditComponent,
     HealthReportFormComponent,
+    ExperienceFormComponent
   ],
   providers: [],
   exports: [

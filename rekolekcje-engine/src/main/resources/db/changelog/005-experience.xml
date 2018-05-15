@@ -1,0 +1,20 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="experience-1" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="KWC_SINCE" type="TIMESTAMP" />
+            <column name="KWC_STATUS" type="VARCHAR(50)" />
+            <column name="NUMBER_OF_COMMUNION_DAYS" type="INT" />
+            <column name="NUMBER_OF_PRAYER_RETREATS" type="INT" />
+            <column name="FORMATION_MEETINGS_IN_MONTH" type="INT" />
+            <column name="LEADING_GROUP_TO_FORMATION_STAGE" type="VARCHAR(50)" />
+            <column name="DEUTEROCATECHUMENATE_YEAR" type="INT" />
+            <column name="STEPS_TAKEN" type="INT" />
+            <column name="STEPS_PLANNED_THIS_YEAR" type="INT" />
+            <column name="CELEBRATIONS_TAKEN" type="INT" />
+            <column name="CELEBRATIONS_PLANNED_THIS_YEAR" type="INT" />
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

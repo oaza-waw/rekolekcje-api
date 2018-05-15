@@ -1,17 +1,44 @@
-<div class="form-group row">
-  <label class="col-sm-2">Retreats</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">KWC</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Prayer retreats</label>
-  <div class="col-sm-6">data</div>
-</div>
-<div class="form-group row">
-  <label class="col-sm-2">Other</label>
-  <div class="col-sm-6">data</div>
-</div>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.kwcStatus}}" placeholder="KWC status">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.kwcSince}}" placeholder="In KWC since">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.numberOfCommunionDays}}" placeholder="Number of Communion Days">
+</mat-form-field>
+<mat-form-field class="field-wide">
+  <input matInput disabled value="{{experienceData.numberOfPrayerRetreats}}" placeholder="Number of prayer retreats">
+</mat-form-field>
 
+<h4>Constant formation</h4>
+
+<table class="field-wide">
+  <td>
+    <mat-form-field class="field-wide">
+      <input matInput disabled value="{{experienceData.formationMeetingsInMonth}}" placeholder="Formation meetings in month">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field class="field-wide">
+      <input matInput disabled value="{{experienceData.leadingGroupToFormationStage}}" placeholder="Leading group to formation stage">
+    </mat-form-field>
+  </td>
+</table>
+<table class="field-wide">
+  <td>
+    <mat-form-field class="field-wide">
+      <input matInput disabled value="{{experienceData.deuterocatechumenateYear}}" placeholder="Deuterocatechumenate (year)">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field class="field-wide">
+      <input matInput disabled value="{{experienceData.stepsTaken}} / {{experienceData.stepsPlannedThisYear}}" placeholder="Steps taken/planned this year">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field class="field-wide">
+      <input matInput disabled value="{{experienceData.celebrationsTaken}} / {{experienceData.celebrationsPlannedThisYear}}" placeholder="Celebrations taken/planned this year">
+    </mat-form-field>
+  </td>
+</table>

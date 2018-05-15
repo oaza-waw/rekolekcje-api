@@ -29,9 +29,22 @@ public class ParticipantData {
   private final String postalCode;
   private final String city;
 
-  //health report
+  // health report
   private final String currentTreatment;
   private final String medications;
   private final String allergies;
   private final String other;
+
+  // experience
+  private final String kwcStatus;
+  private final LocalDateTime kwcSince;
+  private final Integer numberOfCommunionDays;
+  private final Integer numberOfPrayerRetreats;
+  private Integer formationMeetingsInMonth;
+  private String leadingGroupToFormationStage;
+  private Integer deuterocatechumenateYear;
+  private Integer stepsTaken;
+  private Integer stepsPlannedThisYear;
+  private Integer celebrationsTaken;
+  private Integer celebrationsPlannedThisYear;
 }

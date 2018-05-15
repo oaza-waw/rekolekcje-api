@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {HealthReport} from "../../../models/heath-report.model";
-import {FormGroup} from "@angular/forms";
+import { Component, Input } from '@angular/core';
+import { HealthReport } from '../../../models/heath-report.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'health-report-form',
@@ -9,10 +9,7 @@ import {FormGroup} from "@angular/forms";
 })
 export class HealthReportFormComponent {
 
-  @Input()
-  public healthReportData: HealthReport;
-
-  @Input()
-  public healthReportForm: FormGroup;
+  @Input() public healthReportData: HealthReport;
+  @Input() public healthReportForm: FormGroup;
 
 }

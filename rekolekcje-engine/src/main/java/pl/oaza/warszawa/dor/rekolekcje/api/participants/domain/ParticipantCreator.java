@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
@@ -10,6 +11,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 class ParticipantCreator {
+
   Participant from(ParticipantDTO participantDTO) {
     final Participant.ParticipantBuilder participantBuilder = Participant.builder()
         .id(participantDTO.getId())
@@ -18,19 +20,23 @@ class ParticipantCreator {
         .pesel(participantDTO.getPesel())
         .parishId(participantDTO.getParishId());
 
-    final Address address = from(participantDTO.getAddress());
+    final Address address = fromValue(participantDTO.getAddress());
     participantBuilder.address(address);
 
     final PersonalData personalData = participantDTO.getPersonalData();
-    participantBuilder.motherName(personalData.getMotherName())
+    participantBuilder
+        .motherName(personalData.getMotherName())
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))
         .christeningPlace(personalData.getChristeningPlace())
         .closeRelativeName(personalData.getEmergencyContactName())
         .closeRelativeNumber(personalData.getEmergencyContactNumber());
 
-    final HealthReport healthReport = from(participantDTO.getHealthReport());
+    final HealthReport healthReport = fromValue(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
+
+    final Experience experience = fromValue(participantDTO.getExperience());
+    participantBuilder.experience(experience);
 
     return participantBuilder.build();
   }
@@ -54,10 +60,11 @@ class ParticipantCreator {
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
         .healthReport(participant.getHealthReport())
+        .experience(participant.getExperience())
         .build();
   }
 
-  Address from(AddressValue addressValue) {
+  private Address fromValue(AddressValue addressValue) {
     return Address.builder()
         .street(addressValue.getStreetName())
         .streetNumber(addressValue.getStreetNumber())
@@ -67,7 +74,7 @@ class ParticipantCreator {
         .build();
   }
 
-  HealthReport from(HealthReportValue healthReportValue) {
+  private HealthReport fromValue(HealthReportValue healthReportValue) {
     if (healthReportValue == null) return HealthReport.builder().build();
 
     return HealthReport.builder()
@@ -75,6 +82,25 @@ class ParticipantCreator {
         .medications(healthReportValue.getMedications())
         .allergies(healthReportValue.getAllergies())
         .other(healthReportValue.getOther())
+        .build();
+  }
+
+  private Experience fromValue(ExperienceValue experienceValue) {
+    if (experienceValue == null) {
+      return Experience.builder().build();
+    }
+    return Experience.builder()
+        .kwcStatus(experienceValue.getKwcStatus())
+        .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
+        .numberOfCommunionDays(experienceValue.getNumberOfCommunionDays())
+        .numberOfPrayerRetreats(experienceValue.getNumberOfPrayerRetreats())
+        .formationMeetingsInMonth(experienceValue.getFormationMeetingsInMonth())
+        .leadingGroupToFormationStage(experienceValue.getLeadingGroupToFormationStage())
+        .deuterocatechumenateYear(experienceValue.getDeuterocatechumenateYear())
+        .stepsTaken(experienceValue.getStepsTaken())
+        .stepsPlannedThisYear(experienceValue.getStepsPlannedThisYear())
+        .celebrationsTaken(experienceValue.getCelebrationsTaken())
+        .celebrationsPlannedThisYear(experienceValue.getCelebrationsPlannedThisYear())
         .build();
   }
 }
