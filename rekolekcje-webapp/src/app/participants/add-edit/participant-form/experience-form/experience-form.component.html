@@ -1,27 +1,94 @@
 <div [formGroup]="experienceForm">
-  <mat-form-field class="field-wide">
-    <input matInput
-           placeholder="KWC status"
-           formControlName="kwcStatus">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput
-           [matDatepicker]="picker"
-           placeholder="In KWC since"
-           [value]="experienceForm.get('kwcSince').value"
-           formControlName="kwcSince">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field class="field-wide">
-    <input matInput
-           placeholder="Number of Communion Days"
-           formControlName="numberOfCommunionDays">
-  </mat-form-field>
-  <mat-form-field class="field-wide">
-    <input matInput
-           placeholder="Number of prayer retreats"
-           formControlName="numberOfPrayerRetreats">
-  </mat-form-field>
-</div>
+  <table class="field-wide">
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="KWC status"
+               formControlName="kwcStatus">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input matInput
+               [matDatepicker]="picker"
+               placeholder="In KWC since"
+               [value]="experienceForm.get('kwcSince').value"
+               formControlName="kwcSince">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </td>
+  </table>
 
+  <table class="field-wide">
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Number of Communion Days"
+               formControlName="numberOfCommunionDays">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Number of prayer retreats"
+               formControlName="numberOfPrayerRetreats">
+      </mat-form-field>
+    </td>
+  </table>
+
+  <table class="field-wide">
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Formation meetings (in month)"
+               formControlName="formationMeetingsInMonth">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Leading group to formation of stage"
+               formControlName="leadingGroupToFormationStage">
+      </mat-form-field>
+    </td>
+  </table>
+
+  <table class="field-wide">
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Deuterocatechumenate (year)"
+               formControlName="deuterocatechumenateYear">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Steps taken"
+               formControlName="stepsTaken">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Steps planned this year"
+               formControlName="stepsPlannedThisYear">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Celebrations taken"
+               formControlName="celebrationsTaken">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Celebrations planned this year"
+               formControlName="celebrationsPlannedThisYear">
+      </mat-form-field>
+    </td>
+  </table>
+</div>

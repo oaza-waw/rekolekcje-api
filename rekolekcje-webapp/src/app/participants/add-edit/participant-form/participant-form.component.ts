@@ -99,7 +99,14 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
         kwcStatus: [this.experience.kwcStatus],
         kwcSince: [this.experience.kwcSince],
         numberOfCommunionDays: [this.experience.numberOfCommunionDays],
-        numberOfPrayerRetreats: [this.experience.numberOfPrayerRetreats]
+        numberOfPrayerRetreats: [this.experience.numberOfPrayerRetreats],
+        formationMeetingsInMonth: [this.experience.formationMeetingsInMonth],
+        leadingGroupToFormationStage: [this.experience.leadingGroupToFormationStage],
+        deuterocatechumenateYear: [this.experience.deuterocatechumenateYear],
+        stepsTaken: [this.experience.stepsTaken],
+        stepsPlannedThisYear: [this.experience.stepsPlannedThisYear],
+        celebrationsTaken: [this.experience.celebrationsTaken],
+        celebrationsPlannedThisYear: [this.experience.celebrationsPlannedThisYear],
       }
     } else {
       return { kwcStatus: '', kwcSince: '', numberOfCommunionDays: '', numberOfPrayerRetreats: '' }
@@ -200,6 +207,13 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     experience.kwcSince = this.form.get('experience.kwcSince').value;
     experience.numberOfCommunionDays = this.form.get('experience.numberOfCommunionDays').value;
     experience.numberOfPrayerRetreats = this.form.get('experience.numberOfPrayerRetreats').value;
+    experience.formationMeetingsInMonth = this.form.get('experience.formationMeetingsInMonth').value;
+    experience.leadingGroupToFormationStage = this.form.get('experience.leadingGroupToFormationStage').value;
+    experience.deuterocatechumenateYear = this.form.get('experience.deuterocatechumenateYear').value;
+    experience.stepsTaken = this.form.get('experience.stepsTaken').value;
+    experience.stepsPlannedThisYear = this.form.get('experience.stepsPlannedThisYear').value;
+    experience.celebrationsTaken = this.form.get('experience.celebrationsTaken').value;
+    experience.celebrationsPlannedThisYear = this.form.get('experience.celebrationsPlannedThisYear').value;
     return experience;
   }
 }
