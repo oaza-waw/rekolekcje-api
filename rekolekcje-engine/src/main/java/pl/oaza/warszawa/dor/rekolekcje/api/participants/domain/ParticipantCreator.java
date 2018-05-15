@@ -6,9 +6,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToDateTime;
 
 class ParticipantCreator {
 
@@ -39,10 +37,6 @@ class ParticipantCreator {
     participantBuilder.experience(experience);
 
     return participantBuilder.build();
-  }
-
-  private LocalDateTime convertToDateTime(ZonedDateTime zonedDateTime) {
-    return zonedDateTime != null ? zonedDateTime.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime() : null;
   }
 
   Participant withId(Participant participant, Long id) {
