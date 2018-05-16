@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { FormGroup } from '@angular/forms';
 
 export class Experience {
   constructor(
@@ -28,6 +29,22 @@ export class Experience {
     experience.stepsPlannedThisYear = input.result.experience.stepsPlannedThisYear;
     experience.celebrationsTaken = input.result.experience.celebrationsTaken;
     experience.celebrationsPlannedThisYear = input.result.experience.celebrationsPlannedThisYear;
+    return experience;
+  }
+
+  static parseForm(form: FormGroup): Experience {
+    const experience = new Experience();
+    experience.kwcStatus = form.get('experience.kwcStatus').value;
+    experience.kwcSince = form.get('experience.kwcSince').value;
+    experience.numberOfCommunionDays = form.get('experience.numberOfCommunionDays').value;
+    experience.numberOfPrayerRetreats = form.get('experience.numberOfPrayerRetreats').value;
+    experience.formationMeetingsInMonth = form.get('experience.formationMeetingsInMonth').value;
+    experience.leadingGroupToFormationStage = form.get('experience.leadingGroupToFormationStage').value;
+    experience.deuterocatechumenateYear = form.get('experience.deuterocatechumenateYear').value;
+    experience.stepsTaken = form.get('experience.stepsTaken').value;
+    experience.stepsPlannedThisYear = form.get('experience.stepsPlannedThisYear').value;
+    experience.celebrationsTaken = form.get('experience.celebrationsTaken').value;
+    experience.celebrationsPlannedThisYear = form.get('experience.celebrationsPlannedThisYear').value;
     return experience;
   }
 }
