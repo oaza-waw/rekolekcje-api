@@ -13,6 +13,7 @@ import { Experience } from '../../models/experience.model';
 import { HealthReportFormComponent } from './health-report-form/health-report-form.component';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { ExperienceFormComponent } from './experience-form/experience-form.component';
+import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 
 @Component({
   selector: 'participiant-form',
@@ -49,50 +50,10 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe((parishes: Parish[]) => this.parishes = parishes);
     this.form = this.fb.group({
-      firstName: [this.firstName ? this.firstName : '', Validators.required],
-      lastName: [this.lastName ? this.lastName : '', Validators.required],
-      pesel: [this.pesel ? this.pesel : '', Validators.required],
-      address: this.fb.group(AddressFormComponent.buildFormConfig(this.address)),
-      parishId: [this.parishId ? this.parishId : ''],
-      christeningDate: [this.getChristeningDate()],
-      christeningPlace: [this.getChristeningPlace()],
-      fatherName: [this.getFatherName()],
-      motherName: [this.getMotherName()],
-      emergencyContactName: [this.getEmergencyContactName()],
-      emergencyContactNumber: [this.getEmergencyContactNumber()],
+      personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.firstName, this.lastName, this.pesel, this.parishId, this.personalData, this.address),
       healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
       experience: this.fb.group(ExperienceFormComponent.buildFormConfig(this.experience))
     });
-  }
-
-  private getChristeningDate() {
-    if (this.personalData == null) return null;
-    return this.personalData.christeningDate ? this.personalData.christeningDate : null;
-  }
-
-  private getChristeningPlace() {
-    if (this.personalData == null) return null;
-    return this.personalData.christeningPlace ? this.personalData.christeningPlace : null;
-  }
-
-  private getFatherName() {
-    if (this.personalData == null) return null;
-    return this.personalData.fatherName ? this.personalData.fatherName : null;
-  }
-
-  private getMotherName() {
-    if (this.personalData == null) return null;
-    return this.personalData.motherName ? this.personalData.motherName : null;
-  }
-
-  private getEmergencyContactName() {
-    if (this.personalData == null) return null;
-    return this.personalData.emergencyContactName ? this.personalData.emergencyContactName : null;
-  }
-
-  private getEmergencyContactNumber() {
-    if (this.personalData == null) return null;
-    return this.personalData.emergencyContactNumber ? this.personalData.emergencyContactNumber : null;
   }
 
   ngOnDestroy(): void {

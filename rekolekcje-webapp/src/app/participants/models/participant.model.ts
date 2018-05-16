@@ -33,10 +33,10 @@ export class Participant {
   static parseForm(id: number, form: FormGroup): Participant {
     let participant = new Participant();
     participant.id = id;
-    participant.firstName = form.get('firstName').value;
-    participant.lastName = form.get('lastName').value;
-    participant.pesel = form.get('pesel').value;
-    participant.parishId = form.get('parishId').value;
+    participant.firstName = form.get('personalDataGroup.firstName').value;
+    participant.lastName = form.get('personalDataGroup.lastName').value;
+    participant.pesel = form.get('personalDataGroup.pesel').value;
+    participant.parishId = form.get('personalDataGroup.parishId').value;
     participant.personalData = PersonalData.parseForm(form);
     participant.address = Address.parseForm(form);
     participant.healthReport = HealthReport.parseForm(form);

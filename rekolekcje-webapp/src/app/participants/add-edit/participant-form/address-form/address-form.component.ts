@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Address } from '../../../models/address.model';
 
 @Component({
@@ -14,15 +14,21 @@ export class AddressFormComponent {
 
   static buildFormConfig(address: Address) {
     if (address != null) {
-      return {
-        streetName: [address.streetName ? address.streetName : ''],
-        streetNumber: [address.streetNumber ? address.streetNumber : ''],
-        flatNumber: [address.flatNumber ? address.flatNumber : ''],
-        postalCode: [address.postalCode ? address.postalCode : ''],
-        city: [address.city ? address.city : ''],
-      }
+      return new FormGroup({
+        streetName: new FormControl(address.streetName ? address.streetName : ''),
+        streetNumber: new FormControl(address.streetNumber ? address.streetNumber : ''),
+        flatNumber: new FormControl(address.flatNumber ? address.flatNumber : ''),
+        postalCode: new FormControl(address.postalCode ? address.postalCode : ''),
+        city: new FormControl(address.city ? address.city : ''),
+      })
     } else {
-      return { streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: '' }
+      return new FormGroup({
+        streetName: new FormControl( ''),
+        streetNumber: new FormControl(''),
+        flatNumber: new FormControl(''),
+        postalCode: new FormControl(''),
+        city: new FormControl(''),
+      })
     }
   }
 }

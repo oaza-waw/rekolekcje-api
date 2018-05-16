@@ -21,11 +21,11 @@ export class Address {
 
   static parseForm(form: FormGroup): Address {
     const address = new Address();
-    address.streetName = form.get('address.streetName').value;
-    address.streetNumber = form.get('address.streetNumber').value;
-    address.flatNumber = form.get('address.flatNumber').value;
-    address.postalCode = form.get('address.postalCode').value;
-    address.city = form.get('address.city').value;
+    address.streetName = form.get('personalDataGroup.address.streetName').value;
+    address.streetNumber = form.get('personalDataGroup.address.streetNumber').value;
+    address.flatNumber = form.get('personalDataGroup.address.flatNumber').value;
+    address.postalCode = form.get('personalDataGroup.address.postalCode').value;
+    address.city = form.get('personalDataGroup.address.city').value;
     return address;
   }
 }

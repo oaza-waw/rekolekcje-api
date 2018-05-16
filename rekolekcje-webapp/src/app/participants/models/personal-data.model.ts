@@ -24,12 +24,12 @@ export class PersonalData {
 
   static parseForm(form: FormGroup): PersonalData {
     const personalData = new PersonalData();
-    personalData.christeningDate = form.get('christeningDate').value;
-    personalData.christeningPlace = form.get('christeningPlace').value;
-    personalData.fatherName = form.get('fatherName').value;
-    personalData.motherName = form.get('motherName').value;
-    personalData.emergencyContactName = form.get('emergencyContactName').value;
-    personalData.emergencyContactNumber = form.get('emergencyContactNumber').value;
+    personalData.christeningDate = form.get('personalDataGroup.christeningDate').value;
+    personalData.christeningPlace = form.get('personalDataGroup.christeningPlace').value;
+    personalData.fatherName = form.get('personalDataGroup.fatherName').value;
+    personalData.motherName = form.get('personalDataGroup.motherName').value;
+    personalData.emergencyContactName = form.get('personalDataGroup.emergencyContactName').value;
+    personalData.emergencyContactNumber = form.get('personalDataGroup.emergencyContactNumber').value;
     return personalData;
   }
 }
