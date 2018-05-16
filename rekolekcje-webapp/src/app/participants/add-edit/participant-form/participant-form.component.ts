@@ -10,6 +10,9 @@ import { Address } from '../../models/address.model';
 import { PersonalData } from '../../models/personal-data.model';
 import { HealthReport } from '../../models/heath-report.model';
 import { Experience } from '../../models/experience.model';
+import { HealthReportFormComponent } from './health-report-form/health-report-form.component';
+import { AddressFormComponent } from './address-form/address-form.component';
+import { ExperienceFormComponent } from './experience-form/experience-form.component';
 
 @Component({
   selector: 'participiant-form',
@@ -39,8 +42,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private store: Store<Parishes.State>) {
-  }
+  constructor(private fb: FormBuilder, private store: Store<Parishes.State>) { }
 
   ngOnInit(): void {
     this.store.select(AppSelectors.getParishList)
@@ -50,7 +52,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       firstName: [this.firstName ? this.firstName : '', Validators.required],
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
-      address: this.fb.group(this.getAddress()),
+      address: this.fb.group(AddressFormComponent.buildFormConfig(this.address)),
       parishId: [this.parishId ? this.parishId : ''],
       christeningDate: [this.getChristeningDate()],
       christeningPlace: [this.getChristeningPlace()],
@@ -58,73 +60,9 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       motherName: [this.getMotherName()],
       emergencyContactName: [this.getEmergencyContactName()],
       emergencyContactNumber: [this.getEmergencyContactNumber()],
-      healthReport: this.fb.group(this.getHealthReport()),
-      experience: this.fb.group(this.getExperience())
+      healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
+      experience: this.fb.group(ExperienceFormComponent.buildFormConfig(this.experience))
     });
-  }
-
-  private getAddress() {
-    if (this.address != null) {
-      return {
-        streetName: [this.address.streetName ? this.address.streetName : ''],
-        streetNumber: [this.address.streetNumber ? this.address.streetNumber : ''],
-        flatNumber: [this.address.flatNumber ? this.address.flatNumber : ''],
-        postalCode: [this.address.postalCode ? this.address.postalCode : ''],
-        city: [this.address.city ? this.address.city : ''],
-      }
-    } else {
-      return { streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: '' }
-    }
-  }
-
-  private getHealthReport() {
-    if (this.healthReport != null) {
-      return {
-        currentTreatment: [this.healthReport.currentTreatment ? this.healthReport.currentTreatment : ''],
-        medications: [this.healthReport.medications ? this.healthReport.medications : ''],
-        allergies: [this.healthReport.allergies ? this.healthReport.allergies : ''],
-        other: [this.healthReport.other ? this.healthReport.other : ''],
-      }
-    } else {
-      return {
-        currentTreatment: '',
-        medications: '',
-        allergies: '',
-        other: '',
-      }
-    }
-  }
-
-  private getExperience() {
-    if (this.experience != null) {
-      return {
-        kwcStatus: [this.experience.kwcStatus],
-        kwcSince: [this.experience.kwcSince],
-        numberOfCommunionDays: [this.experience.numberOfCommunionDays],
-        numberOfPrayerRetreats: [this.experience.numberOfPrayerRetreats],
-        formationMeetingsInMonth: [this.experience.formationMeetingsInMonth],
-        leadingGroupToFormationStage: [this.experience.leadingGroupToFormationStage],
-        deuterocatechumenateYear: [this.experience.deuterocatechumenateYear],
-        stepsTaken: [this.experience.stepsTaken],
-        stepsPlannedThisYear: [this.experience.stepsPlannedThisYear],
-        celebrationsTaken: [this.experience.celebrationsTaken],
-        celebrationsPlannedThisYear: [this.experience.celebrationsPlannedThisYear],
-      }
-    } else {
-      return {
-        kwcStatus: '',
-        kwcSince: '',
-        numberOfCommunionDays: '',
-        numberOfPrayerRetreats: '',
-        formationMeetingsInMonth: '',
-        leadingGroupToFormationStage: '',
-        deuterocatechumenateYear: '',
-        stepsTaken: '',
-        stepsPlannedThisYear: '',
-        celebrationsTaken: '',
-        celebrationsPlannedThisYear: '',
-      }
-    }
   }
 
   private getChristeningDate() {

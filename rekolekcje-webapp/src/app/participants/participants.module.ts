@@ -13,7 +13,7 @@ import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/par
 import { MaterialModule } from '../shared/material/material.module';
 import { ParticipantsRoutingModule } from './participants-routing.module';
 import { PersonalDataComponent } from './details/personal-data/personal-data.component';
-import { AddressFormComponent } from './add-edit/participant-form/address/address-form.component';
+import { AddressFormComponent } from './add-edit/participant-form/address-form/address-form.component';
 import { ParishDetailsComponent } from './details/parish-details/parish-details.component';
 import { HealthReportComponent } from './details/health-report/health-report.component';
 import { ExperienceDetailsComponent } from './details/experience-details/experience-details.component';
