@@ -20,6 +20,7 @@ import { ExperienceDetailsComponent } from './details/experience-details/experie
 import { OpinionsDetailsComponent } from './details/opinions-details/opinions-details.component';
 import { HealthReportFormComponent } from './add-edit/participant-form/health-report-form/health-report-form.component';
 import { ExperienceFormComponent } from './add-edit/participant-form/experience-form/experience-form.component';
+import { DetailsModule } from '../shared/details/details.module';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { ExperienceFormComponent } from './add-edit/participant-form/experience-
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ParticipantsRoutingModule
+    ParticipantsRoutingModule,
+    DetailsModule,
   ],
   declarations: [
     ParticipantAddEditDialog,
@@ -45,7 +47,7 @@ import { ExperienceFormComponent } from './add-edit/participant-form/experience-
     ParticipantsListComponent,
     ParticipantAddEditComponent,
     HealthReportFormComponent,
-    ExperienceFormComponent
+    ExperienceFormComponent,
   ],
   providers: [],
   exports: [
