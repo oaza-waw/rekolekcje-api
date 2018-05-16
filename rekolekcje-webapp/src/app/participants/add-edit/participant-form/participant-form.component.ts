@@ -35,6 +35,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
+  currentStep = 0;
+
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private fb: FormBuilder, private store: Store<Parishes.State>) {
@@ -49,7 +51,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       lastName: [this.lastName ? this.lastName : '', Validators.required],
       pesel: [this.pesel ? this.pesel : '', Validators.required],
       address: this.fb.group(this.getAddress()),
-      parishId: [this.parishId ? this.parishId : '', Validators.required],
+      parishId: [this.parishId ? this.parishId : ''],
       christeningDate: [this.getChristeningDate()],
       christeningPlace: [this.getChristeningPlace()],
       fatherName: [this.getFatherName()],
@@ -109,7 +111,19 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
         celebrationsPlannedThisYear: [this.experience.celebrationsPlannedThisYear],
       }
     } else {
-      return { kwcStatus: '', kwcSince: '', numberOfCommunionDays: '', numberOfPrayerRetreats: '' }
+      return {
+        kwcStatus: '',
+        kwcSince: '',
+        numberOfCommunionDays: '',
+        numberOfPrayerRetreats: '',
+        formationMeetingsInMonth: '',
+        leadingGroupToFormationStage: '',
+        deuterocatechumenateYear: '',
+        stepsTaken: '',
+        stepsPlannedThisYear: '',
+        celebrationsTaken: '',
+        celebrationsPlannedThisYear: '',
+      }
     }
   }
 
@@ -160,5 +174,17 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
 
     const participant = Participant.parseForm(this.id, this.form);
     this.formOutput.emit(participant);
+  }
+
+  setCurrentStep(index: number) {
+    this.currentStep = index;
+  }
+
+  nextStep() {
+    this.currentStep++;
+  }
+
+  previousStep() {
+    this.currentStep--;
   }
 }
