@@ -5,10 +5,13 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 class ParticipantsTestData {
 
@@ -50,6 +53,19 @@ class ParticipantsTestData {
       .pesel("93010100000")
       .build();
 
+  private static final List<RetreatTurnValue> historicalTurns = Arrays.asList(
+      RetreatTurnValue.builder()
+          .stage("ODB")
+          .location("Somewhere")
+          .year(1990)
+          .build(),
+      RetreatTurnValue.builder()
+          .stage("ONŻ 1")
+          .location("Mountains")
+          .year(2017)
+          .build()
+  );
+
   private static final ExperienceValue sampleExperienceValue = ExperienceValue.builder()
       .kwcStatus("Member")
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1990, 5, 20, 4, 0), ZoneId.of("UTC")))
@@ -62,6 +78,7 @@ class ParticipantsTestData {
       .stepsTaken(10)
       .stepsPlannedThisYear(0)
       .deuterocatechumenateYear(2013)
+      .historicalRetreats(historicalTurns)
       .build();
 
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()

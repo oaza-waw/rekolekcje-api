@@ -5,6 +5,10 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToDateTime;
 
@@ -95,6 +99,30 @@ class ParticipantCreator {
         .stepsPlannedThisYear(experienceValue.getStepsPlannedThisYear())
         .celebrationsTaken(experienceValue.getCelebrationsTaken())
         .celebrationsPlannedThisYear(experienceValue.getCelebrationsPlannedThisYear())
+        .historicalRetreats(extractHistoricalRetreats(experienceValue))
         .build();
   }
+
+  private List<RetreatTurn> extractHistoricalRetreats(ExperienceValue experienceValue) {
+    if (experienceValue.getHistoricalRetreats() == null) {
+      return null;
+    }
+
+    return experienceValue.getHistoricalRetreats().stream()
+        .map(value -> fromValue(value))
+        .collect(Collectors.toList());
+  }
+
+  private RetreatTurn fromValue(RetreatTurnValue retreatTurnValue) {
+    if (retreatTurnValue == null) {
+      return RetreatTurn.builder().build();
+    }
+
+    return RetreatTurn.builder()
+        .stage(retreatTurnValue.getStage())
+        .location(retreatTurnValue.getLocation())
+        .year(retreatTurnValue.getYear())
+        .build();
+  }
+
 }
