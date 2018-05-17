@@ -13,4 +13,4 @@ import { MaterialModule } from '../material/material.module';
     DetailsTextFieldComponent
   ],
 })
-export class DetailsModule { }
+export class SharedDetailsModule { }

@@ -4,7 +4,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DetailsModule } from './details/details.module';
+import { SharedDetailsModule } from './details/shared-details.module';
+import { SharedFormModule } from './form/shared-form.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { DetailsModule } from './details/details.module';
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    DetailsModule,
+    SharedDetailsModule,
+    SharedFormModule,
   ],
   declarations: [
     PageNotFoundComponent
@@ -22,7 +24,8 @@ import { DetailsModule } from './details/details.module';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    DetailsModule
+    SharedDetailsModule,
+    SharedFormModule,
   ],
 })
 export class SharedModule { }
