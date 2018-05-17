@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 
 import javax.persistence.Embeddable;
 
@@ -17,4 +18,13 @@ class HealthReport {
   private String medications;
   private String allergies;
   private String other;
+
+  HealthReportValue value() {
+    return HealthReportValue.builder()
+        .currentTreatment(currentTreatment)
+        .medications(medications)
+        .allergies(allergies)
+        .other(other)
+        .build();
+  }
 }

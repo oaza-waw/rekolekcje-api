@@ -13,13 +13,15 @@ import { ParticipantAddEditComponent } from './add-edit/participant-add-edit/par
 import { MaterialModule } from '../shared/material/material.module';
 import { ParticipantsRoutingModule } from './participants-routing.module';
 import { PersonalDataComponent } from './details/personal-data/personal-data.component';
-import { AddressFormComponent } from './add-edit/participant-form/address/address-form.component';
+import { AddressFormComponent } from './add-edit/participant-form/address-form/address-form.component';
 import { ParishDetailsComponent } from './details/parish-details/parish-details.component';
 import { HealthReportComponent } from './details/health-report/health-report.component';
 import { ExperienceDetailsComponent } from './details/experience-details/experience-details.component';
 import { OpinionsDetailsComponent } from './details/opinions-details/opinions-details.component';
 import { HealthReportFormComponent } from './add-edit/participant-form/health-report-form/health-report-form.component';
 import { ExperienceFormComponent } from './add-edit/participant-form/experience-form/experience-form.component';
+import { SharedDetailsModule } from '../shared/details/shared-details.module';
+import { PersonalDataFormComponent } from './add-edit/participant-form/personal-data-form/personal-data-form.component';
 
 @NgModule({
   imports: [
@@ -28,7 +30,8 @@ import { ExperienceFormComponent } from './add-edit/participant-form/experience-
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ParticipantsRoutingModule
+    ParticipantsRoutingModule,
+    SharedDetailsModule,
   ],
   declarations: [
     ParticipantAddEditDialog,
@@ -45,7 +48,8 @@ import { ExperienceFormComponent } from './add-edit/participant-form/experience-
     ParticipantsListComponent,
     ParticipantAddEditComponent,
     HealthReportFormComponent,
-    ExperienceFormComponent
+    ExperienceFormComponent,
+    PersonalDataFormComponent,
   ],
   providers: [],
   exports: [

@@ -1,52 +1,24 @@
 <table class="field-wide">
-  <td><mat-form-field class="field-wide">
-    <input matInput placeholder="First name" disabled value="{{firstName}}">
-  </mat-form-field></td>
-  <td><mat-form-field class="field-wide">
-    <input matInput disabled value="{{lastName}}" placeholder="Last name">
-  </mat-form-field></td>
-  <td><mat-form-field class="field-wide">
-    <input matInput disabled value="{{pesel}}" placeholder="PESEL">
-  </mat-form-field></td>
+  <td><reko-details-text-field [fieldValue]="firstName" [label]="'First name'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="lastName" [label]="'Last name'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="pesel" [label]="'PESEL'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
-  <td><mat-form-field>
-    <input matInput disabled value="{{address.streetName}}" placeholder="Street">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{address.streetNumber}}" placeholder="Street number">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{address.flatNumber}}" placeholder="Flat number">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{address.postalCode}}" placeholder="Postal code">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{address.city}}" placeholder="City">
-  </mat-form-field></td>
+  <td><reko-details-text-field [fieldValue]="address.streetName" [label]="'Street'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="address.streetNumber" [label]="'Street number'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="address.flatNumber" [label]="'Flat number'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="address.postalCode" [label]="'Postal code'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="address.city" [label]="'City'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
-  <td><mat-form-field>
-    <input matInput disabled value="{{personalData.fatherName}}" placeholder="Father name">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{personalData.motherName}}" placeholder="Mother name">
-  </mat-form-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.fatherName" [label]="'Father name'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.motherName" [label]="'Mother name'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
-  <td><mat-form-field>
-    <input matInput disabled value="{{personalData.emergencyContactName}}" placeholder="Emergency contact">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{personalData.emergencyContactNumber}}" placeholder="Emergency contact phone number">
-  </mat-form-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.emergencyContactName" [label]="'Emergency contact'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.emergencyContactNumber" [label]="'Emergency contact phone number'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
-  <td><mat-form-field>
-    <input matInput disabled value="{{personalData.christeningPlace}}" placeholder="Christening place">
-  </mat-form-field></td>
-  <td><mat-form-field>
-    <input matInput disabled value="{{formatDate(personalData.christeningDate)}}" placeholder="Christening date">
-  </mat-form-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.christeningPlace" [label]="'Christening place'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="formatDate(personalData.christeningDate)" [label]="'Christening date'"></reko-details-text-field></td>
 </table>

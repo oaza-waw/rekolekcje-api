@@ -10,6 +10,9 @@ import { Address } from '../../models/address.model';
 import { PersonalData } from '../../models/personal-data.model';
 import { HealthReport } from '../../models/heath-report.model';
 import { Experience } from '../../models/experience.model';
+import { HealthReportFormComponent } from './health-report-form/health-report-form.component';
+import { ExperienceFormComponent } from './experience-form/experience-form.component';
+import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
 
 @Component({
   selector: 'participiant-form',
@@ -35,112 +38,21 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
+  currentStep = 0;
+
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private store: Store<Parishes.State>) {
-  }
+  constructor(private fb: FormBuilder, private store: Store<Parishes.State>) { }
 
   ngOnInit(): void {
     this.store.select(AppSelectors.getParishList)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((parishes: Parish[]) => this.parishes = parishes);
     this.form = this.fb.group({
-      firstName: [this.firstName ? this.firstName : '', Validators.required],
-      lastName: [this.lastName ? this.lastName : '', Validators.required],
-      pesel: [this.pesel ? this.pesel : '', Validators.required],
-      address: this.fb.group(this.getAddress()),
-      parishId: [this.parishId ? this.parishId : '', Validators.required],
-      christeningDate: [this.getChristeningDate()],
-      christeningPlace: [this.getChristeningPlace()],
-      fatherName: [this.getFatherName()],
-      motherName: [this.getMotherName()],
-      emergencyContactName: [this.getEmergencyContactName()],
-      emergencyContactNumber: [this.getEmergencyContactNumber()],
-      healthReport: this.fb.group(this.getHealthReport()),
-      experience: this.fb.group(this.getExperience())
+      personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.firstName, this.lastName, this.pesel, this.parishId, this.personalData, this.address),
+      healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
+      experience: this.fb.group(ExperienceFormComponent.buildFormConfig(this.experience))
     });
-  }
-
-  private getAddress() {
-    if (this.address != null) {
-      return {
-        streetName: [this.address.streetName ? this.address.streetName : ''],
-        streetNumber: [this.address.streetNumber ? this.address.streetNumber : ''],
-        flatNumber: [this.address.flatNumber ? this.address.flatNumber : ''],
-        postalCode: [this.address.postalCode ? this.address.postalCode : ''],
-        city: [this.address.city ? this.address.city : ''],
-      }
-    } else {
-      return { streetName: '', streetNumber: '', flatNumber: '', postalCode: '', city: '' }
-    }
-  }
-
-  private getHealthReport() {
-    if (this.healthReport != null) {
-      return {
-        currentTreatment: [this.healthReport.currentTreatment ? this.healthReport.currentTreatment : ''],
-        medications: [this.healthReport.medications ? this.healthReport.medications : ''],
-        allergies: [this.healthReport.allergies ? this.healthReport.allergies : ''],
-        other: [this.healthReport.other ? this.healthReport.other : ''],
-      }
-    } else {
-      return {
-        currentTreatment: '',
-        medications: '',
-        allergies: '',
-        other: '',
-      }
-    }
-  }
-
-  private getExperience() {
-    if (this.experience != null) {
-      return {
-        kwcStatus: [this.experience.kwcStatus],
-        kwcSince: [this.experience.kwcSince],
-        numberOfCommunionDays: [this.experience.numberOfCommunionDays],
-        numberOfPrayerRetreats: [this.experience.numberOfPrayerRetreats],
-        formationMeetingsInMonth: [this.experience.formationMeetingsInMonth],
-        leadingGroupToFormationStage: [this.experience.leadingGroupToFormationStage],
-        deuterocatechumenateYear: [this.experience.deuterocatechumenateYear],
-        stepsTaken: [this.experience.stepsTaken],
-        stepsPlannedThisYear: [this.experience.stepsPlannedThisYear],
-        celebrationsTaken: [this.experience.celebrationsTaken],
-        celebrationsPlannedThisYear: [this.experience.celebrationsPlannedThisYear],
-      }
-    } else {
-      return { kwcStatus: '', kwcSince: '', numberOfCommunionDays: '', numberOfPrayerRetreats: '' }
-    }
-  }
-
-  private getChristeningDate() {
-    if (this.personalData == null) return null;
-    return this.personalData.christeningDate ? this.personalData.christeningDate : null;
-  }
-
-  private getChristeningPlace() {
-    if (this.personalData == null) return null;
-    return this.personalData.christeningPlace ? this.personalData.christeningPlace : null;
-  }
-
-  private getFatherName() {
-    if (this.personalData == null) return null;
-    return this.personalData.fatherName ? this.personalData.fatherName : null;
-  }
-
-  private getMotherName() {
-    if (this.personalData == null) return null;
-    return this.personalData.motherName ? this.personalData.motherName : null;
-  }
-
-  private getEmergencyContactName() {
-    if (this.personalData == null) return null;
-    return this.personalData.emergencyContactName ? this.personalData.emergencyContactName : null;
-  }
-
-  private getEmergencyContactNumber() {
-    if (this.personalData == null) return null;
-    return this.personalData.emergencyContactNumber ? this.personalData.emergencyContactNumber : null;
   }
 
   ngOnDestroy(): void {
@@ -158,62 +70,19 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let participant = new Participant();
-    participant.id = this.id;
-    participant.firstName = this.form.get('firstName').value;
-    participant.lastName = this.form.get('lastName').value;
-    participant.pesel = this.form.get('pesel').value;
-    participant.parishId = this.form.get('parishId').value;
-    participant.personalData = this.getPersonalDataFromForm();
-    participant.address = this.getAddressFromForm();
-    participant.healthReport = this.getHealthReportFromForm();
-    participant.experience = this.getExperienceFromForm();
+    const participant = Participant.parseForm(this.id, this.form);
     this.formOutput.emit(participant);
   }
 
-  private getPersonalDataFromForm(): PersonalData {
-    const personalData = new PersonalData();
-    personalData.christeningDate = this.form.get('christeningDate').value;
-    personalData.christeningPlace = this.form.get('christeningPlace').value;
-    personalData.fatherName = this.form.get('fatherName').value;
-    personalData.motherName = this.form.get('motherName').value;
-    personalData.emergencyContactName = this.form.get('emergencyContactName').value;
-    personalData.emergencyContactNumber = this.form.get('emergencyContactNumber').value;
-    return personalData;
+  setCurrentStep(index: number) {
+    this.currentStep = index;
   }
 
-  private getAddressFromForm(): Address {
-    const address = new Address();
-    address.streetName = this.form.get('address.streetName').value;
-    address.streetNumber = this.form.get('address.streetNumber').value;
-    address.flatNumber = this.form.get('address.flatNumber').value;
-    address.postalCode = this.form.get('address.postalCode').value;
-    address.city = this.form.get('address.city').value;
-    return address;
+  nextStep() {
+    this.currentStep++;
   }
 
-  private getHealthReportFromForm(): HealthReport {
-    const healthReport = new HealthReport();
-    healthReport.currentTreatment = this.form.get('healthReport.currentTreatment').value;
-    healthReport.medications = this.form.get('healthReport.medications').value;
-    healthReport.allergies = this.form.get('healthReport.allergies').value;
-    healthReport.other = this.form.get('healthReport.other').value;
-    return healthReport;
-  }
-
-  private getExperienceFromForm(): Experience {
-    const experience = new Experience();
-    experience.kwcStatus = this.form.get('experience.kwcStatus').value;
-    experience.kwcSince = this.form.get('experience.kwcSince').value;
-    experience.numberOfCommunionDays = this.form.get('experience.numberOfCommunionDays').value;
-    experience.numberOfPrayerRetreats = this.form.get('experience.numberOfPrayerRetreats').value;
-    experience.formationMeetingsInMonth = this.form.get('experience.formationMeetingsInMonth').value;
-    experience.leadingGroupToFormationStage = this.form.get('experience.leadingGroupToFormationStage').value;
-    experience.deuterocatechumenateYear = this.form.get('experience.deuterocatechumenateYear').value;
-    experience.stepsTaken = this.form.get('experience.stepsTaken').value;
-    experience.stepsPlannedThisYear = this.form.get('experience.stepsPlannedThisYear').value;
-    experience.celebrationsTaken = this.form.get('experience.celebrationsTaken').value;
-    experience.celebrationsPlannedThisYear = this.form.get('experience.celebrationsPlannedThisYear').value;
-    return experience;
+  previousStep() {
+    this.currentStep--;
   }
 }

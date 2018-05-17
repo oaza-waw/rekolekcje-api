@@ -1,7 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.assertj.core.util.Lists;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -10,11 +9,11 @@ import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageBehaviour;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageExpectations;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageBehaviour;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageExpectations;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,10 +44,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
     whenInParticipantsApi = new ParticipantsApiBehaviour(mockMvc);
     thenInParticipantsApi = new ParticipantsApiExpectations(jsonMapper);
-  }
 
-  @After
-  public void teardown() {
     participantsDatabase.clearParticipants();
   }
 

@@ -1,12 +1,4 @@
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{healthReportData.currentTreatment}}" placeholder="Current treatment">
-</mat-form-field>
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{healthReportData.medications}}" placeholder="Medications">
-</mat-form-field>
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{healthReportData.allergies}}" placeholder="Allergies">
-</mat-form-field>
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{healthReportData.other}}" placeholder="Other">
-</mat-form-field>
+<reko-details-text-field [fieldValue]="healthReportData.currentTreatment" [label]="'Current treatment'"></reko-details-text-field>
+<reko-details-text-field [fieldValue]="healthReportData.medications" [label]="'Medications'"></reko-details-text-field>
+<reko-details-text-field [fieldValue]="healthReportData.allergies" [label]="'Allergies'"></reko-details-text-field>
+<reko-details-text-field [fieldValue]="healthReportData.other" [label]="'Other'"></reko-details-text-field>

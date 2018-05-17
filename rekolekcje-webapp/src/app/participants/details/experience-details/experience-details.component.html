@@ -1,44 +1,22 @@
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{experienceData.kwcStatus}}" placeholder="KWC status">
-</mat-form-field>
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{experienceData.kwcSince}}" placeholder="In KWC since">
-</mat-form-field>
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{experienceData.numberOfCommunionDays}}" placeholder="Number of Communion Days">
-</mat-form-field>
-<mat-form-field class="field-wide">
-  <input matInput disabled value="{{experienceData.numberOfPrayerRetreats}}" placeholder="Number of prayer retreats">
-</mat-form-field>
+<table class="field-wide">
+  <tr>
+    <td><reko-details-text-field [fieldValue]="experienceData.kwcStatus" [label]="'KWC status'"></reko-details-text-field></td>
+    <td><reko-details-text-field [fieldValue]="experienceData.kwcSince" [label]="'In KWC since'"></reko-details-text-field></td>
+  </tr>
+  <tr>
+    <td><reko-details-text-field [fieldValue]="experienceData.numberOfCommunionDays" [label]="'Number of Communion Days'"></reko-details-text-field></td>
+    <td><reko-details-text-field [fieldValue]="experienceData.numberOfPrayerRetreats" [label]="'Number of Prayer Retreats'"></reko-details-text-field></td>
+  </tr>
+</table>
 
 <h4>Constant formation</h4>
 
 <table class="field-wide">
-  <td>
-    <mat-form-field class="field-wide">
-      <input matInput disabled value="{{experienceData.formationMeetingsInMonth}}" placeholder="Formation meetings in month">
-    </mat-form-field>
-  </td>
-  <td>
-    <mat-form-field class="field-wide">
-      <input matInput disabled value="{{experienceData.leadingGroupToFormationStage}}" placeholder="Leading group to formation stage">
-    </mat-form-field>
-  </td>
+  <td><reko-details-text-field [fieldValue]="experienceData.formationMeetingsInMonth" [label]="'Formation meetings in month'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="experienceData.leadingGroupToFormationStage" [label]="'Leading group to formation stage'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
-  <td>
-    <mat-form-field class="field-wide">
-      <input matInput disabled value="{{experienceData.deuterocatechumenateYear}}" placeholder="Deuterocatechumenate (year)">
-    </mat-form-field>
-  </td>
-  <td>
-    <mat-form-field class="field-wide">
-      <input matInput disabled value="{{experienceData.stepsTaken}} / {{experienceData.stepsPlannedThisYear}}" placeholder="Steps taken/planned this year">
-    </mat-form-field>
-  </td>
-  <td>
-    <mat-form-field class="field-wide">
-      <input matInput disabled value="{{experienceData.celebrationsTaken}} / {{experienceData.celebrationsPlannedThisYear}}" placeholder="Celebrations taken/planned this year">
-    </mat-form-field>
-  </td>
+  <td><reko-details-text-field [fieldValue]="experienceData.deuterocatechumenateYear" [label]="'Deuterocatechumenate (year)'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="experienceData.stepsTaken + ' / '  + experienceData.stepsPlannedThisYear" [label]="'Steps taken/planned this year'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="experienceData.celebrationsTaken + ' / '  + experienceData.celebrationsPlannedThisYear" [label]="'Celebrations taken/planned this year'"></reko-details-text-field></td>
 </table>

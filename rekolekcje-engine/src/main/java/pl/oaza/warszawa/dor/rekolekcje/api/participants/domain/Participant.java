@@ -16,8 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
 
 @Entity
 @Builder
@@ -79,53 +79,14 @@ class Participant {
   }
 
   private AddressValue getAddressValue() {
-    if (address != null) {
-      return AddressValue.builder()
-          .city(address.getCity())
-          .postalCode(address.getPostalCode())
-          .flatNumber(address.getFlatNumber())
-          .streetNumber(address.getStreetNumber())
-          .streetName(address.getStreet())
-          .build();
-    } else {
-      return AddressValue.builder().build();
-    }
+    return address != null ? address.value() : AddressValue.builder().build();
   }
 
   private HealthReportValue getHealthStatusValue() {
-    if (healthReport == null) {
-      return HealthReportValue.builder().build();
-    }
-
-    return HealthReportValue.builder()
-        .currentTreatment(healthReport.getCurrentTreatment())
-        .medications(healthReport.getMedications())
-        .allergies(healthReport.getAllergies())
-        .other(healthReport.getOther())
-        .build();
+    return healthReport != null ? healthReport.value() : HealthReportValue.builder().build();
   }
 
   private ExperienceValue getExperienceValue() {
-    if (experience == null) {
-      return ExperienceValue.builder().build();
-    }
-
-    return ExperienceValue.builder()
-        .kwcSince(convertToUtc(experience.getKwcSince()))
-        .kwcStatus(experience.getKwcStatus())
-        .numberOfCommunionDays(experience.getNumberOfCommunionDays())
-        .numberOfPrayerRetreats(experience.getNumberOfPrayerRetreats())
-        .formationMeetingsInMonth(experience.getFormationMeetingsInMonth())
-        .leadingGroupToFormationStage(experience.getLeadingGroupToFormationStage())
-        .deuterocatechumenateYear(experience.getDeuterocatechumenateYear())
-        .stepsTaken(experience.getStepsTaken())
-        .stepsPlannedThisYear(experience.getStepsPlannedThisYear())
-        .celebrationsTaken(experience.getCelebrationsTaken())
-        .celebrationsPlannedThisYear(experience.getCelebrationsPlannedThisYear())
-        .build();
-  }
-
-  private ZonedDateTime convertToUtc(LocalDateTime dateTime) {
-    return dateTime != null ? ZonedDateTime.of(dateTime, ZoneId.of("UTC")) : null;
+    return experience != null ? experience.value() : ExperienceValue.builder().build();
   }
 }

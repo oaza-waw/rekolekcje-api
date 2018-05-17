@@ -12,4 +12,21 @@ export class HealthReportFormComponent {
   @Input() public healthReportData: HealthReport;
   @Input() public healthReportForm: FormGroup;
 
+  static buildFormConfig(healthReport: HealthReport) {
+    if (healthReport != null) {
+      return {
+        currentTreatment: [healthReport.currentTreatment ? healthReport.currentTreatment : ''],
+        medications: [healthReport.medications ? healthReport.medications : ''],
+        allergies: [healthReport.allergies ? healthReport.allergies : ''],
+        other: [healthReport.other ? healthReport.other : ''],
+      }
+    } else {
+      return {
+        currentTreatment: '',
+        medications: '',
+        allergies: '',
+        other: '',
+      }
+    }
+  }
 }
