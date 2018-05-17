@@ -67,5 +67,14 @@ public class Database {
   public void clearRegion() {
     jdbcTemplate.execute("DELETE FROM region");
   }
+
+  public List<RegionData> getAllRegions() {
+    return jdbcTemplate.query("SELECT * FROM region",
+      (rs, rowNum) -> new RegionData(rs.getLong("id"), rs.getString("name")));
+  }
+
+  public void clearRegion() {
+    jdbcTemplate.execute("DELETE FROM region");
+  }
 }
 
