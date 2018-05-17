@@ -12,17 +12,21 @@ import java.time.ZonedDateTime;
 
 public class ParticipantFactory {
 
-  private static AddressValue sampleAddress = AddressValue.builder()
-      .city("Chicago")
-      .streetName("Narrow")
-      .streetNumber(44)
+  private static final PersonalData samplePersonalData = PersonalData.builder()
+//      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
+      .motherName("Jane")
       .build();
 
-  private static final HealthReportValue sampleHealthStatus = HealthReportValue.builder()
-      .currentTreatment("Standard treatment for diabetes")
-      .medications("Insuline")
-      .allergies("Peanuts, lactose")
-      .other("May be very weird sometimes")
+  private static final AddressValue sampleAddress = AddressValue.builder()
+      .city("Chicago")
+      .build();
+
+  private static final HealthReportValue sampleHealthReport = HealthReportValue.builder()
+      .medications("Gripex")
+      .build();
+
+  private static final ExperienceValue sampleExperience = ExperienceValue.builder()
+      .kwcStatus("Active")
       .build();
 
   public static ParticipantDTO sampleParticipant(Long id) {
@@ -30,7 +34,10 @@ public class ParticipantFactory {
         .id(id)
         .firstName("Sample")
         .lastName("Participant")
+        .personalData(samplePersonalData)
         .address(sampleAddress)
+        .healthReport(sampleHealthReport)
+        .experience(sampleExperience)
         .pesel(98101012345L)
         .parishId(1L)
         .build();
@@ -56,7 +63,7 @@ public class ParticipantFactory {
         .parishId(1L)
         .personalData(fullPersonalData)
         .experience(fullExperienceValue)
-        .healthReport(sampleHealthStatus)
+        .healthReport(fullHealthReport)
         .build();
   }
 
@@ -75,6 +82,13 @@ public class ParticipantFactory {
       .flatNumber(13)
       .postalCode("12-654")
       .city("New York")
+      .build();
+
+  private static final HealthReportValue fullHealthReport = HealthReportValue.builder()
+      .currentTreatment("Standard treatment for diabetes")
+      .medications("Insuline")
+      .allergies("Peanuts, lactose")
+      .other("May be very weird sometimes")
       .build();
 
   private static ExperienceValue fullExperienceValue = ExperienceValue.builder()
