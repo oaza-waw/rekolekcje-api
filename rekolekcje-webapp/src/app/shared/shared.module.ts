@@ -5,7 +5,6 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedDetailsModule } from './details/shared-details.module';
-import { SharedFormModule } from './form/shared-form.module';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { SharedFormModule } from './form/shared-form.module';
     MaterialModule,
     ReactiveFormsModule,
     SharedDetailsModule,
-    SharedFormModule,
   ],
   declarations: [
     PageNotFoundComponent
@@ -25,7 +23,6 @@ import { SharedFormModule } from './form/shared-form.module';
     MaterialModule,
     ReactiveFormsModule,
     SharedDetailsModule,
-    SharedFormModule,
   ],
 })
 export class SharedModule { }
