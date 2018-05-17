@@ -71,4 +71,5 @@
     "karma-typescript": "latest",
     "phantomjs-prebuilt": "latest",
     "redux-devtools-extension": "^2.13.2"
+  }
 }
