@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 public class ParticipantFactory {
 
   private static final PersonalData samplePersonalData = PersonalData.builder()
-//      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
+      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
       .motherName("Jane")
       .build();
 

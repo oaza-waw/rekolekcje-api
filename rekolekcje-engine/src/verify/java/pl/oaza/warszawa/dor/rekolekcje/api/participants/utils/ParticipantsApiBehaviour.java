@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -9,10 +10,11 @@ public class ParticipantsApiBehaviour {
 
   private final MockMvc mockMvc;
 
-  private final ParticipantsRequestBuilder requestBuilder = new ParticipantsRequestBuilder();
+  private final ParticipantsRequestBuilder requestBuilder;
 
-  public ParticipantsApiBehaviour(MockMvc mockMvc) {
+  public ParticipantsApiBehaviour(MockMvc mockMvc, ObjectMapper jsonMapper) {
     this.mockMvc = mockMvc;
+    this.requestBuilder = new ParticipantsRequestBuilder(jsonMapper);
   }
 
   public ResultActions allParticipantsAreRequested() throws Exception {

@@ -15,7 +15,11 @@ class ParticipantsRequestBuilder {
 
   private final String PARTICIPANTS_API_URI = "/api/participants";
 
-  private ObjectMapper jsonMapper = new ObjectMapper();
+  private final ObjectMapper jsonMapper;
+
+  ParticipantsRequestBuilder(ObjectMapper jsonMapper) {
+    this.jsonMapper = jsonMapper;
+  }
 
   MockHttpServletRequestBuilder createGetAllRequest() {
     return get(PARTICIPANTS_API_URI);

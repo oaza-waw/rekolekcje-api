@@ -2,6 +2,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -43,7 +46,7 @@ public class ParticipantsStorageExpectations {
     assertThat(dto.getPersonalData().getFatherName()).isEqualTo(data.getFatherName());
     assertThat(dto.getPersonalData().getMotherName()).isEqualTo(data.getMotherName());
     assertThat(dto.getPersonalData().getChristeningPlace()).isEqualTo(data.getChristeningPlace());
-    assertThat(dto.getPersonalData().getChristeningDate()).isEqualTo(data.getChristeningDate());
+    compareDates(dto.getPersonalData().getChristeningDate(), convertToUtc(data.getChristeningDate()));
     assertThat(dto.getPersonalData().getEmergencyContactName()).isEqualTo(data.getCloseRelativeName());
     assertThat(dto.getPersonalData().getEmergencyContactNumber()).isEqualTo(data.getCloseRelativeNumber());
     assertThat(dto.getAddress().getStreetName()).isEqualTo(data.getStreet());
@@ -51,9 +54,20 @@ public class ParticipantsStorageExpectations {
     assertThat(dto.getAddress().getFlatNumber()).isEqualTo(data.getFlatNumber());
     assertThat(dto.getAddress().getPostalCode()).isEqualTo(data.getPostalCode());
     assertThat(dto.getAddress().getCity()).isEqualTo(data.getCity());
-    assertThat(dto.getExperience().getKwcSince()).isEqualTo(data.getKwcSince());
+    compareDates(dto.getExperience().getKwcSince(), convertToUtc(data.getKwcSince()));
     assertThat(dto.getExperience().getKwcStatus()).isEqualTo(data.getKwcStatus());
     assertThat(dto.getExperience().getNumberOfCommunionDays()).isEqualTo(data.getNumberOfCommunionDays());
     assertThat(dto.getExperience().getNumberOfPrayerRetreats()).isEqualTo(data.getNumberOfPrayerRetreats());
+  }
+
+  private void compareDates(ZonedDateTime actual, ZonedDateTime expected) {
+    if (actual == null && expected == null) {
+      return;
+    }
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  private ZonedDateTime convertToUtc(LocalDateTime localDateTime) {
+    return localDateTime != null ? ZonedDateTime.of(localDateTime, ZoneId.of("UTC")) : null;
   }
 }

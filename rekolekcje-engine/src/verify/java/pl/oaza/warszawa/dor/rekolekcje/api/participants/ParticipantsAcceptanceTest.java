@@ -42,7 +42,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     whenInStorage = new ParticipantsStorageBehaviour(participantsDatabase);
     thenInStorage = new ParticipantsStorageExpectations(participantsDatabase);
 
-    whenInParticipantsApi = new ParticipantsApiBehaviour(mockMvc);
+    whenInParticipantsApi = new ParticipantsApiBehaviour(mockMvc, jsonMapper);
     thenInParticipantsApi = new ParticipantsApiExpectations(jsonMapper);
 
     participantsDatabase.clearParticipants();
