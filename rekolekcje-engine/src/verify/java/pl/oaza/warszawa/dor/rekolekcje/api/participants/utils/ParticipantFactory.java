@@ -36,6 +36,7 @@ public class ParticipantFactory {
         .lastName("Participant")
         .personalData(samplePersonalData)
         .address(sampleAddress)
+        .pesel("98101012345")
         .healthReport(sampleHealthReport)
         .experience(sampleExperience)
         .pesel(98101012345L)
@@ -48,7 +49,7 @@ public class ParticipantFactory {
         .id(id)
         .firstName("Minimal")
         .lastName("Participant")
-        .pesel(92042312345L)
+        .pesel("92042312345")
         .parishId(1L)
         .build();
   }
@@ -59,7 +60,7 @@ public class ParticipantFactory {
         .firstName("John")
         .lastName("Smith")
         .address(fullAddress)
-        .pesel(90042312345L)
+        .pesel("90042312345")
         .parishId(1L)
         .personalData(fullPersonalData)
         .experience(fullExperienceValue)

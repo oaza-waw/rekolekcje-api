@@ -66,7 +66,7 @@ dependencies {
     exclude group:'com.vaadin.external.google', module: 'android-json'
   }
   testCompile 'org.springframework.security:spring-security-test:5.0.0.RELEASE'
-  testCompile 'org.assertj:assertj-core:3.8.0'
+  testCompile 'org.assertj:assertj-core:3.9.1'
   testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3.3'
 }
 

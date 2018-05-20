@@ -33,7 +33,7 @@
             <column name="first_name" type="VARCHAR(255)"/>
             <column name="last_name" type="VARCHAR(255)"/>
             <column name="parish" type="VARCHAR(255)"/>
-            <column name="pesel" type="BIGINT">
+            <column name="pesel" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
