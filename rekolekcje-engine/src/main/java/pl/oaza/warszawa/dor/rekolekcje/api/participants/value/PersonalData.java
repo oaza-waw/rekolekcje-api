@@ -11,6 +11,7 @@ public class PersonalData {
 
   private final String fatherName;
   private final String motherName;
+  private final String birthDate;
   private final String christeningPlace;
   private final ZonedDateTime christeningDate;
   private final String emergencyContactName;
