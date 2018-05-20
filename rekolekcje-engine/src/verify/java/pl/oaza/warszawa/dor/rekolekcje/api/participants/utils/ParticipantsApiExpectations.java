@@ -57,7 +57,7 @@ public class ParticipantsApiExpectations {
         .getContentAsString();
     final DocumentContext parsedJson = JsonPath.parse(content);
     assertThat(parsedJson.read("$.id", Long.class)).isEqualTo(expectedParticipant.getId());
-    assertThat(parsedJson.read("$.pesel", Long.class)).isEqualTo(expectedParticipant.getPesel());
+    assertThat(parsedJson.read("$.pesel", String.class)).isEqualTo(expectedParticipant.getPesel());
     assertThat(parsedJson.read("$.firstName", String.class)).isEqualTo(expectedParticipant.getFirstName());
     assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(expectedParticipant.getLastName());
     assertThat(parsedJson.read("$.parishId", Long.class)).isEqualTo(expectedParticipant.getParishId());

@@ -30,7 +30,7 @@ class Participant {
   private Long id;
   private String firstName;
   private String lastName;
-  private Long pesel;
+  private String pesel;
   private Long parishId;
 
   @Embedded

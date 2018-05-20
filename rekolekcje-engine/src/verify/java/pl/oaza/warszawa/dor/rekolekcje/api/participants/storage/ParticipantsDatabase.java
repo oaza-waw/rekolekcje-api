@@ -28,7 +28,7 @@ public class ParticipantsDatabase {
         participantDTO.getPesel());
   }
 
-  private ParticipantData getSavedParticipantData(String firstName, String lastName, Long pesel) {
+  private ParticipantData getSavedParticipantData(String firstName, String lastName, String pesel) {
     List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * " +
             "FROM participant " +
             "WHERE first_name = ? " +
@@ -47,7 +47,7 @@ public class ParticipantsDatabase {
         .id(DaoTools.getLong(rs, "id"))
         .firstName(rs.getString("first_name"))
         .lastName(rs.getString("last_name"))
-        .pesel(DaoTools.getLong(rs, "pesel"))
+        .pesel(rs.getString("pesel"))
         .parishId(DaoTools.getLong(rs, "parish_id"))
         .fatherName(rs.getString("father_name"))
         .motherName(rs.getString("mother_name"))
@@ -114,7 +114,7 @@ public class ParticipantsDatabase {
           dto.getHealthReport().getMedications(),
           dto.getHealthReport().getAllergies(),
           dto.getHealthReport().getOther()
-          );
+      );
     });
   }
 

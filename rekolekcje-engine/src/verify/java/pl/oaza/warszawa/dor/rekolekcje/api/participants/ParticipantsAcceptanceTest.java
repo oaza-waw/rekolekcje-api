@@ -101,7 +101,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
         .firstName("Luke")
         .lastName("Skywalker")
         .parishId(1L)
-        .pesel(80020354321L)
+        .pesel("80020354321")
         .build();
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
 
