@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
@@ -33,8 +36,9 @@ class Experience {
   private Integer celebrationsTaken;
   private Integer celebrationsPlannedThisYear;
 
-  @OneToMany(mappedBy = "participantId")
-  private List<RetreatTurn> historicalRetreats;
+  @Builder.Default
+  @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
+  private Set<RetreatTurn> historicalRetreats = new HashSet<>();
 
   ExperienceValue value() {
     return ExperienceValue.builder()

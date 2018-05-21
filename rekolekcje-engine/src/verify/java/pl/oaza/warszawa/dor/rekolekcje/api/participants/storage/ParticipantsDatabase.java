@@ -80,6 +80,16 @@ public class ParticipantsDatabase {
 
   void saveParticipants(List<ParticipantDTO> participantDTOs) {
     participantDTOs.forEach(dto -> {
+//      final List<RetreatTurnValue> historicalRetreats = dto.getExperience().getHistoricalRetreats();
+//      if (historicalRetreats != null) {
+//        historicalRetreats.forEach(retreat -> {
+//          jdbcTemplate.update(
+//              "INSERT INTO retreat_turn(id, participant_id, stage, location, year)" +
+//                  "VALUES (?, ?, ?, ?, ?)",
+//              retreat.getId(), dto.getId(), retreat.getStage(), retreat.getLocation(), retreat.getYear()
+//          );
+//        });
+//      }
       jdbcTemplate.update(
           "INSERT INTO " +
               "participant(" +

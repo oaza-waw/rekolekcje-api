@@ -1,5 +1,5 @@
 server:
-     port: ${PORT:5000}
+ port: ${PORT:5000}
 
 spring:
   jpa:
@@ -10,8 +10,11 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:rekolekcje_test_db;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:rekolekcje_test_db;DB_CLOSE_ON_EXIT=FALSE
+#    driverClassName: org.h2.Driver
+    url: jdbc:postgresql://localhost:5433/rekolekcjedb-test
+    username: postgres
+    password: mysecretpassword
 
 liquibase:
   change-log: classpath:/db/master-changelog.xml

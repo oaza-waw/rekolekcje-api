@@ -7,7 +7,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToDateTime;
@@ -103,14 +103,14 @@ class ParticipantCreator {
         .build();
   }
 
-  private List<RetreatTurn> extractHistoricalRetreats(ExperienceValue experienceValue) {
+  private Set<RetreatTurn> extractHistoricalRetreats(ExperienceValue experienceValue) {
     if (experienceValue.getHistoricalRetreats() == null) {
       return null;
     }
 
     return experienceValue.getHistoricalRetreats().stream()
-        .map(value -> fromValue(value))
-        .collect(Collectors.toList());
+        .map(this::fromValue)
+        .collect(Collectors.toSet());
   }
 
   private RetreatTurn fromValue(RetreatTurnValue retreatTurnValue) {
@@ -119,6 +119,7 @@ class ParticipantCreator {
     }
 
     return RetreatTurn.builder()
+        .id(retreatTurnValue.getId())
         .stage(retreatTurnValue.getStage())
         .location(retreatTurnValue.getLocation())
         .year(retreatTurnValue.getYear())
