@@ -7,11 +7,7 @@ services:
   - docker
 
 before_install:
-  - docker run --name db-rekolekcje-test \
-      -p 5433:5432 \
-      -e POSTGRES_DB=rekolekcjedb-test \
-      -e POSTGRES_PASSWORD=mysecretpassword \
-      -d postgres
+  - docker run --name db-rekolekcje-test -p 5433:5432 -e POSTGRES_DB=rekolekcjedb-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres
 
 addons:
   chrome: stable
