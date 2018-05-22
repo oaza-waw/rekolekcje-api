@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class ParticipantsTestData {
 
@@ -53,7 +54,7 @@ class ParticipantsTestData {
       .pesel("93010100000")
       .build();
 
-  private static final List<RetreatTurnValue> historicalTurns = Arrays.asList(
+  private static final Set<RetreatTurnValue> historicalTurns = new HashSet<>(Arrays.asList(
       RetreatTurnValue.builder()
           .stage("ODB")
           .location("Somewhere")
@@ -64,7 +65,7 @@ class ParticipantsTestData {
           .location("Mountains")
           .year(2017)
           .build()
-  );
+  ));
 
   private static final ExperienceValue sampleExperienceValue = ExperienceValue.builder()
       .kwcStatus("Member")

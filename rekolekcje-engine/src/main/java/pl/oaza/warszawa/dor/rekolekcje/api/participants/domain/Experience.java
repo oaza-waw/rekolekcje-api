@@ -12,7 +12,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,9 +56,11 @@ class Experience {
         .build();
   }
 
-  private List<RetreatTurnValue> mapToValue() {
-    if (historicalRetreats == null) return null;
+  private Set<RetreatTurnValue> mapToValue() {
+    if (historicalRetreats == null) {
+      return null;
+    }
 
-    return historicalRetreats.stream().map(RetreatTurn::value).collect(Collectors.toList());
+    return historicalRetreats.stream().map(RetreatTurn::value).collect(Collectors.toSet());
   }
 }
