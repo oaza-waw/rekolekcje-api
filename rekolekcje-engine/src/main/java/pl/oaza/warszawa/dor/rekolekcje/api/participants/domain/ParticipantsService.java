@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.Arrays;
@@ -17,12 +18,14 @@ public class ParticipantsService {
     this.participantsRepository = participantsRepository;
   }
 
+  @Transactional
   public List<ParticipantDTO> findAll() {
     return participantsRepository.findAll().stream()
         .map(Participant::dto)
         .collect(Collectors.toList());
   }
 
+  @Transactional
   public ParticipantDTO find(Long id) {
     requireNonNull(id);
     final Participant participant = participantsRepository.findOneOrThrow(id);
