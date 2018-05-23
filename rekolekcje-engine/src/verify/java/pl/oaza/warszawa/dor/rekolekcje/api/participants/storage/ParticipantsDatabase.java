@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.DaoTools;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -174,8 +174,8 @@ public class ParticipantsDatabase {
     return dto.getPersonalData() == null ? null : dto.getPersonalData().getChristeningPlace();
   }
 
-  private LocalDateTime convertToLocalDate(ZonedDateTime zonedDateTime) {
-    return zonedDateTime != null ? zonedDateTime.toLocalDateTime() : null;
+  private Timestamp convertToLocalDate(ZonedDateTime zonedDateTime) {
+    return zonedDateTime != null ? Timestamp.valueOf(zonedDateTime.toLocalDateTime()) : null;
   }
 
   public void clearParticipants() {

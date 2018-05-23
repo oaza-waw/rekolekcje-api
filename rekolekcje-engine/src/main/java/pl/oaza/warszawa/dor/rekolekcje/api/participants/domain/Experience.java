@@ -57,7 +57,7 @@ class Experience {
   }
 
   private Set<RetreatTurnValue> mapToValue() {
-    if (historicalRetreats == null) {
+    if (historicalRetreats == null || historicalRetreats.isEmpty()) {
       return null;
     }
 

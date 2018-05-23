@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
@@ -49,6 +50,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     participantsDatabase.clearParticipants();
   }
 
+  @Transactional
   @WithMockUser
   @Test
   public void shouldGetAllParticipants() throws Exception {
@@ -57,6 +59,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     thenInParticipantsApi.responseHasAllParticipants(response, participants);
   }
 
+  @Transactional
   @WithMockUser
   @Test
   public void shouldGetFullDataOfSingleParticipant() throws Exception {
