@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
+import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +38,7 @@ class Experience {
 
   @Builder.Default
   @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
-  private Set<RetreatTurn> historicalRetreats = new HashSet<>();
+  private Set<RetreatTurn> historicalRetreats = Sets.newHashSet();
 
   ExperienceValue value() {
     return ExperienceValue.builder()

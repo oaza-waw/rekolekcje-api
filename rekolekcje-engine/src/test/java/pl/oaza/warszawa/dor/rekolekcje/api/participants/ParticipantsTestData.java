@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import com.google.common.collect.Sets;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
@@ -10,8 +11,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 class ParticipantsTestData {
@@ -54,7 +53,7 @@ class ParticipantsTestData {
       .pesel("93010100000")
       .build();
 
-  private static final Set<RetreatTurnValue> historicalTurns = new HashSet<>(Arrays.asList(
+  private static final Set<RetreatTurnValue> historicalTurns = Sets.newHashSet(
       RetreatTurnValue.builder()
           .stage("ODB")
           .location("Somewhere")
@@ -65,7 +64,7 @@ class ParticipantsTestData {
           .location("Mountains")
           .year(2017)
           .build()
-  ));
+  );
 
   private static final ExperienceValue sampleExperienceValue = ExperienceValue.builder()
       .kwcStatus("Member")

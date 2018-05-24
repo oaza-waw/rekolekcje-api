@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security.jwt;
 
+import com.google.common.collect.Maps;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -41,7 +41,7 @@ public class JwtTokenUtil {
     return username;
   }
 
-  public Date getCreatedDateFromToken(String token) {
+  private Date getCreatedDateFromToken(String token) {
     Date created;
     try {
       final Claims claims = getClaimsFromToken(token).orElseThrow(ClaimsNotFoundException::new);
@@ -52,7 +52,7 @@ public class JwtTokenUtil {
     return created;
   }
 
-  public Date getExpirationDateFromToken(String token) {
+  private Date getExpirationDateFromToken(String token) {
     Date expirationDate;
     try {
       final Claims claims = getClaimsFromToken(token).orElseThrow(ClaimsNotFoundException::new);
@@ -94,14 +94,14 @@ public class JwtTokenUtil {
   }
 
   public String generateToken(UserDetails userDetails) {
-    Map<String, Object> claims = new HashMap<>();
+    Map<String, Object> claims = Maps.newHashMap();
     claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
     claims.put(CLAIM_KEY_AUDIENCE, generateAudience());
     claims.put(CLAIM_KEY_CREATED, new Date());
     return generateToken(claims);
   }
 
-  String generateToken(Map<String, Object> claims) {
+  private String generateToken(Map<String, Object> claims) {
     LOGGER.info("JWT: Generating token...");
     return Jwts.builder()
         .setClaims(claims)
@@ -128,7 +128,7 @@ public class JwtTokenUtil {
     return refreshedToken;
   }
 
-  public Boolean validateToken(String token, UserDetails userDetails) {
+  Boolean validateToken(String token, UserDetails userDetails) {
     JwtUser user = (JwtUser) userDetails;
     final String username = getUsernameFromToken(token);
     final Date created = getCreatedDateFromToken(token);

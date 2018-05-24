@@ -56,6 +56,7 @@ dependencies {
   compile 'org.liquibase:liquibase-core:3.5.3'
   compile 'org.hibernate:hibernate-java8:5.1.0.Final'
   compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+  compile 'com.google.guava:guava:25.1-jre'
 
   runtime 'com.h2database:h2'
   runtime 'org.postgresql:postgresql'
