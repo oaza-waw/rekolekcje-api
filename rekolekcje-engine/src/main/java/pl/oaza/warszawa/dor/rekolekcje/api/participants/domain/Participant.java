@@ -10,14 +10,12 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
+
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil.PeselBirthDateConverter.convertPeselToBirthDate;
 
 @Entity
 @Builder
@@ -71,6 +69,7 @@ class Participant {
     return PersonalData.builder()
         .fatherName(fatherName)
         .motherName(motherName)
+        .birthDate(convertPeselToBirthDate(pesel))
         .christeningPlace(christeningPlace)
         .christeningDate(convertToUtc(christeningDate))
         .emergencyContactName(closeRelativeName)
