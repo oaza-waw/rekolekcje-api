@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants.PeselUtil;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil;
 
 import org.junit.Test;
 

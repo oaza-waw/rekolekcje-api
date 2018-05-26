@@ -1,6 +1,5 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.PeselUtil.PeselBirthDateConverter;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
