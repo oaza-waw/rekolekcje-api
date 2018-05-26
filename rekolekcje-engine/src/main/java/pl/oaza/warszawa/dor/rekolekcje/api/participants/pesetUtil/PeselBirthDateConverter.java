@@ -65,7 +65,7 @@ public class PeselBirthDateConverter {
     } else if (month > 60 && month < 73) {
       year += 2200;
     }
-    log.info("year -> {}" , year);
+
     return year;
   }
 
@@ -84,7 +84,6 @@ public class PeselBirthDateConverter {
       month -= 60;
     }
 
-    log.info("month -> {}" , month);
     return month;
   }
 
@@ -93,7 +92,6 @@ public class PeselBirthDateConverter {
     day = 10 * pesel.get(4);
     day += pesel.get(5);
 
-    log.info("day -> {}" , day);
     return day;
   }
 
