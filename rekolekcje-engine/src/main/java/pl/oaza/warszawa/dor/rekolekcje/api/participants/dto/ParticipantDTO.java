@@ -31,5 +31,4 @@ public final class ParticipantDTO {
   @Builder.Default
   private final HealthReportValue healthReport = HealthReportValue.builder().build();
 
-
 }
