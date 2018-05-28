@@ -39,7 +39,6 @@ public class ParticipantFactory {
         .pesel("98101012345")
         .healthReport(sampleHealthReport)
         .experience(sampleExperience)
-        .pesel(98101012345L)
         .parishId(1L)
         .build();
   }
@@ -50,6 +49,7 @@ public class ParticipantFactory {
         .firstName("Minimal")
         .lastName("Participant")
         .pesel("92042312345")
+        //.personalData(PersonalData.builder().birthDate("23.04.1992").build())
         .parishId(1L)
         .build();
   }
@@ -71,6 +71,7 @@ public class ParticipantFactory {
   private static PersonalData fullPersonalData = PersonalData.builder()
       .motherName("Mary")
       .fatherName("Jake")
+      .birthDate("23.07.1990")
       .christeningPlace("Los Angeles")
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
       .emergencyContactName("Uncle Bob")

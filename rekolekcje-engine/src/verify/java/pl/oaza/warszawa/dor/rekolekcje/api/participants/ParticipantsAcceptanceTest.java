@@ -38,6 +38,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     super.setup();
 
     participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
+    participantsDatabase.clearParticipants();
 
     whenInStorage = new ParticipantsStorageBehaviour(participantsDatabase);
     thenInStorage = new ParticipantsStorageExpectations(participantsDatabase);

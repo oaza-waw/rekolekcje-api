@@ -48,4 +48,9 @@ public class ParticipantsService {
     participant = participantsRepository.save(participant);
     return participant.dto();
   }
+
+  public ParticipantDTO addBirthDate(ParticipantDTO participantDTO){
+    ParticipantDTO participantWithBirthDate = ParticipantDTO.builder().build();
+    return null;
+  }
 }

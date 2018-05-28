@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Value
 @Builder
+//@EqualsAndHashCode(exclude = "birthDate")
 public class ParticipantData {
   private final Long id;
   private final String firstName;
