@@ -5,10 +5,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.DaoTools;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class ParticipantsDatabase {
 
@@ -80,16 +82,16 @@ public class ParticipantsDatabase {
 
   void saveParticipants(List<ParticipantDTO> participantDTOs) {
     participantDTOs.forEach(dto -> {
-//      final List<RetreatTurnValue> historicalRetreats = dto.getExperience().getHistoricalRetreats();
-//      if (historicalRetreats != null) {
-//        historicalRetreats.forEach(retreat -> {
-//          jdbcTemplate.update(
-//              "INSERT INTO retreat_turn(id, participant_id, stage, location, year)" +
-//                  "VALUES (?, ?, ?, ?, ?)",
-//              retreat.getId(), dto.getId(), retreat.getStage(), retreat.getLocation(), retreat.getYear()
-//          );
-//        });
-//      }
+      final Set<RetreatTurnValue> historicalRetreats = dto.getExperience().getHistoricalRetreats();
+      if (historicalRetreats != null) {
+        historicalRetreats.forEach(retreat -> {
+          jdbcTemplate.update(
+              "INSERT INTO retreat_turn(id, participant_id, stage, location, year)" +
+                  "VALUES (?, ?, ?, ?, ?)",
+              retreat.getId(), dto.getId(), retreat.getStage(), retreat.getLocation(), retreat.getYear()
+          );
+        });
+      }
       jdbcTemplate.update(
           "INSERT INTO " +
               "participant(" +
@@ -180,5 +182,6 @@ public class ParticipantsDatabase {
 
   public void clearParticipants() {
     jdbcTemplate.execute("DELETE FROM participant");
+    jdbcTemplate.execute("DELETE FROM retreat_turn");
   }
 }

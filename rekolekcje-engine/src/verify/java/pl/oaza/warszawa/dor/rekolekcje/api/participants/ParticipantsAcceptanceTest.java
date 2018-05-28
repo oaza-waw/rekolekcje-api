@@ -105,4 +105,92 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     final ParticipantData storedParticipant = thenInStorage.participantExistsWithCorrectData(participantWithNewData);
     thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
   }
+
+  @Test
+  @WithMockUser
+  public void shouldGetAllParticipantsWhenTheyAreAlreadySaved() throws Exception {
+    // given some participants with sample data are already in database
+    // when api is called for all participants
+    // all data is returned
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldGetOneParticipantWhenHeIsAlreadySaved() throws Exception {
+    // given some participants with sample data are already in database
+    // when api is called for a single participant
+    // all data is returned
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnFullDataOfASingleParticipant() throws Exception {
+    // given participant with full data is persisted through api
+    // when api is called for this participant
+    // full data is returned
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnCorrectDataWhenNewParticipantIsAdded() throws Exception {
+    // given some participants are already in database
+    // when new participant is added
+    // the same data is returned
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldSetParticipantIdWhenANewOneIsAdded() throws Exception {
+    // given some participants are already in database
+    // when participant without id is added
+    // participant with id is returned
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldPersistParticipantWhenHeIsAdded() throws Exception {
+    // given some participants are already in database
+    // when sample participant is added
+    // then its data is persisted in database
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnCorrectDataWhenMultipleParticipantsAreAdded() throws Exception {
+    // given some participants are already in database
+    // when multiple participants are added at once
+    // then all their data is returned with ids
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldPersistAllParticipantsWhenMultipleAreAdded() throws Exception {
+    // given some participants are already in database
+    // when multiple participants are added
+    // then their data is persisted
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldDeleteASingleParticipant() throws Exception {
+    // given participant exists in system
+    // when participant is deleted
+    // then participant no longer exists in database
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnParticipantWithNewDataWhenSingleOneIsUpdated() throws Exception {
+    // given some participants ale already in database
+    // when participant with the same id and new data is sent
+    // then participant with updated data is returned
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldUpdatePersistedDataWhenSingleParticipantIsUpdated() throws Exception {
+    // given some participants ale already in database
+    // when participant with the same id and new data is sent
+    // then persisted data of this participant is updated
+  }
 }

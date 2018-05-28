@@ -1,14 +1,17 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
+import com.google.common.collect.Sets;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 public class ParticipantFactory {
 
@@ -95,6 +98,19 @@ public class ParticipantFactory {
       .other("May be very weird sometimes")
       .build();
 
+  private static final Set<RetreatTurnValue> historicalTurns = Sets.newHashSet(
+      RetreatTurnValue.builder()
+          .stage("OND")
+          .location("In the middle of nowhere")
+          .year(1990)
+          .build(),
+      RetreatTurnValue.builder()
+          .stage("ONŻ 1")
+          .location("High Mountains")
+          .year(2013)
+          .build()
+  );
+
   private static ExperienceValue fullExperienceValue = ExperienceValue.builder()
       .kwcStatus("Active")
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1995, 5, 4, 12, 0), ZoneId.of("UTC")))
@@ -107,5 +123,6 @@ public class ParticipantFactory {
       .stepsTaken(4)
       .stepsPlannedThisYear(6)
       .deuterocatechumenateYear(2016)
+      .historicalRetreats(historicalTurns)
       .build();
 }
