@@ -122,6 +122,19 @@ public class ParticipantFactory {
       .stepsTaken(4)
       .stepsPlannedThisYear(6)
       .deuterocatechumenateYear(2016)
-      .historicalRetreats(historicalTurns)
       .build();
+
+  public static ParticipantDTO copyWithDifferentId(ParticipantDTO original, long id) {
+    return ParticipantDTO.builder()
+        .id(id)
+        .firstName(original.getFirstName())
+        .lastName(original.getLastName())
+        .pesel(original.getPesel())
+        .parishId(original.getParishId())
+        .personalData(original.getPersonalData())
+        .address(original.getAddress())
+        .experience(original.getExperience())
+        .healthReport(original.getHealthReport())
+        .build();
+  }
 }

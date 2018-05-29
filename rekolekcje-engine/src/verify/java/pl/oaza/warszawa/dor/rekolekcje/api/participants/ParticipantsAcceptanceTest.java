@@ -125,17 +125,29 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @Test
   @WithMockUser
   public void shouldGetOneParticipantWhenHeIsAlreadySaved() throws Exception {
-    // given some participants with sample data are already in database
-    // when api is called for a single participant
-    // all data is returned
+    whenInStorage.existParticipantsWithSampleData(participants);
+
+    final ResultActions response =
+        whenInParticipantsApi.singleParticipantIsRequested(participantWithSampleData.getId());
+
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, participantWithSampleData);
   }
 
   @Test
   @WithMockUser
   public void shouldReturnFullDataOfASingleParticipant() throws Exception {
     // given participant with full data is persisted through api
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+    final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+
     // when api is called for this participant
+    final ResultActions response =
+        whenInParticipantsApi.singleParticipantIsRequested(id);
+
     // full data is returned
+    final ParticipantDTO expectedParticipant =
+        ParticipantFactory.copyWithDifferentId(participantWithFullData, id);
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
   @Test

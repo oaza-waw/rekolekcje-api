@@ -50,6 +50,13 @@ public class ParticipantsApiExpectations {
     responseHasFullParticipantData(response, expectedParticipant);
   }
 
+  public void okResponseHasCorrectParticipantData(ResultActions response, ParticipantDTO participant) throws Exception {
+    final String expectedJsonContent = jsonMapper.writeValueAsString(participant);
+    response.andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().json(expectedJsonContent));
+  }
+
   private void responseHasFullParticipantData(ResultActions response, ParticipantData expectedParticipant) throws UnsupportedEncodingException {
     String content = response
         .andReturn()

@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.DaoTools;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.sql.Timestamp;
@@ -22,6 +23,20 @@ public class ParticipantsDatabase {
 
   List<ParticipantData> getAllParticipantData() {
     return jdbcTemplate.query("SELECT * FROM participant", getParticipantDataRowMapper());
+  }
+
+  Long findIdOfParticipantWithTheSameData(ParticipantDTO participant) {
+    final List<Long> foundIds = jdbcTemplate.query("SELECT id " +
+            "FROM participant " +
+            "WHERE first_name = ? AND last_name = ? AND pesel = ?",
+        new Object[]{participant.getFirstName(), participant.getLastName(), participant.getPesel()},
+        (rs, rowNum) -> rs.getLong("id")
+    );
+    return foundIds.stream()
+        .findAny()
+        .orElseThrow(() ->
+            new ParticipantNotFoundException(participant.getFirstName(),
+                participant.getLastName(), participant.getPesel()));
   }
 
   public ParticipantData getSavedParticipantData(ParticipantDTO participantDTO) {
@@ -159,7 +174,7 @@ public class ParticipantsDatabase {
           dto.getExperience().getStepsPlannedThisYear(),
           dto.getExperience().getCelebrationsTaken(),
           dto.getExperience().getCelebrationsPlannedThisYear()
-          );
+      );
     });
   }
 
