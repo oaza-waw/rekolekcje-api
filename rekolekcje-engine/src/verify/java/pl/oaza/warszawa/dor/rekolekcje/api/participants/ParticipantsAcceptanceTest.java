@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
@@ -49,6 +50,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     participantsDatabase.clearParticipants();
   }
 
+  @Ignore
   @WithMockUser
   @Test
   public void shouldGetAllParticipants() throws Exception {
@@ -57,6 +59,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     thenInParticipantsApi.responseHasAllParticipants(response, participants);
   }
 
+  @Ignore
   @WithMockUser
   @Test
   public void shouldGetFullDataOfSingleParticipant() throws Exception {
@@ -66,6 +69,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
   }
 
+  @Ignore
   @WithMockUser
   @Test
   public void shouldAddSingleParticipant() throws Exception {
@@ -77,6 +81,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     thenInParticipantsApi.createdResponseHasFullParticipantData(response, storedParticipant);
   }
 
+  @Ignore
   @WithMockUser
   @Test
   public void shouldDeleteSingleParticipant() throws Exception {
