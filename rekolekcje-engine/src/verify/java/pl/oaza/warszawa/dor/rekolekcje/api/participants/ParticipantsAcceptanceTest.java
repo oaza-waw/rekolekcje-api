@@ -29,10 +29,11 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   private ParticipantsApiBehaviour whenInParticipantsApi;
   private ParticipantsApiExpectations thenInParticipantsApi;
 
-  private final ParticipantDTO firstParticipant = ParticipantFactory.participantWithMinimalData(1L);
-  private final ParticipantDTO secondParticipant = ParticipantFactory.participantWithAllData(2L);
+  private final ParticipantDTO participantWithMinimalData = ParticipantFactory.participantWithMinimalData(1L);
+  private final ParticipantDTO participantWithSampleData = ParticipantFactory.sampleParticipant(2L);
+  private final ParticipantDTO participantWithFullData = ParticipantFactory.participantWithAllData(3L);
 
-  private final List<ParticipantDTO> participants = Arrays.asList(firstParticipant, secondParticipant);
+  private final List<ParticipantDTO> participants = Arrays.asList(participantWithMinimalData, participantWithSampleData);
 
   @Before
   public void setup() throws Exception {
@@ -64,7 +65,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @Test
   public void shouldGetFullDataOfSingleParticipant() throws Exception {
     whenInStorage.existSomeParticipants(participants);
-    final ParticipantData storedParticipant = participantsDatabase.getSavedParticipantData(secondParticipant);
+    final ParticipantData storedParticipant = participantsDatabase.getSavedParticipantData(participantWithSampleData);
     final ResultActions response = whenInParticipantsApi.singleParticipantIsRequested(storedParticipant.getId());
     thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
   }
@@ -86,7 +87,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @Test
   public void shouldDeleteSingleParticipant() throws Exception {
     whenInStorage.existSomeParticipants(participants);
-    final Long id = secondParticipant.getId();
+    final Long id = participantWithSampleData.getId();
     final ResultActions response = whenInParticipantsApi.singleParticipantIsDeleted(id);
     thenInParticipantsApi.okStatusIsReturned(response);
     thenInStorage.participantNoLongerExists(id);
@@ -114,9 +115,11 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @Test
   @WithMockUser
   public void shouldGetAllParticipantsWhenTheyAreAlreadySaved() throws Exception {
-    // given some participants with sample data are already in database
-    // when api is called for all participants
-    // all data is returned
+    whenInStorage.existParticipantsWithSampleData(participants);
+
+    final ResultActions response = whenInParticipantsApi.allParticipantsAreRequested();
+
+    thenInParticipantsApi.responseHasAllParticipants(response, participants);
   }
 
   @Test

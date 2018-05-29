@@ -17,15 +17,14 @@ public class ParticipantFactory {
 
   private static final PersonalData samplePersonalData = PersonalData.builder()
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
-      .motherName("Jane")
       .build();
 
   private static final AddressValue sampleAddress = AddressValue.builder()
-      .city("Chicago")
+      .postalCode("AB 321")
       .build();
 
   private static final HealthReportValue sampleHealthReport = HealthReportValue.builder()
-      .medications("Gripex")
+      .currentTreatment("Broken leg")
       .build();
 
   private static final ExperienceValue sampleExperience = ExperienceValue.builder()
@@ -37,12 +36,12 @@ public class ParticipantFactory {
         .id(id)
         .firstName("Sample")
         .lastName("Participant")
+        .pesel("98101012345")
+        .parishId(1L)
         .personalData(samplePersonalData)
         .address(sampleAddress)
-        .pesel("98101012345")
         .healthReport(sampleHealthReport)
         .experience(sampleExperience)
-        .parishId(1L)
         .build();
   }
 

@@ -184,4 +184,29 @@ public class ParticipantsDatabase {
     jdbcTemplate.execute("DELETE FROM participant");
     jdbcTemplate.execute("DELETE FROM retreat_turn");
   }
+
+  void persistPartialParticipantsData(List<ParticipantDTO> participants) {
+    participants.forEach(dto -> {
+      jdbcTemplate.update("INSERT INTO participant (" +
+              "id," +
+              "first_name," +
+              "last_name," +
+              "pesel," +
+              "parish_id," +
+              "christening_date," +
+              "postal_code," +
+              "current_treatment," +
+              "kwc_status)" +
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          dto.getId(),
+          dto.getFirstName(),
+          dto.getLastName(),
+          dto.getPesel(),
+          dto.getParishId(),
+          convertToLocalDate(dto.getPersonalData().getChristeningDate()),
+          dto.getAddress().getPostalCode(),
+          dto.getHealthReport().getCurrentTreatment(),
+          dto.getExperience().getKwcStatus());
+    });
+  }
 }

@@ -15,4 +15,8 @@ public class ParticipantsStorageBehaviour {
   public void existSomeParticipants(List<ParticipantDTO> participants) {
     database.saveParticipants(participants);
   }
+
+  public void existParticipantsWithSampleData(List<ParticipantDTO> participants) {
+    database.persistPartialParticipantsData(participants);
+  }
 }
