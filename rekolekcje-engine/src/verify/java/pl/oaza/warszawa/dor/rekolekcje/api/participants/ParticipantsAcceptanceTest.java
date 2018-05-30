@@ -82,17 +82,6 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     thenInParticipantsApi.createdResponseHasFullParticipantData(response, storedParticipant);
   }
 
-  @Ignore
-  @WithMockUser
-  @Test
-  public void shouldDeleteSingleParticipant() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final Long id = participantWithSampleData.getId();
-    final ResultActions response = whenInParticipantsApi.singleParticipantIsDeleted(id);
-    thenInParticipantsApi.okStatusIsReturned(response);
-    thenInStorage.participantNoLongerExists(id);
-  }
-
   @WithMockUser
   @Test
   public void shouldUpdateSingleParticipant() throws Exception {
@@ -214,8 +203,16 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @WithMockUser
   public void shouldDeleteASingleParticipant() throws Exception {
     // given participant exists in system
+    whenInStorage.existSingleParticipantWithSampleData(participantWithSampleData);
+    final Long id = participantWithSampleData.getId();
+
     // when participant is deleted
+    final ResultActions response =
+        whenInParticipantsApi.singleParticipantIsDeleted(id);
+
     // then participant no longer exists in database
+    thenInParticipantsApi.okStatusIsReturned(response);
+    thenInStorage.participantNoLongerExists(id);
   }
 
   @Test

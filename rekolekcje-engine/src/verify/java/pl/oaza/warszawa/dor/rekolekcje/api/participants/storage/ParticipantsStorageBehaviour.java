@@ -18,7 +18,11 @@ public class ParticipantsStorageBehaviour {
   }
 
   public void existParticipantsWithSampleData(List<ParticipantDTO> participants) {
-    database.persistPartialParticipantsData(participants);
+    participants.forEach(dto -> database.persistPartialParticipantData(dto));
+  }
+
+  public void existSingleParticipantWithSampleData(ParticipantDTO dto) {
+    database.persistPartialParticipantData(dto);
   }
 
   public long participantWithTheSameDataIsFound(ParticipantDTO participant) throws ParticipantNotFoundException {
