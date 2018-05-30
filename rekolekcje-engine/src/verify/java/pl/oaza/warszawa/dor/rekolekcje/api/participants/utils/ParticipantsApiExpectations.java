@@ -57,6 +57,13 @@ public class ParticipantsApiExpectations {
         .andExpect(content().json(expectedJsonContent));
   }
 
+  public void createdResponseHasCorrectParticipantData(ResultActions response, ParticipantDTO participant) throws Exception {
+    final String expectedJsonContent = jsonMapper.writeValueAsString(participant);
+    response.andExpect(status().isCreated())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().json(expectedJsonContent));
+  }
+
   private void responseHasFullParticipantData(ResultActions response, ParticipantData expectedParticipant) throws UnsupportedEncodingException {
     String content = response
         .andReturn()
@@ -112,5 +119,16 @@ public class ParticipantsApiExpectations {
 
   private ZonedDateTime convertToUtcDateTime(LocalDateTime localDateTime) {
     return localDateTime == null ? null : ZonedDateTime.of(localDateTime, ZoneOffset.UTC);
+  }
+
+  public void responseHasParticipantWithId(ResultActions response) throws UnsupportedEncodingException {
+    String content = response
+        .andReturn()
+        .getResponse()
+        .getContentAsString();
+    final DocumentContext parsedJson = JsonPath.parse(content);
+    final Long parsedId = parsedJson.read("$.id", Long.class);
+    assertThat(parsedId).isNotNull();
+    assertThat(parsedId).isNotZero();
   }
 }

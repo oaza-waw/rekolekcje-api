@@ -31,7 +31,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
   private final ParticipantDTO participantWithMinimalData = ParticipantFactory.participantWithMinimalData(1L);
   private final ParticipantDTO participantWithSampleData = ParticipantFactory.sampleParticipant(2L);
-  private final ParticipantDTO participantWithFullData = ParticipantFactory.participantWithAllData(3L);
+  private final ParticipantDTO participantWithFullData = ParticipantFactory.participantWithAllData();
 
   private final List<ParticipantDTO> participants = Arrays.asList(participantWithMinimalData, participantWithSampleData);
 
@@ -154,24 +154,44 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @WithMockUser
   public void shouldReturnCorrectDataWhenNewParticipantIsAdded() throws Exception {
     // given some participants are already in database
+    whenInStorage.existParticipantsWithSampleData(participants);
+
     // when new participant is added
-    // the same data is returned
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+
+    // then the same data is returned
+    final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final ParticipantDTO expectedParticipant =
+        ParticipantFactory.copyWithDifferentId(participantWithFullData, id);
+    thenInParticipantsApi.createdResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
   @Test
   @WithMockUser
   public void shouldSetParticipantIdWhenANewOneIsAdded() throws Exception {
     // given some participants are already in database
+    whenInStorage.existParticipantsWithSampleData(participants);
+
     // when participant without id is added
-    // participant with id is returned
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+
+    // then participant with id is returned
+    thenInParticipantsApi.responseHasParticipantWithId(response);
   }
 
   @Test
   @WithMockUser
   public void shouldPersistParticipantWhenHeIsAdded() throws Exception {
     // given some participants are already in database
+    whenInStorage.existParticipantsWithSampleData(participants);
+
     // when sample participant is added
+    final ParticipantDTO sampleParticipant = ParticipantFactory.sample();
+    whenInParticipantsApi.singleParticipantIsAdded(sampleParticipant);
+
     // then its data is persisted in database
+    thenInStorage.numberOfParticipantsIsEqualTo(participants.size() + 1);
+    thenInStorage.correctDataIsPersisted(sampleParticipant);
   }
 
   @Test

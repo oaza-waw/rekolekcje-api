@@ -35,8 +35,34 @@ public class ParticipantsDatabase {
     return foundIds.stream()
         .findAny()
         .orElseThrow(() ->
-            new ParticipantNotFoundException(participant.getFirstName(),
-                participant.getLastName(), participant.getPesel()));
+            new ParticipantNotFoundException(participant));
+  }
+
+  ParticipantSampleData getPersistedData(ParticipantDTO dto) {
+    final List<ParticipantSampleData> foundParticipants = jdbcTemplate.query("SELECT * " +
+            "FROM participant " +
+            "WHERE first_name = ? AND last_name = ? AND pesel = ?",
+        new Object[]{dto.getFirstName(), dto.getLastName(), dto.getPesel()},
+        participantSampleDataRowMapper()
+    );
+    return foundParticipants.stream()
+        .findAny()
+        .orElseThrow(() -> new ParticipantNotFoundException(dto));
+  }
+
+  private RowMapper<ParticipantSampleData> participantSampleDataRowMapper() {
+    return (rs, rowNum) -> ParticipantSampleData.builder()
+        .id(DaoTools.getLong(rs, "id"))
+        .firstName(rs.getString("first_name"))
+        .lastName(rs.getString("last_name"))
+        .pesel(DaoTools.getLong(rs, "pesel"))
+        .parishId(DaoTools.getLong(rs, "parish_id"))
+        .christeningDate(DaoTools.getLocalDate(rs, "christening_date"))
+        .postalCode(rs.getString("postal_code"))
+        .currentTreatment(rs.getString("current_treatment"))
+        .kwcStatus(rs.getString("kwc_status"))
+        .numberOfCommunionDays(DaoTools.getInt(rs, "number_of_communion_days"))
+        .build();
   }
 
   public ParticipantData getSavedParticipantData(ParticipantDTO participantDTO) {

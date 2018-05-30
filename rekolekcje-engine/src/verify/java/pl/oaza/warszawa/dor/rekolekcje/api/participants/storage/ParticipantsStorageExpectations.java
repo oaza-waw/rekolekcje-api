@@ -70,4 +70,18 @@ public class ParticipantsStorageExpectations {
   private ZonedDateTime convertToUtc(LocalDateTime localDateTime) {
     return localDateTime != null ? ZonedDateTime.of(localDateTime, ZoneId.of("UTC")) : null;
   }
+
+  public void correctDataIsPersisted(ParticipantDTO dto) {
+    final ParticipantSampleData persistedData = database.getPersistedData(dto);
+    assertThat(persistedData.getId()).isNotNull();
+    assertThat(persistedData.getFirstName()).isEqualTo(dto.getFirstName());
+    assertThat(persistedData.getLastName()).isEqualTo(dto.getLastName());
+    assertThat(persistedData.getPesel()).isEqualTo(dto.getPesel());
+    assertThat(persistedData.getParishId()).isEqualTo(dto.getParishId());
+    compareDates(dto.getPersonalData().getChristeningDate(), convertToUtc(persistedData.getChristeningDate()));
+    assertThat(persistedData.getPostalCode()).isEqualTo(dto.getAddress().getPostalCode());
+    assertThat(persistedData.getCurrentTreatment()).isEqualTo(dto.getHealthReport().getCurrentTreatment());
+    assertThat(persistedData.getKwcStatus()).isEqualTo(dto.getExperience().getKwcStatus());
+    assertThat(persistedData.getNumberOfCommunionDays()).isEqualTo(dto.getExperience().getNumberOfCommunionDays());
+  }
 }

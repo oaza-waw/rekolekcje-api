@@ -6,7 +6,7 @@ public class ParticipantNotFoundException extends RuntimeException {
     super("No participant with id " + id + " found!");
   }
 
-  public ParticipantNotFoundException(String firstName, String lastName, Long pesel) {
-    super("No participant found with this data: " + firstName + " " + lastName + ", " + pesel);
+  public ParticipantNotFoundException(ParticipantDTO dto) {
+    super("No participant found with this data: " + dto);
   }
 }

@@ -15,6 +15,33 @@ import java.util.Set;
 
 public class ParticipantFactory {
 
+  public static ParticipantDTO participantWithMinimalData(Long id) {
+    return ParticipantDTO.builder()
+        .id(id)
+        .firstName("Minimal")
+        .lastName("Participant")
+        .pesel("92042312345")
+        .personalData(PersonalData.builder()
+            .birthDate("23.04.1992")
+            .build())
+        .parishId(1L)
+        .build();
+  }
+
+  public static ParticipantDTO sampleParticipant(Long id) {
+    return ParticipantDTO.builder()
+        .id(id)
+        .firstName("Sample")
+        .lastName("Participant")
+        .pesel("98101012345")
+        .parishId(1L)
+        .personalData(samplePersonalData)
+        .address(sampleAddress)
+        .healthReport(sampleHealthReport)
+        .experience(sampleExperience)
+        .build();
+  }
+
   private static final PersonalData samplePersonalData = PersonalData.builder()
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
       .build();
@@ -31,31 +58,19 @@ public class ParticipantFactory {
       .kwcStatus("Active")
       .build();
 
-  public static ParticipantDTO sampleParticipant(Long id) {
+  public static ParticipantDTO sample() {
     return ParticipantDTO.builder()
-        .id(id)
-        .firstName("Sample")
-        .lastName("Participant")
-        .pesel("98101012345")
+        .firstName("Han")
+        .lastName("Solo")
+        .pesel("81010154321")
         .parishId(1L)
         .personalData(samplePersonalData)
         .address(sampleAddress)
-        .healthReport(sampleHealthReport)
-        .experience(sampleExperience)
         .build();
   }
 
-  public static ParticipantDTO participantWithMinimalData(Long id) {
-    return ParticipantDTO.builder()
-        .id(id)
-        .firstName("Minimal")
-        .lastName("Participant")
-        .pesel("92042312345")
-        .personalData(PersonalData.builder()
-            .birthDate("23.04.1992")
-            .build())
-        .parishId(1L)
-        .build();
+  public static ParticipantDTO participantWithAllData() {
+    return participantWithAllData(null);
   }
 
   public static ParticipantDTO participantWithAllData(Long id) {
