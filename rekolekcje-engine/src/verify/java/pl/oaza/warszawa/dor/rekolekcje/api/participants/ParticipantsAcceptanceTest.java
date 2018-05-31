@@ -134,7 +134,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @Test
   @WithMockUser
   public void shouldDeleteASingleParticipant() throws Exception {
-    whenInStorage.existSingleParticipantWithSampleData(participantWithSampleData);
+    whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
     final Long id = participantWithSampleData.getId();
 
     final ResultActions response =
@@ -147,7 +147,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   @Test
   @WithMockUser
   public void shouldReturnParticipantWithNewDataWhenSingleOneIsUpdated() throws Exception {
-    whenInStorage.existSingleParticipantWithSampleData(participantWithSampleData);
+    whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
     final Long id = participantWithSampleData.getId();
 
     final ParticipantDTO participantWithNewData = ParticipantFactory.withNewData(id);

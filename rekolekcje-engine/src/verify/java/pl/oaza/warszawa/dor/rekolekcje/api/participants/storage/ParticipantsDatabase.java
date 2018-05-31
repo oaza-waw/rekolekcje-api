@@ -1,17 +1,14 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
-import com.google.gag.annotation.remark.ThisWouldBeOneLineIn;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.DaoTools;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Set;
 
 public class ParticipantsDatabase {
 
@@ -23,6 +20,11 @@ public class ParticipantsDatabase {
 
   List<ParticipantData> getAllParticipantData() {
     return jdbcTemplate.query("SELECT * FROM participant", getParticipantDataRowMapper());
+  }
+
+  public void clearParticipants() {
+    jdbcTemplate.execute("DELETE FROM participant");
+    jdbcTemplate.execute("DELETE FROM retreat_turn");
   }
 
   Long findIdOfParticipantWithTheSameData(ParticipantDTO participant) {
@@ -65,26 +67,6 @@ public class ParticipantsDatabase {
         .build();
   }
 
-  public ParticipantData getSavedParticipantData(ParticipantDTO participantDTO) {
-    return getSavedParticipantData(participantDTO.getFirstName(),
-        participantDTO.getLastName(),
-        participantDTO.getPesel());
-  }
-
-  private ParticipantData getSavedParticipantData(String firstName, String lastName, String pesel) {
-    List<ParticipantData> foundParticipants = jdbcTemplate.query("SELECT * " +
-            "FROM participant " +
-            "WHERE first_name = ? " +
-            "   AND last_name = ? " +
-            "   AND pesel = ?",
-        new Object[]{firstName, lastName, pesel},
-        getParticipantDataRowMapper()
-    );
-    return foundParticipants.stream()
-        .findAny()
-        .orElseThrow(RuntimeException::new);
-  }
-
   private RowMapper<ParticipantData> getParticipantDataRowMapper() {
     return (rs, rowNum) -> ParticipantData.builder()
         .id(DaoTools.getLong(rs, "id"))
@@ -121,109 +103,8 @@ public class ParticipantsDatabase {
         .build();
   }
 
-  void saveParticipants(List<ParticipantDTO> participantDTOs) {
-    participantDTOs.forEach(dto -> {
-      final Set<RetreatTurnValue> historicalRetreats = dto.getExperience().getHistoricalRetreats();
-      if (historicalRetreats != null) {
-        historicalRetreats.forEach(retreat -> {
-          jdbcTemplate.update(
-              "INSERT INTO retreat_turn(id, participant_id, stage, location, year)" +
-                  "VALUES (?, ?, ?, ?, ?)",
-              retreat.getId(), dto.getId(), retreat.getStage(), retreat.getLocation(), retreat.getYear()
-          );
-        });
-      }
-      jdbcTemplate.update(
-          "INSERT INTO " +
-              "participant(" +
-              "id, " +
-              "first_name, " +
-              "last_name, " +
-              "pesel, " +
-              "parish_id, " +
-              "father_name, " +
-              "mother_name, " +
-              "christening_place, " +
-              "christening_date, " +
-              "close_relative_name, " +
-              "close_relative_number, " +
-              "street, " +
-              "street_number, " +
-              "flat_number, " +
-              "postal_code, " +
-              "city, " +
-              "current_treatment, " +
-              "medications, " +
-              "allergies, " +
-              "other," +
-              "kwc_status, " +
-              "kwc_since, " +
-              "number_of_communion_days, " +
-              "number_of_prayer_retreats, " +
-              "FORMATION_MEETINGS_IN_MONTH, " +
-              "LEADING_GROUP_TO_FORMATION_STAGE, " +
-              "DEUTEROCATECHUMENATE_YEAR, " +
-              "STEPS_TAKEN, " +
-              "STEPS_PLANNED_THIS_YEAR, " +
-              "CELEBRATIONS_TAKEN, " +
-              "CELEBRATIONS_PLANNED_THIS_YEAR " +
-              ") " +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          dto.getId(),
-          dto.getFirstName(),
-          dto.getLastName(),
-          dto.getPesel(),
-          dto.getParishId(),
-          getFatherName(dto),
-          getMotherName(dto),
-          getChristeningPlace(dto),
-          convertToLocalDate(dto.getPersonalData().getChristeningDate()),
-          dto.getPersonalData().getEmergencyContactName(),
-          dto.getPersonalData().getEmergencyContactNumber(),
-          dto.getAddress().getStreetName(),
-          dto.getAddress().getStreetNumber(),
-          dto.getAddress().getFlatNumber(),
-          dto.getAddress().getPostalCode(),
-          dto.getAddress().getCity(),
-          dto.getHealthReport().getCurrentTreatment(),
-          dto.getHealthReport().getMedications(),
-          dto.getHealthReport().getAllergies(),
-          dto.getHealthReport().getOther(),
-          dto.getExperience().getKwcStatus(),
-          convertToLocalDate(dto.getExperience().getKwcSince()),
-          dto.getExperience().getNumberOfCommunionDays(),
-          dto.getExperience().getNumberOfPrayerRetreats(),
-          dto.getExperience().getFormationMeetingsInMonth(),
-          dto.getExperience().getLeadingGroupToFormationStage(),
-          dto.getExperience().getDeuterocatechumenateYear(),
-          dto.getExperience().getStepsTaken(),
-          dto.getExperience().getStepsPlannedThisYear(),
-          dto.getExperience().getCelebrationsTaken(),
-          dto.getExperience().getCelebrationsPlannedThisYear()
-      );
-    });
-  }
-
-  @ThisWouldBeOneLineIn(language = "groovy", toWit = "return dto?.getPersonalData()?.getFatherName()")
-  private String getFatherName(ParticipantDTO dto) {
-    return dto.getPersonalData() == null ? null : dto.getPersonalData().getFatherName();
-  }
-
-  private String getMotherName(ParticipantDTO dto) {
-    return dto.getPersonalData() == null ? null : dto.getPersonalData().getMotherName();
-  }
-
-  private String getChristeningPlace(ParticipantDTO dto) {
-    return dto.getPersonalData() == null ? null : dto.getPersonalData().getChristeningPlace();
-  }
-
   private Timestamp convertToLocalDate(ZonedDateTime zonedDateTime) {
     return zonedDateTime != null ? Timestamp.valueOf(zonedDateTime.toLocalDateTime()) : null;
-  }
-
-  public void clearParticipants() {
-    jdbcTemplate.execute("DELETE FROM participant");
-    jdbcTemplate.execute("DELETE FROM retreat_turn");
   }
 
   void persistPartialParticipantData(ParticipantDTO dto) {
