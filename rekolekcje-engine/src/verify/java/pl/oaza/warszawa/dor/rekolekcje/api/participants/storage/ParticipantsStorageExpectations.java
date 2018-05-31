@@ -19,14 +19,14 @@ public class ParticipantsStorageExpectations {
   }
 
   public void numberOfParticipantsIsEqualTo(int quantity) {
-    final List<ParticipantData> storedParticipantData = database.getAllParticipantData();
+    final List<ParticipantSampleData> storedParticipantData = database.getAllParticipantData();
     assertThat(storedParticipantData).hasSize(quantity);
 
   }
 
   public void participantNoLongerExists(long id) {
     final List<Long> idsInSystem = database.getAllParticipantData().stream()
-        .map(ParticipantData::getId)
+        .map(ParticipantSampleData::getId)
         .collect(toList());
     assertThat(idsInSystem).doesNotContain(id);
   }

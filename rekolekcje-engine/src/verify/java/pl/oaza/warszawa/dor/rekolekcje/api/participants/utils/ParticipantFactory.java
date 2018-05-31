@@ -44,6 +44,7 @@ public class ParticipantFactory {
 
   private static final PersonalData samplePersonalData = PersonalData.builder()
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
+      .birthDate("10.10.1998")
       .build();
 
   private static final AddressValue sampleAddress = AddressValue.builder()
@@ -157,6 +158,7 @@ public class ParticipantFactory {
     final PersonalData personalData = PersonalData.builder()
         .motherName("Updated mother name")
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1950, 3, 21, 15, 0), ZoneId.of("UTC")))
+        .birthDate("03.04.1995")
         .build();
     final AddressValue address = AddressValue.builder()
         .city("New City")
@@ -174,7 +176,7 @@ public class ParticipantFactory {
         .id(id)
         .firstName("Updated name")
         .lastName("Updated surname")
-        .pesel(99887766554L)
+        .pesel("95040398765")
         .parishId(444L)
         .personalData(personalData)
         .address(address)

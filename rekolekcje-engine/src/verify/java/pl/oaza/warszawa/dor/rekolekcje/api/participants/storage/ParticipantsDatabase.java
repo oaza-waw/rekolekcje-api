@@ -18,8 +18,8 @@ public class ParticipantsDatabase {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  List<ParticipantData> getAllParticipantData() {
-    return jdbcTemplate.query("SELECT * FROM participant", getParticipantDataRowMapper());
+  List<ParticipantSampleData> getAllParticipantData() {
+    return jdbcTemplate.query("SELECT * FROM participant", participantSampleDataRowMapper());
   }
 
   public void clearParticipants() {
@@ -57,49 +57,13 @@ public class ParticipantsDatabase {
         .id(DaoTools.getLong(rs, "id"))
         .firstName(rs.getString("first_name"))
         .lastName(rs.getString("last_name"))
-        .pesel(DaoTools.getLong(rs, "pesel"))
-        .parishId(DaoTools.getLong(rs, "parish_id"))
-        .christeningDate(DaoTools.getLocalDate(rs, "christening_date"))
-        .postalCode(rs.getString("postal_code"))
-        .currentTreatment(rs.getString("current_treatment"))
-        .kwcStatus(rs.getString("kwc_status"))
-        .numberOfCommunionDays(DaoTools.getInt(rs, "number_of_communion_days"))
-        .build();
-  }
-
-  private RowMapper<ParticipantData> getParticipantDataRowMapper() {
-    return (rs, rowNum) -> ParticipantData.builder()
-        .id(DaoTools.getLong(rs, "id"))
-        .firstName(rs.getString("first_name"))
-        .lastName(rs.getString("last_name"))
         .pesel(rs.getString("pesel"))
         .parishId(DaoTools.getLong(rs, "parish_id"))
-        .fatherName(rs.getString("father_name"))
-        .motherName(rs.getString("mother_name"))
-        .christeningPlace(rs.getString("christening_place"))
         .christeningDate(DaoTools.getLocalDate(rs, "christening_date"))
-        .closeRelativeName(rs.getString("close_relative_name"))
-        .closeRelativeNumber(DaoTools.getLong(rs, "close_relative_number"))
-        .street(rs.getString("street"))
-        .streetNumber(DaoTools.getInt(rs, "street_number"))
-        .flatNumber(DaoTools.getInt(rs, "flat_number"))
         .postalCode(rs.getString("postal_code"))
-        .city(rs.getString("city"))
         .currentTreatment(rs.getString("current_treatment"))
-        .medications(rs.getString("medications"))
-        .allergies(rs.getString("allergies"))
-        .other(rs.getString("other"))
         .kwcStatus(rs.getString("kwc_status"))
-        .kwcSince(DaoTools.getLocalDate(rs, "kwc_since"))
         .numberOfCommunionDays(DaoTools.getInt(rs, "number_of_communion_days"))
-        .numberOfPrayerRetreats(DaoTools.getInt(rs, "number_of_prayer_retreats"))
-        .leadingGroupToFormationStage(rs.getString("leading_group_to_formation_stage"))
-        .formationMeetingsInMonth(DaoTools.getInt(rs, "formation_meetings_in_month"))
-        .deuterocatechumenateYear(DaoTools.getInt(rs, "deuterocatechumenate_year"))
-        .stepsTaken(DaoTools.getInt(rs, "steps_taken"))
-        .stepsPlannedThisYear(DaoTools.getInt(rs, "steps_planned_this_year"))
-        .celebrationsTaken(DaoTools.getInt(rs, "celebrations_taken"))
-        .celebrationsPlannedThisYear(DaoTools.getInt(rs, "celebrations_planned_this_year"))
         .build();
   }
 
