@@ -152,4 +152,34 @@ public class ParticipantFactory {
         .healthReport(original.getHealthReport())
         .build();
   }
+
+  public static ParticipantDTO withNewData(long id) {
+    final PersonalData personalData = PersonalData.builder()
+        .motherName("Updated mother name")
+        .christeningDate(ZonedDateTime.of(LocalDateTime.of(1950, 3, 21, 15, 0), ZoneId.of("UTC")))
+        .build();
+    final AddressValue address = AddressValue.builder()
+        .city("New City")
+        .postalCode("AA-999")
+        .build();
+    final ExperienceValue experience = ExperienceValue.builder()
+        .kwcStatus("Updated status")
+        .numberOfPrayerRetreats(3)
+        .build();
+    final HealthReportValue healthReport = HealthReportValue.builder()
+        .currentTreatment("Updated treatment")
+        .medications("Brand new medications")
+        .build();
+    return ParticipantDTO.builder()
+        .id(id)
+        .firstName("Updated name")
+        .lastName("Updated surname")
+        .pesel(99887766554L)
+        .parishId(444L)
+        .personalData(personalData)
+        .address(address)
+        .experience(experience)
+        .healthReport(healthReport)
+        .build();
+  }
 }
