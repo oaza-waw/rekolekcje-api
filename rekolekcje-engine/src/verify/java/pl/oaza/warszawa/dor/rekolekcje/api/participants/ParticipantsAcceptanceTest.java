@@ -2,7 +2,6 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
@@ -21,8 +20,6 @@ import java.util.List;
 
 public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
-  private ParticipantsDatabase participantsDatabase;
-
   private ParticipantsStorageBehaviour whenInStorage;
   private ParticipantsStorageExpectations thenInStorage;
 
@@ -39,8 +36,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   public void setup() throws Exception {
     super.setup();
 
-    participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
-    participantsDatabase.clearParticipants();
+    ParticipantsDatabase participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
 
     whenInStorage = new ParticipantsStorageBehaviour(participantsDatabase);
     thenInStorage = new ParticipantsStorageExpectations(participantsDatabase);
@@ -49,37 +45,6 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     thenInParticipantsApi = new ParticipantsApiExpectations(jsonMapper);
 
     participantsDatabase.clearParticipants();
-  }
-
-  @Ignore
-  @WithMockUser
-  @Test
-  public void shouldGetAllParticipants() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final ResultActions response = whenInParticipantsApi.allParticipantsAreRequested();
-    thenInParticipantsApi.responseHasAllParticipants(response, participants);
-  }
-
-  @Ignore
-  @WithMockUser
-  @Test
-  public void shouldGetFullDataOfSingleParticipant() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final ParticipantData storedParticipant = participantsDatabase.getSavedParticipantData(participantWithSampleData);
-    final ResultActions response = whenInParticipantsApi.singleParticipantIsRequested(storedParticipant.getId());
-    thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
-  }
-
-  @Ignore
-  @WithMockUser
-  @Test
-  public void shouldAddSingleParticipant() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant(null);
-    final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantToAdd);
-    thenInStorage.numberOfParticipantsIsEqualTo(participants.size() + 1);
-    final ParticipantData storedParticipant = thenInStorage.participantExistsWithCorrectData(participantToAdd);
-    thenInParticipantsApi.createdResponseHasFullParticipantData(response, storedParticipant);
   }
 
   @WithMockUser
