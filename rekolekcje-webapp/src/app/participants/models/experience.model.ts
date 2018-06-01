@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { FormGroup } from '@angular/forms';
+import { RetreatTurn } from './retreat-turn.model';
 
 export class Experience {
   constructor(
@@ -13,7 +14,8 @@ export class Experience {
     public stepsTaken?: number,
     public stepsPlannedThisYear?: number,
     public celebrationsTaken?: number,
-    public celebrationsPlannedThisYear?: number
+    public celebrationsPlannedThisYear?: number,
+    public historicalRetreats?: RetreatTurn[],
   ) {}
 
   static mapFromForm(input: any): Experience {

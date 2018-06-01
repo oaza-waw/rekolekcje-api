@@ -51,7 +51,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.firstName, this.lastName, this.pesel, this.parishId, this.personalData, this.address),
       healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
-      experience: this.fb.group(ExperienceFormComponent.buildFormConfig(this.experience))
+      experience: ExperienceFormComponent.buildFormConfig(this.experience)
     });
   }
 
