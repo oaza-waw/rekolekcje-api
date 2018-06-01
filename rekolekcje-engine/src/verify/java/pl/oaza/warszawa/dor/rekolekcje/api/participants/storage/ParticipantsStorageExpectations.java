@@ -71,4 +71,11 @@ public class ParticipantsStorageExpectations {
     }
     return historicalRetreats;
   }
+
+  public void historicalRetreatsNoLongerExist(Set<Long> retreatsIds) {
+    final Set<Long> allPersistedRetreatsIds = database.getAllRetreatTurnData().stream()
+        .map(RetreatTurnValue::getId)
+        .collect(Collectors.toSet());
+    assertThat(allPersistedRetreatsIds).doesNotContainAnyElementsOf(retreatsIds);
+  }
 }

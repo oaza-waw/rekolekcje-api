@@ -150,6 +150,18 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
   @Test
   @WithMockUser
+  public void shouldDeleteParticipantWithItsHistoricalRetreats() throws Exception {
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+    final Long participantId = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final Set<Long> retreatsIds = whenInStorage.historicalRetreatsForParticipantAreFound(participantId);
+
+    whenInParticipantsApi.singleParticipantIsDeleted(participantId);
+
+    thenInStorage.historicalRetreatsNoLongerExist(retreatsIds);
+  }
+
+  @Test
+  @WithMockUser
   public void shouldReturnParticipantWithNewDataWhenSingleOneIsUpdated() throws Exception {
     whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
     final Long id = participantWithSampleData.getId();

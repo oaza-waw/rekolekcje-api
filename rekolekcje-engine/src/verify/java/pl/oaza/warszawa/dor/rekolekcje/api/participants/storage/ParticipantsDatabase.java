@@ -26,8 +26,8 @@ public class ParticipantsDatabase {
   }
 
   public void clearParticipants() {
-    jdbcTemplate.execute("DELETE FROM retreat_turn");
     jdbcTemplate.execute("DELETE FROM participant");
+    jdbcTemplate.execute("DELETE FROM retreat_turn");
   }
 
   Long findIdOfParticipantWithTheSameData(ParticipantDTO participant) {
@@ -100,6 +100,12 @@ public class ParticipantsDatabase {
   Set<RetreatTurnValue> getAllRetreatTurnDataOfParticipant(long participantId) {
     return new HashSet<>(jdbcTemplate.query("SELECT * FROM retreat_turn WHERE participant_id = ?",
         new Object[]{participantId},
+        retreatTurnValueRowMapper()
+    ));
+  }
+
+  Set<RetreatTurnValue> getAllRetreatTurnData() {
+    return new HashSet<>(jdbcTemplate.query("SELECT * FROM retreat_turn",
         retreatTurnValueRowMapper()
     ));
   }

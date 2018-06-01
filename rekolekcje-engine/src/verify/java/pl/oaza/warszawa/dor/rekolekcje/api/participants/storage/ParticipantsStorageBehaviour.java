@@ -2,8 +2,11 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ParticipantsStorageBehaviour {
 
@@ -23,5 +26,11 @@ public class ParticipantsStorageBehaviour {
 
   public long participantWithTheSameDataIsFound(ParticipantDTO participant) throws ParticipantNotFoundException {
     return database.findIdOfParticipantWithTheSameData(participant);
+  }
+
+  public Set<Long> historicalRetreatsForParticipantAreFound(Long participantId) {
+    return database.getAllRetreatTurnDataOfParticipant(participantId).stream()
+        .map(RetreatTurnValue::getId)
+        .collect(Collectors.toSet());
   }
 }
