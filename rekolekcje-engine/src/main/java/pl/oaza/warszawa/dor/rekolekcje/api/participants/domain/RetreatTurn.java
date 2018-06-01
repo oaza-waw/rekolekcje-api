@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ class RetreatTurn {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
+  @Setter
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "participant_id", nullable = false)
   private Participant participant;

@@ -91,4 +91,8 @@ class Participant {
   private ExperienceValue getExperienceValue() {
     return experience != null ? experience.value() : ExperienceValue.builder().build();
   }
+
+  void connectHistoricalTurnsWithParticipant() {
+    experience.connectParticipant(this);
+  }
 }

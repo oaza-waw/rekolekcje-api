@@ -37,10 +37,17 @@ class ParticipantCreator {
     final HealthReport healthReport = fromValue(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
 
-    final Experience experience = fromValue(participantDTO.getExperience());
+    final ExperienceValue experienceValue = participantDTO.getExperience();
+    final Experience experience = fromValue(experienceValue);
     participantBuilder.experience(experience);
 
-    return participantBuilder.build();
+    final Participant participant = participantBuilder.build();
+
+    if (experienceValue.getHistoricalRetreats() != null) {
+      participant.connectHistoricalTurnsWithParticipant();
+    }
+
+    return participant;
   }
 
   Participant withId(Participant participant, Long id) {

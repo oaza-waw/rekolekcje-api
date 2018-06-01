@@ -1,11 +1,15 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,5 +58,17 @@ public class ParticipantsStorageExpectations {
 
   private ZonedDateTime convertToUtc(LocalDateTime localDateTime) {
     return localDateTime != null ? ZonedDateTime.of(localDateTime, ZoneId.of("UTC")) : null;
+  }
+
+  public Set<RetreatTurnValue> historicalRetreatsHaveIds(long participantId) {
+    final Set<RetreatTurnValue> historicalRetreats = database.getAllRetreatTurnDataOfParticipant(participantId);
+    if (!historicalRetreats.isEmpty()) {
+      Set<Long> ids = historicalRetreats.stream()
+          .map(RetreatTurnValue::getId)
+          .filter(Objects::nonNull)
+          .collect(Collectors.toSet());
+      assertThat(ids).isNotNull();
+    }
+    return historicalRetreats;
   }
 }

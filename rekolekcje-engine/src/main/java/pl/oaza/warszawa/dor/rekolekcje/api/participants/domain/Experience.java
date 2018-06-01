@@ -12,7 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,6 +61,12 @@ class Experience {
       return null;
     }
 
-    return historicalRetreats.stream().map(RetreatTurn::value).collect(Collectors.toSet());
+    return historicalRetreats.stream()
+        .map(RetreatTurn::value)
+        .collect(Collectors.toSet());
+  }
+
+  void connectParticipant(Participant participant) {
+    historicalRetreats.forEach(it -> it.setParticipant(participant));
   }
 }

@@ -5,10 +5,13 @@ import org.springframework.jdbc.core.RowMapper;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.DaoTools;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ParticipantsDatabase {
 
@@ -23,8 +26,8 @@ public class ParticipantsDatabase {
   }
 
   public void clearParticipants() {
-    jdbcTemplate.execute("DELETE FROM participant");
     jdbcTemplate.execute("DELETE FROM retreat_turn");
+    jdbcTemplate.execute("DELETE FROM participant");
   }
 
   Long findIdOfParticipantWithTheSameData(ParticipantDTO participant) {
@@ -92,5 +95,21 @@ public class ParticipantsDatabase {
         dto.getAddress().getPostalCode(),
         dto.getHealthReport().getCurrentTreatment(),
         dto.getExperience().getKwcStatus());
+  }
+
+  Set<RetreatTurnValue> getAllRetreatTurnDataOfParticipant(long participantId) {
+    return new HashSet<>(jdbcTemplate.query("SELECT * FROM retreat_turn WHERE participant_id = ?",
+        new Object[]{participantId},
+        retreatTurnValueRowMapper()
+    ));
+  }
+
+  private RowMapper<RetreatTurnValue> retreatTurnValueRowMapper() {
+    return (rs, rowNum) -> RetreatTurnValue.builder()
+        .id(DaoTools.getLong(rs, "id"))
+        .location(rs.getString("location"))
+        .year(DaoTools.getInt(rs, "year"))
+        .stage(rs.getString("stage"))
+        .build();
   }
 }

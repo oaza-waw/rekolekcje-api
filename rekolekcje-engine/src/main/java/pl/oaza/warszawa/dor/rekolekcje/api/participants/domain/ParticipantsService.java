@@ -32,6 +32,7 @@ public class ParticipantsService {
     return participant.dto();
   }
 
+  @Transactional
   public ParticipantDTO save(ParticipantDTO participantDTO) {
     requireNonNull(participantDTO);
     Participant participant = participantCreator.from(participantDTO);

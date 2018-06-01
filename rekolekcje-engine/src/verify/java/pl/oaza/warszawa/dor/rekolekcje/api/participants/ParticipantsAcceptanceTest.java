@@ -12,9 +12,11 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStor
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
@@ -75,8 +77,9 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     final ResultActions response =
         whenInParticipantsApi.singleParticipantIsRequested(id);
 
+    final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
     final ParticipantDTO expectedParticipant =
-        ParticipantFactory.copyWithDifferentId(participantWithFullData, id);
+        ParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -88,8 +91,9 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
 
     final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
     final ParticipantDTO expectedParticipant =
-        ParticipantFactory.copyWithDifferentId(participantWithFullData, id);
+        ParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
     thenInParticipantsApi.createdResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 

@@ -138,19 +138,38 @@ public class ParticipantFactory {
       .stepsTaken(4)
       .stepsPlannedThisYear(6)
       .deuterocatechumenateYear(2016)
+      .historicalRetreats(historicalTurns)
       .build();
 
-  public static ParticipantDTO copyWithDifferentId(ParticipantDTO original, long id) {
+  public static ParticipantDTO copyWithDifferentId(ParticipantDTO original, long participantId, Set<RetreatTurnValue> retreatsWithIds) {
+    final ExperienceValue newExperienceValue = copyExperienceWithRetreats(original.getExperience(), retreatsWithIds);
     return ParticipantDTO.builder()
-        .id(id)
+        .id(participantId)
         .firstName(original.getFirstName())
         .lastName(original.getLastName())
         .pesel(original.getPesel())
         .parishId(original.getParishId())
         .personalData(original.getPersonalData())
         .address(original.getAddress())
-        .experience(original.getExperience())
+        .experience(newExperienceValue)
         .healthReport(original.getHealthReport())
+        .build();
+  }
+
+  private static ExperienceValue copyExperienceWithRetreats(ExperienceValue original, Set<RetreatTurnValue> newRetreats) {
+    return ExperienceValue.builder()
+        .historicalRetreats(newRetreats)
+        .kwcStatus(original.getKwcStatus())
+        .kwcSince(original.getKwcSince())
+        .numberOfCommunionDays(original.getNumberOfCommunionDays())
+        .numberOfPrayerRetreats(original.getNumberOfPrayerRetreats())
+        .deuterocatechumenateYear(original.getDeuterocatechumenateYear())
+        .stepsTaken(original.getStepsTaken())
+        .stepsPlannedThisYear(original.getStepsPlannedThisYear())
+        .celebrationsTaken(original.getCelebrationsTaken())
+        .celebrationsPlannedThisYear(original.getCelebrationsPlannedThisYear())
+        .formationMeetingsInMonth(original.getFormationMeetingsInMonth())
+        .leadingGroupToFormationStage(original.getLeadingGroupToFormationStage())
         .build();
   }
 
