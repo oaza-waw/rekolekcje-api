@@ -10,7 +10,11 @@ export class RetreatTurn {
 
   static mapFromForm(input: any): RetreatTurn {
     const retreatTurn: RetreatTurn = new RetreatTurn();
-    retreatTurn.stage = input.result.stage;
+    console.log('mapfromform: ', input);
+    retreatTurn.stage = input.result.experience.historicalRetreats[0].stage;
+    console.log('result: ', input.result);
+    console.log('result.stage: ', input.result.experience.historicalRetreats[0].stage);
+    console.log('mapFromForm -> stage: ', retreatTurn.stage);
     retreatTurn.location = input.result.location;
     retreatTurn.year = input.result.year;
     return retreatTurn;
@@ -19,9 +23,12 @@ export class RetreatTurn {
   static parseForm(id: number, form: FormGroup) {
     let retreatTurn = new RetreatTurn();
     retreatTurn.id = id;
-    retreatTurn.stage = form.get('experience.historicalRetreats.stage').value;
-    retreatTurn.location = form.get('experience.historicalRetreats.location').value;
-    retreatTurn.year = form.get('experience.historicalRetreats.year').value;
+    console.log('get all', form.get('experience.historicalRetreats'));
+    console.log('get one', form.get('experience.historicalRetreats.0'));
+    retreatTurn.stage = form.get('experience.historicalRetreats.0.stage').value;
+    console.log('stage: ', retreatTurn.stage);
+    retreatTurn.location = form.get('experience.historicalRetreats.0.location').value;
+    retreatTurn.year = form.get('experience.historicalRetreats.0.year').value;
     return retreatTurn;
   }
 }

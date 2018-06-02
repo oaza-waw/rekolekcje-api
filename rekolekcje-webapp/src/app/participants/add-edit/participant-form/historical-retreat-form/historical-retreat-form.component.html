@@ -1,5 +1,6 @@
 <div [formGroup]="historicalRetreatForm">
 
+  <h3>Retreat {{index}}</h3>
   <table class="field-wide">
     <td>
       <mat-form-field class="field-wide">
@@ -14,6 +15,9 @@
                placeholder="Location"
                formControlName="location">
       </mat-form-field>
+    </td>
+    <td>
+      <button mat-button color="warn" (click)="removed.emit(index)">x</button>
     </td>
   </table>
 

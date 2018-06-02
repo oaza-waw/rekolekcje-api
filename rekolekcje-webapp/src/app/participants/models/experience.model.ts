@@ -31,6 +31,8 @@ export class Experience {
     experience.stepsPlannedThisYear = input.result.experience.stepsPlannedThisYear;
     experience.celebrationsTaken = input.result.experience.celebrationsTaken;
     experience.celebrationsPlannedThisYear = input.result.experience.celebrationsPlannedThisYear;
+    experience.historicalRetreats = [RetreatTurn.mapFromForm(input)];
+    console.log('historical: ', experience.historicalRetreats);
     return experience;
   }
 
@@ -47,6 +49,7 @@ export class Experience {
     experience.stepsPlannedThisYear = form.get('experience.stepsPlannedThisYear').value;
     experience.celebrationsTaken = form.get('experience.celebrationsTaken').value;
     experience.celebrationsPlannedThisYear = form.get('experience.celebrationsPlannedThisYear').value;
+    experience.historicalRetreats = [RetreatTurn.parseForm(123, form)];
     return experience;
   }
 }

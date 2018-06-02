@@ -70,6 +70,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       return;
     }
 
+    console.log('form with data: ', this.form);
     const participant = Participant.parseForm(this.id, this.form);
     this.formOutput.emit(participant);
   }

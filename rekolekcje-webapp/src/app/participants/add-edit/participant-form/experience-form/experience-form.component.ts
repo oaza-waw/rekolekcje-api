@@ -27,7 +27,7 @@ export class ExperienceFormComponent {
         stepsPlannedThisYear: new FormControl(experience.stepsPlannedThisYear ? experience.stepsPlannedThisYear : ''),
         celebrationsTaken: new FormControl(experience.celebrationsTaken ? experience.celebrationsTaken : ''),
         celebrationsPlannedThisYear: new FormControl(experience.celebrationsPlannedThisYear ? experience.celebrationsPlannedThisYear : ''),
-        historicalRetreats: new FormArray([HistoricalRetreatFormComponent.buildFormConfig(null)]),
+        historicalRetreats: new FormArray(experience.historicalRetreats ? experience.historicalRetreats.map(it => HistoricalRetreatFormComponent.buildFormConfig(it)) : [HistoricalRetreatFormComponent.buildFormConfig(null)]),
       })
     } else {
       return new FormGroup({
