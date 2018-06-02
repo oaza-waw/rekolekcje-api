@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(Parameterized.class)
 public class PeselBirthDateConverterTest {
 
-  @Parameter(value = 1)
+  @Parameter(value = 0)
   public String pesel;
 
-  @Parameter(value = 2)
+  @Parameter(value = 1)
   public String correspondingBirthDate;
 
   @Parameters
