@@ -25,8 +25,13 @@ class HealthReport {
   HealthReportValue value() {
     return HealthReportValue.builder()
         .currentTreatment(currentTreatment)
+        .mentalDisorders(mentalDisorders)
         .medications(medications)
         .allergies(allergies)
+        .medicalDiet(medicalDiet)
+        .mountainWalkingContraindications(mountainWalkingContraindications)
+        .seriousDiseasesAndOperations(seriousDiseasesAndOperations)
+        .locomotiveDisease(locomotiveDisease)
         .other(other)
         .build();
   }
