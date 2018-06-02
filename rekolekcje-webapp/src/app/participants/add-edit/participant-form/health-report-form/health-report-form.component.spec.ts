@@ -1,7 +1,7 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {HealthReportFormComponent} from './health-report-form.component';
-import {FormControl, FormGroup} from "@angular/forms";
+import { HealthReportFormComponent } from './health-report-form.component';
+import { FormControl, FormGroup } from "@angular/forms";
 
 describe('HealthReportFormComponent', () => {
   let component: HealthReportFormComponent;
@@ -20,8 +20,13 @@ describe('HealthReportFormComponent', () => {
     component.healthReportData = {};
     component.healthReportForm = new FormGroup({
       currentTreatment: new FormControl(),
+      mentalDisorders: new FormControl(),
       medications: new FormControl(),
       allergies: new FormControl(),
+      medicalDiet: new FormControl(),
+      mountainWalkingContraindications: new FormControl(),
+      seriousDiseasesAndOperations: new FormControl(),
+      locomotiveDisease: new FormControl(),
       other: new FormControl()
     });
     fixture.detectChanges();
