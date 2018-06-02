@@ -13,8 +13,13 @@ import javax.persistence.Embeddable;
 @Builder
 class HealthReport {
   private String currentTreatment;
+  private String mentalDisorders;
   private String medications;
   private String allergies;
+  private String medicalDiet;
+  private Boolean mountainWalkingContraindications;
+  private String seriousDiseasesAndOperations;
+  private Boolean locomotiveDisease;
   private String other;
 
   HealthReportValue value() {
