@@ -41,7 +41,9 @@ public class ParticipantFactory {
         .firstName("Minimal")
         .lastName("Participant")
         .pesel("92042312345")
-        //.personalData(PersonalData.builder().birthDate("23.04.1992").build())
+        .personalData(PersonalData.builder()
+            .birthDate("23.04.1992")
+            .build())
         .parishId(1L)
         .build();
   }
