@@ -4,7 +4,11 @@ import lombok.*;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.*;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.*;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.*;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.*;
