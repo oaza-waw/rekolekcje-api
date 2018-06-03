@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Experience } from '../../../models/experience.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { HistoricalRetreatFormComponent } from '../historical-retreat-form/historical-retreat-form.component';
+import { HistoricalRetreatsArrayComponent } from '../historical-retreats-array/historical-retreats-array.component';
 
 @Component({
   selector: 'experience-form',
@@ -27,7 +28,7 @@ export class ExperienceFormComponent {
         stepsPlannedThisYear: new FormControl(experience.stepsPlannedThisYear ? experience.stepsPlannedThisYear : ''),
         celebrationsTaken: new FormControl(experience.celebrationsTaken ? experience.celebrationsTaken : ''),
         celebrationsPlannedThisYear: new FormControl(experience.celebrationsPlannedThisYear ? experience.celebrationsPlannedThisYear : ''),
-        historicalRetreats: new FormArray(experience.historicalRetreats ? experience.historicalRetreats.map(it => HistoricalRetreatFormComponent.buildFormConfig(it)) : [HistoricalRetreatFormComponent.buildFormConfig(null)]),
+        historicalRetreats: HistoricalRetreatsArrayComponent.buildFormConfig(experience.historicalRetreats),
       })
     } else {
       return new FormGroup({

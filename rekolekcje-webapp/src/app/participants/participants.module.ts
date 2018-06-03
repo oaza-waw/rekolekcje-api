@@ -23,6 +23,7 @@ import { ExperienceFormComponent } from './add-edit/participant-form/experience-
 import { SharedDetailsModule } from '../shared/details/shared-details.module';
 import { PersonalDataFormComponent } from './add-edit/participant-form/personal-data-form/personal-data-form.component';
 import { HistoricalRetreatFormComponent } from './add-edit/participant-form/historical-retreat-form/historical-retreat-form.component';
+import { HistoricalRetreatsArrayComponent } from './add-edit/participant-form/historical-retreats-array/historical-retreats-array.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { HistoricalRetreatFormComponent } from './add-edit/participant-form/hist
     ExperienceFormComponent,
     PersonalDataFormComponent,
     HistoricalRetreatFormComponent,
+    HistoricalRetreatsArrayComponent,
   ],
   providers: [],
   exports: [

@@ -1,0 +1,11 @@
+<div>
+  <h4>Historical retreats</h4>
+  <reko-historical-retreat-form
+    *ngFor="let retreat of retreatsFormArray.controls; let i=index"
+    [index]="i" [historicalRetreatForm]="retreat"
+    (removed)="retreatsFormArray.removeAt($event)"
+  >
+  </reko-historical-retreat-form>
+  <button mat-button color="primary" (click)="addRetreat()">Add historical retreat</button>
+</div>
+

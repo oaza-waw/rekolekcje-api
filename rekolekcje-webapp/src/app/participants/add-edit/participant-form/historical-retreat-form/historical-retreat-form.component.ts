@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RetreatTurn } from '../../../models/retreat-turn.model';
 
@@ -12,6 +12,8 @@ export class HistoricalRetreatFormComponent {
   @Input() index: number;
   @Input() retreatData: RetreatTurn;
   @Input() historicalRetreatForm: FormGroup;
+
+  @Output() removed: EventEmitter<number> = new EventEmitter<number>();
 
   static buildFormConfig(retreatTurn: RetreatTurn) {
     return new FormGroup({
