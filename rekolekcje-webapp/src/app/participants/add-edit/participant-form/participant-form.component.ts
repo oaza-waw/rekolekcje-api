@@ -53,6 +53,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
       experience: ExperienceFormComponent.buildFormConfig(this.experience)
     });
+    console.log('full form: ', this.form);
   }
 
   ngOnDestroy(): void {
