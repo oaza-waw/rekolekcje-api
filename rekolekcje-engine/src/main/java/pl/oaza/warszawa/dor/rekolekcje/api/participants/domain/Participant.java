@@ -17,8 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.*;
 
-import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.*;
-import static pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil.PeselBirthDateConverter.*;
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil.PeselBirthDateConverter.convertPeselToBirthDate;
 
 @Entity
 @Builder
