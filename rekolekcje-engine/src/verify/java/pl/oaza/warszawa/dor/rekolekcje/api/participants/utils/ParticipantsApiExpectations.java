@@ -1,25 +1,19 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gag.annotation.remark.Facepalm;
-import com.google.gag.annotation.remark.Hack;
-import com.google.gag.annotation.remark.WTF;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
+import com.fasterxml.jackson.databind.*;
+import com.google.gag.annotation.remark.*;
+import com.jayway.jsonpath.*;
+import org.springframework.http.*;
+import org.springframework.test.web.servlet.*;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.*;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.*;
 
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.List;
+import java.io.*;
+import java.time.*;
+import java.util.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ParticipantsApiExpectations {
 
@@ -57,7 +51,7 @@ public class ParticipantsApiExpectations {
         .getContentAsString();
     final DocumentContext parsedJson = JsonPath.parse(content);
     assertThat(parsedJson.read("$.id", Long.class)).isEqualTo(expectedParticipant.getId());
-    assertThat(parsedJson.read("$.pesel", Long.class)).isEqualTo(expectedParticipant.getPesel());
+    assertThat(parsedJson.read("$.pesel", String.class)).isEqualTo(expectedParticipant.getPesel());
     assertThat(parsedJson.read("$.firstName", String.class)).isEqualTo(expectedParticipant.getFirstName());
     assertThat(parsedJson.read("$.lastName", String.class)).isEqualTo(expectedParticipant.getLastName());
     assertThat(parsedJson.read("$.parishId", Long.class)).isEqualTo(expectedParticipant.getParishId());

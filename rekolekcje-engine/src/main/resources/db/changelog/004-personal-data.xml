@@ -1,44 +1,50 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <changeSet id="personal-data-1" author="qiubix">
         <addColumn tableName="PARTICIPANT">
-            <column name="MOTHER_NAME" type="VARCHAR(255)" />
-            <column name="FATHER_NAME" type="VARCHAR(255)" />
+            <column name="MOTHER_NAME" type="VARCHAR(255)"/>
+            <column name="FATHER_NAME" type="VARCHAR(255)"/>
         </addColumn>
     </changeSet>
 
     <changeSet id="personal-data-2" author="qiubix">
         <addColumn tableName="PARTICIPANT">
-            <column name="CHRISTENING_PLACE" type="VARCHAR(255)" />
-            <column name="CHRISTENING_DATE" type="TIMESTAMP" />
+            <column name="CHRISTENING_PLACE" type="VARCHAR(255)"/>
+            <column name="CHRISTENING_DATE" type="TIMESTAMP"/>
         </addColumn>
     </changeSet>
 
     <changeSet id="personal-data-3" author="qiubix">
         <addColumn tableName="PARTICIPANT">
-            <column name="CLOSE_RELATIVE_NAME" type="VARCHAR(255)" />
-            <column name="CLOSE_RELATIVE_NUMBER" type="BIGINT" />
+            <column name="CLOSE_RELATIVE_NAME" type="VARCHAR(255)"/>
+            <column name="CLOSE_RELATIVE_NUMBER" type="BIGINT"/>
         </addColumn>
     </changeSet>
 
     <changeSet id="personal-data-4" author="qiubix">
-        <renameColumn tableName="PARTICIPANT" oldColumnName="ADDRESS" newColumnName="STREET" />
+        <renameColumn tableName="PARTICIPANT" oldColumnName="ADDRESS" newColumnName="STREET"/>
         <addColumn tableName="PARTICIPANT">
-            <column name="CITY" type="VARCHAR(255)" />
-            <column name="POSTAL_CODE" type="VARCHAR(255)" />
-            <column name="STREET_NUMBER" type="INT" />
-            <column name="FLAT_NUMBER" type="INT" />
+            <column name="CITY" type="VARCHAR(255)"/>
+            <column name="POSTAL_CODE" type="VARCHAR(255)"/>
+            <column name="STREET_NUMBER" type="INT"/>
+            <column name="FLAT_NUMBER" type="INT"/>
         </addColumn>
     </changeSet>
 
     <changeSet id="personal-data-5" author="krystiano">
         <addColumn tableName="PARTICIPANT">
-            <column name="CURRENT_TREATMENT" type="VARCHAR(255)" />
-            <column name="MEDICATIONS" type="VARCHAR(255)" />
-            <column name="ALLERGIES" type="VARCHAR(255)" />
-            <column name="OTHER" type="VARCHAR(255)" />
+            <column name="CURRENT_TREATMENT" type="VARCHAR(255)"/>
+            <column name="MEDICATIONS" type="VARCHAR(255)"/>
+            <column name="ALLERGIES" type="VARCHAR(255)"/>
+            <column name="OTHER" type="VARCHAR(255)"/>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="personal-data-6" author="krystiano">
+        <modifyDataType tableName="PARTICIPANT"
+                        columnName="PESEL"
+                        newDataType="VARCHAR(255)"/>
     </changeSet>
 
 </databaseChangeLog>

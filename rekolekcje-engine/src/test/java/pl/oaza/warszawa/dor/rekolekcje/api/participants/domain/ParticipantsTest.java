@@ -35,7 +35,7 @@ public abstract class ParticipantsTest {
     return getAllInSystem().stream()
         .filter(p -> Objects.equals(p.getPesel(), participantDTO.getPesel()))
         .findAny()
-        .orElseThrow(() -> new ParticipantNotFoundException(participantDTO.getPesel()));
+        .orElseThrow(() -> new ParticipantNotFoundException(participantDTO.getId()));
   }
 
   protected ParticipantDTO getParticipantFromSystemWithTheSameId(ParticipantDTO participantDTO) {

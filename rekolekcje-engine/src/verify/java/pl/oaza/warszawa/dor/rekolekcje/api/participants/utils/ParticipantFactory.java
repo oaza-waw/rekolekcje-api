@@ -1,14 +1,9 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.*;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.*;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 public class ParticipantFactory {
 
@@ -36,9 +31,9 @@ public class ParticipantFactory {
         .lastName("Participant")
         .personalData(samplePersonalData)
         .address(sampleAddress)
+        .pesel("98101012345")
         .healthReport(sampleHealthReport)
         .experience(sampleExperience)
-        .pesel(98101012345L)
         .parishId(1L)
         .build();
   }
@@ -48,7 +43,10 @@ public class ParticipantFactory {
         .id(id)
         .firstName("Minimal")
         .lastName("Participant")
-        .pesel(92042312345L)
+        .pesel("92042312345")
+        .personalData(PersonalData.builder()
+            .birthDate("23.04.1992")
+            .build())
         .parishId(1L)
         .build();
   }
@@ -59,7 +57,7 @@ public class ParticipantFactory {
         .firstName("John")
         .lastName("Smith")
         .address(fullAddress)
-        .pesel(90042312345L)
+        .pesel("90042312345")
         .parishId(1L)
         .personalData(fullPersonalData)
         .experience(fullExperienceValue)
@@ -70,6 +68,7 @@ public class ParticipantFactory {
   private static PersonalData fullPersonalData = PersonalData.builder()
       .motherName("Mary")
       .fatherName("Jake")
+      .birthDate("23.04.1990")
       .christeningPlace("Los Angeles")
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
       .emergencyContactName("Uncle Bob")
