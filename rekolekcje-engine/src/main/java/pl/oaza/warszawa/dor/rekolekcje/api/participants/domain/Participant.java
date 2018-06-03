@@ -1,8 +1,14 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
-import lombok.*;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.*;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
