@@ -1,14 +1,9 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.*;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.*;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 public class ParticipantFactory {
 
@@ -73,7 +68,7 @@ public class ParticipantFactory {
   private static PersonalData fullPersonalData = PersonalData.builder()
       .motherName("Mary")
       .fatherName("Jake")
-      .birthDate("23.07.1990")
+      .birthDate("23.04.1990")
       .christeningPlace("Los Angeles")
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
       .emergencyContactName("Uncle Bob")

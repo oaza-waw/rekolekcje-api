@@ -1,12 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil;
 
+import java.util.*;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.ArrayList;
-import java.util.List;
-
-@Slf4j
 public class PeselBirthDateConverter {
 
   public static String convertPeselToBirthDate(String pesel) {

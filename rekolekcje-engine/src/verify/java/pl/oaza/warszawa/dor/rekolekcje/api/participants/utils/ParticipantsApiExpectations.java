@@ -1,29 +1,20 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gag.annotation.remark.Facepalm;
-import com.google.gag.annotation.remark.Hack;
-import com.google.gag.annotation.remark.WTF;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
+import com.fasterxml.jackson.databind.*;
+import com.google.gag.annotation.remark.*;
+import com.jayway.jsonpath.*;
+import org.springframework.http.*;
+import org.springframework.test.web.servlet.*;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.*;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.*;
 
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.List;
+import java.io.*;
+import java.time.*;
+import java.util.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Slf4j
 public class ParticipantsApiExpectations {
 
   private final ObjectMapper jsonMapper;
@@ -34,8 +25,6 @@ public class ParticipantsApiExpectations {
 
   public void responseHasAllParticipants(ResultActions response, List<ParticipantDTO> participants) throws Exception {
     final String expectedJsonContent = jsonMapper.writeValueAsString(participants);
-    log.info("response is: {} ", response.andReturn().getResponse().getContentAsString());
-    log.info("expected response is: {}", Arrays.toString(participants.toArray()));
     response.andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(content().json(expectedJsonContent));
