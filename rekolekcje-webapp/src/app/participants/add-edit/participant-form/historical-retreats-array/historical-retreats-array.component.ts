@@ -20,7 +20,7 @@ export class HistoricalRetreatsArrayComponent {
 
   static buildFormConfig(historicalRetreats: RetreatTurn[]) {
     if (historicalRetreats != null) {
-      console.log('is not null');
+      console.log('is not null. size: ', historicalRetreats.length);
       return new FormArray(historicalRetreats.map(it => HistoricalRetreatFormComponent.buildFormConfig(it)));
     } else {
       console.log('is null');

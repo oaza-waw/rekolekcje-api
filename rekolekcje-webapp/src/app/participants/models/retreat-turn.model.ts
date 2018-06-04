@@ -16,9 +16,8 @@ export class RetreatTurn {
     return retreatTurn;
   }
 
-  static parseForm(id: number, form: FormGroup, index: number) {
+  static parseForm(form: FormGroup, index: number) {
     let retreatTurn = new RetreatTurn();
-    retreatTurn.id = id;
     retreatTurn.stage = form.get('experience.historicalRetreats.' + index + '.stage').value;
     retreatTurn.location = form.get('experience.historicalRetreats.' + index + '.location').value;
     retreatTurn.year = form.get('experience.historicalRetreats.' + index + '.year').value;

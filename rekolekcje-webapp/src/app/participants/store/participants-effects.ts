@@ -78,7 +78,10 @@ export class ParticipantsEffects {
         console.log('Payload: ' + JSON.stringify(action.payload));
         return this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
           .pipe(
-            map(data => new UpdateParticipantSuccess(data)),
+            map(data => {
+              console.log('participant after server response: ', data);
+              return new UpdateParticipantSuccess(data);
+            }),
             catchError(error => of(new UpdateParticipantFail(error)))
           );
         }

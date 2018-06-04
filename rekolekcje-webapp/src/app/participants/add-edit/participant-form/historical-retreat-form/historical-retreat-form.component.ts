@@ -16,10 +16,18 @@ export class HistoricalRetreatFormComponent {
   @Output() removed: EventEmitter<number> = new EventEmitter<number>();
 
   static buildFormConfig(retreatTurn: RetreatTurn) {
-    return new FormGroup({
-      stage: new FormControl(''),
-      location: new FormControl(''),
-      year: new FormControl(''),
-    });
+    if (retreatTurn != null) {
+      return new FormGroup({
+        stage: new FormControl(retreatTurn.stage ? retreatTurn.stage : ''),
+        location: new FormControl(retreatTurn.location ? retreatTurn.location : ''),
+        year: new FormControl(retreatTurn.year ? retreatTurn.year : ''),
+      });
+    } else {
+      return new FormGroup({
+        stage: new FormControl(''),
+        location: new FormControl(''),
+        year: new FormControl(''),
+      });
+    }
   }
 }
