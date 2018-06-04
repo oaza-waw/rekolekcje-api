@@ -17,9 +17,9 @@ class HealthReport {
   private String medications;
   private String allergies;
   private String medicalDiet;
-  private Boolean mountainWalkingContraindications;
-  private String seriousDiseasesAndOperations;
-  private Boolean locomotiveDisease;
+  private Boolean canHike;
+  private String illnessHistory;
+  private Boolean hasMotionSickness;
   private String other;
 
   HealthReportValue value() {
@@ -29,9 +29,9 @@ class HealthReport {
         .medications(medications)
         .allergies(allergies)
         .medicalDiet(medicalDiet)
-        .mountainWalkingContraindications(mountainWalkingContraindications)
-        .seriousDiseasesAndOperations(seriousDiseasesAndOperations)
-        .locomotiveDisease(locomotiveDisease)
+        .canHike(canHike)
+        .illnessHistory(illnessHistory)
+        .hasMotionSickness(hasMotionSickness)
         .other(other)
         .build();
   }

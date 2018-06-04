@@ -102,9 +102,9 @@ class ParticipantCreator {
         .medications(healthReportValue.getMedications())
         .allergies(healthReportValue.getAllergies())
         .medicalDiet(healthReportValue.getMedicalDiet())
-        .mountainWalkingContraindications(healthReportValue.getMountainWalkingContraindications())
-        .seriousDiseasesAndOperations(healthReportValue.getSeriousDiseasesAndOperations())
-        .locomotiveDisease(healthReportValue.getLocomotiveDisease())
+        .canHike(healthReportValue.getCanHike())
+        .illnessHistory(healthReportValue.getIllnessHistory())
+        .hasMotionSickness(healthReportValue.getHasMotionSickness())
         .other(healthReportValue.getOther())
         .build();
   }

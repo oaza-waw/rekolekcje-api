@@ -11,8 +11,8 @@ public class HealthReportValue {
   private final String medications;
   private final String allergies;
   private final String medicalDiet;
-  private final Boolean mountainWalkingContraindications;
-  private final String seriousDiseasesAndOperations;
-  private final Boolean locomotiveDisease;
+  private final Boolean canHike;
+  private final String illnessHistory;
+  private final Boolean hasMotionSickness;
   private final String other;
 }
