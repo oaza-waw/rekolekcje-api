@@ -94,7 +94,6 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
       if (result) {
         const p = Participant.mapFromForm(result);
         p.id = participant.id;
-        console.log('edited participant: ', p);
         this.editParticipant.emit(p);
       }
     })

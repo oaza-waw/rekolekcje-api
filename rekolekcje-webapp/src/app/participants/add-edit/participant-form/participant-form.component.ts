@@ -48,13 +48,11 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     this.store.select(AppSelectors.getParishList)
       .takeUntil(this.ngUnsubscribe)
       .subscribe((parishes: Parish[]) => this.parishes = parishes);
-    console.log('experience before building form: ', this.experience);
     this.form = this.fb.group({
       personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.firstName, this.lastName, this.pesel, this.parishId, this.personalData, this.address),
       healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
       experience: ExperienceFormComponent.buildFormConfig(this.experience)
     });
-    console.log('full form: ', this.form);
   }
 
   ngOnDestroy(): void {
@@ -72,7 +70,6 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log('form with data: ', this.form);
     const participant = Participant.parseForm(this.id, this.form);
     this.formOutput.emit(participant);
   }

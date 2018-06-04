@@ -51,14 +51,12 @@ export class ParticipantsEffects {
   LoadParticipantsList: Observable<Action> = this.actions
     .ofType(ParticipantsSharedActions.types.LoadParticipantsList)
     .pipe(
-      switchMap((action: ParticipantsSharedActions.LoadParticipantsList) => {
-        console.log('endpoint: ' + Config.endpoints.participantsModule);
-        return this.http.get<Participant[]>(Config.endpoints.participantsModule)
+      switchMap((action: ParticipantsSharedActions.LoadParticipantsList) =>
+        this.http.get<Participant[]>(Config.endpoints.participantsModule)
           .pipe(
             map((data: Participant[]) => new LoadParticipantsListSuccess(data)),
             catchError(error => of(new LoadParticipantsListFail(error)))
           )
-        }
       )
     );
 
@@ -74,12 +72,10 @@ export class ParticipantsEffects {
     .ofType(ParticipantsSharedActions.types.UpdateParticipant)
     .pipe(
       switchMap((action: ParticipantsSharedActions.UpdateParticipant) => {
-        console.log('sending PUT request with updated participant...');
-        console.log('Payload: ' + JSON.stringify(action.payload));
+        console.log('Sending PUT request with updated participant... Payload: ', action.payload);
         return this.http.put<Participant>(Config.endpoints.participantsModule, action.payload)
           .pipe(
             map(data => {
-              console.log('participant after server response: ', data);
               return new UpdateParticipantSuccess(data);
             }),
             catchError(error => of(new UpdateParticipantFail(error)))
