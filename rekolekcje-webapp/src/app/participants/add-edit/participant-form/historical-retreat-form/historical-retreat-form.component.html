@@ -17,6 +17,13 @@
       </mat-form-field>
     </td>
     <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Year"
+               formControlName="year">
+      </mat-form-field>
+    </td>
+    <td>
       <button mat-button color="warn" (click)="removed.emit(index)">x</button>
     </td>
   </table>
