@@ -1,6 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PeselBirthDateConverter {
 
