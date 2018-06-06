@@ -36,7 +36,7 @@ class Experience {
   private Integer celebrationsPlannedThisYear;
 
   @Builder.Default
-  @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<RetreatTurn> historicalRetreats = Sets.newHashSet();
 
   ExperienceValue value() {

@@ -46,6 +46,7 @@ public class ParticipantsService {
         .forEach(participantsRepository::delete);
   }
 
+  @Transactional
   public ParticipantDTO update(ParticipantDTO participantWithUpdatedData) {
     requireNonNull(participantWithUpdatedData);
     Participant participant = participantCreator.from(participantWithUpdatedData);

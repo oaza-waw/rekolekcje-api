@@ -44,6 +44,10 @@ class ParticipantCreator {
     final Participant participant = participantBuilder.build();
 
     if (experienceValue.getHistoricalRetreats() != null) {
+      final Set<RetreatTurn> newHistoricalRetreats = extractHistoricalRetreats(experienceValue);
+      final Set<RetreatTurn> historicalRetreats = participant.getExperience().getHistoricalRetreats();
+      historicalRetreats.clear();
+      historicalRetreats.addAll(newHistoricalRetreats);
       participant.connectHistoricalTurnsWithParticipant();
     }
 
@@ -106,7 +110,6 @@ class ParticipantCreator {
         .stepsPlannedThisYear(experienceValue.getStepsPlannedThisYear())
         .celebrationsTaken(experienceValue.getCelebrationsTaken())
         .celebrationsPlannedThisYear(experienceValue.getCelebrationsPlannedThisYear())
-        .historicalRetreats(extractHistoricalRetreats(experienceValue))
         .build();
   }
 
