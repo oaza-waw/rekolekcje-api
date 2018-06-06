@@ -20,7 +20,7 @@ public final class ParticipantDTO {
   private final Long id;
   private final String firstName;
   private final String lastName;
-  private final Long pesel;
+  private final String pesel;
   private final Long parishId;
 
   @Builder.Default

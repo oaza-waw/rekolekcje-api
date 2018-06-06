@@ -47,7 +47,7 @@ class ParticipantsTestData {
   static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()
       .firstName("Jack")
       .lastName("Frost")
-      .pesel(93010100000L)
+      .pesel("93010100000")
       .build();
 
   private static final ExperienceValue sampleExperienceValue = ExperienceValue.builder()
@@ -67,7 +67,7 @@ class ParticipantsTestData {
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()
       .firstName("Paul")
       .lastName("Pierce")
-      .pesel(987654L)
+      .pesel("90061412111")
       .parishId(1L)
       .address(sampleAddress)
       .personalData(samplePersonalData)
@@ -78,14 +78,14 @@ class ParticipantsTestData {
   static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()
       .firstName("Kevin")
       .lastName("Garnett")
-      .pesel(82020354321L)
+      .pesel("82020354321")
       .address(sampleAddress)
       .build();
 
   static final ParticipantDTO sampleParticipant2 = ParticipantDTO.builder()
       .firstName("Ray")
       .lastName("Allen")
-      .pesel(82020312345L)
+      .pesel("82020312345")
       .address(sampleAddress2)
       .parishId(2L)
       .build();

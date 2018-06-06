@@ -9,6 +9,7 @@ public class PersonalDataTest {
   @Test
   public void equalsContractForPersonalData() {
     EqualsVerifier.forClass(PersonalData.class)
+        .withIgnoredFields("birthDate")
         .verify();
   }
 }

@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil.PeselBirthDateConverter.convertPeselToBirthDate;
 
 @Entity
 @Builder
@@ -31,7 +32,7 @@ class Participant {
   private Long id;
   private String firstName;
   private String lastName;
-  private Long pesel;
+  private String pesel;
   private Long parishId;
 
   @Embedded
@@ -71,6 +72,7 @@ class Participant {
     return PersonalData.builder()
         .fatherName(fatherName)
         .motherName(motherName)
+        .birthDate(convertPeselToBirthDate(pesel))
         .christeningPlace(christeningPlace)
         .christeningDate(convertToUtc(christeningDate))
         .emergencyContactName(closeRelativeName)
