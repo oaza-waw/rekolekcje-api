@@ -11,6 +11,8 @@ before_install:
 
 addons:
   chrome: stable
+  sonarqube:
+    organization: "oaza-waw"
 
 after_success:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
