@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --prod",
+    "build": "ng build --prod --source-map=false --build-optimizer=false",
     "buildDev": "ng build",
     "buildWatch": "ng build --watch=true",
     "test": "ng test",
