@@ -5,6 +5,10 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToDateTime;
 
@@ -33,10 +37,21 @@ class ParticipantCreator {
     final HealthReport healthReport = fromValue(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
 
-    final Experience experience = fromValue(participantDTO.getExperience());
+    final ExperienceValue experienceValue = participantDTO.getExperience();
+    final Experience experience = fromValue(experienceValue);
     participantBuilder.experience(experience);
 
-    return participantBuilder.build();
+    final Participant participant = participantBuilder.build();
+
+    if (experienceValue.getHistoricalRetreats() != null) {
+      final Set<RetreatTurn> newHistoricalRetreats = extractHistoricalRetreats(experienceValue);
+      final Set<RetreatTurn> historicalRetreats = participant.getExperience().getHistoricalRetreats();
+      historicalRetreats.clear();
+      historicalRetreats.addAll(newHistoricalRetreats);
+      participant.connectHistoricalTurnsWithParticipant();
+    }
+
+    return participant;
   }
 
   Participant withId(Participant participant, Long id) {
@@ -97,4 +112,28 @@ class ParticipantCreator {
         .celebrationsPlannedThisYear(experienceValue.getCelebrationsPlannedThisYear())
         .build();
   }
+
+  private Set<RetreatTurn> extractHistoricalRetreats(ExperienceValue experienceValue) {
+    if (experienceValue.getHistoricalRetreats() == null) {
+      return null;
+    }
+
+    return experienceValue.getHistoricalRetreats().stream()
+        .map(this::fromValue)
+        .collect(Collectors.toSet());
+  }
+
+  private RetreatTurn fromValue(RetreatTurnValue retreatTurnValue) {
+    if (retreatTurnValue == null) {
+      return RetreatTurn.builder().build();
+    }
+
+    return RetreatTurn.builder()
+        .id(retreatTurnValue.getId())
+        .stage(retreatTurnValue.getStage())
+        .location(retreatTurnValue.getLocation())
+        .year(retreatTurnValue.getYear())
+        .build();
+  }
+
 }

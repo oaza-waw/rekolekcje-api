@@ -1,0 +1,32 @@
+<div [formGroup]="historicalRetreatForm">
+
+  <h5>Retreat {{index}}</h5>
+  <table class="field-wide">
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Stage"
+               formControlName="stage">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Location"
+               formControlName="location">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Year"
+               formControlName="year">
+      </mat-form-field>
+    </td>
+    <td>
+      <button mat-button color="warn" (click)="removed.emit(index)">x</button>
+    </td>
+  </table>
+
+</div>
+

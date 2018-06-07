@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { FormGroup } from '@angular/forms';
+import { RetreatTurn } from './retreat-turn.model';
 
 export class Experience {
   constructor(
@@ -13,7 +14,8 @@ export class Experience {
     public stepsTaken?: number,
     public stepsPlannedThisYear?: number,
     public celebrationsTaken?: number,
-    public celebrationsPlannedThisYear?: number
+    public celebrationsPlannedThisYear?: number,
+    public historicalRetreats?: RetreatTurn[],
   ) {}
 
   static mapFromForm(input: any): Experience {
@@ -29,6 +31,7 @@ export class Experience {
     experience.stepsPlannedThisYear = input.result.experience.stepsPlannedThisYear;
     experience.celebrationsTaken = input.result.experience.celebrationsTaken;
     experience.celebrationsPlannedThisYear = input.result.experience.celebrationsPlannedThisYear;
+    experience.historicalRetreats = input.result.experience.historicalRetreats.map(it => RetreatTurn.mapFromForm(it));
     return experience;
   }
 
@@ -45,6 +48,8 @@ export class Experience {
     experience.stepsPlannedThisYear = form.get('experience.stepsPlannedThisYear').value;
     experience.celebrationsTaken = form.get('experience.celebrationsTaken').value;
     experience.celebrationsPlannedThisYear = form.get('experience.celebrationsPlannedThisYear').value;
+    let allRetreats: RetreatTurn[] = form.get('experience.historicalRetreats').value;
+    experience.historicalRetreats = allRetreats.map((it, index) => RetreatTurn.parseForm(form, index));
     return experience;
   }
 }

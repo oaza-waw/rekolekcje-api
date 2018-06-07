@@ -22,6 +22,10 @@ import { HealthReportFormComponent } from './add-edit/participant-form/health-re
 import { ExperienceFormComponent } from './add-edit/participant-form/experience-form/experience-form.component';
 import { SharedDetailsModule } from '../shared/details/shared-details.module';
 import { PersonalDataFormComponent } from './add-edit/participant-form/personal-data-form/personal-data-form.component';
+import { HistoricalRetreatFormComponent } from './add-edit/participant-form/historical-retreat-form/historical-retreat-form.component';
+import { HistoricalRetreatsArrayComponent } from './add-edit/participant-form/historical-retreats-array/historical-retreats-array.component';
+import { HistoricalRetreatsDetailsComponent } from './details/experience-details/historical-retreats-details/historical-retreats-details.component';
+import { HistoricalRetreatsDetailsElementComponent } from './details/experience-details/historical-retreats-details-element/historical-retreats-details-element.component';
 
 @NgModule({
   imports: [
@@ -50,6 +54,10 @@ import { PersonalDataFormComponent } from './add-edit/participant-form/personal-
     HealthReportFormComponent,
     ExperienceFormComponent,
     PersonalDataFormComponent,
+    HistoricalRetreatFormComponent,
+    HistoricalRetreatsArrayComponent,
+    HistoricalRetreatsDetailsComponent,
+    HistoricalRetreatsDetailsElementComponent,
   ],
   providers: [],
   exports: [

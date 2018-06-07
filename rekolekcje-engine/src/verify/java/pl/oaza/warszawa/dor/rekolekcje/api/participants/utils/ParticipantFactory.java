@@ -1,47 +1,19 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
+import com.google.common.collect.Sets;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 public class ParticipantFactory {
-
-  private static final PersonalData samplePersonalData = PersonalData.builder()
-      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
-      .motherName("Jane")
-      .build();
-
-  private static final AddressValue sampleAddress = AddressValue.builder()
-      .city("Chicago")
-      .build();
-
-  private static final HealthReportValue sampleHealthReport = HealthReportValue.builder()
-      .medications("Gripex")
-      .build();
-
-  private static final ExperienceValue sampleExperience = ExperienceValue.builder()
-      .kwcStatus("Active")
-      .build();
-
-  public static ParticipantDTO sampleParticipant(Long id) {
-    return ParticipantDTO.builder()
-        .id(id)
-        .firstName("Sample")
-        .lastName("Participant")
-        .personalData(samplePersonalData)
-        .address(sampleAddress)
-        .pesel("98101012345")
-        .healthReport(sampleHealthReport)
-        .experience(sampleExperience)
-        .parishId(1L)
-        .build();
-  }
 
   public static ParticipantDTO participantWithMinimalData(Long id) {
     return ParticipantDTO.builder()
@@ -54,6 +26,52 @@ public class ParticipantFactory {
             .build())
         .parishId(1L)
         .build();
+  }
+
+  public static ParticipantDTO sampleParticipant(Long id) {
+    return ParticipantDTO.builder()
+        .id(id)
+        .firstName("Sample")
+        .lastName("Participant")
+        .pesel("98101012345")
+        .parishId(1L)
+        .personalData(samplePersonalData)
+        .address(sampleAddress)
+        .healthReport(sampleHealthReport)
+        .experience(sampleExperience)
+        .build();
+  }
+
+  private static final PersonalData samplePersonalData = PersonalData.builder()
+      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
+      .birthDate("10.10.1998")
+      .build();
+
+  private static final AddressValue sampleAddress = AddressValue.builder()
+      .postalCode("AB 321")
+      .build();
+
+  private static final HealthReportValue sampleHealthReport = HealthReportValue.builder()
+      .currentTreatment("Broken leg")
+      .build();
+
+  private static final ExperienceValue sampleExperience = ExperienceValue.builder()
+      .kwcStatus("Active")
+      .build();
+
+  public static ParticipantDTO sample() {
+    return ParticipantDTO.builder()
+        .firstName("Han")
+        .lastName("Solo")
+        .pesel("81010154321")
+        .parishId(1L)
+        .personalData(samplePersonalData)
+        .address(sampleAddress)
+        .build();
+  }
+
+  public static ParticipantDTO participantWithAllData() {
+    return participantWithAllData(null);
   }
 
   public static ParticipantDTO participantWithAllData(Long id) {
@@ -95,6 +113,19 @@ public class ParticipantFactory {
       .other("May be very weird sometimes")
       .build();
 
+  private static final Set<RetreatTurnValue> historicalTurns = Sets.newHashSet(
+      RetreatTurnValue.builder()
+          .stage("OND")
+          .location("In the middle of nowhere")
+          .year(1990)
+          .build(),
+      RetreatTurnValue.builder()
+          .stage("ONŻ 1")
+          .location("High Mountains")
+          .year(2013)
+          .build()
+  );
+
   private static ExperienceValue fullExperienceValue = ExperienceValue.builder()
       .kwcStatus("Active")
       .kwcSince(ZonedDateTime.of(LocalDateTime.of(1995, 5, 4, 12, 0), ZoneId.of("UTC")))
@@ -107,5 +138,69 @@ public class ParticipantFactory {
       .stepsTaken(4)
       .stepsPlannedThisYear(6)
       .deuterocatechumenateYear(2016)
+      .historicalRetreats(historicalTurns)
       .build();
+
+  public static ParticipantDTO copyWithDifferentId(ParticipantDTO original, long participantId, Set<RetreatTurnValue> retreatsWithIds) {
+    final ExperienceValue newExperienceValue = copyExperienceWithRetreats(original.getExperience(), retreatsWithIds);
+    return ParticipantDTO.builder()
+        .id(participantId)
+        .firstName(original.getFirstName())
+        .lastName(original.getLastName())
+        .pesel(original.getPesel())
+        .parishId(original.getParishId())
+        .personalData(original.getPersonalData())
+        .address(original.getAddress())
+        .experience(newExperienceValue)
+        .healthReport(original.getHealthReport())
+        .build();
+  }
+
+  private static ExperienceValue copyExperienceWithRetreats(ExperienceValue original, Set<RetreatTurnValue> newRetreats) {
+    return ExperienceValue.builder()
+        .historicalRetreats(newRetreats)
+        .kwcStatus(original.getKwcStatus())
+        .kwcSince(original.getKwcSince())
+        .numberOfCommunionDays(original.getNumberOfCommunionDays())
+        .numberOfPrayerRetreats(original.getNumberOfPrayerRetreats())
+        .deuterocatechumenateYear(original.getDeuterocatechumenateYear())
+        .stepsTaken(original.getStepsTaken())
+        .stepsPlannedThisYear(original.getStepsPlannedThisYear())
+        .celebrationsTaken(original.getCelebrationsTaken())
+        .celebrationsPlannedThisYear(original.getCelebrationsPlannedThisYear())
+        .formationMeetingsInMonth(original.getFormationMeetingsInMonth())
+        .leadingGroupToFormationStage(original.getLeadingGroupToFormationStage())
+        .build();
+  }
+
+  public static ParticipantDTO withNewData(long id) {
+    final PersonalData personalData = PersonalData.builder()
+        .motherName("Updated mother name")
+        .christeningDate(ZonedDateTime.of(LocalDateTime.of(1950, 3, 21, 15, 0), ZoneId.of("UTC")))
+        .birthDate("03.04.1995")
+        .build();
+    final AddressValue address = AddressValue.builder()
+        .city("New City")
+        .postalCode("AA-999")
+        .build();
+    final ExperienceValue experience = ExperienceValue.builder()
+        .kwcStatus("Updated status")
+        .numberOfPrayerRetreats(3)
+        .build();
+    final HealthReportValue healthReport = HealthReportValue.builder()
+        .currentTreatment("Updated treatment")
+        .medications("Brand new medications")
+        .build();
+    return ParticipantDTO.builder()
+        .id(id)
+        .firstName("Updated name")
+        .lastName("Updated surname")
+        .pesel("95040398765")
+        .parishId(444L)
+        .personalData(personalData)
+        .address(address)
+        .experience(experience)
+        .healthReport(healthReport)
+        .build();
+  }
 }

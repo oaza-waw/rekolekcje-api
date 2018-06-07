@@ -17,4 +17,22 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="experience-2" author="qiubix">
+        <createSequence sequenceName="RETREAT_TURN_SEQ" />
+        <createTable tableName="RETREAT_TURN">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="PARTICIPANT_ID" type="BIGINT" />
+            <column name="STAGE" type="VARCHAR(50)" />
+            <column name="LOCATION" type="VARCHAR(100)" />
+            <column name="YEAR" type="INT" />
+        </createTable>
+        <addPrimaryKey tableName="RETREAT_TURN" columnNames="ID" constraintName="RETREAT_TURN_PKEY" />
+        <addForeignKeyConstraint baseTableName="RETREAT_TURN" baseColumnNames="PARTICIPANT_ID"
+                                 constraintName="RETREAT_TURN_FKEY_PARTICIPANT"
+                                 onDelete="CASCADE"
+                                 referencedTableName="PARTICIPANT" referencedColumnNames="ID" />
+    </changeSet>
+
 </databaseChangeLog>

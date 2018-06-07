@@ -3,11 +3,18 @@ jdk: oraclejdk8
 
 sudo: required
 
+services:
+  - docker
+
+before_install:
+  - docker run --name db-rekolekcje-test -p 5433:5432 -e POSTGRES_DB=rekolekcjedb-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+
 addons:
   chrome: stable
 
-after_script:
+after_success:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
+  - bash <(curl -s https://codecov.io/bash)
 
 cache:
   bundler: true

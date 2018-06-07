@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Experience } from '../../../models/experience.model';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { HistoricalRetreatFormComponent } from '../historical-retreat-form/historical-retreat-form.component';
+import { HistoricalRetreatsArrayComponent } from '../historical-retreats-array/historical-retreats-array.component';
 
 @Component({
   selector: 'experience-form',
@@ -14,33 +16,35 @@ export class ExperienceFormComponent {
 
   static buildFormConfig(experience: Experience) {
     if (experience != null) {
-      return {
-        kwcStatus: [experience.kwcStatus],
-        kwcSince: [experience.kwcSince],
-        numberOfCommunionDays: [experience.numberOfCommunionDays],
-        numberOfPrayerRetreats: [experience.numberOfPrayerRetreats],
-        formationMeetingsInMonth: [experience.formationMeetingsInMonth],
-        leadingGroupToFormationStage: [experience.leadingGroupToFormationStage],
-        deuterocatechumenateYear: [experience.deuterocatechumenateYear],
-        stepsTaken: [experience.stepsTaken],
-        stepsPlannedThisYear: [experience.stepsPlannedThisYear],
-        celebrationsTaken: [experience.celebrationsTaken],
-        celebrationsPlannedThisYear: [experience.celebrationsPlannedThisYear],
-      }
+      return new FormGroup({
+        kwcStatus: new FormControl(experience.kwcStatus ? experience.kwcStatus : ''),
+        kwcSince: new FormControl(experience.kwcSince ? experience.kwcSince : ''),
+        numberOfCommunionDays: new FormControl(experience.numberOfCommunionDays ? experience.numberOfCommunionDays : ''),
+        numberOfPrayerRetreats: new FormControl(experience.numberOfPrayerRetreats ? experience.numberOfPrayerRetreats : ''),
+        formationMeetingsInMonth: new FormControl(experience.formationMeetingsInMonth ? experience.formationMeetingsInMonth : ''),
+        leadingGroupToFormationStage: new FormControl(experience.leadingGroupToFormationStage ? experience.leadingGroupToFormationStage : ''),
+        deuterocatechumenateYear: new FormControl(experience.deuterocatechumenateYear ? experience.deuterocatechumenateYear : ''),
+        stepsTaken: new FormControl(experience.stepsTaken ? experience.stepsTaken : ''),
+        stepsPlannedThisYear: new FormControl(experience.stepsPlannedThisYear ? experience.stepsPlannedThisYear : ''),
+        celebrationsTaken: new FormControl(experience.celebrationsTaken ? experience.celebrationsTaken : ''),
+        celebrationsPlannedThisYear: new FormControl(experience.celebrationsPlannedThisYear ? experience.celebrationsPlannedThisYear : ''),
+        historicalRetreats: HistoricalRetreatsArrayComponent.buildFormConfig(experience.historicalRetreats),
+      })
     } else {
-      return {
-        kwcStatus: '',
-        kwcSince: '',
-        numberOfCommunionDays: '',
-        numberOfPrayerRetreats: '',
-        formationMeetingsInMonth: '',
-        leadingGroupToFormationStage: '',
-        deuterocatechumenateYear: '',
-        stepsTaken: '',
-        stepsPlannedThisYear: '',
-        celebrationsTaken: '',
-        celebrationsPlannedThisYear: '',
-      }
+      return new FormGroup({
+        kwcStatus: new FormControl(''),
+        kwcSince: new FormControl(''),
+        numberOfCommunionDays: new FormControl(''),
+        numberOfPrayerRetreats: new FormControl(''),
+        formationMeetingsInMonth: new FormControl(''),
+        leadingGroupToFormationStage: new FormControl(''),
+        deuterocatechumenateYear: new FormControl(''),
+        stepsTaken: new FormControl(''),
+        stepsPlannedThisYear: new FormControl(''),
+        celebrationsTaken: new FormControl(''),
+        celebrationsPlannedThisYear: new FormControl(''),
+        historicalRetreats: new FormArray([HistoricalRetreatFormComponent.buildFormConfig(null)]),
+      })
     }
   }
 }

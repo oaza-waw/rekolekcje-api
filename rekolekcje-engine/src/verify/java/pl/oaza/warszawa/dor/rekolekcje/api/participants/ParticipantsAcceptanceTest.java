@@ -1,26 +1,27 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantData;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageExpectations;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
-
-  private ParticipantsDatabase participantsDatabase;
 
   private ParticipantsStorageBehaviour whenInStorage;
   private ParticipantsStorageExpectations thenInStorage;
@@ -28,17 +29,17 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   private ParticipantsApiBehaviour whenInParticipantsApi;
   private ParticipantsApiExpectations thenInParticipantsApi;
 
-  private final ParticipantDTO firstParticipant = ParticipantFactory.participantWithMinimalData(1L);
-  private final ParticipantDTO secondParticipant = ParticipantFactory.participantWithAllData(2L);
+  private final ParticipantDTO participantWithMinimalData = ParticipantFactory.participantWithMinimalData(1L);
+  private final ParticipantDTO participantWithSampleData = ParticipantFactory.sampleParticipant(2L);
+  private final ParticipantDTO participantWithFullData = ParticipantFactory.participantWithAllData();
 
-  private final List<ParticipantDTO> participants = Arrays.asList(firstParticipant, secondParticipant);
+  private final List<ParticipantDTO> participants = Arrays.asList(participantWithMinimalData, participantWithSampleData);
 
   @Before
   public void setup() throws Exception {
     super.setup();
 
-    participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
-    participantsDatabase.clearParticipants();
+    ParticipantsDatabase participantsDatabase = new ParticipantsDatabase(jdbcTemplate);
 
     whenInStorage = new ParticipantsStorageBehaviour(participantsDatabase);
     thenInStorage = new ParticipantsStorageExpectations(participantsDatabase);
@@ -49,60 +50,250 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     participantsDatabase.clearParticipants();
   }
 
-  @WithMockUser
   @Test
-  public void shouldGetAllParticipants() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
+  @WithMockUser
+  public void shouldGetAllParticipantsWhenTheyAreAlreadySaved() throws Exception {
+    whenInStorage.existParticipantsWithSampleData(participants);
+
     final ResultActions response = whenInParticipantsApi.allParticipantsAreRequested();
+
     thenInParticipantsApi.responseHasAllParticipants(response, participants);
   }
 
-  @WithMockUser
   @Test
-  public void shouldGetFullDataOfSingleParticipant() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final ParticipantData storedParticipant = participantsDatabase.getSavedParticipantData(secondParticipant);
-    final ResultActions response = whenInParticipantsApi.singleParticipantIsRequested(storedParticipant.getId());
-    thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
+  @WithMockUser
+  public void shouldGetOneParticipantWhenHeIsAlreadySaved() throws Exception {
+    whenInStorage.existParticipantsWithSampleData(participants);
+
+    final ResultActions response =
+        whenInParticipantsApi.singleParticipantIsRequested(participantWithSampleData.getId());
+
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, participantWithSampleData);
   }
 
-  @WithMockUser
   @Test
-  public void shouldAddSingleParticipant() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final ParticipantDTO participantToAdd = ParticipantFactory.sampleParticipant(null);
-    final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantToAdd);
+  @WithMockUser
+  public void shouldReturnFullDataOfASingleParticipant() throws Exception {
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+    final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+
+    final ResultActions response =
+        whenInParticipantsApi.singleParticipantIsRequested(id);
+
+    final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
+    final ParticipantDTO expectedParticipant =
+        ParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnCorrectDataWhenNewParticipantIsAdded() throws Exception {
+    whenInStorage.existParticipantsWithSampleData(participants);
+
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+
+    final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
+    final ParticipantDTO expectedParticipant =
+        ParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
+    thenInParticipantsApi.createdResponseHasCorrectParticipantData(response, expectedParticipant);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldSetParticipantIdWhenANewOneIsAdded() throws Exception {
+    whenInStorage.existParticipantsWithSampleData(participants);
+
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+
+    thenInParticipantsApi.responseHasParticipantWithId(response);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldPersistParticipantWhenHeIsAdded() throws Exception {
+    whenInStorage.existParticipantsWithSampleData(participants);
+
+    final ParticipantDTO sampleParticipant = ParticipantFactory.sample();
+    whenInParticipantsApi.singleParticipantIsAdded(sampleParticipant);
+
     thenInStorage.numberOfParticipantsIsEqualTo(participants.size() + 1);
-    final ParticipantData storedParticipant = thenInStorage.participantExistsWithCorrectData(participantToAdd);
-    thenInParticipantsApi.createdResponseHasFullParticipantData(response, storedParticipant);
+    thenInStorage.correctDataIsPersisted(sampleParticipant);
   }
 
-  @WithMockUser
   @Test
-  public void shouldDeleteSingleParticipant() throws Exception {
-    whenInStorage.existSomeParticipants(participants);
-    final Long id = secondParticipant.getId();
-    final ResultActions response = whenInParticipantsApi.singleParticipantIsDeleted(id);
+  @WithMockUser
+  public void shouldReturnCorrectDataWhenMultipleParticipantsAreAdded() throws Exception {
+    // given some participants are already in database
+    // when multiple participants are added at once
+    // then all their data is returned with ids
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldPersistAllParticipantsWhenMultipleAreAdded() throws Exception {
+    // given some participants are already in database
+    // when multiple participants are added
+    // then their data is persisted
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldDeleteASingleParticipant() throws Exception {
+    whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
+    final Long id = participantWithSampleData.getId();
+
+    final ResultActions response =
+        whenInParticipantsApi.singleParticipantIsDeleted(id);
+
     thenInParticipantsApi.okStatusIsReturned(response);
     thenInStorage.participantNoLongerExists(id);
   }
 
-  @WithMockUser
   @Test
-  public void shouldUpdateSingleParticipant() throws Exception {
-    ParticipantDTO existingParticipant = ParticipantFactory.sampleParticipant(3L);
-    final long existingParticipantId = existingParticipant.getId();
-    whenInStorage.existSomeParticipants(Lists.newArrayList(existingParticipant));
-    ParticipantDTO participantWithNewData = ParticipantDTO.builder()
-        .id(existingParticipantId)
-        .firstName("Luke")
-        .lastName("Skywalker")
-        .parishId(1L)
-        .pesel("80020354321")
-        .build();
+  @WithMockUser
+  public void shouldDeleteParticipantWithItsHistoricalRetreats() throws Exception {
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+    final Long participantId = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final Set<Long> retreatsIds = whenInStorage.historicalRetreatsForParticipantAreFound(participantId);
+
+    whenInParticipantsApi.singleParticipantIsDeleted(participantId);
+
+    thenInStorage.historicalRetreatsNoLongerExist(retreatsIds);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnParticipantWithNewDataWhenSingleOneIsUpdated() throws Exception {
+    whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
+    final Long id = participantWithSampleData.getId();
+
+    final ParticipantDTO participantWithNewData = ParticipantFactory.withNewData(id);
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
 
-    final ParticipantData storedParticipant = thenInStorage.participantExistsWithCorrectData(participantWithNewData);
-    thenInParticipantsApi.okResponseHasFullParticipantData(response, storedParticipant);
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, participantWithNewData);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldUpdatePersistedDataWhenSingleParticipantIsUpdated() throws Exception {
+    whenInStorage.existParticipantsWithSampleData(participants);
+    final Long id = participantWithSampleData.getId();
+
+    final ParticipantDTO participantWithNewData = ParticipantFactory.withNewData(id);
+    whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
+
+    thenInStorage.numberOfParticipantsIsEqualTo(participants.size());
+    thenInStorage.correctDataIsPersisted(participantWithNewData);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldReturnUpdatedHistoricalRetreatsOfParticipant() throws Exception {
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+    final Long participantId = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final Set<Long> retreatsIds = whenInStorage.historicalRetreatsForParticipantAreFound(participantId);
+    final Set<RetreatTurnValue> updatedRetreats = retreatsIds.stream()
+        .map(id -> RetreatTurnValue.builder()
+            .id(id)
+            .stage("New stage " + id)
+            .location("New location " + id)
+            .year(1990)
+            .build())
+        .limit(1)
+        .collect(Collectors.toSet());
+    updatedRetreats.add(RetreatTurnValue.builder()
+        .stage("ONŻ")
+        .location("Brand new")
+        .year(2000)
+        .build());
+    final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
+        .historicalRetreats(updatedRetreats)
+        .build();
+    final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
+        .id(participantId)
+        .firstName(participantWithFullData.getFirstName())
+        .lastName(participantWithFullData.getLastName())
+        .pesel(participantWithFullData.getPesel())
+        .personalData(participantWithFullData.getPersonalData())
+        .experience(updatedExperienceValue)
+        .build();
+
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(updatedParticipant);
+
+    final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(participantId);
+    final ParticipantDTO expectedParticipant =
+        ParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldRemoveHistoricalRetreatFromParticipantOnUpdate() throws Exception {
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithFullData);
+    final Long participantId = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
+    final Set<Long> retreatsIds = whenInStorage.historicalRetreatsForParticipantAreFound(participantId);
+    final Set<RetreatTurnValue> updatedRetreats = retreatsIds.stream()
+        .map(id -> RetreatTurnValue.builder()
+            .id(id)
+            .stage("New stage " + id)
+            .location("New location " + id)
+            .year(1990)
+            .build())
+        .limit(1)
+        .collect(Collectors.toSet());
+    final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
+        .historicalRetreats(updatedRetreats)
+        .build();
+    final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
+        .id(participantId)
+        .firstName(participantWithFullData.getFirstName())
+        .lastName(participantWithFullData.getLastName())
+        .pesel(participantWithFullData.getPesel())
+        .personalData(participantWithFullData.getPersonalData())
+        .experience(updatedExperienceValue)
+        .build();
+
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(updatedParticipant);
+
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, updatedParticipant);
+  }
+
+  @Test
+  @WithMockUser
+  public void shouldAddHistoricalRetreatToParticipantOnUpdate() throws Exception {
+    whenInParticipantsApi.singleParticipantIsAdded(participantWithSampleData);
+    final Long participantId = whenInStorage.participantWithTheSameDataIsFound(participantWithSampleData);
+    Set<RetreatTurnValue> newRetreats = Sets.newHashSet(
+        RetreatTurnValue.builder()
+            .stage("ONŻ")
+            .location("Brand new")
+            .year(2000)
+            .build(),
+        RetreatTurnValue.builder()
+            .stage("OND")
+            .location("Another brand new")
+            .year(2010)
+            .build()
+        );
+    final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
+        .historicalRetreats(newRetreats)
+        .build();
+    final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
+        .id(participantId)
+        .firstName(participantWithFullData.getFirstName())
+        .lastName(participantWithFullData.getLastName())
+        .pesel(participantWithFullData.getPesel())
+        .personalData(participantWithFullData.getPersonalData())
+        .experience(updatedExperienceValue)
+        .build();
+
+    final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(updatedParticipant);
+
+    final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(participantId);
+    final ParticipantDTO expectedParticipant =
+        ParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
+    thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 }

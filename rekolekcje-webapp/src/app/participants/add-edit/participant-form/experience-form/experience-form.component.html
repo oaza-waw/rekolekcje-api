@@ -56,39 +56,45 @@
 
   <table class="field-wide">
     <td>
-      <mat-form-field class="field-wide">
+      <mat-form-field class="field-narrow">
         <input matInput
                placeholder="Deuterocatechumenate (year)"
                formControlName="deuterocatechumenateYear">
       </mat-form-field>
     </td>
     <td>
-      <mat-form-field class="field-wide">
+      <mat-form-field class="field-narrow">
         <input matInput
                placeholder="Steps taken"
                formControlName="stepsTaken">
       </mat-form-field>
     </td>
     <td>
-      <mat-form-field class="field-wide">
+      <mat-form-field class="field-narrow">
         <input matInput
                placeholder="Steps planned this year"
                formControlName="stepsPlannedThisYear">
       </mat-form-field>
     </td>
     <td>
-      <mat-form-field class="field-wide">
+      <mat-form-field class="field-narrow">
         <input matInput
                placeholder="Celebrations taken"
                formControlName="celebrationsTaken">
       </mat-form-field>
     </td>
     <td>
-      <mat-form-field class="field-wide">
+      <mat-form-field class="field-narrow">
         <input matInput
                placeholder="Celebrations planned this year"
                formControlName="celebrationsPlannedThisYear">
       </mat-form-field>
     </td>
   </table>
+
+  <div formArrayName="historicalRetreats">
+    <reko-historical-retreats-array [retreatsFormArray]="experienceForm.get('historicalRetreats')">
+    </reko-historical-retreats-array>
+  </div>
+
 </div>

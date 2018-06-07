@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Value
 @Builder
@@ -19,4 +20,5 @@ public class ExperienceValue {
   private Integer stepsPlannedThisYear;
   private Integer celebrationsTaken;
   private Integer celebrationsPlannedThisYear;
+  private Set<RetreatTurnValue> historicalRetreats;
 }
