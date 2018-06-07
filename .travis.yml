@@ -14,8 +14,10 @@ addons:
 #  sonarcloud:
 #    organization: "oaza-waw"
 
-after_success:
+script:
   - ./gradlew sonarqube -Dsonar.organization=oaza-waw -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN
+
+after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 cache:
