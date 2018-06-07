@@ -9,7 +9,7 @@ import java.time.ZonedDateTime;
 @Value
 @Builder
 @EqualsAndHashCode(exclude = "birthDate")
-public class PersonalData {
+public class PersonalDataValue {
 
   private final String fatherName;
   private final String motherName;

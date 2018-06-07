@@ -4,7 +4,7 @@ import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -51,7 +51,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     // given
     saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
     ParticipantDTO existingParticipantWithOldData = getCorrespondingParticipantFromSystem(sampleParticipant2);
-    PersonalData updatedPersonalData = PersonalData.builder()
+    PersonalDataValue updatedPersonalData = PersonalDataValue.builder()
         .fatherName("Father")
         .motherName("Mother")
         .christeningPlace("Christening address")

@@ -3,7 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -104,7 +104,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
 
   private ParticipantDTO createParticipantWithDateInParisTimezone() {
     final ZonedDateTime dateInParis = dateInCET();
-    PersonalData personalData = PersonalData.builder()
+    PersonalDataValue personalData = PersonalDataValue.builder()
         .christeningDate(dateInParis)
         .build();
     return ParticipantDTO.builder()

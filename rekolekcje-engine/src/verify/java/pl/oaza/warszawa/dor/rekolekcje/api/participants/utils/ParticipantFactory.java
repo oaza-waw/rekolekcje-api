@@ -5,7 +5,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ public class ParticipantFactory {
         .firstName("Minimal")
         .lastName("Participant")
         .pesel("92042312345")
-        .personalData(PersonalData.builder()
+        .personalData(PersonalDataValue.builder()
             .birthDate("23.04.1992")
             .build())
         .parishId(1L)
@@ -42,7 +42,7 @@ public class ParticipantFactory {
         .build();
   }
 
-  private static final PersonalData samplePersonalData = PersonalData.builder()
+  private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
       .birthDate("10.10.1998")
       .build();
@@ -88,7 +88,7 @@ public class ParticipantFactory {
         .build();
   }
 
-  private static PersonalData fullPersonalData = PersonalData.builder()
+  private static PersonalDataValue fullPersonalData = PersonalDataValue.builder()
       .motherName("Mary")
       .fatherName("Jake")
       .birthDate("23.04.1990")
@@ -174,7 +174,7 @@ public class ParticipantFactory {
   }
 
   public static ParticipantDTO withNewData(long id) {
-    final PersonalData personalData = PersonalData.builder()
+    final PersonalDataValue personalData = PersonalDataValue.builder()
         .motherName("Updated mother name")
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1950, 3, 21, 15, 0), ZoneId.of("UTC")))
         .birthDate("03.04.1995")

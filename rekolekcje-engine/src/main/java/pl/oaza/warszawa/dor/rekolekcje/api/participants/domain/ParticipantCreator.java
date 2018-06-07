@@ -4,7 +4,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.util.Set;
@@ -25,7 +25,7 @@ class ParticipantCreator {
     final Address address = fromValue(participantDTO.getAddress());
     participantBuilder.address(address);
 
-    final PersonalData personalData = participantDTO.getPersonalData();
+    final PersonalDataValue personalData = participantDTO.getPersonalData();
     participantBuilder
         .motherName(personalData.getMotherName())
         .fatherName(personalData.getFatherName())

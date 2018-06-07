@@ -8,7 +8,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -51,7 +51,7 @@ class Participant {
   private Experience experience;
 
   ParticipantDTO dto() {
-    final PersonalData personalData = getPersonalData();
+    final PersonalDataValue personalData = getPersonalData();
     final AddressValue addressValue = getAddressValue();
     final ExperienceValue experienceValue = getExperienceValue();
     final HealthReportValue healthReportValue = getHealthStatusValue();
@@ -68,8 +68,8 @@ class Participant {
         .build();
   }
 
-  private PersonalData getPersonalData() {
-    return PersonalData.builder()
+  private PersonalDataValue getPersonalData() {
+    return PersonalDataValue.builder()
         .fatherName(fatherName)
         .motherName(motherName)
         .birthDate(convertPeselToBirthDate(pesel))
