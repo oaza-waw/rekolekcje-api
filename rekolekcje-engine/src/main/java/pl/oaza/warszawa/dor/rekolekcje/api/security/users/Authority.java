@@ -1,5 +1,8 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security.users;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,11 +18,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "AUTHORITY")
+@Getter
 public class Authority {
 
   @Id
   @Column(name = "ID")
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Setter
   private Long id;
 
   @Column(name = "NAME", length = 50)
@@ -30,15 +35,4 @@ public class Authority {
   @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
   private List<User> users;
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public AuthorityName getName() {
-    return name;
-  }
 }

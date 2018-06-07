@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.users.User;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class SecurityIntegrationTest extends BaseIntegrationTest {
@@ -36,15 +38,14 @@ public class SecurityIntegrationTest extends BaseIntegrationTest {
   @Before
   public void setup() throws Exception {
     super.setup();
-    registerNewUser(username, password);
   }
 
-  private void registerNewUser(String username, String password) throws Exception {
+  private ResultActions registerNewUser(String username, String password) throws Exception {
     final String body = createRequestBody(username, password);
     final MockHttpServletRequestBuilder registerUserRequest = post(SIGN_UP_URL)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(body);
-    mockMvc.perform(registerUserRequest);
+    return mockMvc.perform(registerUserRequest);
   }
 
   @Test
@@ -52,6 +53,15 @@ public class SecurityIntegrationTest extends BaseIntegrationTest {
     registerNewUser(username, password);
 
     assertThat(userRepository.findByUsername(username)).isNotNull();
+  }
+
+  @Test
+  public void shouldNotRegisterUserWithTheSameUsername() throws Exception {
+    registerNewUser(username, password);
+
+    final ResultActions response = registerNewUser(username, "secretsecret");
+
+    response.andExpect(content().string("User already exists with this username: " + username));
   }
 
   @Test
@@ -71,6 +81,7 @@ public class SecurityIntegrationTest extends BaseIntegrationTest {
 
   @Test
   public void shouldReturnJwtWhenAuthorizedUserTriesToLogIn() throws Exception {
+    registerNewUser(username, password);
     MvcResult result = requestAuthenticationToken(username, password);
 
     final String token = getTokenFromResponse(result);
@@ -112,6 +123,7 @@ public class SecurityIntegrationTest extends BaseIntegrationTest {
 
   @Test
   public void shouldRefreshToken() throws Exception {
+    registerNewUser(username, password);
     MvcResult authorizationResult = requestAuthenticationToken(username, password);
 
     final String oldToken = getTokenFromResponse(authorizationResult);
