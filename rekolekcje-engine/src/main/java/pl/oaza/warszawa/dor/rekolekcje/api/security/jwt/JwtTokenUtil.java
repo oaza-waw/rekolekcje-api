@@ -82,7 +82,7 @@ public class JwtTokenUtil {
 
   private Boolean isTokenExpired(String token) {
     final Date expirationDate = getExpirationDateFromToken(token);
-    return expirationDate.before(new Date());
+    return expirationDate == null || expirationDate.before(new Date());
   }
 
   private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
