@@ -1,11 +1,13 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeselBirthDateConverter {
+class PeselToBirthDateConverter {
 
-  public static String convertPeselToBirthDate(String pesel) {
+  private PeselToBirthDateConverter() {}
+
+  static String convertPeselToBirthDate(String pesel) {
 
     List<Integer> peselAsIntArray = convertPeselToIntList(pesel);
 

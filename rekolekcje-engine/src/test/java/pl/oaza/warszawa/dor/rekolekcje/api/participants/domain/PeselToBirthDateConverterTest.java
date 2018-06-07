@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.participants.pesetUtil;
+package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Parameterized.class)
-public class PeselBirthDateConverterTest {
+public class PeselToBirthDateConverterTest {
 
   @Parameter(value = 0)
   public String pesel;
@@ -34,11 +34,11 @@ public class PeselBirthDateConverterTest {
 
   @Test
   public void shouldConversionMethodReturnNotNull() {
-    assertThat(PeselBirthDateConverter.convertPeselToBirthDate(pesel)).isNotEmpty();
+    assertThat(PeselToBirthDateConverter.convertPeselToBirthDate(pesel)).isNotEmpty();
   }
 
   @Test
   public void shouldConvertPeselToBirthDate() {
-    assertThat(PeselBirthDateConverter.convertPeselToBirthDate(pesel)).isEqualTo(correspondingBirthDate);
+    assertThat(PeselToBirthDateConverter.convertPeselToBirthDate(pesel)).isEqualTo(correspondingBirthDate);
   }
 }
