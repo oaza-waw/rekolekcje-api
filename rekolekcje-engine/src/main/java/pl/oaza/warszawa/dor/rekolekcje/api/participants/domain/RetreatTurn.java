@@ -2,7 +2,6 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
@@ -18,7 +17,6 @@ import javax.persistence.ManyToOne;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Builder
 class RetreatTurn {
 
