@@ -1,12 +1,14 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
 
+@Builder
 public class JwtUser implements UserDetails {
 
   private final Long id;
@@ -18,27 +20,6 @@ public class JwtUser implements UserDetails {
   private final Collection<? extends GrantedAuthority> authorities;
   private final boolean enabled;
   private final Date lastPasswordResetDate;
-
-  JwtUser(
-      Long id,
-      String username,
-      String firstname,
-      String lastname,
-      String password,
-      String email,
-      Collection<? extends GrantedAuthority> authorities,
-      boolean enabled,
-      Date lastPasswordResetDate) {
-    this.id = id;
-    this.username = username;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.password = password;
-    this.email = email;
-    this.authorities = authorities;
-    this.enabled = enabled;
-    this.lastPasswordResetDate = lastPasswordResetDate;
-  }
 
   @JsonIgnore
   public Long getId() {
