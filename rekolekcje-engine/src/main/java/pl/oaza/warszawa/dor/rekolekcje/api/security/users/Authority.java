@@ -1,7 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security.users;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +19,12 @@ import java.util.List;
 @Entity
 @Table(name = "AUTHORITY")
 @Getter
+@Builder
 public class Authority {
 
   @Id
   @Column(name = "ID")
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Setter
   private Long id;
 
   @Column(name = "NAME", length = 50)
@@ -35,4 +35,8 @@ public class Authority {
   @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
   private List<User> users;
 
+  void grantUserAccessToThisAuthority(User user) {
+    users.add(user);
+    user.getAuthorities().add(this);
+  }
 }
