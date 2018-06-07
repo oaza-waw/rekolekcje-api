@@ -20,13 +20,16 @@ public class PeselToBirthDateConverterTest {
   @Parameter(value = 1)
   public String correspondingBirthDate;
 
-  @Parameters
+  @Parameters(name = "{index}: convert {0} to {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
         {"93103002331", "30.10.1993"},
         {"00212011230", "20.01.2000"},
         {"85022831221", "28.02.1985"},
         {"05311033544", "10.11.2005"},
+        {"44812233544", "22.01.1844"},
+        {"91441533544", "15.04.2191"},
+        {"25720933544", "09.12.2225"},
         {"99090912324", "09.09.1999"}
     });
   }
