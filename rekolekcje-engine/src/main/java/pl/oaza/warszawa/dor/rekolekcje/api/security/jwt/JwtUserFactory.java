@@ -14,17 +14,17 @@ final class JwtUserFactory {
   }
 
   static JwtUser create(User user) {
-    return new JwtUser(
-        user.getId(),
-        user.getUsername(),
-        user.getFirstname(),
-        user.getLastname(),
-        user.getPassword(),
-        user.getEmail(),
-        mapToGrantedAuthorities(user.getAuthorities()),
-        user.getEnabled(),
-        user.getLastPasswordResetDate()
-    );
+    return JwtUser.builder()
+        .id(user.getId())
+        .username(user.getUsername())
+        .firstname(user.getFirstname())
+        .lastname(user.getLastname())
+        .password(user.getPassword())
+        .email(user.getEmail())
+        .authorities(mapToGrantedAuthorities(user.getAuthorities()))
+        .enabled(user.getEnabled())
+        .lastPasswordResetDate(user.getLastPasswordResetDate())
+        .build();
   }
 
   private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {

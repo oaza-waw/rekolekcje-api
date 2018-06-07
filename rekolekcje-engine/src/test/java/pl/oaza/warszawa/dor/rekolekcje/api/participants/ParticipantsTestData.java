@@ -5,7 +5,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 class ParticipantsTestData {
 
-  private static final PersonalData samplePersonalData = PersonalData.builder()
+  private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
       .motherName("Mary")
       .fatherName("Jake")
       .christeningPlace("Los Angeles")

@@ -28,7 +28,7 @@ class UserRegistrationEndpoint {
   @PostMapping("/sign-up")
   public String signUp(@RequestBody User user) {
     if (userRepository.findByUsername(user.getUsername()) != null) {
-      return "User already exists: " + user;
+      return "User already exists with this username: " + user.getUsername();
     }
     //TODO: create real user instead of a mock one
     user.setPassword(passwordEncoder.encode(user.getPassword()));

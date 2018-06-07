@@ -15,7 +15,7 @@ interface ParticipantsRepository extends Repository<Participant, Long> {
   default Participant findOneOrThrow(long id) {
     Participant participant = findOne(id);
     if (participant == null) {
-      throw new ParticipantNotFoundException(id);
+      throw new ParticipantNotFoundException("No participant with id " + id + " found!");
     }
     return participant;
   }

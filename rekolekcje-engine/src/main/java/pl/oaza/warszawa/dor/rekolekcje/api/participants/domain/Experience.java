@@ -20,7 +20,6 @@ import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConver
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Builder
 class Experience {
   private LocalDateTime kwcSince;
@@ -37,6 +36,7 @@ class Experience {
 
   @Builder.Default
   @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Getter
   private Set<RetreatTurn> historicalRetreats = Sets.newHashSet();
 
   ExperienceValue value() {

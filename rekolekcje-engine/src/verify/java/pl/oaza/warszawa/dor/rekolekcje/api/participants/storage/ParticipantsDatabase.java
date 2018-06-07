@@ -40,7 +40,7 @@ public class ParticipantsDatabase {
     return foundIds.stream()
         .findAny()
         .orElseThrow(() ->
-            new ParticipantNotFoundException(participant));
+            new ParticipantNotFoundException("No participant found with this data: " + participant));
   }
 
   ParticipantSampleData getPersistedData(ParticipantDTO dto) {
@@ -52,7 +52,7 @@ public class ParticipantsDatabase {
     );
     return foundParticipants.stream()
         .findAny()
-        .orElseThrow(() -> new ParticipantNotFoundException(dto));
+        .orElseThrow(() -> new ParticipantNotFoundException("No participant found with this data: " + dto));
   }
 
   private RowMapper<ParticipantSampleData> participantSampleDataRowMapper() {

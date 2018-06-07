@@ -1,5 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security.users;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +20,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "AUTHORITY")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Authority {
 
   @Id
@@ -30,15 +39,8 @@ public class Authority {
   @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
   private List<User> users;
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public AuthorityName getName() {
-    return name;
+  void grantUserAccessToThisAuthority(User user) {
+    users.add(user);
+    user.getAuthorities().add(this);
   }
 }

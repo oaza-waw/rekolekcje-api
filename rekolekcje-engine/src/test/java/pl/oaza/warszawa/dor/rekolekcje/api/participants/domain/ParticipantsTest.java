@@ -35,13 +35,15 @@ public abstract class ParticipantsTest {
     return getAllInSystem().stream()
         .filter(p -> Objects.equals(p.getPesel(), participantDTO.getPesel()))
         .findAny()
-        .orElseThrow(() -> new ParticipantNotFoundException(participantDTO.getId()));
+        .orElseThrow(() ->
+            new ParticipantNotFoundException("No participant with id " + participantDTO.getId() + " found!"));
   }
 
   protected ParticipantDTO getParticipantFromSystemWithTheSameId(ParticipantDTO participantDTO) {
     return getAllInSystem().stream()
         .filter(p -> Objects.equals(p.getId(), participantDTO.getId()))
         .findAny()
-        .orElseThrow(() -> new ParticipantNotFoundException(0));
+        .orElseThrow(() ->
+            new ParticipantNotFoundException("No participant with id " + participantDTO.getId() + " found!"));
   }
 }

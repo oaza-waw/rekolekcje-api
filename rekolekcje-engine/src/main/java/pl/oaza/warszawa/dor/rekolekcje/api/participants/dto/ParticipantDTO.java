@@ -8,7 +8,7 @@ import org.hibernate.annotations.Immutable;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalData;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 
 @Immutable
 @Builder
@@ -27,7 +27,7 @@ public final class ParticipantDTO {
   private final AddressValue address = AddressValue.builder().build();
 
   @Builder.Default
-  private final PersonalData personalData = PersonalData.builder().build();
+  private final PersonalDataValue personalData = PersonalDataValue.builder().build();
 
   @Builder.Default
   private final HealthReportValue healthReport = HealthReportValue.builder().build();
