@@ -9,7 +9,6 @@ public class ParticipantDTOTest {
   @Test
   public void equalsContractForParticipantDTO() {
     EqualsVerifier.forClass(ParticipantDTO.class)
-        .withNonnullFields("firstName", "lastName")
         .verify();
   }
 }

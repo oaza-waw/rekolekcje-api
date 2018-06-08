@@ -18,10 +18,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 public final class ParticipantDTO {
 
   private final Long id;
-  private final String firstName;
-  private final String lastName;
-  private final String pesel;
-  private final Long parishId;
 
   @Builder.Default
   private final AddressValue address = AddressValue.builder().build();

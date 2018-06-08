@@ -15,26 +15,25 @@ import java.util.Set;
 
 public class ParticipantFactory {
 
+  private static final PersonalDataValue minimalPersonalData =
+      PersonalDataValue.builder()
+          .firstName("Minimal")
+          .lastName("Participant")
+          .pesel("92042312345")
+          .birthDate("23.04.1992")
+          .parishId(1L)
+          .build();
+
   public static ParticipantDTO participantWithMinimalData(Long id) {
     return ParticipantDTO.builder()
         .id(id)
-        .firstName("Minimal")
-        .lastName("Participant")
-        .pesel("92042312345")
-        .personalData(PersonalDataValue.builder()
-            .birthDate("23.04.1992")
-            .build())
-        .parishId(1L)
+        .personalData(minimalPersonalData)
         .build();
   }
 
   public static ParticipantDTO sampleParticipant(Long id) {
     return ParticipantDTO.builder()
         .id(id)
-        .firstName("Sample")
-        .lastName("Participant")
-        .pesel("98101012345")
-        .parishId(1L)
         .personalData(samplePersonalData)
         .address(sampleAddress)
         .healthReport(sampleHealthReport)
@@ -43,6 +42,10 @@ public class ParticipantFactory {
   }
 
   private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
+      .firstName("Sample")
+      .lastName("Participant")
+      .pesel("98101012345")
+      .parishId(1L)
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
       .birthDate("10.10.1998")
       .build();
@@ -59,13 +62,17 @@ public class ParticipantFactory {
       .kwcStatus("Active")
       .build();
 
+  private static final PersonalDataValue somePersonalData = PersonalDataValue.builder()
+      .firstName("Han")
+      .lastName("Solo")
+      .pesel("81010154321")
+      .parishId(1L)
+      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
+      .build();
+
   public static ParticipantDTO sample() {
     return ParticipantDTO.builder()
-        .firstName("Han")
-        .lastName("Solo")
-        .pesel("81010154321")
-        .parishId(1L)
-        .personalData(samplePersonalData)
+        .personalData(somePersonalData)
         .address(sampleAddress)
         .build();
   }
@@ -77,11 +84,7 @@ public class ParticipantFactory {
   public static ParticipantDTO participantWithAllData(Long id) {
     return ParticipantDTO.builder()
         .id(id)
-        .firstName("John")
-        .lastName("Smith")
         .address(fullAddress)
-        .pesel("90042312345")
-        .parishId(1L)
         .personalData(fullPersonalData)
         .experience(fullExperienceValue)
         .healthReport(fullHealthReport)
@@ -89,6 +92,10 @@ public class ParticipantFactory {
   }
 
   private static PersonalDataValue fullPersonalData = PersonalDataValue.builder()
+      .firstName("John")
+      .lastName("Smith")
+      .pesel("90042312345")
+      .parishId(1L)
       .motherName("Mary")
       .fatherName("Jake")
       .birthDate("23.04.1990")
@@ -145,10 +152,6 @@ public class ParticipantFactory {
     final ExperienceValue newExperienceValue = copyExperienceWithRetreats(original.getExperience(), retreatsWithIds);
     return ParticipantDTO.builder()
         .id(participantId)
-        .firstName(original.getFirstName())
-        .lastName(original.getLastName())
-        .pesel(original.getPesel())
-        .parishId(original.getParishId())
         .personalData(original.getPersonalData())
         .address(original.getAddress())
         .experience(newExperienceValue)
@@ -175,6 +178,10 @@ public class ParticipantFactory {
 
   public static ParticipantDTO withNewData(long id) {
     final PersonalDataValue personalData = PersonalDataValue.builder()
+        .firstName("Updated name")
+        .lastName("Updated surname")
+        .pesel("95040398765")
+        .parishId(444L)
         .motherName("Updated mother name")
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1950, 3, 21, 15, 0), ZoneId.of("UTC")))
         .birthDate("03.04.1995")
@@ -193,10 +200,6 @@ public class ParticipantFactory {
         .build();
     return ParticipantDTO.builder()
         .id(id)
-        .firstName("Updated name")
-        .lastName("Updated surname")
-        .pesel("95040398765")
-        .parishId(444L)
         .personalData(personalData)
         .address(address)
         .experience(experience)

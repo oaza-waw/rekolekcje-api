@@ -16,6 +16,10 @@ import java.util.Set;
 class ParticipantsTestData {
 
   private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
+      .firstName("Paul")
+      .lastName("Pierce")
+      .pesel("90061412111")
+      .parishId(1L)
       .motherName("Mary")
       .fatherName("Jake")
       .christeningPlace("Los Angeles")
@@ -47,10 +51,14 @@ class ParticipantsTestData {
       .other("None")
       .build();
 
-  static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()
+  private static final PersonalDataValue minimalPersonalData = PersonalDataValue.builder()
       .firstName("Jack")
       .lastName("Frost")
       .pesel("93010100000")
+      .build();
+
+  static final ParticipantDTO participantWithMinimalData = ParticipantDTO.builder()
+      .personalData(minimalPersonalData)
       .build();
 
   private static final Set<RetreatTurnValue> historicalTurns = Sets.newHashSet(
@@ -82,28 +90,32 @@ class ParticipantsTestData {
       .build();
 
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()
-      .firstName("Paul")
-      .lastName("Pierce")
-      .pesel("90061412111")
-      .parishId(1L)
       .address(sampleAddress)
       .personalData(samplePersonalData)
       .experience(sampleExperienceValue)
       .healthReport(sampleHealthReport)
       .build();
 
-  static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()
+  private static final PersonalDataValue samplePersonalData1 = PersonalDataValue.builder()
       .firstName("Kevin")
       .lastName("Garnett")
       .pesel("82020354321")
+      .build();
+
+  private static final PersonalDataValue samplePersonalData2 = PersonalDataValue.builder()
+      .firstName("Ray")
+      .lastName("Allen")
+      .pesel("82020312345")
+      .parishId(2L)
+      .build();
+
+  static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()
+      .personalData(samplePersonalData1)
       .address(sampleAddress)
       .build();
 
   static final ParticipantDTO sampleParticipant2 = ParticipantDTO.builder()
-      .firstName("Ray")
-      .lastName("Allen")
-      .pesel("82020312345")
+      .personalData(samplePersonalData2)
       .address(sampleAddress2)
-      .parishId(2L)
       .build();
 }

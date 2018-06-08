@@ -57,10 +57,6 @@ class Participant {
     final HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
-        .firstName(firstName)
-        .lastName(lastName)
-        .pesel(pesel)
-        .parishId(parishId)
         .address(addressValue)
         .personalData(personalData)
         .experience(experienceValue)
@@ -70,6 +66,10 @@ class Participant {
 
   private PersonalDataValue getPersonalData() {
     return PersonalDataValue.builder()
+        .firstName(firstName)
+        .lastName(lastName)
+        .pesel(pesel)
+        .parishId(parishId)
         .fatherName(fatherName)
         .motherName(motherName)
         .birthDate(convertPeselToBirthDate(pesel))

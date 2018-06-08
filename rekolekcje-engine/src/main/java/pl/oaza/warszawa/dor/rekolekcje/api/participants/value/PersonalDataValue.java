@@ -11,6 +11,10 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode(exclude = "birthDate")
 public class PersonalDataValue {
 
+  private final String firstName;
+  private final String lastName;
+  private final String pesel;
+  private final Long parishId;
   private final String fatherName;
   private final String motherName;
   private final String birthDate;

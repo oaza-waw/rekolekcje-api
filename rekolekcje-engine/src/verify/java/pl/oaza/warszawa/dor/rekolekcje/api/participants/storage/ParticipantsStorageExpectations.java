@@ -38,10 +38,10 @@ public class ParticipantsStorageExpectations {
   public void correctDataIsPersisted(ParticipantDTO dto) {
     final ParticipantSampleData persistedData = database.getPersistedData(dto);
     assertThat(persistedData.getId()).isNotNull();
-    assertThat(persistedData.getFirstName()).isEqualTo(dto.getFirstName());
-    assertThat(persistedData.getLastName()).isEqualTo(dto.getLastName());
-    assertThat(persistedData.getPesel()).isEqualTo(dto.getPesel());
-    assertThat(persistedData.getParishId()).isEqualTo(dto.getParishId());
+    assertThat(persistedData.getFirstName()).isEqualTo(dto.getPersonalData().getFirstName());
+    assertThat(persistedData.getLastName()).isEqualTo(dto.getPersonalData().getLastName());
+    assertThat(persistedData.getPesel()).isEqualTo(dto.getPersonalData().getPesel());
+    assertThat(persistedData.getParishId()).isEqualTo(dto.getPersonalData().getParishId());
     compareDates(dto.getPersonalData().getChristeningDate(), convertToUtc(persistedData.getChristeningDate()));
     assertThat(persistedData.getPostalCode()).isEqualTo(dto.getAddress().getPostalCode());
     assertThat(persistedData.getCurrentTreatment()).isEqualTo(dto.getHealthReport().getCurrentTreatment());

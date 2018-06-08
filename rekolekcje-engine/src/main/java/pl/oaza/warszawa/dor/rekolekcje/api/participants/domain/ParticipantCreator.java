@@ -16,17 +16,17 @@ class ParticipantCreator {
 
   Participant from(ParticipantDTO participantDTO) {
     final Participant.ParticipantBuilder participantBuilder = Participant.builder()
-        .id(participantDTO.getId())
-        .firstName(participantDTO.getFirstName())
-        .lastName(participantDTO.getLastName())
-        .pesel(participantDTO.getPesel())
-        .parishId(participantDTO.getParishId());
+        .id(participantDTO.getId());
 
     final Address address = fromValue(participantDTO.getAddress());
     participantBuilder.address(address);
 
     final PersonalDataValue personalData = participantDTO.getPersonalData();
     participantBuilder
+        .firstName(personalData.getFirstName())
+        .lastName(personalData.getLastName())
+        .pesel(personalData.getPesel())
+        .parishId(personalData.getParishId())
         .motherName(personalData.getMotherName())
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))

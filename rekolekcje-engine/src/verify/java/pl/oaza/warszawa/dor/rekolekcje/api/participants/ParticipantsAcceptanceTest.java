@@ -213,9 +213,6 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
         .build();
     final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
         .id(participantId)
-        .firstName(participantWithFullData.getFirstName())
-        .lastName(participantWithFullData.getLastName())
-        .pesel(participantWithFullData.getPesel())
         .personalData(participantWithFullData.getPersonalData())
         .experience(updatedExperienceValue)
         .build();
@@ -248,9 +245,6 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
         .build();
     final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
         .id(participantId)
-        .firstName(participantWithFullData.getFirstName())
-        .lastName(participantWithFullData.getLastName())
-        .pesel(participantWithFullData.getPesel())
         .personalData(participantWithFullData.getPersonalData())
         .experience(updatedExperienceValue)
         .build();
@@ -282,9 +276,6 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
         .build();
     final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
         .id(participantId)
-        .firstName(participantWithFullData.getFirstName())
-        .lastName(participantWithFullData.getLastName())
-        .pesel(participantWithFullData.getPesel())
         .personalData(participantWithFullData.getPersonalData())
         .experience(updatedExperienceValue)
         .build();

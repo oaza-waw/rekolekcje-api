@@ -105,12 +105,12 @@ public class ParticipantsAddTest extends ParticipantsTest {
   private ParticipantDTO createParticipantWithDateInParisTimezone() {
     final ZonedDateTime dateInParis = dateInCET();
     PersonalDataValue personalData = PersonalDataValue.builder()
-        .christeningDate(dateInParis)
-        .build();
-    return ParticipantDTO.builder()
         .firstName("Sample")
         .lastName("Participant")
         .pesel("80030212221")
+        .christeningDate(dateInParis)
+        .build();
+    return ParticipantDTO.builder()
         .personalData(personalData)
         .build();
   }
