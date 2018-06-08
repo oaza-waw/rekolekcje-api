@@ -35,23 +35,23 @@ public class ParticipantFactory {
     return ParticipantDTO.builder()
         .id(id)
         .personalData(samplePersonalData)
-        .address(sampleAddress)
         .healthReport(sampleHealthReport)
         .experience(sampleExperience)
         .build();
   }
+
+  private static final AddressValue sampleAddress = AddressValue.builder()
+      .postalCode("AB 321")
+      .build();
 
   private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
       .firstName("Sample")
       .lastName("Participant")
       .pesel("98101012345")
       .parishId(1L)
+      .address(sampleAddress)
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
       .birthDate("10.10.1998")
-      .build();
-
-  private static final AddressValue sampleAddress = AddressValue.builder()
-      .postalCode("AB 321")
       .build();
 
   private static final HealthReportValue sampleHealthReport = HealthReportValue.builder()
@@ -67,13 +67,13 @@ public class ParticipantFactory {
       .lastName("Solo")
       .pesel("81010154321")
       .parishId(1L)
+      .address(sampleAddress)
       .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
       .build();
 
   public static ParticipantDTO sample() {
     return ParticipantDTO.builder()
         .personalData(somePersonalData)
-        .address(sampleAddress)
         .build();
   }
 
@@ -84,26 +84,11 @@ public class ParticipantFactory {
   public static ParticipantDTO participantWithAllData(Long id) {
     return ParticipantDTO.builder()
         .id(id)
-        .address(fullAddress)
         .personalData(fullPersonalData)
         .experience(fullExperienceValue)
         .healthReport(fullHealthReport)
         .build();
   }
-
-  private static PersonalDataValue fullPersonalData = PersonalDataValue.builder()
-      .firstName("John")
-      .lastName("Smith")
-      .pesel("90042312345")
-      .parishId(1L)
-      .motherName("Mary")
-      .fatherName("Jake")
-      .birthDate("23.04.1990")
-      .christeningPlace("Los Angeles")
-      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
-      .emergencyContactName("Uncle Bob")
-      .emergencyContactNumber(444555666L)
-      .build();
 
   private static AddressValue fullAddress = AddressValue.builder()
       .streetName("Broadway")
@@ -111,6 +96,21 @@ public class ParticipantFactory {
       .flatNumber(13)
       .postalCode("12-654")
       .city("New York")
+      .build();
+
+  private static PersonalDataValue fullPersonalData = PersonalDataValue.builder()
+      .firstName("John")
+      .lastName("Smith")
+      .pesel("90042312345")
+      .parishId(1L)
+      .address(fullAddress)
+      .motherName("Mary")
+      .fatherName("Jake")
+      .birthDate("23.04.1990")
+      .christeningPlace("Los Angeles")
+      .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
+      .emergencyContactName("Uncle Bob")
+      .emergencyContactNumber(444555666L)
       .build();
 
   private static final HealthReportValue fullHealthReport = HealthReportValue.builder()
@@ -153,7 +153,6 @@ public class ParticipantFactory {
     return ParticipantDTO.builder()
         .id(participantId)
         .personalData(original.getPersonalData())
-        .address(original.getAddress())
         .experience(newExperienceValue)
         .healthReport(original.getHealthReport())
         .build();
@@ -177,18 +176,19 @@ public class ParticipantFactory {
   }
 
   public static ParticipantDTO withNewData(long id) {
+    final AddressValue address = AddressValue.builder()
+        .city("New City")
+        .postalCode("AA-999")
+        .build();
     final PersonalDataValue personalData = PersonalDataValue.builder()
         .firstName("Updated name")
         .lastName("Updated surname")
         .pesel("95040398765")
         .parishId(444L)
+        .address(address)
         .motherName("Updated mother name")
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1950, 3, 21, 15, 0), ZoneId.of("UTC")))
         .birthDate("03.04.1995")
-        .build();
-    final AddressValue address = AddressValue.builder()
-        .city("New City")
-        .postalCode("AA-999")
         .build();
     final ExperienceValue experience = ExperienceValue.builder()
         .kwcStatus("Updated status")
@@ -201,7 +201,6 @@ public class ParticipantFactory {
     return ParticipantDTO.builder()
         .id(id)
         .personalData(personalData)
-        .address(address)
         .experience(experience)
         .healthReport(healthReport)
         .build();

@@ -27,18 +27,21 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
       .lastName("George")
       .pesel("90010112345")
       .parishId(1L)
+      .address(sampleAddress)
       .build();
   private PersonalDataValue samplePersonalData2 = PersonalDataValue.builder()
       .firstName("Roy")
       .lastName("Hibbert")
       .pesel("92010112345")
       .parishId(1L)
+      .address(sampleAddress)
       .build();
   private PersonalDataValue samplePersonalData3 = PersonalDataValue.builder()
       .firstName("George")
       .lastName("Hill")
       .pesel("93010112345")
       .parishId(1L)
+      .address(sampleAddress)
       .build();
 
   private ParticipantDTO sampleParticipant1 =
@@ -48,12 +51,10 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
   private ParticipantDTO sampleParticipant2 =
       ParticipantDTO.builder()
           .personalData(samplePersonalData2)
-          .address(sampleAddress)
           .build();
   private ParticipantDTO sampleParticipant3 =
       ParticipantDTO.builder()
           .personalData(samplePersonalData3)
-          .address(sampleAddress)
           .build();
 
   @Test
@@ -61,16 +62,6 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
     // given
     saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
     ParticipantDTO existingParticipantWithOldData = getCorrespondingParticipantFromSystem(sampleParticipant2);
-    PersonalDataValue updatedPersonalData = PersonalDataValue.builder()
-        .firstName("Danny")
-        .lastName("Granger")
-        .pesel("95010112345")
-        .fatherName("Father")
-        .motherName("Mother")
-        .parishId(1L)
-        .christeningPlace("Christening address")
-        .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
-        .build();
     AddressValue updatedAddress = AddressValue.builder()
         .city("New City")
         .streetName("Brand new street")
@@ -78,10 +69,20 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
         .flatNumber(11)
         .postalCode("54-351")
         .build();
+    PersonalDataValue updatedPersonalData = PersonalDataValue.builder()
+        .firstName("Danny")
+        .lastName("Granger")
+        .pesel("95010112345")
+        .address(updatedAddress)
+        .fatherName("Father")
+        .motherName("Mother")
+        .parishId(1L)
+        .christeningPlace("Christening address")
+        .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
+        .build();
     ParticipantDTO participantWithUpdatedData =
         ParticipantDTO.builder()
             .id(existingParticipantWithOldData.getId())
-            .address(updatedAddress)
             .personalData(updatedPersonalData)
             .build();
 

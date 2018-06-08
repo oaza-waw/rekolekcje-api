@@ -15,6 +15,10 @@ public class PersonalDataValue {
   private final String lastName;
   private final String pesel;
   private final Long parishId;
+
+  @Builder.Default
+  private final AddressValue address = AddressValue.builder().build();
+
   private final String fatherName;
   private final String motherName;
   private final String birthDate;

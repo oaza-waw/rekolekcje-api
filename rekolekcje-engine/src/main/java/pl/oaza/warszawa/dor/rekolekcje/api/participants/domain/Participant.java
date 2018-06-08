@@ -52,12 +52,10 @@ class Participant {
 
   ParticipantDTO dto() {
     final PersonalDataValue personalData = getPersonalData();
-    final AddressValue addressValue = getAddressValue();
     final ExperienceValue experienceValue = getExperienceValue();
     final HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
-        .address(addressValue)
         .personalData(personalData)
         .experience(experienceValue)
         .healthReport(healthReportValue)
@@ -65,11 +63,13 @@ class Participant {
   }
 
   private PersonalDataValue getPersonalData() {
+    final AddressValue addressValue = getAddressValue();
     return PersonalDataValue.builder()
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
         .parishId(parishId)
+        .address(addressValue)
         .fatherName(fatherName)
         .motherName(motherName)
         .birthDate(convertPeselToBirthDate(pesel))

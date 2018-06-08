@@ -92,7 +92,7 @@ public class ParticipantsDatabase {
         dto.getPersonalData().getPesel(),
         dto.getPersonalData().getParishId(),
         convertToLocalDate(dto.getPersonalData().getChristeningDate()),
-        dto.getAddress().getPostalCode(),
+        dto.getPersonalData().getAddress().getPostalCode(),
         dto.getHealthReport().getCurrentTreatment(),
         dto.getExperience().getKwcStatus());
   }

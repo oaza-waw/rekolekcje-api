@@ -18,15 +18,15 @@ class ParticipantCreator {
     final Participant.ParticipantBuilder participantBuilder = Participant.builder()
         .id(participantDTO.getId());
 
-    final Address address = fromValue(participantDTO.getAddress());
-    participantBuilder.address(address);
-
     final PersonalDataValue personalData = participantDTO.getPersonalData();
+    final Address address = fromValue(personalData.getAddress());
+
     participantBuilder
         .firstName(personalData.getFirstName())
         .lastName(personalData.getLastName())
         .pesel(personalData.getPesel())
         .parishId(personalData.getParishId())
+        .address(address)
         .motherName(personalData.getMotherName())
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))

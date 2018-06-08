@@ -43,7 +43,7 @@ public class ParticipantsStorageExpectations {
     assertThat(persistedData.getPesel()).isEqualTo(dto.getPersonalData().getPesel());
     assertThat(persistedData.getParishId()).isEqualTo(dto.getPersonalData().getParishId());
     compareDates(dto.getPersonalData().getChristeningDate(), convertToUtc(persistedData.getChristeningDate()));
-    assertThat(persistedData.getPostalCode()).isEqualTo(dto.getAddress().getPostalCode());
+    assertThat(persistedData.getPostalCode()).isEqualTo(dto.getPersonalData().getAddress().getPostalCode());
     assertThat(persistedData.getCurrentTreatment()).isEqualTo(dto.getHealthReport().getCurrentTreatment());
     assertThat(persistedData.getKwcStatus()).isEqualTo(dto.getExperience().getKwcStatus());
     assertThat(persistedData.getNumberOfCommunionDays()).isEqualTo(dto.getExperience().getNumberOfCommunionDays());

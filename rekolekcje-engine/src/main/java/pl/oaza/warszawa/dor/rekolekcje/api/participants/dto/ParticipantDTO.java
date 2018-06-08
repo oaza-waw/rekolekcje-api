@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Immutable;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
@@ -18,9 +17,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 public final class ParticipantDTO {
 
   private final Long id;
-
-  @Builder.Default
-  private final AddressValue address = AddressValue.builder().build();
 
   @Builder.Default
   private final PersonalDataValue personalData = PersonalDataValue.builder().build();

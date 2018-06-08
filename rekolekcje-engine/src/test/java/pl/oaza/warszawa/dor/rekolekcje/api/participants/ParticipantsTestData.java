@@ -15,25 +15,26 @@ import java.util.Set;
 
 class ParticipantsTestData {
 
-  private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
-      .firstName("Paul")
-      .lastName("Pierce")
-      .pesel("90061412111")
-      .parishId(1L)
-      .motherName("Mary")
-      .fatherName("Jake")
-      .christeningPlace("Los Angeles")
-      .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
-      .emergencyContactName("Uncle Bob")
-      .emergencyContactNumber(111222333L)
-      .build();
-
   private static final AddressValue sampleAddress = AddressValue.builder()
       .city("New York")
       .postalCode("01-234")
       .streetName("42nd")
       .streetNumber(23)
       .flatNumber(125)
+      .build();
+
+  private static final PersonalDataValue samplePersonalData = PersonalDataValue.builder()
+      .firstName("Paul")
+      .lastName("Pierce")
+      .pesel("90061412111")
+      .parishId(1L)
+      .address(sampleAddress)
+      .motherName("Mary")
+      .fatherName("Jake")
+      .christeningPlace("Los Angeles")
+      .christeningDate(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC")))
+      .emergencyContactName("Uncle Bob")
+      .emergencyContactNumber(111222333L)
       .build();
 
   private static final AddressValue sampleAddress2 = AddressValue.builder()
@@ -90,7 +91,6 @@ class ParticipantsTestData {
       .build();
 
   static final ParticipantDTO participantWithFullData = ParticipantDTO.builder()
-      .address(sampleAddress)
       .personalData(samplePersonalData)
       .experience(sampleExperienceValue)
       .healthReport(sampleHealthReport)
@@ -100,6 +100,7 @@ class ParticipantsTestData {
       .firstName("Kevin")
       .lastName("Garnett")
       .pesel("82020354321")
+      .address(sampleAddress)
       .build();
 
   private static final PersonalDataValue samplePersonalData2 = PersonalDataValue.builder()
@@ -107,15 +108,14 @@ class ParticipantsTestData {
       .lastName("Allen")
       .pesel("82020312345")
       .parishId(2L)
+      .address(sampleAddress2)
       .build();
 
   static final ParticipantDTO sampleParticipant1 = ParticipantDTO.builder()
       .personalData(samplePersonalData1)
-      .address(sampleAddress)
       .build();
 
   static final ParticipantDTO sampleParticipant2 = ParticipantDTO.builder()
       .personalData(samplePersonalData2)
-      .address(sampleAddress2)
       .build();
 }
