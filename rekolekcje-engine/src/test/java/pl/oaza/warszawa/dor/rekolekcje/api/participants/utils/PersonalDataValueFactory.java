@@ -65,6 +65,23 @@ class PersonalDataValueFactory {
         .build();
   }
 
+  static PersonalDataValue withBirthDate(PersonalDataValue original, String birthDate) {
+    return PersonalDataValue.builder()
+        .birthDate(birthDate)
+        .firstName(original.getFirstName())
+        .lastName(original.getLastName())
+        .pesel(original.getPesel())
+        .address(original.getAddress())
+        .parishId(original.getParishId())
+        .motherName(original.getMotherName())
+        .fatherName(original.getFatherName())
+        .christeningPlace(original.getChristeningPlace())
+        .christeningDate(original.getChristeningDate())
+        .emergencyContactName(original.getEmergencyContactName())
+        .emergencyContactNumber(original.getEmergencyContactNumber())
+        .build();
+  }
+
   PersonalDataValue withAddress(AddressValue address) {
     return sampleBuilder
         .address(address)

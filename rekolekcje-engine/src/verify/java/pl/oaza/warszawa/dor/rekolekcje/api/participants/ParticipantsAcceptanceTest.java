@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,13 +11,13 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageExpectations;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.OldParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,11 +30,11 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   private ParticipantsApiBehaviour whenInParticipantsApi;
   private ParticipantsApiExpectations thenInParticipantsApi;
 
-  private final ParticipantDTO participantWithMinimalData = ParticipantFactory.participantWithMinimalData(1L);
-  private final ParticipantDTO participantWithSampleData = ParticipantFactory.sampleParticipant(2L);
-  private final ParticipantDTO participantWithFullData = ParticipantFactory.participantWithAllData();
+  private final ParticipantDTO participantWithMinimalData = ParticipantFactory.withMinimalData(1L);
+  private final ParticipantDTO participantWithSampleData = ParticipantFactory.withSampleData(2L);
+  private final ParticipantDTO participantWithFullData = ParticipantFactory.withFullData(null);
 
-  private final List<ParticipantDTO> participants = Arrays.asList(participantWithMinimalData, participantWithSampleData);
+  private final List<ParticipantDTO> participants = ImmutableList.of(participantWithMinimalData, participantWithSampleData);
 
   @Before
   public void setup() throws Exception {
@@ -82,7 +83,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
     final ParticipantDTO expectedParticipant =
-        ParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
+        OldParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -96,7 +97,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
     final ParticipantDTO expectedParticipant =
-        ParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
+        OldParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
     thenInParticipantsApi.createdResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -115,7 +116,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   public void shouldPersistParticipantWhenHeIsAdded() throws Exception {
     whenInStorage.existParticipantsWithSampleData(participants);
 
-    final ParticipantDTO sampleParticipant = ParticipantFactory.sample();
+    final ParticipantDTO sampleParticipant = OldParticipantFactory.sample();
     whenInParticipantsApi.singleParticipantIsAdded(sampleParticipant);
 
     thenInStorage.numberOfParticipantsIsEqualTo(participants.size() + 1);
@@ -169,7 +170,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
     final Long id = participantWithSampleData.getId();
 
-    final ParticipantDTO participantWithNewData = ParticipantFactory.withNewData(id);
+    final ParticipantDTO participantWithNewData = OldParticipantFactory.withNewData(id);
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
 
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, participantWithNewData);
@@ -181,7 +182,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     whenInStorage.existParticipantsWithSampleData(participants);
     final Long id = participantWithSampleData.getId();
 
-    final ParticipantDTO participantWithNewData = ParticipantFactory.withNewData(id);
+    final ParticipantDTO participantWithNewData = OldParticipantFactory.withNewData(id);
     whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
 
     thenInStorage.numberOfParticipantsIsEqualTo(participants.size());
@@ -221,7 +222,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(participantId);
     final ParticipantDTO expectedParticipant =
-        ParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
+        OldParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -284,7 +285,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(participantId);
     final ParticipantDTO expectedParticipant =
-        ParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
+        OldParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 }

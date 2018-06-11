@@ -13,7 +13,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-public class ParticipantFactory {
+public class OldParticipantFactory {
 
   private static final PersonalDataValue minimalPersonalData =
       PersonalDataValue.builder()

@@ -1,11 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
-
-import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +22,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
   @Test
   public void shouldUpdateExistingParticipant() throws Exception {
     // given
-    saveAll(Arrays.asList(sampleParticipant1, sampleParticipant2, sampleParticipant3));
+    saveAll(ImmutableList.of(sampleParticipant1, sampleParticipant2, sampleParticipant3));
     ParticipantDTO existingParticipantWithOldData = getCorrespondingParticipantFromSystem(sampleParticipant2);
     ParticipantDTO participantWithUpdatedData =
         ParticipantFactory.withFullData(existingParticipantWithOldData.getId());
