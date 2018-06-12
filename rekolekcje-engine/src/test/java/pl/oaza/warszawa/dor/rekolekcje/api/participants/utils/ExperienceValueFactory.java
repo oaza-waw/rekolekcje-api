@@ -53,4 +53,38 @@ class ExperienceValueFactory {
         .historicalRetreats(historicalRetreats)
         .build();
   }
+
+  static ExperienceValueCloner from(ExperienceValue original) {
+    return new ExperienceValueCloner(original);
+  }
+
+  public static class ExperienceValueCloner {
+
+    private ExperienceValue.ExperienceValueBuilder builder;
+
+    private ExperienceValueCloner(ExperienceValue original) {
+      this.builder = ExperienceValue.builder()
+          .historicalRetreats(original.getHistoricalRetreats())
+          .kwcStatus(original.getKwcStatus())
+          .kwcSince(original.getKwcSince())
+          .numberOfPrayerRetreats(original.getNumberOfPrayerRetreats())
+          .numberOfCommunionDays(original.getNumberOfCommunionDays())
+          .celebrationsTaken(original.getCelebrationsTaken())
+          .celebrationsPlannedThisYear(original.getCelebrationsPlannedThisYear())
+          .deuterocatechumenateYear(original.getDeuterocatechumenateYear())
+          .stepsTaken(original.getStepsTaken())
+          .stepsPlannedThisYear(original.getStepsPlannedThisYear())
+          .formationMeetingsInMonth(original.getFormationMeetingsInMonth())
+          .leadingGroupToFormationStage(original.getLeadingGroupToFormationStage());
+    }
+
+    ExperienceValueCloner withHistoricalRetreats(Set<RetreatTurnValue> historicalRetreats) {
+      this.builder = this.builder.historicalRetreats(historicalRetreats);
+      return this;
+    }
+
+    public ExperienceValue clone() {
+      return builder.build();
+    }
+  }
 }

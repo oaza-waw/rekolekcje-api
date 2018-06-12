@@ -97,7 +97,10 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     final long id = whenInStorage.participantWithTheSameDataIsFound(participantWithFullData);
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
     final ParticipantDTO expectedParticipant =
-        OldParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
+        ParticipantFactory.from(participantWithFullData)
+            .withId(id)
+            .withHistoricalRetreats(retreatsWithIds)
+            .clone();
     thenInParticipantsApi.createdResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -271,7 +274,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
             .location("Another brand new")
             .year(2010)
             .build()
-        );
+    );
     final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
         .historicalRetreats(newRetreats)
         .build();

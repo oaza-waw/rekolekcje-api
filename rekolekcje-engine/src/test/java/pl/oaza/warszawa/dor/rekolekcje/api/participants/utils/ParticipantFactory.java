@@ -1,8 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 public class ParticipantFactory {
 
@@ -65,5 +68,41 @@ public class ParticipantFactory {
         .healthReport(original.getHealthReport())
         .experience(original.getExperience())
         .build();
+  }
+
+  public static ParticipantCloner from(ParticipantDTO dto) {
+    return new ParticipantCloner(dto);
+  }
+
+  public static class ParticipantCloner {
+    private final ParticipantDTO original;
+
+    private ParticipantDTO.ParticipantDTOBuilder builder;
+
+    private ParticipantCloner(ParticipantDTO original) {
+      this.original = original;
+      this.builder = ParticipantDTO.builder()
+          .id(original.getId())
+          .personalData(original.getPersonalData())
+          .experience(original.getExperience())
+          .healthReport(original.getHealthReport());
+    }
+
+    public ParticipantCloner withId(Long id) {
+      this.builder = this.builder.id(id);
+      return this;
+    }
+
+    public ParticipantCloner withHistoricalRetreats(Set<RetreatTurnValue> historicalRetreats) {
+      final ExperienceValue newExperienceValue = ExperienceValueFactory.from(original.getExperience())
+          .withHistoricalRetreats(historicalRetreats)
+          .clone();
+      this.builder = this.builder.experience(newExperienceValue);
+      return this;
+    }
+
+    public ParticipantDTO clone() {
+      return builder.build();
+    }
   }
 }
