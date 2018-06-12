@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { PersonalData } from '../../../models/personal-data.model';
-import { Address } from '../../../models/address.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Parish } from '../../../../parish/models/parish.model';
 import { AddressFormComponent } from '../address-form/address-form.component';
@@ -12,23 +11,18 @@ import { AddressFormComponent } from '../address-form/address-form.component';
 })
 export class PersonalDataFormComponent {
 
-  @Input() firstName: string;
-  @Input() lastName: string;
-  @Input() pesel: string;
-  @Input() parishId: string;
-  @Input() address: Address;
   @Input() personalData: PersonalData;
   @Input() group: FormGroup;
   @Input() parishes: Parish[];
 
-  static buildFormConfig(firstName: string, lastName: string, pesel: string, parishId: string, personalData: PersonalData, address: Address) {
+  static buildFormConfig(personalData: PersonalData) {
     if (personalData != null) {
       return new FormGroup({
-        firstName: new FormControl(firstName ? firstName : '', Validators.required),
-        lastName: new FormControl(lastName ? lastName : '', Validators.required),
-        pesel: new FormControl(pesel ? pesel : '', Validators.required),
-        address: AddressFormComponent.buildFormConfig(address),
-        parishId: new FormControl(parishId ? parishId : ''),
+        firstName: new FormControl(personalData.firstName ? personalData.firstName : '', Validators.required),
+        lastName: new FormControl(personalData.lastName ? personalData.lastName : '', Validators.required),
+        pesel: new FormControl(personalData.pesel ? personalData.pesel : '', Validators.required),
+        address: AddressFormComponent.buildFormConfig(personalData.address),
+        parishId: new FormControl(personalData.parishId ? personalData.parishId : ''),
         christeningDate: new FormControl(personalData.christeningDate ? personalData.christeningDate : null),
         christeningPlace: new FormControl(personalData.christeningPlace ? personalData.christeningPlace : ''),
         fatherName: new FormControl(personalData.fatherName ? personalData.fatherName : ''),
@@ -38,11 +32,11 @@ export class PersonalDataFormComponent {
       })
     } else {
       return new FormGroup({
-        firstName: new FormControl(firstName ? firstName : '', Validators.required),
-        lastName: new FormControl(lastName ? lastName : '', Validators.required),
-        pesel: new FormControl(pesel ? pesel : '', Validators.required),
-        address: AddressFormComponent.buildFormConfig(address),
-        parishId: new FormControl(parishId ? parishId : ''),
+        firstName: new FormControl('', Validators.required),
+        lastName: new FormControl('', Validators.required),
+        pesel: new FormControl('', Validators.required),
+        address: AddressFormComponent.buildFormConfig(null),
+        parishId: new FormControl(''),
         christeningDate: new FormControl(null),
         christeningPlace: new FormControl(''),
         fatherName: new FormControl(''),

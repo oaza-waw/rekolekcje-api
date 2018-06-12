@@ -77,13 +77,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
     const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
       data: {
         dialogTitle: 'Edit participant',
-        firstName: participant.firstName,
-        lastName: participant.lastName,
-        pesel: participant.pesel,
-        parishId: participant.parishId,
         parishes: this.parishes,
         personalData: participant.personalData,
-        address: participant.address,
         healthReport: participant.healthReport,
         experience: participant.experience
       },

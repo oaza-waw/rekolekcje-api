@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Participant } from '../../models/participant.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Parish } from '../../../parish/models/parish.model';
 import { AppSelectors } from '../../../core/store/app-selectors';
 import { Subject } from 'rxjs/Subject';
 import { Parishes } from '../../../parish/store/parish-reducer';
 import { Store } from '@ngrx/store';
-import { Address } from '../../models/address.model';
 import { PersonalData } from '../../models/personal-data.model';
 import { HealthReport } from '../../models/heath-report.model';
 import { Experience } from '../../models/experience.model';
@@ -21,12 +20,7 @@ import { PersonalDataFormComponent } from './personal-data-form/personal-data-fo
 })
 export class ParticipantFormComponent implements OnInit, OnDestroy {
 
-  @Input() firstName: string;
   @Input() id: number;
-  @Input() lastName: string;
-  @Input() pesel: string;
-  @Input() parishId: string;
-  @Input() address: Address;
   @Input() personalData: PersonalData;
   @Input() healthReport: HealthReport;
   @Input() experience: Experience;
@@ -49,7 +43,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe((parishes: Parish[]) => this.parishes = parishes);
     this.form = this.fb.group({
-      personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.firstName, this.lastName, this.pesel, this.parishId, this.personalData, this.address),
+      personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.personalData),
       healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
       experience: ExperienceFormComponent.buildFormConfig(this.experience)
     });
