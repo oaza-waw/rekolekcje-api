@@ -61,6 +61,15 @@ public class ParticipantFactory {
         .build();
   }
 
+  public static ParticipantDTO withUpdatedData(Long id) {
+    return ParticipantDTO.builder()
+        .id(id)
+        .personalData(personalDataFactory.withUpdatedData())
+        .experience(experienceValueFactory.withUpdatedData())
+        .healthReport(healthReportValueFactory.withUpdatedData())
+        .build();
+  }
+
   static ParticipantDTO withBirthDate(ParticipantDTO original, String birthDate) {
     return ParticipantDTO.builder()
         .id(original.getId())

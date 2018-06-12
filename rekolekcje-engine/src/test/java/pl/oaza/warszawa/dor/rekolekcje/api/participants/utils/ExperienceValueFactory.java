@@ -1,6 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
@@ -11,7 +11,7 @@ import java.util.Set;
 
 class ExperienceValueFactory {
 
-  private static final Set<RetreatTurnValue> historicalTurns = Sets.newHashSet(
+  private static final Set<RetreatTurnValue> historicalTurns = ImmutableSet.of(
       RetreatTurnValue.builder()
           .stage("OND")
           .location("In the middle of nowhere")
@@ -21,6 +21,19 @@ class ExperienceValueFactory {
           .stage("ONŻ 1")
           .location("High Mountains")
           .year(2013)
+          .build()
+  );
+
+  private static final Set<RetreatTurnValue> updatedHistoricalTurns = ImmutableSet.of(
+      RetreatTurnValue.builder()
+          .stage("ONŻ 1")
+          .location("Far away")
+          .year(2014)
+          .build(),
+      RetreatTurnValue.builder()
+          .stage("ONŻ 2")
+          .location("Further away")
+          .year(2015)
           .build()
   );
 
@@ -51,6 +64,22 @@ class ExperienceValueFactory {
   ExperienceValue withHistoricalRetreats(Set<RetreatTurnValue> historicalRetreats) {
     return sampleExperienceBuilder
         .historicalRetreats(historicalRetreats)
+        .build();
+  }
+
+  ExperienceValue withUpdatedData() {
+    return ExperienceValue.builder()
+        .kwcStatus("Member")
+        .kwcSince(ZonedDateTime.of(LocalDateTime.of(1999, 5, 4, 12, 0), ZoneId.of("UTC")))
+        .numberOfCommunionDays(2)
+        .numberOfPrayerRetreats(4)
+        .leadingGroupToFormationStage("ODB")
+        .formationMeetingsInMonth(2)
+        .celebrationsTaken(10)
+        .celebrationsPlannedThisYear(0)
+        .stepsTaken(5)
+        .stepsPlannedThisYear(2)
+        .deuterocatechumenateYear(2013)
         .build();
   }
 

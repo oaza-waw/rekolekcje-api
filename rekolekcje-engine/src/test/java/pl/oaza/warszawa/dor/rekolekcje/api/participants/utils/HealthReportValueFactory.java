@@ -18,4 +18,13 @@ class HealthReportValueFactory {
         .other("May be very weird sometimes")
         .build();
   }
+
+  HealthReportValue withUpdatedData() {
+    return HealthReportValue.builder()
+        .currentTreatment("None")
+        .medications("Gripex")
+        .allergies("Milk")
+        .other("Unstable")
+        .build();
+  }
 }

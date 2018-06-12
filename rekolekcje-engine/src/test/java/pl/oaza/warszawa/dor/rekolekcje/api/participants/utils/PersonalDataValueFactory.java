@@ -21,6 +21,14 @@ class PersonalDataValueFactory {
       .city("New York")
       .build();
 
+  private final AddressValue updatedAddress = AddressValue.builder()
+      .streetName("TD Garden")
+      .streetNumber(43)
+      .flatNumber(1)
+      .postalCode("32-112")
+      .city("Boston")
+      .build();
+
   private final PersonalDataValue.PersonalDataValueBuilder sampleBuilder =
       PersonalDataValue.builder()
           .firstName("Sample")
@@ -102,6 +110,23 @@ class PersonalDataValueFactory {
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
         .emergencyContactName("Uncle Bob")
         .emergencyContactNumber(444555666L)
+        .build();
+  }
+
+  PersonalDataValue withUpdatedData() {
+    return PersonalDataValue.builder()
+        .firstName("Updated name")
+        .lastName("Updated surname")
+        .pesel("89112233445")
+        .parishId(2L)
+        .address(updatedAddress)
+        .motherName("Updated mother name")
+        .fatherName("Updated father name")
+        .birthDate("22.11.1989")
+        .christeningPlace("Updated christening place")
+        .christeningDate(ZonedDateTime.of(LocalDateTime.of(1989, 11, 29, 23, 0), ZoneId.of("UTC")))
+        .emergencyContactName("Updated emergency contact name")
+        .emergencyContactNumber(999888777L)
         .build();
   }
 }

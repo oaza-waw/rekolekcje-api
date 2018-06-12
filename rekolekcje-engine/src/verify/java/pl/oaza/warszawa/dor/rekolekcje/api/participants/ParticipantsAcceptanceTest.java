@@ -83,7 +83,10 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(id);
     final ParticipantDTO expectedParticipant =
-        OldParticipantFactory.copyWithDifferentId(participantWithFullData, id, retreatsWithIds);
+        ParticipantFactory.from(participantWithFullData)
+            .withId(id)
+            .withHistoricalRetreats(retreatsWithIds)
+            .clone();
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -119,7 +122,8 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
   public void shouldPersistParticipantWhenHeIsAdded() throws Exception {
     whenInStorage.existParticipantsWithSampleData(participants);
 
-    final ParticipantDTO sampleParticipant = OldParticipantFactory.sample();
+    final ParticipantDTO sampleParticipant =
+        ParticipantFactory.withSampleData("Han", "Solo", "81010154321");
     whenInParticipantsApi.singleParticipantIsAdded(sampleParticipant);
 
     thenInStorage.numberOfParticipantsIsEqualTo(participants.size() + 1);
@@ -173,7 +177,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     whenInStorage.existsSingleParticipantWithSampleData(participantWithSampleData);
     final Long id = participantWithSampleData.getId();
 
-    final ParticipantDTO participantWithNewData = OldParticipantFactory.withNewData(id);
+    final ParticipantDTO participantWithNewData = ParticipantFactory.withUpdatedData(id);
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
 
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, participantWithNewData);
@@ -185,7 +189,7 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
     whenInStorage.existParticipantsWithSampleData(participants);
     final Long id = participantWithSampleData.getId();
 
-    final ParticipantDTO participantWithNewData = OldParticipantFactory.withNewData(id);
+    final ParticipantDTO participantWithNewData = ParticipantFactory.withUpdatedData(id);
     whenInParticipantsApi.singleParticipantIsUpdated(participantWithNewData);
 
     thenInStorage.numberOfParticipantsIsEqualTo(participants.size());
