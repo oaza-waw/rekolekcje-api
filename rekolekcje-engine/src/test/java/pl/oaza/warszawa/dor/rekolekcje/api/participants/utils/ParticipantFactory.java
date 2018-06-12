@@ -46,6 +46,15 @@ public class ParticipantFactory {
         .build();
   }
 
+  public static ParticipantDTO withSampleDataAndHistoricalRetreats(Long id, Set<RetreatTurnValue> historicalRetreats) {
+    return ParticipantDTO.builder()
+        .id(id)
+        .personalData(personalDataFactory.withSampleData())
+        .experience(experienceValueFactory.withHistoricalRetreats(historicalRetreats))
+        .healthReport(healthReportValueFactory.withSampleData())
+        .build();
+  }
+
   public static ParticipantDTO withChristeningDate(ZonedDateTime christeningDate) {
     return ParticipantDTO.builder()
         .personalData(personalDataFactory.withChristeningDate(christeningDate))

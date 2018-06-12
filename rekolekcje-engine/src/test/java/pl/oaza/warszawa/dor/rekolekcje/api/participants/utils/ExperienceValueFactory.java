@@ -62,7 +62,8 @@ class ExperienceValueFactory {
   }
 
   ExperienceValue withHistoricalRetreats(Set<RetreatTurnValue> historicalRetreats) {
-    return sampleExperienceBuilder
+    return ExperienceValue.builder()
+        .kwcStatus("Active")
         .historicalRetreats(historicalRetreats)
         .build();
   }

@@ -11,11 +11,9 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsDatabase;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.storage.ParticipantsStorageExpectations;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.OldParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 import java.util.List;
@@ -216,20 +214,16 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
         .location("Brand new")
         .year(2000)
         .build());
-    final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
-        .historicalRetreats(updatedRetreats)
-        .build();
-    final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
-        .id(participantId)
-        .personalData(participantWithFullData.getPersonalData())
-        .experience(updatedExperienceValue)
-        .build();
+    final ParticipantDTO updatedParticipant =
+        ParticipantFactory.withSampleDataAndHistoricalRetreats(participantId, updatedRetreats);
 
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(updatedParticipant);
 
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(participantId);
-    final ParticipantDTO expectedParticipant =
-        OldParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
+    final ParticipantDTO expectedParticipant = ParticipantFactory.from(updatedParticipant)
+        .withId(participantId)
+        .withHistoricalRetreats(retreatsWithIds)
+        .clone();
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 
@@ -248,14 +242,8 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
             .build())
         .limit(1)
         .collect(Collectors.toSet());
-    final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
-        .historicalRetreats(updatedRetreats)
-        .build();
-    final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
-        .id(participantId)
-        .personalData(participantWithFullData.getPersonalData())
-        .experience(updatedExperienceValue)
-        .build();
+    final ParticipantDTO updatedParticipant =
+        ParticipantFactory.withSampleDataAndHistoricalRetreats(participantId, updatedRetreats);
 
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(updatedParticipant);
 
@@ -279,20 +267,16 @@ public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
             .year(2010)
             .build()
     );
-    final ExperienceValue updatedExperienceValue = ExperienceValue.builder()
-        .historicalRetreats(newRetreats)
-        .build();
-    final ParticipantDTO updatedParticipant = ParticipantDTO.builder()
-        .id(participantId)
-        .personalData(participantWithFullData.getPersonalData())
-        .experience(updatedExperienceValue)
-        .build();
+    final ParticipantDTO updatedParticipant =
+        ParticipantFactory.withSampleDataAndHistoricalRetreats(participantId, newRetreats);
 
     final ResultActions response = whenInParticipantsApi.singleParticipantIsUpdated(updatedParticipant);
 
     final Set<RetreatTurnValue> retreatsWithIds = thenInStorage.historicalRetreatsHaveIds(participantId);
-    final ParticipantDTO expectedParticipant =
-        OldParticipantFactory.copyWithDifferentId(updatedParticipant, participantId, retreatsWithIds);
+    final ParticipantDTO expectedParticipant = ParticipantFactory.from(updatedParticipant)
+        .withId(participantId)
+        .withHistoricalRetreats(retreatsWithIds)
+        .clone();
     thenInParticipantsApi.okResponseHasCorrectParticipantData(response, expectedParticipant);
   }
 }
