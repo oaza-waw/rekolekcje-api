@@ -33,6 +33,8 @@ class Participant {
   private String firstName;
   private String lastName;
   private String pesel;
+  private Long phoneNumber;
+  private String email;
   private Long parishId;
 
   @Embedded
@@ -43,6 +45,9 @@ class Participant {
   private LocalDateTime christeningDate;
   private String closeRelativeName;
   private Long closeRelativeNumber;
+  private String schoolYear;
+  private String nameDay;
+  private String communityName;
 
   @Embedded
   private HealthReport healthReport;
@@ -68,6 +73,8 @@ class Participant {
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
+        .phoneNumber(phoneNumber)
+        .email(email)
         .parishId(parishId)
         .address(addressValue)
         .fatherName(fatherName)
@@ -77,6 +84,9 @@ class Participant {
         .christeningDate(convertToUtc(christeningDate))
         .emergencyContactName(closeRelativeName)
         .emergencyContactNumber(closeRelativeNumber)
+        .schoolYear(schoolYear)
+        .nameDay(nameDay)
+        .communityName(communityName)
         .build();
   }
 

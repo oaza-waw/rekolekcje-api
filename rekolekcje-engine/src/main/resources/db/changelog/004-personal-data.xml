@@ -47,4 +47,14 @@
                         newDataType="VARCHAR(255)"/>
     </changeSet>
 
+    <changeSet id="personal-data-6" author="qiubix">
+        <addColumn tableName="PARTICIPANT">
+            <column name="PHONE_NUMBER" type="BIGINT"/>
+            <column name="EMAIL" type="VARCHAR(50)"/>
+            <column name="SCHOOL_YEAR" type="VARCHAR(50)"/>
+            <column name="NAME_DAY" type="VARCHAR(50)"/>
+            <column name="COMMUNITY_NAME" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

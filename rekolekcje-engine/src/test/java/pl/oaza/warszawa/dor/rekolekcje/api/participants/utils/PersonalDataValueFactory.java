@@ -79,6 +79,8 @@ class PersonalDataValueFactory {
         .firstName(original.getFirstName())
         .lastName(original.getLastName())
         .pesel(original.getPesel())
+        .email(original.getEmail())
+        .phoneNumber(original.getPhoneNumber())
         .address(original.getAddress())
         .parishId(original.getParishId())
         .motherName(original.getMotherName())
@@ -87,6 +89,9 @@ class PersonalDataValueFactory {
         .christeningDate(original.getChristeningDate())
         .emergencyContactName(original.getEmergencyContactName())
         .emergencyContactNumber(original.getEmergencyContactNumber())
+        .schoolYear(original.getSchoolYear())
+        .nameDay(original.getNameDay())
+        .communityName(original.getCommunityName())
         .build();
   }
 
@@ -102,6 +107,8 @@ class PersonalDataValueFactory {
         .lastName("Smith")
         .pesel("90042312345")
         .parishId(1L)
+        .email("john.smith@mail.com")
+        .phoneNumber(998877665L)
         .address(fullAddress)
         .motherName("Mary")
         .fatherName("Jake")
@@ -110,6 +117,9 @@ class PersonalDataValueFactory {
         .christeningDate(ZonedDateTime.of(LocalDateTime.of(1981, 2, 13, 23, 0), ZoneId.of("UTC")))
         .emergencyContactName("Uncle Bob")
         .emergencyContactNumber(444555666L)
+        .schoolYear("1 LO")
+        .nameDay("24.04")
+        .communityName("St. Peter")
         .build();
   }
 
