@@ -35,6 +35,30 @@
     </td>
   </table>
 
+  <table class="field-wide">
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="School year"
+               formControlName="schoolYear">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Phone number"
+               formControlName="phoneNumber">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Email"
+               formControlName="email">
+      </mat-form-field>
+    </td>
+  </table>
+
   <div formGroupName="address">
     <address-form [addressData]="address" [addressForm]="group.controls.address"></address-form>
   </div>
@@ -74,6 +98,13 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </td>
+    <td>
+      <mat-form-field class="field-wide">
+        <input matInput
+               placeholder="Name day"
+               formControlName="nameDay">
+      </mat-form-field>
+    </td>
   </table>
   <table class="field-wide">
     <td>
@@ -101,5 +132,11 @@
         {{parish.name}}
       </mat-option>
     </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="field-wide">
+    <input matInput
+           placeholder="Community name"
+           formControlName="communityName">
   </mat-form-field>
 </div>
