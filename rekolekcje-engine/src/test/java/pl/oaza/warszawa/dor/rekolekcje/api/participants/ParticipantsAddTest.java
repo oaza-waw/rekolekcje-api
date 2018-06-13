@@ -3,7 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,7 +19,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddSingleParticipantWithMinimalDataToEmptySystem() {
     // given
-    ParticipantDTO participantDTO = ParticipantsTestData.participantWithMinimalData;
+    ParticipantDTO participantDTO = ParticipantFactory.withMinimalData(null);
 
     // when
     ParticipantDTO addedParticipant = service.save(participantDTO);
@@ -36,7 +36,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAssignIdWhenAddingNewParticipant() {
     // given
-    ParticipantDTO participantDTO = ParticipantsTestData.participantWithMinimalData;
+    ParticipantDTO participantDTO = ParticipantFactory.withMinimalData(null);
 
     // when
     ParticipantDTO addedParticipant = service.save(participantDTO);
@@ -49,7 +49,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddSingleParticipantWithFullDataToEmptySystem() {
     // given
-    ParticipantDTO participantWithFullData = ParticipantsTestData.participantWithFullData;
+    ParticipantDTO participantWithFullData = ParticipantFactory.withFullData(null);
 
     // when
     ParticipantDTO addedParticipant = service.save(participantWithFullData);
@@ -62,11 +62,12 @@ public class ParticipantsAddTest extends ParticipantsTest {
   @Test
   public void shouldAddParticipantToSystemWithExistingParticipants() {
     // given
-    ParticipantDTO existingParticipant = ParticipantsTestData.sampleParticipant1;
+    ParticipantDTO existingParticipant = ParticipantFactory.withSampleData(null);
     saveAll(Collections.singletonList(existingParticipant));
 
     // when
-    ParticipantDTO addedParticipant = service.save(ParticipantsTestData.sampleParticipant2);
+    final ParticipantDTO participantToSave = ParticipantFactory.withSampleData("Another", "Guy", "99010244556");
+    ParticipantDTO addedParticipant = service.save(participantToSave);
 
     // then
     final List<ParticipantDTO> allInSystem = getAllInSystem();
@@ -104,15 +105,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
 
   private ParticipantDTO createParticipantWithDateInParisTimezone() {
     final ZonedDateTime dateInParis = dateInCET();
-    PersonalDataValue personalData = PersonalDataValue.builder()
-        .christeningDate(dateInParis)
-        .build();
-    return ParticipantDTO.builder()
-        .firstName("Sample")
-        .lastName("Participant")
-        .pesel("80030212221")
-        .personalData(personalData)
-        .build();
+    return ParticipantFactory.withChristeningDate(dateInParis);
   }
 
   private ZonedDateTime dateInUTC() {

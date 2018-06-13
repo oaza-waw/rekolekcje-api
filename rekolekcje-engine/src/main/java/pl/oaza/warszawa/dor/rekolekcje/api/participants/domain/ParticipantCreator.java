@@ -16,23 +16,28 @@ class ParticipantCreator {
 
   Participant from(ParticipantDTO participantDTO) {
     final Participant.ParticipantBuilder participantBuilder = Participant.builder()
-        .id(participantDTO.getId())
-        .firstName(participantDTO.getFirstName())
-        .lastName(participantDTO.getLastName())
-        .pesel(participantDTO.getPesel())
-        .parishId(participantDTO.getParishId());
-
-    final Address address = fromValue(participantDTO.getAddress());
-    participantBuilder.address(address);
+        .id(participantDTO.getId());
 
     final PersonalDataValue personalData = participantDTO.getPersonalData();
+    final Address address = fromValue(personalData.getAddress());
+
     participantBuilder
+        .firstName(personalData.getFirstName())
+        .lastName(personalData.getLastName())
+        .pesel(personalData.getPesel())
+        .phoneNumber(personalData.getPhoneNumber())
+        .email(personalData.getEmail())
+        .parishId(personalData.getParishId())
+        .address(address)
         .motherName(personalData.getMotherName())
         .fatherName(personalData.getFatherName())
         .christeningDate(convertToDateTime(personalData.getChristeningDate()))
         .christeningPlace(personalData.getChristeningPlace())
         .closeRelativeName(personalData.getEmergencyContactName())
-        .closeRelativeNumber(personalData.getEmergencyContactNumber());
+        .closeRelativeNumber(personalData.getEmergencyContactNumber())
+        .schoolYear(personalData.getSchoolYear())
+        .nameDay(personalData.getNameDay())
+        .communityName(personalData.getCommunityName());
 
     final HealthReport healthReport = fromValue(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
@@ -60,6 +65,8 @@ class ParticipantCreator {
         .firstName(participant.getFirstName())
         .lastName(participant.getLastName())
         .pesel(participant.getPesel())
+        .phoneNumber(participant.getPhoneNumber())
+        .email(participant.getEmail())
         .address(participant.getAddress())
         .parishId(participant.getParishId())
         .motherName(participant.getMotherName())
@@ -68,6 +75,9 @@ class ParticipantCreator {
         .christeningPlace(participant.getChristeningPlace())
         .closeRelativeName(participant.getCloseRelativeName())
         .closeRelativeNumber(participant.getCloseRelativeNumber())
+        .schoolYear(participant.getSchoolYear())
+        .nameDay(participant.getNameDay())
+        .communityName(participant.getCommunityName())
         .healthReport(participant.getHealthReport())
         .experience(participant.getExperience())
         .build();

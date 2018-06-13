@@ -11,6 +11,16 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode(exclude = "birthDate")
 public class PersonalDataValue {
 
+  private final String firstName;
+  private final String lastName;
+  private final String pesel;
+  private final Long phoneNumber;
+  private final String email;
+  private final Long parishId;
+
+  @Builder.Default
+  private final AddressValue address = AddressValue.builder().build();
+
   private final String fatherName;
   private final String motherName;
   private final String birthDate;
@@ -18,4 +28,7 @@ public class PersonalDataValue {
   private final ZonedDateTime christeningDate;
   private final String emergencyContactName;
   private final Long emergencyContactNumber;
+  private final String schoolYear;
+  private final String nameDay;
+  private final String communityName;
 }

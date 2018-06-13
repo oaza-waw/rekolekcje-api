@@ -30,24 +30,24 @@ public class ParticipantsDatabase {
     jdbcTemplate.execute("DELETE FROM retreat_turn");
   }
 
-  Long findIdOfParticipantWithTheSameData(ParticipantDTO participant) {
+  Long findIdOfParticipantWithTheSameData(ParticipantDTO dto) {
     final List<Long> foundIds = jdbcTemplate.query("SELECT id " +
             "FROM participant " +
             "WHERE first_name = ? AND last_name = ? AND pesel = ?",
-        new Object[]{participant.getFirstName(), participant.getLastName(), participant.getPesel()},
+        new Object[]{dto.getPersonalData().getFirstName(), dto.getPersonalData().getLastName(), dto.getPersonalData().getPesel()},
         (rs, rowNum) -> rs.getLong("id")
     );
     return foundIds.stream()
         .findAny()
         .orElseThrow(() ->
-            new ParticipantNotFoundException("No participant found with this data: " + participant));
+            new ParticipantNotFoundException("No participant found with this data: " + dto));
   }
 
   ParticipantSampleData getPersistedData(ParticipantDTO dto) {
     final List<ParticipantSampleData> foundParticipants = jdbcTemplate.query("SELECT * " +
             "FROM participant " +
             "WHERE first_name = ? AND last_name = ? AND pesel = ?",
-        new Object[]{dto.getFirstName(), dto.getLastName(), dto.getPesel()},
+        new Object[]{dto.getPersonalData().getFirstName(), dto.getPersonalData().getLastName(), dto.getPersonalData().getPesel()},
         participantSampleDataRowMapper()
     );
     return foundParticipants.stream()
@@ -87,12 +87,12 @@ public class ParticipantsDatabase {
             "kwc_status)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         dto.getId(),
-        dto.getFirstName(),
-        dto.getLastName(),
-        dto.getPesel(),
-        dto.getParishId(),
+        dto.getPersonalData().getFirstName(),
+        dto.getPersonalData().getLastName(),
+        dto.getPersonalData().getPesel(),
+        dto.getPersonalData().getParishId(),
         convertToLocalDate(dto.getPersonalData().getChristeningDate()),
-        dto.getAddress().getPostalCode(),
+        dto.getPersonalData().getAddress().getPostalCode(),
         dto.getHealthReport().getCurrentTreatment(),
         dto.getExperience().getKwcStatus());
   }

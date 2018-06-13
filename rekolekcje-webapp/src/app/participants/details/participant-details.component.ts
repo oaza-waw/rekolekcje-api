@@ -65,13 +65,8 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ParticipantAddEditDialog, {
       data: {
         dialogTitle: 'Edit participant',
-        firstName: this.participant.firstName,
-        lastName: this.participant.lastName,
-        pesel: this.participant.pesel,
-        parishId: this.participant.parishId,
         parishes: this.parishes,
         personalData: this.participant.personalData,
-        address: this.participant.address,
         healthReport: this.participant.healthReport,
         experience: this.participant.experience
       },

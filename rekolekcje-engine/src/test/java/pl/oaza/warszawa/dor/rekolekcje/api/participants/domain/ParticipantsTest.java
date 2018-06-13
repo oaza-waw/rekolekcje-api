@@ -33,7 +33,7 @@ public abstract class ParticipantsTest {
 
   protected ParticipantDTO getCorrespondingParticipantFromSystem(ParticipantDTO participantDTO) {
     return getAllInSystem().stream()
-        .filter(p -> Objects.equals(p.getPesel(), participantDTO.getPesel()))
+        .filter(p -> Objects.equals(p.getPersonalData().getPesel(), participantDTO.getPersonalData().getPesel()))
         .findAny()
         .orElseThrow(() ->
             new ParticipantNotFoundException("No participant with id " + participantDTO.getId() + " found!"));

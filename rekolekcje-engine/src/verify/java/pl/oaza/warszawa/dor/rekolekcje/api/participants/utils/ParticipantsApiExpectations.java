@@ -5,10 +5,12 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.TestUtils;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -23,7 +25,10 @@ public class ParticipantsApiExpectations {
   }
 
   public void responseHasAllParticipants(ResultActions response, List<ParticipantDTO> participants) throws Exception {
-    final String expectedJsonContent = jsonMapper.writeValueAsString(participants);
+    final List<ParticipantDTO> participantsWithBirthDate = participants.stream()
+        .map(dto -> ParticipantFactory.withBirthDate(dto, TestUtils.convertPeselToBirthDate(dto.getPersonalData().getPesel())))
+        .collect(Collectors.toList());
+    final String expectedJsonContent = jsonMapper.writeValueAsString(participantsWithBirthDate);
     response.andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(content().json(expectedJsonContent));

@@ -1,14 +1,19 @@
 <table class="field-wide">
-  <td><reko-details-text-field [fieldValue]="firstName" [label]="'First name'"></reko-details-text-field></td>
-  <td><reko-details-text-field [fieldValue]="lastName" [label]="'Last name'"></reko-details-text-field></td>
-  <td><reko-details-text-field [fieldValue]="pesel" [label]="'PESEL'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.firstName" [label]="'First name'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.lastName" [label]="'Last name'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.pesel" [label]="'PESEL'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
-  <td><reko-details-text-field [fieldValue]="address.streetName" [label]="'Street'"></reko-details-text-field></td>
-  <td><reko-details-text-field [fieldValue]="address.streetNumber" [label]="'Street number'"></reko-details-text-field></td>
-  <td><reko-details-text-field [fieldValue]="address.flatNumber" [label]="'Flat number'"></reko-details-text-field></td>
-  <td><reko-details-text-field [fieldValue]="address.postalCode" [label]="'Postal code'"></reko-details-text-field></td>
-  <td><reko-details-text-field [fieldValue]="address.city" [label]="'City'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.schoolYear" [label]="'School year'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.phoneNumber" [label]="'Phone number'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.email" [label]="'Email'"></reko-details-text-field></td>
+</table>
+<table class="field-wide">
+  <td><reko-details-text-field [fieldValue]="personalData.address.streetName" [label]="'Street'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.address.streetNumber" [label]="'Street number'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.address.flatNumber" [label]="'Flat number'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.address.postalCode" [label]="'Postal code'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.address.city" [label]="'City'"></reko-details-text-field></td>
 </table>
 <table class="field-wide">
   <td><reko-details-text-field [fieldValue]="personalData.fatherName" [label]="'Father name'"></reko-details-text-field></td>
@@ -21,4 +26,6 @@
 <table class="field-wide">
   <td><reko-details-text-field [fieldValue]="personalData.christeningPlace" [label]="'Christening place'"></reko-details-text-field></td>
   <td><reko-details-text-field [fieldValue]="formatDate(personalData.christeningDate)" [label]="'Christening date'"></reko-details-text-field></td>
+  <td><reko-details-text-field [fieldValue]="personalData.nameDay" [label]="'Name day'"></reko-details-text-field></td>
 </table>
+<reko-details-text-field [fieldValue]="personalData.communityName" [label]="'Community'"></reko-details-text-field>

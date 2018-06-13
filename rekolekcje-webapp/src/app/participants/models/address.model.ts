@@ -11,11 +11,11 @@ export class Address {
 
   static mapFromForm(input: any): Address {
     const address = new Address();
-    address.streetName = input.result.address.streetName;
-    address.streetNumber = input.result.address.streetNumber;
-    address.flatNumber = input.result.address.flatNumber;
-    address.postalCode = input.result.address.postalCode;
-    address.city = input.result.address.city;
+    address.streetName = input.result.personalData.address.streetName;
+    address.streetNumber = input.result.personalData.address.streetNumber;
+    address.flatNumber = input.result.personalData.address.flatNumber;
+    address.postalCode = input.result.personalData.address.postalCode;
+    address.city = input.result.personalData.address.city;
     return address;
   }
 

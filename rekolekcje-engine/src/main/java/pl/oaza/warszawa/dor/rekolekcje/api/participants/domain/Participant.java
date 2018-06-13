@@ -33,6 +33,8 @@ class Participant {
   private String firstName;
   private String lastName;
   private String pesel;
+  private Long phoneNumber;
+  private String email;
   private Long parishId;
 
   @Embedded
@@ -43,6 +45,9 @@ class Participant {
   private LocalDateTime christeningDate;
   private String closeRelativeName;
   private Long closeRelativeNumber;
+  private String schoolYear;
+  private String nameDay;
+  private String communityName;
 
   @Embedded
   private HealthReport healthReport;
@@ -52,16 +57,10 @@ class Participant {
 
   ParticipantDTO dto() {
     final PersonalDataValue personalData = getPersonalData();
-    final AddressValue addressValue = getAddressValue();
     final ExperienceValue experienceValue = getExperienceValue();
     final HealthReportValue healthReportValue = getHealthStatusValue();
     return ParticipantDTO.builder()
         .id(id)
-        .firstName(firstName)
-        .lastName(lastName)
-        .pesel(pesel)
-        .parishId(parishId)
-        .address(addressValue)
         .personalData(personalData)
         .experience(experienceValue)
         .healthReport(healthReportValue)
@@ -69,7 +68,15 @@ class Participant {
   }
 
   private PersonalDataValue getPersonalData() {
+    final AddressValue addressValue = getAddressValue();
     return PersonalDataValue.builder()
+        .firstName(firstName)
+        .lastName(lastName)
+        .pesel(pesel)
+        .phoneNumber(phoneNumber)
+        .email(email)
+        .parishId(parishId)
+        .address(addressValue)
         .fatherName(fatherName)
         .motherName(motherName)
         .birthDate(convertPeselToBirthDate(pesel))
@@ -77,6 +84,9 @@ class Participant {
         .christeningDate(convertToUtc(christeningDate))
         .emergencyContactName(closeRelativeName)
         .emergencyContactNumber(closeRelativeNumber)
+        .schoolYear(schoolYear)
+        .nameDay(nameDay)
+        .communityName(communityName)
         .build();
   }
 
