@@ -84,8 +84,9 @@ public class ParticipantsDatabase {
             "christening_date," +
             "postal_code," +
             "current_treatment," +
+            "stage," +
             "kwc_status)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         dto.getId(),
         dto.getPersonalData().getFirstName(),
         dto.getPersonalData().getLastName(),
@@ -94,6 +95,7 @@ public class ParticipantsDatabase {
         convertToLocalDate(dto.getPersonalData().getChristeningDate()),
         dto.getPersonalData().getAddress().getPostalCode(),
         dto.getHealthReport().getCurrentTreatment(),
+        dto.getCurrentApplication().getStage(),
         dto.getExperience().getKwcStatus());
   }
 

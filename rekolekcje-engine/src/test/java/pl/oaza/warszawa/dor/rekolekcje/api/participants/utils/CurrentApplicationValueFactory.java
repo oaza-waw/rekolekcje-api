@@ -6,14 +6,14 @@ public class CurrentApplicationValueFactory {
 
   CurrentApplicationValue withSampleData() {
     return CurrentApplicationValue.builder()
-        .stage("OND")
-        .turn(1)
+        .stage("ODB")
         .build();
   }
 
   CurrentApplicationValue withFullData() {
     return CurrentApplicationValue.builder()
         .stage("OND")
+        .turn(1)
         .build();
   }
 
