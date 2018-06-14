@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.CurrentApplicationValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
@@ -46,6 +47,9 @@ class ParticipantCreator {
     final Experience experience = fromValue(experienceValue);
     participantBuilder.experience(experience);
 
+    final CurrentApplication currentApplication = fromValue(participantDTO.getCurrentApplication());
+    participantBuilder.currentApplication(currentApplication);
+
     final Participant participant = participantBuilder.build();
 
     if (experienceValue.getHistoricalRetreats() != null) {
@@ -80,6 +84,7 @@ class ParticipantCreator {
         .communityName(participant.getCommunityName())
         .healthReport(participant.getHealthReport())
         .experience(participant.getExperience())
+        .currentApplication(participant.getCurrentApplication())
         .build();
   }
 
@@ -148,6 +153,17 @@ class ParticipantCreator {
         .stage(retreatTurnValue.getStage())
         .location(retreatTurnValue.getLocation())
         .year(retreatTurnValue.getYear())
+        .build();
+  }
+
+  private CurrentApplication fromValue(CurrentApplicationValue value) {
+    if (value == null) {
+      return CurrentApplication.builder().build();
+    }
+
+    return CurrentApplication.builder()
+        .stage(value.getStage())
+        .turn(value.getTurn())
         .build();
   }
 

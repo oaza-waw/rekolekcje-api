@@ -12,6 +12,7 @@ public class ParticipantFactory {
   private static final PersonalDataValueFactory personalDataFactory = new PersonalDataValueFactory();
   private static final ExperienceValueFactory experienceValueFactory = new ExperienceValueFactory();
   private static final HealthReportValueFactory healthReportValueFactory = new HealthReportValueFactory();
+  private static final CurrentApplicationValueFactory currentApplicationValueFactory = new CurrentApplicationValueFactory();
 
   public static ParticipantDTO withMinimalData(Long id) {
     return ParticipantDTO.builder()
@@ -26,6 +27,7 @@ public class ParticipantFactory {
         .personalData(personalDataFactory.withSampleData())
         .experience(experienceValueFactory.withSampleData())
         .healthReport(healthReportValueFactory.withSampleData())
+        .currentApplication(currentApplicationValueFactory.withSampleData())
         .build();
   }
 
@@ -34,15 +36,7 @@ public class ParticipantFactory {
         .personalData(personalDataFactory.withSampleData(firstName, lastName, pesel))
         .experience(experienceValueFactory.withSampleData())
         .healthReport(healthReportValueFactory.withSampleData())
-        .build();
-  }
-
-  public static ParticipantDTO withSampleData(Long id, String firstName, String lastName, String pesel) {
-    return ParticipantDTO.builder()
-        .id(id)
-        .personalData(personalDataFactory.withSampleData(firstName, lastName, pesel))
-        .experience(experienceValueFactory.withSampleData())
-        .healthReport(healthReportValueFactory.withSampleData())
+        .currentApplication(currentApplicationValueFactory.withSampleData())
         .build();
   }
 
@@ -52,6 +46,7 @@ public class ParticipantFactory {
         .personalData(personalDataFactory.withSampleData())
         .experience(experienceValueFactory.withHistoricalRetreats(historicalRetreats))
         .healthReport(healthReportValueFactory.withSampleData())
+        .currentApplication(currentApplicationValueFactory.withSampleData())
         .build();
   }
 
@@ -67,6 +62,7 @@ public class ParticipantFactory {
         .personalData(personalDataFactory.withFullData())
         .experience(experienceValueFactory.withFullData())
         .healthReport(healthReportValueFactory.withFullData())
+        .currentApplication(currentApplicationValueFactory.withFullData())
         .build();
   }
 
@@ -76,15 +72,17 @@ public class ParticipantFactory {
         .personalData(personalDataFactory.withUpdatedData())
         .experience(experienceValueFactory.withUpdatedData())
         .healthReport(healthReportValueFactory.withUpdatedData())
+        .currentApplication(currentApplicationValueFactory.withUpdatedData())
         .build();
   }
 
   static ParticipantDTO withBirthDate(ParticipantDTO original, String birthDate) {
     return ParticipantDTO.builder()
         .id(original.getId())
-        .personalData(PersonalDataValueFactory.withBirthDate(original.getPersonalData(), birthDate))
+        .personalData(personalDataFactory.withBirthDate(original.getPersonalData(), birthDate))
         .healthReport(original.getHealthReport())
         .experience(original.getExperience())
+        .currentApplication(original.getCurrentApplication())
         .build();
   }
 
@@ -103,7 +101,8 @@ public class ParticipantFactory {
           .id(original.getId())
           .personalData(original.getPersonalData())
           .experience(original.getExperience())
-          .healthReport(original.getHealthReport());
+          .healthReport(original.getHealthReport())
+          .currentApplication(original.getCurrentApplication());
     }
 
     public ParticipantCloner withId(Long id) {

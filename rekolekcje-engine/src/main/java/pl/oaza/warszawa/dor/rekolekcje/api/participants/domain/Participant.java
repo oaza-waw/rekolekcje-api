@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.CurrentApplicationValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
@@ -55,15 +56,20 @@ class Participant {
   @Embedded
   private Experience experience;
 
+  @Embedded
+  private CurrentApplication currentApplication;
+
   ParticipantDTO dto() {
     final PersonalDataValue personalData = getPersonalData();
     final ExperienceValue experienceValue = getExperienceValue();
     final HealthReportValue healthReportValue = getHealthStatusValue();
+    final CurrentApplicationValue currentApplicationValue = getCurrentApplicationValue();
     return ParticipantDTO.builder()
         .id(id)
         .personalData(personalData)
         .experience(experienceValue)
         .healthReport(healthReportValue)
+        .currentApplication(currentApplicationValue)
         .build();
   }
 
@@ -104,5 +110,9 @@ class Participant {
 
   void connectHistoricalTurnsWithParticipant() {
     experience.connectParticipant(this);
+  }
+
+  private CurrentApplicationValue getCurrentApplicationValue() {
+    return currentApplication != null ? currentApplication.value() : CurrentApplicationValue.builder().build();
   }
 }
