@@ -7,9 +7,9 @@ export class HealthReport {
     public medications?: string,
     public allergies?: string,
     public medicalDiet?: string,
-    public mountainWalkingContraindications?: boolean,
-    public seriousDiseasesAndOperations?: string,
-    public locomotiveDisease?: boolean,
+    public canHike?: boolean,
+    public illnessHistory?: string,
+    public hasMotionSickness?: boolean,
     public other?: string
   ) {}
 
@@ -20,9 +20,9 @@ export class HealthReport {
     healthReport.medications = input.result.healthReport.medications;
     healthReport.allergies = input.result.healthReport.allergies;
     healthReport.medicalDiet = input.result.healthReport.medicalDiet;
-    healthReport.mountainWalkingContraindications = input.result.healthReport.mountainWalkingContraindications;
-    healthReport.seriousDiseasesAndOperations = input.result.healthReport.seriousDiseasesAndOperations;
-    healthReport.locomotiveDisease = input.result.healthReport.locomotiveDisease;
+    healthReport.canHike = input.result.healthReport.canHike;
+    healthReport.illnessHistory = input.result.healthReport.illnessHistory;
+    healthReport.hasMotionSickness = input.result.healthReport.hasMotionSickness;
     healthReport.other = input.result.healthReport.other;
     return healthReport;
   }
@@ -34,9 +34,9 @@ export class HealthReport {
     healthReport.medications = form.get('healthReport.medications').value;
     healthReport.allergies = form.get('healthReport.allergies').value;
     healthReport.medicalDiet = form.get('healthReport.medicalDiet').value;
-    healthReport.mountainWalkingContraindications = form.get('healthReport.mountainWalkingContraindications').value;
-    healthReport.seriousDiseasesAndOperations = form.get('healthReport.seriousDiseasesAndOperations').value;
-    healthReport.locomotiveDisease = form.get('healthReport.locomotiveDisease').value;
+    healthReport.canHike = form.get('healthReport.canHike').value;
+    healthReport.illnessHistory = form.get('healthReport.illnessHistory').value;
+    healthReport.hasMotionSickness = form.get('healthReport.hasMotionSickness').value;
     healthReport.other = form.get('healthReport.other').value;
     return healthReport;
   }

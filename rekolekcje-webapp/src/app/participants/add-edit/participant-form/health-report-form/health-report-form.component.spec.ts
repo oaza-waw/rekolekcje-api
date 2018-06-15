@@ -24,9 +24,9 @@ describe('HealthReportFormComponent', () => {
       medications: new FormControl(),
       allergies: new FormControl(),
       medicalDiet: new FormControl(),
-      mountainWalkingContraindications: new FormControl(),
-      seriousDiseasesAndOperations: new FormControl(),
-      locomotiveDisease: new FormControl(),
+      canHike: new FormControl(),
+      illnessHistory: new FormControl(),
+      hasMotionSickness: new FormControl(),
       other: new FormControl()
     });
     fixture.detectChanges();

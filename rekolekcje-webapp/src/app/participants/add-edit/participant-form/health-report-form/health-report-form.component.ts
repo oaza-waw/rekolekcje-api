@@ -20,11 +20,11 @@ export class HealthReportFormComponent {
         medications: [healthReport.medications ? healthReport.medications : ''],
         allergies: [healthReport.allergies ? healthReport.allergies : ''],
         medicalDiet: [healthReport.medicalDiet ? healthReport.medicalDiet : ''],
-        mountainWalkingContraindications: [healthReport.mountainWalkingContraindications
-          ? healthReport.mountainWalkingContraindications : ''],
-        seriousDiseasesAndOperations: [healthReport.seriousDiseasesAndOperations
-          ? healthReport.seriousDiseasesAndOperations : ''],
-        locomotiveDisease: [healthReport.locomotiveDisease ? healthReport.locomotiveDisease : ''],
+        canHike: [healthReport.canHike
+          ? healthReport.canHike : ''],
+        illnessHistory: [healthReport.illnessHistory
+          ? healthReport.illnessHistory : ''],
+        hasMotionSickness: [healthReport.hasMotionSickness ? healthReport.hasMotionSickness : ''],
         other: [healthReport.other ? healthReport.other : ''],
       }
     } else {
@@ -34,9 +34,9 @@ export class HealthReportFormComponent {
         medications: '',
         allergies: '',
         medicalDiet: '',
-        mountainWalkingContraindications: '',
-        seriousDiseasesAndOperations: '',
-        locomotiveDisease: '',
+        canHike: '',
+        illnessHistory: '',
+        hasMotionSickness: '',
         other: '',
       }
     }
