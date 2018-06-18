@@ -12,6 +12,8 @@ import { Experience } from '../../models/experience.model';
 import { HealthReportFormComponent } from './health-report-form/health-report-form.component';
 import { ExperienceFormComponent } from './experience-form/experience-form.component';
 import { PersonalDataFormComponent } from './personal-data-form/personal-data-form.component';
+import { CurrentApplicationFormComponent } from './current-application-form/current-application-form.component';
+import { CurrentApplication } from '../../models/current-application.model';
 
 @Component({
   selector: 'participiant-form',
@@ -24,6 +26,7 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   @Input() personalData: PersonalData;
   @Input() healthReport: HealthReport;
   @Input() experience: Experience;
+  @Input() currentApplication: CurrentApplication;
 
   parishes: Parish[];
 
@@ -45,7 +48,8 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       personalDataGroup: PersonalDataFormComponent.buildFormConfig(this.personalData),
       healthReport: this.fb.group(HealthReportFormComponent.buildFormConfig(this.healthReport)),
-      experience: ExperienceFormComponent.buildFormConfig(this.experience)
+      experience: ExperienceFormComponent.buildFormConfig(this.experience),
+      currentApplication: CurrentApplicationFormComponent.buildFormConfig(this.currentApplication),
     });
   }
 

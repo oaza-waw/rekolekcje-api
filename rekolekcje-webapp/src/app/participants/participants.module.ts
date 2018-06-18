@@ -26,6 +26,8 @@ import { HistoricalRetreatFormComponent } from './add-edit/participant-form/hist
 import { HistoricalRetreatsArrayComponent } from './add-edit/participant-form/historical-retreats-array/historical-retreats-array.component';
 import { HistoricalRetreatsDetailsComponent } from './details/experience-details/historical-retreats-details/historical-retreats-details.component';
 import { HistoricalRetreatsDetailsElementComponent } from './details/experience-details/historical-retreats-details-element/historical-retreats-details-element.component';
+import { CurrentApplicationFormComponent } from './add-edit/participant-form/current-application-form/current-application-form.component';
+import { CurrentApplicationDetailsComponent } from './details/current-application-details/current-application-details.component';
 
 @NgModule({
   imports: [
@@ -58,6 +60,8 @@ import { HistoricalRetreatsDetailsElementComponent } from './details/experience-
     HistoricalRetreatsArrayComponent,
     HistoricalRetreatsDetailsComponent,
     HistoricalRetreatsDetailsElementComponent,
+    CurrentApplicationFormComponent,
+    CurrentApplicationDetailsComponent,
   ],
   providers: [],
   exports: [
