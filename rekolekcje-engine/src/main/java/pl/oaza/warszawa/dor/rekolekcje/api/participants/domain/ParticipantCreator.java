@@ -98,8 +98,13 @@ class ParticipantCreator {
 
     return HealthReport.builder()
         .currentTreatment(healthReportValue.getCurrentTreatment())
+        .mentalDisorders(healthReportValue.getMentalDisorders())
         .medications(healthReportValue.getMedications())
         .allergies(healthReportValue.getAllergies())
+        .medicalDiet(healthReportValue.getMedicalDiet())
+        .canHike(healthReportValue.getCanHike())
+        .illnessHistory(healthReportValue.getIllnessHistory())
+        .hasMotionSickness(healthReportValue.getHasMotionSickness())
         .other(healthReportValue.getOther())
         .build();
   }

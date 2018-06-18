@@ -15,6 +15,10 @@ class HealthReportValueFactory {
         .currentTreatment("Standard treatment for diabetes")
         .medications("Insuline")
         .allergies("Peanuts, lactose")
+        .canHike(true)
+        .hasMotionSickness(true)
+        .illnessHistory("Hib implant injected")
+        .mentalDisorders("None")
         .other("May be very weird sometimes")
         .build();
   }
@@ -24,6 +28,10 @@ class HealthReportValueFactory {
         .currentTreatment("None")
         .medications("Gripex")
         .allergies("Milk")
+        .canHike(false)
+        .hasMotionSickness(true)
+        .illnessHistory("Hib implant injected")
+        .mentalDisorders("None")
         .other("Unstable")
         .build();
   }

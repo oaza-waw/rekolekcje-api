@@ -13,15 +13,25 @@ import javax.persistence.Embeddable;
 @Builder
 class HealthReport {
   private String currentTreatment;
+  private String mentalDisorders;
   private String medications;
   private String allergies;
+  private String medicalDiet;
+  private Boolean canHike;
+  private String illnessHistory;
+  private Boolean hasMotionSickness;
   private String other;
 
   HealthReportValue value() {
     return HealthReportValue.builder()
         .currentTreatment(currentTreatment)
+        .mentalDisorders(mentalDisorders)
         .medications(medications)
         .allergies(allergies)
+        .medicalDiet(medicalDiet)
+        .canHike(canHike)
+        .illnessHistory(illnessHistory)
+        .hasMotionSickness(hasMotionSickness)
         .other(other)
         .build();
   }
