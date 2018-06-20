@@ -131,7 +131,7 @@ task cleanJacoco(dependsOn: 'clean') {
 check.dependsOn jacocoTestReport
 
 bootRun {
-  systemProperties = System.properties
+  systemProperties System.properties
 }
 
 task stage {

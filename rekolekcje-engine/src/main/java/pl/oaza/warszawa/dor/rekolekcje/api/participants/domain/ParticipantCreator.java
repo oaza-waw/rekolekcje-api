@@ -99,8 +99,6 @@ class ParticipantCreator {
   }
 
   private HealthReport fromValue(HealthReportValue healthReportValue) {
-    if (healthReportValue == null) return HealthReport.builder().build();
-
     return HealthReport.builder()
         .currentTreatment(healthReportValue.getCurrentTreatment())
         .mentalDisorders(healthReportValue.getMentalDisorders())
@@ -115,9 +113,6 @@ class ParticipantCreator {
   }
 
   private Experience fromValue(ExperienceValue experienceValue) {
-    if (experienceValue == null) {
-      return Experience.builder().build();
-    }
     return Experience.builder()
         .kwcStatus(experienceValue.getKwcStatus())
         .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
@@ -157,10 +152,6 @@ class ParticipantCreator {
   }
 
   private CurrentApplication fromValue(CurrentApplicationValue value) {
-    if (value == null) {
-      return CurrentApplication.builder().build();
-    }
-
     return CurrentApplication.builder()
         .stage(value.getStage())
         .turn(value.getTurn())
