@@ -2,6 +2,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.CurrentApplicationValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
@@ -46,6 +47,9 @@ class ParticipantCreator {
     final Experience experience = fromValue(experienceValue);
     participantBuilder.experience(experience);
 
+    final CurrentApplication currentApplication = fromValue(participantDTO.getCurrentApplication());
+    participantBuilder.currentApplication(currentApplication);
+
     final Participant participant = participantBuilder.build();
 
     if (experienceValue.getHistoricalRetreats() != null) {
@@ -80,6 +84,7 @@ class ParticipantCreator {
         .communityName(participant.getCommunityName())
         .healthReport(participant.getHealthReport())
         .experience(participant.getExperience())
+        .currentApplication(participant.getCurrentApplication())
         .build();
   }
 
@@ -94,8 +99,6 @@ class ParticipantCreator {
   }
 
   private HealthReport fromValue(HealthReportValue healthReportValue) {
-    if (healthReportValue == null) return HealthReport.builder().build();
-
     return HealthReport.builder()
         .currentTreatment(healthReportValue.getCurrentTreatment())
         .mentalDisorders(healthReportValue.getMentalDisorders())
@@ -110,9 +113,6 @@ class ParticipantCreator {
   }
 
   private Experience fromValue(ExperienceValue experienceValue) {
-    if (experienceValue == null) {
-      return Experience.builder().build();
-    }
     return Experience.builder()
         .kwcStatus(experienceValue.getKwcStatus())
         .kwcSince(convertToDateTime(experienceValue.getKwcSince()))
@@ -148,6 +148,13 @@ class ParticipantCreator {
         .stage(retreatTurnValue.getStage())
         .location(retreatTurnValue.getLocation())
         .year(retreatTurnValue.getYear())
+        .build();
+  }
+
+  private CurrentApplication fromValue(CurrentApplicationValue value) {
+    return CurrentApplication.builder()
+        .stage(value.getStage())
+        .turn(value.getTurn())
         .build();
   }
 

@@ -45,6 +45,14 @@
 
           <mat-expansion-panel>
             <mat-expansion-panel-header>
+              <mat-panel-title>Current application</mat-panel-title>
+              <mat-panel-description>Where this participant wants to go on retreat this year</mat-panel-description>
+            </mat-expansion-panel-header>
+            <reko-current-application-details [currentApplicationData]="participant.currentApplication"></reko-current-application-details>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
               <mat-panel-title> Opinions</mat-panel-title>
               <mat-panel-description> Collection of opinions on participant</mat-panel-description>
             </mat-expansion-panel-header>

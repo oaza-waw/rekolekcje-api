@@ -68,7 +68,8 @@ export class ParticipantDetailsComponent implements OnInit, OnDestroy {
         parishes: this.parishes,
         personalData: this.participant.personalData,
         healthReport: this.participant.healthReport,
-        experience: this.participant.experience
+        experience: this.participant.experience,
+        currentApplication: this.participant.currentApplication,
       },
       disableClose: true
     });

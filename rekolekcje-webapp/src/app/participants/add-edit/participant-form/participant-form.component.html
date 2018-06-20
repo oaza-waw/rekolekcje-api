@@ -59,6 +59,25 @@
 
     <mat-expansion-panel [expanded]="currentStep === 3" (opened)="setCurrentStep(3)" hideToggle="true">
       <mat-expansion-panel-header>
+        <mat-panel-title>Current application</mat-panel-title>
+        <mat-panel-description>Where this participant wants to go on retreat this year</mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div formGroupName="currentApplication">
+        <reko-current-application-form
+          [currentApplicationData]="currentApplication"
+          [currentApplicationForm]="form.controls.currentApplication">
+        </reko-current-application-form>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="previousStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="currentStep === 4" (opened)="setCurrentStep(4)" hideToggle="true">
+      <mat-expansion-panel-header>
         <mat-panel-title> Opinions</mat-panel-title>
         <mat-panel-description> Collection of opinions on participant</mat-panel-description>
       </mat-expansion-panel-header>

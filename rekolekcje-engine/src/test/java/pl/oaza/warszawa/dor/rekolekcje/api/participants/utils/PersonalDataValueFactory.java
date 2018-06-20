@@ -66,14 +66,7 @@ class PersonalDataValueFactory {
         .build();
   }
 
-  PersonalDataValue withBirthDate(String pesel, String birthDate) {
-    return sampleBuilder
-        .pesel(pesel)
-        .birthDate(birthDate)
-        .build();
-  }
-
-  static PersonalDataValue withBirthDate(PersonalDataValue original, String birthDate) {
+  PersonalDataValue withBirthDate(PersonalDataValue original, String birthDate) {
     return PersonalDataValue.builder()
         .birthDate(birthDate)
         .firstName(original.getFirstName())

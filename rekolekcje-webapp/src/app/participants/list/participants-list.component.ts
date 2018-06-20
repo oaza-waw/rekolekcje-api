@@ -80,7 +80,8 @@ export class ParticipantsListComponent implements OnChanges, AfterViewInit {
         parishes: this.parishes,
         personalData: participant.personalData,
         healthReport: participant.healthReport,
-        experience: participant.experience
+        experience: participant.experience,
+        currentApplication: participant.currentApplication,
       },
       disableClose: true
     });
