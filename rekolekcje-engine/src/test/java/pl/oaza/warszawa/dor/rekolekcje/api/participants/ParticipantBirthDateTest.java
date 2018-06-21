@@ -15,7 +15,7 @@ public class ParticipantBirthDateTest extends ParticipantsTest {
     ParticipantDTO participantDTO = ParticipantFactory.withFullData(null);
 
     //when
-    ParticipantDTO addedParticipant = service.save(participantDTO);
+    ParticipantDTO addedParticipant = facade.save(participantDTO);
 
     //then
     assertThat(addedParticipant.getPersonalData().getBirthDate()).isNotNull();
@@ -28,7 +28,7 @@ public class ParticipantBirthDateTest extends ParticipantsTest {
     String expectedBirthDate = "23.04.1992";
 
     //when
-    ParticipantDTO addedParticipant = service.save(participantDTO);
+    ParticipantDTO addedParticipant = facade.save(participantDTO);
 
     //then
     assertThat(addedParticipant.getPersonalData().getBirthDate()).isEqualTo(expectedBirthDate);

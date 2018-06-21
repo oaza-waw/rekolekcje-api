@@ -22,7 +22,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
     ParticipantDTO participantDTO = ParticipantFactory.withMinimalData(null);
 
     // when
-    ParticipantDTO addedParticipant = service.save(participantDTO);
+    ParticipantDTO addedParticipant = facade.save(participantDTO);
 
     // then
     final List<ParticipantDTO> allInSystem = getAllInSystem();
@@ -39,7 +39,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
     ParticipantDTO participantDTO = ParticipantFactory.withMinimalData(null);
 
     // when
-    ParticipantDTO addedParticipant = service.save(participantDTO);
+    ParticipantDTO addedParticipant = facade.save(participantDTO);
 
     // then
     assertThat(addedParticipant.getId()).isNotNull().isNotZero();
@@ -52,7 +52,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
     ParticipantDTO participantWithFullData = ParticipantFactory.withFullData(null);
 
     // when
-    ParticipantDTO addedParticipant = service.save(participantWithFullData);
+    ParticipantDTO addedParticipant = facade.save(participantWithFullData);
 
     // then
     assertThat(addedParticipant).isEqualToIgnoringGivenFields(participantWithFullData,"id");
@@ -67,7 +67,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
 
     // when
     final ParticipantDTO participantToSave = ParticipantFactory.withSampleData("Another", "Guy", "99010244556");
-    ParticipantDTO addedParticipant = service.save(participantToSave);
+    ParticipantDTO addedParticipant = facade.save(participantToSave);
 
     // then
     final List<ParticipantDTO> allInSystem = getAllInSystem();
@@ -81,7 +81,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
     ParticipantDTO participant = createParticipantWithDateInParisTimezone();
 
     // when participant is saved
-    service.save(participant);
+    facade.save(participant);
 
     // then stored participant has date in UTC
     final List<ParticipantDTO> allInSystem = getAllInSystem();
@@ -96,7 +96,7 @@ public class ParticipantsAddTest extends ParticipantsTest {
     ParticipantDTO participant = createParticipantWithDateInParisTimezone();
 
     // when participant is saved
-    final ParticipantDTO returnedParticipant = service.save(participant);
+    final ParticipantDTO returnedParticipant = facade.save(participant);
 
     // then returned participant has date in UTC
     final ZonedDateTime dateInLondon = dateInUTC();
