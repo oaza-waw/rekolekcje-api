@@ -65,3 +65,7 @@ node_modules
 node
 dist
 package-lock.json
+
+### Local profile configuration
+application-local.yml
+application-test-local.yml

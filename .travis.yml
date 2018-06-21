@@ -7,7 +7,10 @@ services:
   - docker
 
 before_install:
-  - docker run --name db-rekolekcje-test -p 5433:5432 -e POSTGRES_DB=rekolekcjedb-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+  - export TEST_DATABASE_NAME=rekolekcjedb-test
+  - export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5433/${TEST_DATABASE_NAME}
+  - export SPRING_DATASOURCE_PASSWORD=mysecretpassword
+  - docker run --name db-rekolekcje-test -p 5433:5432 -e POSTGRES_DB=${TEST_DATABASE_NAME} -e POSTGRES_PASSWORD=${SPRING_DATASOURCE_PASSWORD} -d postgres
 
 addons:
   chrome: stable

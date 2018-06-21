@@ -2,15 +2,27 @@ server:
   port: ${PORT:5000}
 
 spring:
+  profiles:
+    active: local
+
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/rekolekcjedb
     username: postgres
     password: postgres
+
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
 
 liquibase:
   change-log: classpath:/db/master-changelog.xml
