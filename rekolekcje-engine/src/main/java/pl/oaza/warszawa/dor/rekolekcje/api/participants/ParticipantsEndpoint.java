@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsService;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsFacade;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
 import java.util.List;
@@ -18,36 +18,36 @@ import java.util.List;
 @RestController
 class ParticipantsEndpoint {
 
-  private ParticipantsService participantsService;
+  private ParticipantsFacade participantsFacade;
 
   @Autowired
-  ParticipantsEndpoint(ParticipantsService participantsService) {
-    this.participantsService = participantsService;
+  ParticipantsEndpoint(ParticipantsFacade participantsFacade) {
+    this.participantsFacade = participantsFacade;
   }
 
   @GetMapping("/api/participants")
   public List<ParticipantDTO> getAllParticipants() {
-    return participantsService.findAll();
+    return participantsFacade.findAll();
   }
 
   @GetMapping("/api/participants/{id}")
   public ParticipantDTO getSingleParticipant(@PathVariable Long id) {
-    return participantsService.find(id);
+    return participantsFacade.find(id);
   }
 
   @PostMapping("/api/participants")
   @ResponseStatus(HttpStatus.CREATED)
   public ParticipantDTO saveParticipant(@RequestBody ParticipantDTO participantToSave) {
-    return participantsService.save(participantToSave);
+    return participantsFacade.save(participantToSave);
   }
 
   @DeleteMapping("/api/participants/{id}")
   public void deleteSingleParticipant(@PathVariable Long id) {
-    participantsService.delete(id);
+    participantsFacade.delete(id);
   }
 
   @PutMapping("/api/participants")
   public ParticipantDTO updateParticipant(@RequestBody ParticipantDTO participantToUpdate) {
-    return participantsService.update(participantToUpdate);
+    return participantsFacade.update(participantToUpdate);
   }
 }

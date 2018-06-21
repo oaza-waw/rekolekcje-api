@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public abstract class ParticipantsTest {
 
-  protected ParticipantsService service = new ParticipantsConfiguration().participantsService();
+  protected ParticipantsFacade service = new ParticipantsConfiguration().participantsService();
 
   protected List<ParticipantDTO> saveAll(List<ParticipantDTO> participantDTOs) {
     return participantDTOs.stream()

@@ -1,20 +1,19 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
-import org.springframework.transaction.annotation.Transactional;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 
-import static java.util.Objects.requireNonNull;
-
-public class ParticipantsService {
+public class ParticipantsFacade {
 
   private final ParticipantCreator participantCreator = new ParticipantCreator();
   private final ParticipantsRepository participantsRepository;
 
-  public ParticipantsService(ParticipantsRepository participantsRepository) {
+  public ParticipantsFacade(ParticipantsRepository participantsRepository) {
     this.participantsRepository = participantsRepository;
   }
 
