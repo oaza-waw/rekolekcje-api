@@ -26,7 +26,7 @@ public class ParticipantsFindTest extends ParticipantsTest {
     List<ParticipantDTO> savedParticipants = saveAll(ImmutableList.of(firstParticipant, secondParticipant));
 
     // when
-    List<ParticipantDTO> foundParticipants = service.findAll();
+    List<ParticipantDTO> foundParticipants = facade.findAll();
 
     //then
     assertThat(foundParticipants).as("Found participants")
@@ -37,7 +37,7 @@ public class ParticipantsFindTest extends ParticipantsTest {
   @Test
   public void shouldReturnEmptyListWhenNoParticipantsFound() {
     // when
-    List<ParticipantDTO> foundParticipants = service.findAll();
+    List<ParticipantDTO> foundParticipants = facade.findAll();
 
     //then
     assertThat(foundParticipants).as("Found participants")
@@ -54,7 +54,7 @@ public class ParticipantsFindTest extends ParticipantsTest {
     long participantId = expectedParticipant.getId();
 
     // when
-    ParticipantDTO foundParticipant = service.find(participantId);
+    ParticipantDTO foundParticipant = facade.find(participantId);
 
     // then
     assertThat(foundParticipant).isEqualTo(expectedParticipant);
@@ -67,7 +67,7 @@ public class ParticipantsFindTest extends ParticipantsTest {
 
     // when & then
     assertThatExceptionOfType(ParticipantNotFoundException.class)
-        .isThrownBy(() -> service.find(idOfNotExistingParticipant))
+        .isThrownBy(() -> facade.find(idOfNotExistingParticipant))
         .withMessageContaining("id " + idOfNotExistingParticipant);
   }
 }

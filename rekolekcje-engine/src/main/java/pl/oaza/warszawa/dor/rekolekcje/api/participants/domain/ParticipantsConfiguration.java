@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class ParticipantsConfiguration {
 
-  ParticipantsFacade participantsService() {
-    return participantsService(new InMemoryParticipantRepository());
+  ParticipantsFacade participantsFacade() {
+    return participantsFacade(new InMemoryParticipantRepository());
   }
 
   @Bean
-  ParticipantsFacade participantsService(ParticipantsRepository participantsRepository) {
+  ParticipantsFacade participantsFacade(ParticipantsRepository participantsRepository) {
     return new ParticipantsFacade(participantsRepository);
   }
 }

@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
 
 public abstract class ParticipantsTest {
 
-  protected ParticipantsFacade service = new ParticipantsConfiguration().participantsService();
+  protected ParticipantsFacade facade = new ParticipantsConfiguration().participantsFacade();
 
   protected List<ParticipantDTO> saveAll(List<ParticipantDTO> participantDTOs) {
     return participantDTOs.stream()
-        .map(dto -> service.save(dto))
+        .map(dto -> facade.save(dto))
         .collect(Collectors.toList());
   }
 
   protected List<ParticipantDTO> getAllInSystem() {
-    return service.findAll();
+    return facade.findAll();
   }
 
   @After
@@ -28,7 +28,7 @@ public abstract class ParticipantsTest {
   }
 
   private void deleteAllParticipants() {
-    service.findAll().forEach(p -> service.delete(p.getId()));
+    facade.findAll().forEach(p -> facade.delete(p.getId()));
   }
 
   protected ParticipantDTO getCorrespondingParticipantFromSystem(ParticipantDTO participantDTO) {

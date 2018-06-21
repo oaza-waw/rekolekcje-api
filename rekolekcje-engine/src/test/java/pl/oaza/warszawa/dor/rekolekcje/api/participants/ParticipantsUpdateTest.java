@@ -28,7 +28,7 @@ public class ParticipantsUpdateTest extends ParticipantsTest {
         ParticipantFactory.withFullData(existingParticipantWithOldData.getId());
 
     // when
-    ParticipantDTO participantAfterUpdate = service.update(participantWithUpdatedData);
+    ParticipantDTO participantAfterUpdate = facade.update(participantWithUpdatedData);
 
     // then
     assertThat(participantAfterUpdate).isEqualTo(participantWithUpdatedData);

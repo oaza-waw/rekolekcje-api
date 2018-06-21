@@ -27,7 +27,7 @@ public class ParticipantsDeleteTest extends ParticipantsTest {
     Long participantId = participantToDelete.getId();
 
     // when
-    service.delete(participantId);
+    facade.delete(participantId);
 
     // then
     assertThat(getAllInSystem()).doesNotContain(participantToDelete);
