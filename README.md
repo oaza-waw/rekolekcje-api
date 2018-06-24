@@ -17,7 +17,12 @@ Do kompilacji i uruchomienia aplikacji lokalnie potrzebne są następujące zale
 
 - Java 8 (JDK 8)
 - NodeJS (wersja 9.x)
-- PostgreSQL (przynajmniej wersja 9.4). Należy stworzyć bazę o nazwie `rekolekcjedb`, lub skonfigurować aplikację do połączenia z inną bazą.
+- [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+- [Docker-compose](https://docs.docker.com/compose/install/)
+
+Jeśli chcesz uruchomić bazę danych lokalnie/nie masz Dockera, potrzebny jest:
+- PostgreSQL (przynajmniej wersja 9.4). Należy stworzyć bazę o nazwie `rekolekcjedb`,
+która będzie działać na porcie `localhost:5430` lub skonfigurować aplikację do połączenia z inną bazą.
 
 
 ## Uruchomienie
@@ -26,18 +31,49 @@ Aplikację można uruchomić w dwóch trybach:
 - produkcyjnym - system budowany jest jako pojedyncza aplikacja, która łaczy się z produkcyjną bazą danych i wymaga konfiguracji kont uzytkownikow
 - developerskim - możliwe jest niezależne uruchomienie aplikacji backendowej i frontendowej, oraz użycie innej bazy danych, na przykład pamieciowej lub testowej
 
+**Uwaga**: <br/>
+Wykorzystując kontenery dockera z Postgres, upewnij się, że na twojej maszynie
+nie jest uruchomiona instancja PostgreSQL.
+
+`sudo service postgresql status`
+
+Jeśli jest, zatrzymaj ją, aby uniknąć ewentualnych konfliktów bindowania portów:
+
+`sudo service postgresql stop`
+
 ### Tryb produkcyjny
 
-Aby uruchomić aplikację:
+Aby uruchomić aplikację: <br/>
+Uruchom terminal i po wejściu do głównego katalogu projektu wpisz:
+
+```$xslt
+./env.sh start
+```
+a następnie
 ```$xslt
 ./gradlew bootRun
 ```
 
-Aplikacja bedzie dostepna na porcie wyswietlonym w konsoli (`http://localhost:5000`)
+
+Skrypt `./env.sh start` zbuduje kontenery dockerowe z bazą danych PostreSQL wymagane do prawidłowego działania aplikacji
+oraz prawidłowego wykonania się testów integracyjnych. <br/>
+Skrypt `./gradlew bootRun` zbuduje `fat jar` i go uruchomi. <br/>
+Aplikacja bedzie dostepna na porcie wyswietlonym w konsoli (`http://localhost:5000`) <br/>
+Po zakończonej pracy wykonaj skrypt:
+`./env.sh wipe`, co spowoduje usunięcie powstałych wcześniej kontenerów. <br/>
+
+#### Uruchomienie z dockerem
+Możliwe jest uruchomienie aplikacji w kontenerze dockerowym. <br/>
+Aby to zrobić, będąc w katalogu głównym projektu wykonaj komendę:
+`docker-compose up`. <br/>
+Aplikacja dostępna będzie na `localhost:5000`
+Po zakończonej pracy wykonaj `docker-compose down`.
 
 ### Tryb developerski
 
-Aby uruchomic serwer (engine)
+
+##### Uruchomienie backendu (engine)
+Będąc w katalogu głównym projektu wpisz w terminalu:
 ```$xslt
 ./gradlew bootRun
 ```
@@ -50,12 +86,13 @@ lub w trybie developerskim, na pamięciowej bazie danych:
 Backend bedzie dostepny na porcie `5000`.
 Domyślną konfigurację można zmienić poprzez utworzenie pliku `application-local.yml` i nadpisanie w nim odpowiednich properties.
 
-Aby uruchomic frontend
+#### Uruchomienie frontendu (webapp):
+Będąc w katalogu `./rekolekcje-webapp/src/app/` wpisz w terminalu:
 ```$xslt
 npm start
 ```
 
-Frontend bedzie dostepny na porcie `4200`.
+Frontend będzie dostepny na porcie `4200`. <br/>
 
 ### Testy automatyczne
 
@@ -66,6 +103,8 @@ Wszystkie testy z konsoli:
 ```$xslt
 ./gradlew verify
 ```
+Pamiętaj, że przed wywołaniem testów jednostkowych musi zostać zbudowany
+kontener dockerowy z bazą danych!  (`./enh.sh start`)
 
 Testy jednostkowe:
 ```$xslt
