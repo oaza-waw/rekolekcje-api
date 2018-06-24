@@ -1,9 +1,11 @@
-server:
-  port: 5000
+# IMPORTANT!
+# This file is meant to serve only as an example of local configuration
+# If you want to change default application configuration, please copy this file
+# and save as application-local.yml
+# This *local* file will be ignored from VCS and you can keep your overrides there
 
 spring:
   jpa:
-    open-in-view: false
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
@@ -12,23 +14,3 @@ spring:
     url: jdbc:h2:mem:rekolekcjedb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: postgres
     password: postgres
-  h2:
-    console:
-      enabled: true
-      path: /console
-      settings:
-        trace: false
-        web-allow-others: false
-
-
-liquibase:
-  change-log: classpath:/db/master-changelog.xml
-
-jwt:
-  header: Authorization
-  secret: mySecret
-  expiration: 604800
-  route:
-    authentication:
-      path: auth
-      refresh: refresh

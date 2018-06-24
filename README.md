@@ -13,6 +13,7 @@ Aplikacja do przechowywania danych uczestników rekolekcji.
 Do kompilacji i uruchomienia aplikacji lokalnie potrzebne są następujące zależności:
 
 - Java 8 (JDK 8)
+- NodeJS (wersja 9.x)
 - PostgreSQL (przynajmniej wersja 9.4). Należy stworzyć bazę o nazwie `rekolekcjedb`, lub skonfigurować aplikację do połączenia z inną bazą.
 
 
@@ -33,9 +34,6 @@ Aplikacja bedzie dostepna na porcie wyswietlonym w konsoli (`http://localhost:50
 
 ### Tryb developerski
 
-Dodatkowe zależnosci:
-- NodeJS (wersja 9.x)
-
 Aby uruchomic serwer (engine)
 ```$xslt
 ./gradlew bootRun
@@ -47,6 +45,7 @@ lub w trybie developerskim, na pamięciowej bazie danych:
 ```
 
 Backend bedzie dostepny na porcie `5000`.
+Domyślną konfigurację można zmienić poprzez utworzenie pliku `application-local.yml` i nadpisanie w nim odpowiednich properties.
 
 Aby uruchomic frontend
 ```$xslt
@@ -56,6 +55,9 @@ npm start
 Frontend bedzie dostepny na porcie `4200`.
 
 ### Testy automatyczne
+
+Testy akceptacyjne wymagają dedykowanej bazy danych. Domyślną konfigurację tej bazy można znaleźć w `application-test.yml` w module `verify`. 
+Konfigurację można zmienić poprzez utworzenie pliku `application-test-local.yml` i nadpisanie w nim odpowiednich wartości.
 
 Wszystkie testy z konsoli:
 ```$xslt
@@ -71,3 +73,7 @@ Testy webowe jednostkowe (uruchamiane z modulu `rekolekcje-webapp`):
 ```$xslt
 ng test
 ```
+
+## Import projektu do IDE
+Jedną z zależności jest [Project Lombok](https://projectlombok.org/). Ten procesor adnotacji wymaga instalacji pluginu *Lombok* w IntelliJ, oraz włączenia przetwarzania adnotacji:
+`Settings -> Build, execution, deployment -> Compiler -> Enable annotation processing`.
