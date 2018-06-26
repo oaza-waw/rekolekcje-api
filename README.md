@@ -8,6 +8,8 @@ Aplikacja do przechowywania danych uczestników rekolekcji.
 
 **Przed wprowadzaniem zmian w repozytorium przeczytaj [Contribution Guide](docs/CONTRIBUTING.md).**
 
+Zobacz też: [Git 101](docs/git-101.md)
+
 ## Zależności
 
 Do kompilacji i uruchomienia aplikacji lokalnie potrzebne są następujące zależności:
