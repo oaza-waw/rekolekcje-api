@@ -4,9 +4,11 @@ if [ "$1" = "start" ] ; then
 
   echo "Building Postgres container...."
   docker run --name db-rekolekcje -p 5430:5432 -e POSTGRES_DB=rekolekcjedb -e POSTGRES_PASSWORD=postgres -d postgres
+  echo "DB can be accesed via localhost:5430"
 
   echo "Building Postres container for integration tests..."
-  docker run --name db-rekolekcje-test -p 5433:5432 -e POSTGRES_DB=rekolekcjedb-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+  docker run --name db-rekolekcje-test -p 5431:5432 -e POSTGRES_DB=rekolekcjedb-test -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+  echo "Test DB can be accesed via localhost:5431"
 
 elif [ "$1" = "wipe" ] ; then
 

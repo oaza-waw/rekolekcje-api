@@ -31,16 +31,6 @@ Aplikację można uruchomić w dwóch trybach:
 - produkcyjnym - system budowany jest jako pojedyncza aplikacja, która łaczy się z produkcyjną bazą danych i wymaga konfiguracji kont uzytkownikow
 - developerskim - możliwe jest niezależne uruchomienie aplikacji backendowej i frontendowej, oraz użycie innej bazy danych, na przykład pamieciowej lub testowej
 
-**Uwaga**: <br/>
-Wykorzystując kontenery dockera z Postgres, upewnij się, że na twojej maszynie
-nie jest uruchomiona instancja PostgreSQL.
-
-`sudo service postgresql status`
-
-Jeśli jest, zatrzymaj ją, aby uniknąć ewentualnych konfliktów bindowania portów:
-
-`sudo service postgresql stop`
-
 ### Tryb produkcyjny
 
 Aby uruchomić aplikację: <br/>
@@ -57,6 +47,7 @@ a następnie
 
 Skrypt `./env.sh start` zbuduje kontenery dockerowe z bazą danych PostreSQL wymagane do prawidłowego działania aplikacji
 oraz prawidłowego wykonania się testów integracyjnych. <br/>
+Produkcyjna baza danych będzie dostępna przez `localhost:5430`, a baza testowa na `localhost:5431`. <br/>
 Skrypt `./gradlew bootRun` zbuduje `fat jar` i go uruchomi. <br/>
 Aplikacja bedzie dostepna na porcie wyswietlonym w konsoli (`http://localhost:5000`) <br/>
 Po zakończonej pracy wykonaj skrypt:
@@ -66,7 +57,7 @@ Po zakończonej pracy wykonaj skrypt:
 Możliwe jest uruchomienie aplikacji w kontenerze dockerowym. <br/>
 Aby to zrobić, będąc w katalogu głównym projektu wykonaj komendę:
 `docker-compose up`. <br/>
-Aplikacja dostępna będzie na `localhost:5000`
+Aplikacja dostępna będzie na `localhost:5000`, a jej baza na `localhost:5433`.
 Po zakończonej pracy wykonaj `docker-compose down`.
 
 ### Tryb developerski
