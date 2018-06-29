@@ -44,8 +44,8 @@ class Participant {
   private String fatherName;
   private String christeningPlace;
   private LocalDateTime christeningDate;
-  private String closeRelativeName;
-  private Long closeRelativeNumber;
+  private String emergencyContactName;
+  private Long emergencyContactNumber;
   private String schoolYear;
   private String nameDay;
   private String communityName;
@@ -88,8 +88,8 @@ class Participant {
         .birthDate(convertPeselToBirthDate(pesel))
         .christeningPlace(christeningPlace)
         .christeningDate(convertToUtc(christeningDate))
-        .emergencyContactName(closeRelativeName)
-        .emergencyContactNumber(closeRelativeNumber)
+        .emergencyContactName(emergencyContactName)
+        .emergencyContactNumber(emergencyContactNumber)
         .schoolYear(schoolYear)
         .nameDay(nameDay)
         .communityName(communityName)
