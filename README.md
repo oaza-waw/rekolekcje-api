@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/oaza-waw/rekolekcje-api.svg?branch=master)](https://travis-ci.org/oaza-waw/rekolekcje-api)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=rekolekcje-api%3Arekolekcje-engine&metric=alert_status)](https://sonarcloud.io/dashboard/index/rekolekcje-api:rekolekcje-engine)
 [![codecov](https://codecov.io/gh/oaza-waw/rekolekcje-api/branch/develop/graph/badge.svg)](https://codecov.io/gh/oaza-waw/rekolekcje-api)
+[![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/oaza-waw/rekolekcje-api)
 
 Aplikacja do przechowywania danych uczestników rekolekcji.
 
