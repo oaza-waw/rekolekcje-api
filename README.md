@@ -94,7 +94,7 @@ Wszystkie testy z konsoli:
 ```$xslt
 ./gradlew verify
 ```
-Pamiętaj, że przed wywołaniem testów jednostkowych musi zostać zbudowany
+Pamiętaj, że przed wywołaniem testów integracyjnych musi zostać zbudowany
 kontener dockerowy z bazą danych!  (`./enh.sh start`)
 
 Testy jednostkowe:

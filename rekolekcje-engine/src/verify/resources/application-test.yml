@@ -15,7 +15,7 @@ spring:
       enabled: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/rekolekcjedb-test
+    url: jdbc:postgresql://localhost:5431/rekolekcjedb-test
     username: postgres
     password: postgres
 
