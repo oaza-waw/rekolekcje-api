@@ -1,5 +1,9 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToDateTime;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.CurrentApplicationValue;
@@ -8,43 +12,20 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToDateTime;
-
 class ParticipantCreator {
 
   Participant from(ParticipantDTO participantDTO) {
     final Participant.ParticipantBuilder participantBuilder = Participant.builder()
         .id(participantDTO.getId());
 
-    final PersonalDataValue personalData = participantDTO.getPersonalData();
-    final Address address = fromValue(personalData.getAddress());
-
-    participantBuilder
-        .firstName(personalData.getFirstName())
-        .lastName(personalData.getLastName())
-        .pesel(personalData.getPesel())
-        .phoneNumber(personalData.getPhoneNumber())
-        .email(personalData.getEmail())
-        .parishId(personalData.getParishId())
-        .address(address)
-        .motherName(personalData.getMotherName())
-        .fatherName(personalData.getFatherName())
-        .christeningDate(convertToDateTime(personalData.getChristeningDate()))
-        .christeningPlace(personalData.getChristeningPlace())
-        .emergencyContactName(personalData.getEmergencyContactName())
-        .emergencyContactNumber(personalData.getEmergencyContactNumber())
-        .schoolYear(personalData.getSchoolYear())
-        .nameDay(personalData.getNameDay())
-        .communityName(personalData.getCommunityName());
+    final PersonalData personalData = fromValue(participantDTO.getPersonalData());
+    participantBuilder.personalData(personalData);
 
     final HealthReport healthReport = fromValue(participantDTO.getHealthReport());
     participantBuilder.healthReport(healthReport);
 
     final ExperienceValue experienceValue = participantDTO.getExperience();
-    final Experience experience = fromValue(experienceValue);
+    final Experience experience = fromValue(participantDTO.getExperience());
     participantBuilder.experience(experience);
 
     final CurrentApplication currentApplication = fromValue(participantDTO.getCurrentApplication());
@@ -54,7 +35,8 @@ class ParticipantCreator {
 
     if (experienceValue.getHistoricalRetreats() != null) {
       final Set<RetreatTurn> newHistoricalRetreats = extractHistoricalRetreats(experienceValue);
-      final Set<RetreatTurn> historicalRetreats = participant.getExperience().getHistoricalRetreats();
+      final Set<RetreatTurn> historicalRetreats = participant.getExperience()
+          .getHistoricalRetreats();
       historicalRetreats.clear();
       historicalRetreats.addAll(newHistoricalRetreats);
       participant.connectHistoricalTurnsWithParticipant();
@@ -66,25 +48,31 @@ class ParticipantCreator {
   Participant withId(Participant participant, Long id) {
     return Participant.builder()
         .id(id)
-        .firstName(participant.getFirstName())
-        .lastName(participant.getLastName())
-        .pesel(participant.getPesel())
-        .phoneNumber(participant.getPhoneNumber())
-        .email(participant.getEmail())
-        .address(participant.getAddress())
-        .parishId(participant.getParishId())
-        .motherName(participant.getMotherName())
-        .fatherName(participant.getFatherName())
-        .christeningDate(participant.getChristeningDate())
-        .christeningPlace(participant.getChristeningPlace())
-        .emergencyContactName(participant.getEmergencyContactName())
-        .emergencyContactNumber(participant.getEmergencyContactNumber())
-        .schoolYear(participant.getSchoolYear())
-        .nameDay(participant.getNameDay())
-        .communityName(participant.getCommunityName())
+        .personalData(participant.getPersonalData())
         .healthReport(participant.getHealthReport())
         .experience(participant.getExperience())
         .currentApplication(participant.getCurrentApplication())
+        .build();
+  }
+
+  private PersonalData fromValue(PersonalDataValue personalDataValue) {
+    return PersonalData.builder()
+        .firstName(personalDataValue.getFirstName())
+        .lastName(personalDataValue.getLastName())
+        .pesel(personalDataValue.getPesel())
+        .phoneNumber(personalDataValue.getPhoneNumber())
+        .email(personalDataValue.getEmail())
+        .parishId(personalDataValue.getParishId())
+        .address(fromValue(personalDataValue.getAddress()))
+        .motherName(personalDataValue.getMotherName())
+        .fatherName(personalDataValue.getFatherName())
+        .christeningPlace(personalDataValue.getChristeningPlace())
+        .christeningDate(DateConverter.convertToDateTime(personalDataValue.getChristeningDate()))
+        .emergencyContactName(personalDataValue.getEmergencyContactName())
+        .emergencyContactNumber(personalDataValue.getEmergencyContactNumber())
+        .schoolYear(personalDataValue.getSchoolYear())
+        .nameDay(personalDataValue.getNameDay())
+        .communityName(personalDataValue.getCommunityName())
         .build();
   }
 
