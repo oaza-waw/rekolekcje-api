@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  rekolekcje-engine:
+    container_name: reko-engine
+    build: ./rekolekcje-engine/
+    ports:
+      - "5000:5000"
+    links:
+      - rekolekcje-db:database
+    networks:
+      - reko_network
+    environment:
+      - spring.datasource.url=jdbc:postgresql://rekolekcje-db:5432/rekolekcjedb
+    depends_on:
+      - rekolekcje-db
+
+  rekolekcje-db:
+    container_name: reko-db
+    image: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - reko_network
+    environment:
+      - POSTGRES_DB=rekolekcjedb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+networks:
+  reko_network:
+    driver: bridge
