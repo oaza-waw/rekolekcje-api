@@ -1,12 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
 
 public class ParishService {
 

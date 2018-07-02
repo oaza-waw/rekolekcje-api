@@ -1,14 +1,13 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ParishTest {
 

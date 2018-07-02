@@ -1,16 +1,15 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ParticipantsFindTest extends ParticipantsTest {
 

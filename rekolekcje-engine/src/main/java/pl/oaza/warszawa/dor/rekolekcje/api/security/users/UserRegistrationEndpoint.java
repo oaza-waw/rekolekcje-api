@@ -1,5 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security.users;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -7,9 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/users")

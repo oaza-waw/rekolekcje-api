@@ -1,20 +1,19 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.TestUtils;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ParticipantsApiExpectations {
 

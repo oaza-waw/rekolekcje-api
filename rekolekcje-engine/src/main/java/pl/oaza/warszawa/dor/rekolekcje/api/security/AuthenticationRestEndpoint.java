@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.security;
 
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtAuthenticationRequest
 import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtAuthenticationResponse;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtTokenUtil;
 import pl.oaza.warszawa.dor.rekolekcje.api.security.jwt.JwtUser;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class AuthenticationRestEndpoint {

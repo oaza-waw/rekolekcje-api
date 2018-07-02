@@ -1,12 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
-import org.junit.After;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.junit.After;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
 
 public abstract class ParticipantsTest {
 

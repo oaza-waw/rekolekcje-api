@@ -1,10 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static java.util.Objects.requireNonNull;
 
 class InMemoryParishRepository implements ParishRepository {
   private ConcurrentHashMap<Long, Parish> map = new ConcurrentHashMap<>();
