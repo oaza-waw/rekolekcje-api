@@ -2,6 +2,8 @@ import { Moment } from 'moment';
 import { FormGroup } from '@angular/forms';
 import { Address } from './address.model';
 
+export enum ParticipantSex { }
+
 export class PersonalData {
   constructor(
     public firstName?: string,
@@ -11,6 +13,7 @@ export class PersonalData {
     public email?: string,
     public address?: Address,
     public parishId?: number,
+    public sex?: ParticipantSex,
     public fatherName?: string,
     public motherName?: string,
     public christeningPlace?: string,
@@ -31,6 +34,7 @@ export class PersonalData {
     personalData.email = input.result.personalData.email;
     personalData.address = Address.mapFromForm(input);
     personalData.parishId = input.result.personalData.parishId;
+    personalData.sex = input.result.personalData.sex;
     personalData.fatherName = input.result.personalData.fatherName;
     personalData.motherName = input.result.personalData.motherName;
     personalData.christeningPlace = input.result.personalData.christeningPlace;
@@ -51,6 +55,7 @@ export class PersonalData {
     personalData.email = form.get('personalDataGroup.email').value;
     personalData.phoneNumber = form.get('personalDataGroup.phoneNumber').value;
     personalData.parishId = form.get('personalDataGroup.parishId').value;
+    personalData.sex = form.get('personalDataGroup.sex').value;
     personalData.address = Address.parseForm(form);
     personalData.christeningDate = form.get('personalDataGroup.christeningDate').value;
     personalData.christeningPlace = form.get('personalDataGroup.christeningPlace').value;
