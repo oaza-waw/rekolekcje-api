@@ -19,6 +19,11 @@
         <mat-cell *matCellDef="let participant">{{participant.personalData.pesel}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="sex">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Sex</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{participant.personalData.sex}}</mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="address">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
         <mat-cell *matCellDef="let participant">{{participant.personalData.address.city}}</mat-cell>

@@ -3,6 +3,7 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants.value;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantSex;
 
 import java.time.ZonedDateTime;
 
@@ -17,6 +18,7 @@ public class PersonalDataValue {
   private final Long phoneNumber;
   private final String email;
   private final Long parishId;
+  private final ParticipantSex sex;
 
   @Builder.Default
   private final AddressValue address = AddressValue.builder().build();

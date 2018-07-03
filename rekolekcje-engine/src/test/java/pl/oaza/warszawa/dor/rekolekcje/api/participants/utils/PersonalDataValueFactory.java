@@ -1,7 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantSex;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantSex.MALE;
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantSex.FEMALE;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -35,6 +38,7 @@ class PersonalDataValueFactory {
           .lastName("Participant")
           .pesel("98101012345")
           .parishId(1L)
+          .sex(MALE)
           .christeningDate(ZonedDateTime.of(LocalDateTime.of(1991, 11, 21, 12, 0), ZoneId.of("UTC")))
           .birthDate("10.10.1998")
           .address(sampleAddress);
@@ -45,6 +49,7 @@ class PersonalDataValueFactory {
         .lastName("Participant")
         .pesel("92042312345")
         .parishId(1L)
+        .sex(FEMALE)
         .build();
   }
 
@@ -52,11 +57,12 @@ class PersonalDataValueFactory {
     return sampleBuilder.build();
   }
 
-  PersonalDataValue withSampleData(String firstName, String lastName, String pesel) {
+  PersonalDataValue withSampleData(String firstName, String lastName, String pesel, ParticipantSex sex) {
     return sampleBuilder
         .firstName(firstName)
         .lastName(lastName)
         .pesel(pesel)
+        .sex(sex)
         .build();
   }
 
@@ -76,6 +82,7 @@ class PersonalDataValueFactory {
         .phoneNumber(original.getPhoneNumber())
         .address(original.getAddress())
         .parishId(original.getParishId())
+        .sex(original.getSex())
         .motherName(original.getMotherName())
         .fatherName(original.getFatherName())
         .christeningPlace(original.getChristeningPlace())
@@ -100,6 +107,7 @@ class PersonalDataValueFactory {
         .lastName("Smith")
         .pesel("90042312345")
         .parishId(1L)
+        .sex(MALE)
         .email("john.smith@mail.com")
         .phoneNumber(998877665L)
         .address(fullAddress)
@@ -122,6 +130,7 @@ class PersonalDataValueFactory {
         .lastName("Updated surname")
         .pesel("89112233445")
         .parishId(2L)
+        .sex(FEMALE)
         .address(updatedAddress)
         .motherName("Updated mother name")
         .fatherName("Updated father name")

@@ -11,11 +11,7 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.HealthReportValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
@@ -37,6 +33,9 @@ class Participant {
   private Long phoneNumber;
   private String email;
   private Long parishId;
+
+  @Enumerated(EnumType.STRING)
+  private ParticipantSex sex;
 
   @Embedded
   private Address address;
@@ -82,6 +81,7 @@ class Participant {
         .phoneNumber(phoneNumber)
         .email(email)
         .parishId(parishId)
+        .sex(sex)
         .address(addressValue)
         .fatherName(fatherName)
         .motherName(motherName)
