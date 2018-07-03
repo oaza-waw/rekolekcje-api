@@ -9,15 +9,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.domain.ParishService;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.domain.RegionsService;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.RegionDTO;
 
 @RestController
 class ParishEndpoint {
 
   private ParishService parishService;
+  private final RegionsService regionsService ;
 
-  ParishEndpoint(ParishService parishService) {
+  ParishEndpoint(ParishService parishService, RegionsService regionsService) {
     this.parishService = parishService;
+    this.regionsService = regionsService;
   }
 
   @GetMapping("/api/parish")
@@ -43,5 +47,10 @@ class ParishEndpoint {
   @PutMapping("/api/parish")
   ParishDTO updateParish(@RequestBody ParishDTO parishWithNewData) {
     return parishService.save(parishWithNewData);
+  }
+
+  @GetMapping("/api/parish/regions")
+  public List<RegionDTO> getAllParticipants() {
+    return regionsService.findAll();
   }
 }

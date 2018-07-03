@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.RegionData;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.RegionData;
 
 public class Database {
 

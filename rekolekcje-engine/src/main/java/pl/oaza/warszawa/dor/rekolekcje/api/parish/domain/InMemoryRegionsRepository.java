@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region.domain;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region.domain;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
 import org.springframework.data.repository.Repository;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.dto.RegionNotFoundException;
 
 import java.util.List;
 

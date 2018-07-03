@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region.dto;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish.dto;
 
 import lombok.*;
 import org.hibernate.annotations.Immutable;

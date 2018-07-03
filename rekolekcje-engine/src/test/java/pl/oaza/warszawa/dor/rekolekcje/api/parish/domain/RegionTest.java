@@ -1,8 +1,8 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region.domain;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
 import org.junit.Test;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.dto.RegionDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.dto.RegionNotFoundException;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.RegionDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.RegionNotFoundException;
 
 import static org.assertj.core.api.Assertions.*;
 

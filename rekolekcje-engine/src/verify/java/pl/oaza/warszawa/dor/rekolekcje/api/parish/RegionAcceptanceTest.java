@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish;
 
 import org.junit.After;
 import org.junit.Test;
@@ -7,9 +7,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.oaza.warszawa.dor.rekolekcje.api.core.BaseIntegrationTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.domain.RegionsRepository;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.domain.RegionsService;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.dto.RegionDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.domain.RegionsService;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.RegionDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +36,7 @@ public class RegionAcceptanceTest extends BaseIntegrationTest {
   public void shouldGetAllRegions() throws Exception {
     // given system has some parishes
     allRegions.forEach(r -> service.save(r));
-    final MockHttpServletRequestBuilder getAllRequest = get("/api/regions");
+    final MockHttpServletRequestBuilder getAllRequest = get("/api/parish/regions");
 
     // when requesting all parishes
     final ResultActions response = mockMvc.perform(getAllRequest);

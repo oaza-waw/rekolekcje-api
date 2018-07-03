@@ -1,11 +1,11 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region.domain;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
-import pl.oaza.warszawa.dor.rekolekcje.api.region.dto.RegionDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.RegionDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

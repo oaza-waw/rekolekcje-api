@@ -1,4 +1,4 @@
-package pl.oaza.warszawa.dor.rekolekcje.api.region;
+package pl.oaza.warszawa.dor.rekolekcje.api.parish;
 
 import lombok.*;
 
