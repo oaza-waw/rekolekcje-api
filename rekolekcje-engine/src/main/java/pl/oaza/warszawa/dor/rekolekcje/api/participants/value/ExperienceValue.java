@@ -1,10 +1,9 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.value;
 
-import lombok.Builder;
-import lombok.Value;
-
 import java.time.ZonedDateTime;
 import java.util.Set;
+import lombok.Builder;
+import lombok.Value;
 
 @Value
 @Builder

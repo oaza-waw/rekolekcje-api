@@ -2,6 +2,9 @@ package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -15,10 +18,6 @@ import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiBehaviour;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantsApiExpectations;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ParticipantsAcceptanceTest extends BaseIntegrationTest {
 

@@ -1,12 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
 
 public class ParticipantsStorageBehaviour {
 

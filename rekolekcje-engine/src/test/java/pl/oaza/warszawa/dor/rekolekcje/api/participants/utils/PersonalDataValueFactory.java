@@ -1,11 +1,10 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.utils;
 
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.AddressValue;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.PersonalDataValue;
 
 class PersonalDataValueFactory {
 

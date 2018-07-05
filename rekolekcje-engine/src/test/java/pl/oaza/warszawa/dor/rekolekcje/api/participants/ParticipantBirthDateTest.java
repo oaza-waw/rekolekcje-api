@@ -1,11 +1,11 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParticipantBirthDateTest extends ParticipantsTest {
 

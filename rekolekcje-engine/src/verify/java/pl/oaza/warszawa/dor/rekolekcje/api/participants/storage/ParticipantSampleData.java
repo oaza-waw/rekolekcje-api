@@ -1,9 +1,8 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.storage;
 
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Value;
-
-import java.time.LocalDateTime;
 
 @Value
 @Builder

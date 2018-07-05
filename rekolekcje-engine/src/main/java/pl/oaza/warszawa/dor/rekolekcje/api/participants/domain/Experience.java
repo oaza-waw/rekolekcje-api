@@ -1,21 +1,20 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
+import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
+
 import com.google.common.collect.Sets;
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.ExperienceValue;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.value.RetreatTurnValue;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.DateConverter.convertToUtc;
 
 @Embeddable
 @NoArgsConstructor

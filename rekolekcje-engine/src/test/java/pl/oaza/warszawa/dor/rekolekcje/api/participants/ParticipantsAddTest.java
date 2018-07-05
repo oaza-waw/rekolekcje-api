@@ -1,9 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
-import org.junit.Test;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
-import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,8 +8,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
+import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
 
 public class ParticipantsAddTest extends ParticipantsTest {
 

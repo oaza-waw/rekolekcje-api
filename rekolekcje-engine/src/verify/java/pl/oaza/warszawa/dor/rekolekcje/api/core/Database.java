@@ -1,10 +1,9 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.core;
 
+import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-
-import java.util.List;
 
 public class Database {
 

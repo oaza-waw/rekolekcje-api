@@ -1,5 +1,6 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish;
 
+import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.domain.ParishService;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishDTO;
-
-import java.util.List;
 
 @RestController
 class ParishEndpoint {

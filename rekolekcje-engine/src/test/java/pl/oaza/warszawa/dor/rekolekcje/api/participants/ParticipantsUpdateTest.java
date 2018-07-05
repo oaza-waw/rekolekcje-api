@@ -1,12 +1,12 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.domain.ParticipantsTest;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantDTO;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.utils.ParticipantFactory;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParticipantsUpdateTest extends ParticipantsTest {
 

@@ -1,9 +1,8 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
+import java.util.List;
 import org.springframework.data.repository.Repository;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
-
-import java.util.List;
 
 interface ParishRepository extends Repository<Parish, Long> {
 

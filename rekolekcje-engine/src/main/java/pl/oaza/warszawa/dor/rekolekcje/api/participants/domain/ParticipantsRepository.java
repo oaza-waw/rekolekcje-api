@@ -1,9 +1,8 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.participants.domain;
 
+import java.util.List;
 import org.springframework.data.repository.Repository;
 import pl.oaza.warszawa.dor.rekolekcje.api.participants.dto.ParticipantNotFoundException;
-
-import java.util.List;
 
 interface ParticipantsRepository extends Repository<Participant, Long> {
 
