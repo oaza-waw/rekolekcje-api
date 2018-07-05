@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.ParishData;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.ParishNotFoundException;
 import pl.oaza.warszawa.dor.rekolekcje.api.parish.RegionData;
+import pl.oaza.warszawa.dor.rekolekcje.api.parish.dto.RegionNotFoundException;
 
 public class Database {
 
@@ -58,12 +59,30 @@ public class Database {
 
   public List<RegionData> getAllRegions() {
     return jdbcTemplate.query("SELECT * FROM region",
-      (rs, rowNum) -> new RegionData(rs.getLong("id"), rs.getString("name")));
+      (rs, rowNum) -> new RegionData(rs.getLong("id"), rs.getString("name"))
+    );
   }
 
   public void clearRegion() {
     jdbcTemplate.execute("DELETE FROM region");
   }
 
+  public RegionData getSavedRegionData(String name) {
+    return getAnyRegionFromQuery("SELECT * FROM region WHERE name = ?", name);
+  }
+
+  public RegionData getSavedRegionData(Long id) {
+    return getAnyRegionFromQuery("SELECT * FROM region WHERE id = ?", id);
+  }
+
+  private RegionData getAnyRegionFromQuery(String sql, Object... params) {
+    List<RegionData> results = jdbcTemplate.query(sql,
+        params,
+        (rs, rowNum) -> new RegionData(rs.getLong("id"), rs.getString("name"))
+    );
+    return results.stream()
+        .findAny()
+        .orElseThrow(() -> new RegionNotFoundException(0));
+  }
 }
 

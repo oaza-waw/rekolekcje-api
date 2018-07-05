@@ -50,7 +50,27 @@ class ParishEndpoint {
   }
 
   @GetMapping("/api/parish/regions")
-  public List<RegionDTO> getAllParticipants() {
+  public List<RegionDTO> getAllRegions() {
     return regionsService.findAll();
+  }
+
+  @GetMapping("/api/parish/regions/{id}")
+  public RegionDTO getOneRegion(@PathVariable Long id) {
+    return regionsService.findOne(id);
+  }
+
+  @PostMapping("/api/parish/regions")
+  public RegionDTO createRegion(@RequestBody RegionDTO newRegionData) {
+    return regionsService.save(newRegionData);
+  }
+
+  @PutMapping("/api/parish/regions")
+  public RegionDTO updateRegion(@RequestBody RegionDTO updatedRegionData) {
+    return regionsService.save(updatedRegionData);
+  }
+
+  @DeleteMapping("/api/parish/regions/{id}")
+  public void deleteRegion(@PathVariable Long id) {
+    regionsService.delete(id);
   }
 }

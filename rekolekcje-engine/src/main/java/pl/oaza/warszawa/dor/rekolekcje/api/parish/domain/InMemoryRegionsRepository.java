@@ -26,9 +26,6 @@ class InMemoryRegionsRepository implements RegionsRepository {
   @Override
   public Region save(Region region) {
     requireNonNull(region);
-    if (region.getId() == null || !data.containsKey(region.getId())) {
-      region = region.withId(nextId.getAndIncrement());
-    }
     data.put(region.getId(), region);
     return region;
   }

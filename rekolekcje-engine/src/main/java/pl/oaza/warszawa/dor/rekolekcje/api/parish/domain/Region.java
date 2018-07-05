@@ -1,5 +1,7 @@
 package pl.oaza.warszawa.dor.rekolekcje.api.parish.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +20,7 @@ import javax.persistence.Id;
 public class Region {
   @Wither
   @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
   private String name;
 

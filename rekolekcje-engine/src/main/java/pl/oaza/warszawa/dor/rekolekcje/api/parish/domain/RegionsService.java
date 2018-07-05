@@ -28,7 +28,7 @@ public class RegionsService {
 
   /**
    * Save Region data (aka "add or update").
-   * Regions with <code>id == null</code> should be added and assigned next ID. Regions
+   * Regions with <code>id == 0</code> or <code>null</code> should be added and assigned next ID. Regions
    * with id found in the repository should be updated. If no region with such ID found,
    * exception shall be thrown.
    * @param data region's data
@@ -38,7 +38,8 @@ public class RegionsService {
   public RegionDTO save(RegionDTO data) {
     requireNonNull(data);
     Region region = new Region(data.getId(), data.getName());
-    return repository.save(region).dto();
+    region = repository.save(region);
+    return region.dto();
   }
 
   /**
